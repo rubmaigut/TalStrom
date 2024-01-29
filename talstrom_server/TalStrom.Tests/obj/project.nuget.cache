@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xj57l8CKTMvCve0izc6l/WoP8ah4UuwWRqUhJQEyl/T4eqckc3lMWz62DRTeCErmu7iQKeDYoV6WlGnVvtA15g==",
+  "dgSpecHash": "OST1mvw5XYR7AMh3wnCueJ2+1jccdU8A8Zdqx+5Key6IxmgynoXz7pT+lT5xOCBetCodvSglDLVzluLEi/Zwfw==",
   "success": true,
-  "projectFilePath": "/Users/maide/Desktop/salt/TalStrom/TalStrom.Tests/TalStrom.Tests.csproj",
+  "projectFilePath": "/Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStrom.Tests/TalStrom.Tests.csproj",
   "expectedPackageFiles": [
     "/Users/maide/.nuget/packages/azure.core/1.25.0/azure.core.1.25.0.nupkg.sha512",
     "/Users/maide/.nuget/packages/azure.identity/1.7.0/azure.identity.1.7.0.nupkg.sha512",

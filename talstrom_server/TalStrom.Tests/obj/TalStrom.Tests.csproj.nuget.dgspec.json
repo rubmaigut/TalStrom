@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/maide/Desktop/salt/TalStrom/TalStrom.Tests/TalStrom.Tests.csproj": {}
+    "/Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStrom.Tests/TalStrom.Tests.csproj": {}
   },
   "projects": {
-    "/Users/maide/Desktop/salt/TalStrom/TalStrom.Tests/TalStrom.Tests.csproj": {
+    "/Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStrom.Tests/TalStrom.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/maide/Desktop/salt/TalStrom/TalStrom.Tests/TalStrom.Tests.csproj",
+        "projectUniqueName": "/Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStrom.Tests/TalStrom.Tests.csproj",
         "projectName": "TalStrom.Tests",
-        "projectPath": "/Users/maide/Desktop/salt/TalStrom/TalStrom.Tests/TalStrom.Tests.csproj",
+        "projectPath": "/Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStrom.Tests/TalStrom.Tests.csproj",
         "packagesPath": "/Users/maide/.nuget/packages/",
-        "outputPath": "/Users/maide/Desktop/salt/TalStrom/TalStrom.Tests/obj/",
+        "outputPath": "/Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStrom.Tests/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/maide/.nuget/NuGet/NuGet.Config"
@@ -26,8 +26,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/maide/Desktop/salt/TalStrom/TalStromApi/TalStromApi.csproj": {
-                "projectPath": "/Users/maide/Desktop/salt/TalStrom/TalStromApi/TalStromApi.csproj"
+              "/Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStromApi/TalStromApi.csproj": {
+                "projectPath": "/Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStromApi/TalStromApi.csproj"
               }
             }
           }
@@ -87,14 +87,14 @@
         }
       }
     },
-    "/Users/maide/Desktop/salt/TalStrom/TalStromApi/TalStromApi.csproj": {
+    "/Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStromApi/TalStromApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/maide/Desktop/salt/TalStrom/TalStromApi/TalStromApi.csproj",
+        "projectUniqueName": "/Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStromApi/TalStromApi.csproj",
         "projectName": "TalStromApi",
-        "projectPath": "/Users/maide/Desktop/salt/TalStrom/TalStromApi/TalStromApi.csproj",
+        "projectPath": "/Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStromApi/TalStromApi.csproj",
         "packagesPath": "/Users/maide/.nuget/packages/",
-        "outputPath": "/Users/maide/Desktop/salt/TalStrom/TalStromApi/obj/",
+        "outputPath": "/Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStromApi/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/maide/.nuget/NuGet/NuGet.Config"

@@ -79,4 +79,4 @@ $RECYCLE.BIN/
 
 # Ignore backend directory (Adjust the path if necessary)
 # Replace 'relative/path/to/backend' with the relative path from the frontend project to the backend project
-./talstrom_server
+../talstrom_server

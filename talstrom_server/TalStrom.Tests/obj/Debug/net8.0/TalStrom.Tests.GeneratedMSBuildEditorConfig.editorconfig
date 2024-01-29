@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = TalStrom.Tests
-build_property.ProjectDir = /Users/maide/Desktop/salt/TalStrom/TalStrom.Tests/
+build_property.ProjectDir = /Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStrom.Tests/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
