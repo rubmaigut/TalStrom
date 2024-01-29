@@ -9,6 +9,6 @@ public class TestController : ControllerBase
     [HttpGet]
     public IActionResult GetAll()
     {
-        return Ok("a new test");
+        return Ok("a new testaaaa");
     }
 }
