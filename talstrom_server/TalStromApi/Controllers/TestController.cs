@@ -4,11 +4,11 @@ namespace TalStromApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+public class TestController : ControllerBase
 {
     [HttpGet]
     public IActionResult GetAll()
     {
-        return Ok("test");
+        return Ok("a new testaaaa");
     }
 }
