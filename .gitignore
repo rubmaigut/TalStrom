@@ -1,0 +1,46 @@
+# OS-specific files #
+#####################
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Global ignore patterns for all projects #
+############################################
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+#############
+# It's usually good to upload your lock file (e.g., package-lock.json, yarn.lock)
+# but you might want to ignore global package directories like node_modules
+**/node_modules/
+**/vendor/
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+
+# Editor directories and files #
+################################
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# Ignore all environment files #
+################################
+.env
+.env.*
+
+# End of /Talstrom/.gitignore #
+################################
