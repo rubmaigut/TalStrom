@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TalStrom.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b326dcaa70ddd723a11d01393574ec4e057134a3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8be38b6da433cc81b2162a991285422a91809d7e")]
 [assembly: System.Reflection.AssemblyProductAttribute("TalStrom.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TalStrom.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
