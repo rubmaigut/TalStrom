@@ -17,6 +17,20 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "rubmaigut"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="4760f71d-7c91-48c8-8c67-8dfbc0fc0a85" />
+        <option name="url" value="git@github.com:rubmaigut/TalStrom.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 5
@@ -56,7 +70,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1706528125307</updated>
-      <workItem from="1706528128171" duration="1558000" />
+      <workItem from="1706528128171" duration="1919000" />
     </task>
     <task id="LOCAL-00001" summary="Build Backend">
       <option name="closed" value="true" />
