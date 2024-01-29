@@ -4,12 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<TalStromDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TALSTROM_CONNECTIONSTRING") ?? throw new InvalidOperationException("Connection string 'TALSTROM_CONNECTIONSTRING' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllers();
 
 builder.Services.AddCors();
-var ccDbString = builder.Configuration["ConnectionStrings:TalStromDb"];
+var ccDbString = builder.Configuration["ConnectionStrings:TALSTROM_CONNECTIONSTRING"];
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
