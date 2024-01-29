@@ -4,7 +4,7 @@ namespace TalStromApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+public class TestController : ControllerBase
 {
     [HttpGet]
     public IActionResult GetAll()
