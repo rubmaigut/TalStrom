@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TalStromApi", "TalStromApi\TalStromApi.csproj", "{9B5A8705-9EF1-42D5-9E2D-C07E196FCFC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TalStrom.Tests", "TalStrom.Tests\TalStrom.Tests.csproj", "{FD5E6DA5-CCCB-485B-9EA3-560CC53C51E6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B5A8705-9EF1-42D5-9E2D-C07E196FCFC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B5A8705-9EF1-42D5-9E2D-C07E196FCFC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B5A8705-9EF1-42D5-9E2D-C07E196FCFC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B5A8705-9EF1-42D5-9E2D-C07E196FCFC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD5E6DA5-CCCB-485B-9EA3-560CC53C51E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD5E6DA5-CCCB-485B-9EA3-560CC53C51E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD5E6DA5-CCCB-485B-9EA3-560CC53C51E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD5E6DA5-CCCB-485B-9EA3-560CC53C51E6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
