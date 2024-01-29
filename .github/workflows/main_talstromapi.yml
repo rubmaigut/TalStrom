@@ -54,4 +54,4 @@ jobs:
           app-name: 'talstromApi'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_86D608AAEC674748ACB89AA3677A2469 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AE52FE23DB3242C68CAEB9B58B47F498 }}
