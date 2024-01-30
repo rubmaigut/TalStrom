@@ -12,6 +12,6 @@ public class User
   public Role Role { get; set; }
   public string Password { get; set; }
   public List<string> Videos { get; set; }
-  public List<User>? Developers { get; set; }
+  public List<User>? Followers { get; set; }
   public List<Posts> Posts { get; set; } 
 }
