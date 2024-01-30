@@ -8,15 +8,20 @@ const InviteUserPage: NextPage = () => {
   const { data: session } = useSession();
 
   const handleInvite = async (email: string, role: string) => {
-    const response = await fetch('http://localhost:5166/api/UserInvitation/invite', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, role }),
-    });
-    if (response.ok) {
-      console.log('Invitation sent successfully');
-    } else {
-      console.error('Failed to send invitation');
+    try {
+      const response = await fetch('http://localhost:5000/api/UserInvitation/invite', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, role }),
+      });
+  
+      if (response.ok) {
+        console.log('Invitation sent successfully');
+      } else {
+        console.error('Failed to send invitation', await response.text());
+      }
+    } catch (error) {
+      console.error('Error during fetch', error);
     }
   };
 

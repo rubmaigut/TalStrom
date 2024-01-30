@@ -8,23 +8,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="12f47ec1-3102-4071-8cfe-c2cd11054e3f" name="Changes" comment="small change">
-      <change afterPath="$PROJECT_DIR$/TalStromApi/Controllers/UserInvitationController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TalStromApi/Models/UserInvitation.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TalStromApi/utils/EmailSender.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TalStromApi/utils/IEmailSender.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TalStromApi/utils/TokenGenerator.cs" afterDir="false" />
+    <list default="true" id="12f47ec1-3102-4071-8cfe-c2cd11054e3f" name="Changes" comment="Logic to send userEmail">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TalStrom/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TalStrom/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TalStromApi/Data/TalStromDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TalStromApi/Data/TalStromDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TalStromApi/Migrations/20240130131824_InitialCreate.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TalStromApi/Migrations/20240130131824_InitialCreate.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TalStromApi/Migrations/TalStromDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TalStromApi/Migrations/TalStromDbContextModelSnapshot.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TalStromApi/Models/Admin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TalStromApi/Models/Admin.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TalStromApi/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TalStromApi/Models/User.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TalStromApi/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TalStromApi/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TalStromApi/TalStromApi.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TalStromApi/TalStromApi.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../talstrom_web/src/pages/admin/invite.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../talstrom_web/src/pages/admin/invite.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../talstrom_web/src/pages/api/auth/[...nextauth].ts" beforeDir="false" afterPath="$PROJECT_DIR$/../talstrom_web/src/pages/api/auth/[...nextauth].ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TalStromApi/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/TalStromApi/Properties/launchSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TalStromApi/TalStromApi.http" beforeDir="false" afterPath="$PROJECT_DIR$/TalStromApi/TalStromApi.http" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +40,9 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStromApi/Models/Admin.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStromApi/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStromApi/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d77301864b1c48788552d75cfe890bb38e200/ae/c051a706/IEmailSender.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiProvider">{
@@ -90,6 +84,29 @@
     ]
   }
 }</component>
+  <component name="RunManager">
+    <configuration name="Build" type="DotNetProject" factoryName=".NET Project">
+      <option name="EXE_PATH" value="$PROJECT_DIR$/TalStromApi/bin/Debug/net8.0/TalStromApi.dll" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/TalStromApi" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <envs>
+        <env name="ASPNETCORE_URLS" value="http://localhost:5000" />
+      </envs>
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="PROJECT_PATH" value="$PROJECT_DIR$/TalStromApi/TalStromApi.csproj" />
+      <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
+      <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
+      <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
+      <option name="PROJECT_KIND" value="DotNetCore" />
+      <option name="PROJECT_TFM" value="net8.0" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task id="LOCAL-00001" summary="update">
@@ -107,7 +124,8 @@
       <option name="presentableId" value="Default" />
       <updated>1706542343065</updated>
       <workItem from="1706542345814" duration="5545000" />
-      <workItem from="1706640043920" duration="8005000" />
+      <workItem from="1706640043920" duration="10996000" />
+      <workItem from="1706655170227" duration="2263000" />
     </task>
     <task id="LOCAL-00002" summary="create user secret">
       <option name="closed" value="true" />
@@ -149,7 +167,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706605546005</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Logic to send userEmail">
+      <option name="closed" value="true" />
+      <created>1706650255585</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1706650255585</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,6 +189,7 @@
     <MESSAGE value="Deploy backend in azure" />
     <MESSAGE value="delete testController" />
     <MESSAGE value="small change" />
-    <option name="LAST_COMMIT_MESSAGE" value="small change" />
+    <MESSAGE value="Logic to send userEmail" />
+    <option name="LAST_COMMIT_MESSAGE" value="Logic to send userEmail" />
   </component>
 </project>

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using TalStromApi.DTO;
 using TalStromApi.Models;
 using TalStromApi.utils;
 
@@ -19,19 +20,24 @@ namespace TalStromApi.Controllers
         }
 
         [HttpPost("invite")]
-        public async Task<IActionResult> InviteUser([FromBody] UserInvitation invitation)
+        public async Task<IActionResult> InviteUser([FromBody] UserInvitationDTO invitationDto)
         {
-            // Generate invitation token
-            var token = TokenGenerator.GenerateInvitationToken();
+            var invitation = new UserInvitation
+            {
+                Email = invitationDto.Email,
+                Role = invitationDto.Role,
+                InvitationToken = TokenGenerator.GenerateInvitationToken() // Generate token
+            };
 
-            // Construct the invitation link (you'll need to adjust this based on your frontend routing)
-            var invitationLink = $"https://tal-strom.vercel.app/accept-invitation?token={token}";
-            SaveInvitationDetails(invitation, token);
+            // Construct the invitation link
+            var invitationLink = $"https://tal-strom.vercel.app/accept-invitation?token={invitation.InvitationToken}";
+
+            // Save the invitation details
+            _context.UserInvitations.Add(invitation);
+            _context.SaveChanges();
 
             // Send invitation email
             await _emailSender.SendEmailAsync(invitation.Email, "You're Invited!", $"Please use this link to join as a {invitation.Role}: {invitationLink}");
-
-            // Here you should save the token and email to your database for later verification
 
             return Ok("Invitation sent successfully.");
         }

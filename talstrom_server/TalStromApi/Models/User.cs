@@ -6,6 +6,7 @@ public class User
   public string Name { get; set; }
   public string Email { get; set; }
   public string Image { get; set; }
+  public string Role { get; set; }
   
   public List<string> Videos { get; set; }
   public List<User>? Followers { get; set; }
