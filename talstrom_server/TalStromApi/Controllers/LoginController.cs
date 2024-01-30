@@ -22,14 +22,14 @@ namespace TalStromApi.Controllers
 
         // GET: api/Loginnnnnnnnnn
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Login>>> GetLogin()
+        public async Task<ActionResult<IEnumerable<Admin>>> GetLogin()
         {
             return await _context.Login.ToListAsync();
         }
 
         // GET: api/Login/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Login>> GetLogin(int id)
+        public async Task<ActionResult<Admin>> GetLogin(int id)
         {
             var login = await _context.Login.FindAsync(id);
 
@@ -44,14 +44,14 @@ namespace TalStromApi.Controllers
         // PUT: api/Login/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLogin(int id, Login login)
+        public async Task<IActionResult> PutLogin(int id, Admin admin)
         {
-            if (id != login.Id)
+            if (id != admin.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(login).State = EntityState.Modified;
+            _context.Entry(admin).State = EntityState.Modified;
 
             try
             {
@@ -75,12 +75,12 @@ namespace TalStromApi.Controllers
         // POST: api/Login
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Login>> PostLogin(Login login)
+        public async Task<ActionResult<Admin>> PostLogin(Admin admin)
         {
-            _context.Login.Add(login);
+            _context.Login.Add(admin);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLogin", new { id = login.Id }, login);
+            return CreatedAtAction("GetLogin", new { id = admin.Id }, admin);
         }
 
         // DELETE: api/Login/5
