@@ -8,7 +8,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="12f47ec1-3102-4071-8cfe-c2cd11054e3f" name="Changes" comment="delete testController">
+    <list default="true" id="12f47ec1-3102-4071-8cfe-c2cd11054e3f" name="Changes" comment="small change">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TalStrom/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TalStrom/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -34,16 +34,17 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStromApi/Controllers/LoginController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStromApi/Program.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2bdQBhR97nGC24orIcvmTroDn5n" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -57,7 +58,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "dev-day-2",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -125,7 +126,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706545157744</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="small change">
+      <option name="closed" value="true" />
+      <created>1706605546005</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1706605546005</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -138,6 +147,7 @@
     <MESSAGE value="delete: YAML file" />
     <MESSAGE value="Deploy backend in azure" />
     <MESSAGE value="delete testController" />
-    <option name="LAST_COMMIT_MESSAGE" value="delete testController" />
+    <MESSAGE value="small change" />
+    <option name="LAST_COMMIT_MESSAGE" value="small change" />
   </component>
 </project>
