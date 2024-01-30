@@ -1,12 +1,13 @@
+import Link from 'next/link'
 import Layout from '../ui/layout'
 
 export default function Page () {
   return (
     <Layout>
-      <h1>NextAuth.js Example</h1>
-      <p>
-        This is an example site to demonstrate how to use <a href={`https://next-auth.js.org`}>NextAuth.js</a> for authentication.
-      </p>
+      <Link href="/admin/invite">
+        <>Go to Admin Portal</>
+      </Link>
+      
     </Layout>
   )
 }
