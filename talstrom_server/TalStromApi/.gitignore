@@ -54,7 +54,6 @@ StyleCopReport.xml
 *.pdb
 *.exe
 *.dll
-*.json
 
 # Benchmark Results
 BenchmarkDotNet.Artifacts/

@@ -8,7 +8,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="12f47ec1-3102-4071-8cfe-c2cd11054e3f" name="Changes" comment="update" />
+    <list default="true" id="12f47ec1-3102-4071-8cfe-c2cd11054e3f" name="Changes" comment="delete testController">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TalStrom/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TalStrom/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,12 +19,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "rubmaigut"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;rubmaigut&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -32,16 +34,48 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStromApi/Controllers/TestController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStromApi/Program.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="2bdQBhR97nGC24orIcvmTroDn5n" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "git-widget-placeholder": "dev",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "azure"
+    ],
+    "rider.external.source.directories": [
+      "/Users/maide/Library/Application Support/JetBrains/Rider2023.3/resharper-host/DecompilerCache",
+      "/Users/maide/Library/Application Support/JetBrains/Rider2023.3/resharper-host/SourcesCache",
+      "/Users/maide/.local/share/Symbols/src"
+    ]
   }
 }]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -51,12 +85,59 @@
       <option name="project" value="LOCAL" />
       <updated>1706535490288</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="12f47ec1-3102-4071-8cfe-c2cd11054e3f" name="Changes" comment="update" />
+      <created>1706542343065</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1706542343065</updated>
+      <workItem from="1706542345814" duration="5545000" />
+    </task>
+    <task id="LOCAL-00002" summary="create user secret">
+      <option name="closed" value="true" />
+      <created>1706543045193</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1706543045193</updated>
+    </task>
+    <task id="LOCAL-00003" summary="delete: YAML file">
+      <option name="closed" value="true" />
+      <created>1706543304800</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1706543304800</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Deploy backend in azure">
+      <option name="closed" value="true" />
+      <created>1706544908128</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1706544908128</updated>
+    </task>
+    <task id="LOCAL-00005" summary="delete testController">
+      <option name="closed" value="true" />
+      <created>1706545157744</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1706545157744</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="false" />
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="create user secret" />
+    <MESSAGE value="delete: YAML file" />
+    <MESSAGE value="Deploy backend in azure" />
+    <MESSAGE value="delete testController" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete testController" />
   </component>
 </project>
