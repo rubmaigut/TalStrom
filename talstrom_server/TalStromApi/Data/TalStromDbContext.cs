@@ -12,5 +12,5 @@ using TalStromApi.Models;
         {
         }
 
-        public DbSet<TalStromApi.Models.Login> Login { get; set; } = default!;
+        public DbSet<TalStromApi.Models.Admin> Login { get; set; } = default!;
     }
