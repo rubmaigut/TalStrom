@@ -8,16 +8,16 @@ const InviteUserPage: NextPage = () => {
   const { data: session } = useSession();
 
   const handleInvite = async (email: string, role: string) => {
-    console.log('Inviting user:', email, 'as a', role);
-
-    // Placeholder for API call:
-    // const response = await fetch('/api/invite', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ email, role }),
-    // });
-    
-    // Handle the response here
+    const response = await fetch('http://localhost:5166/api/UserInvitation/invite', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, role }),
+    });
+    if (response.ok) {
+      console.log('Invitation sent successfully');
+    } else {
+      console.error('Failed to send invitation');
+    }
   };
 
   if (!session) {

@@ -22,6 +22,11 @@ export default NextAuth({
     GoogleProvider({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_ID as string,
       clientSecret: process.env.GOOGLE_SECRET as string,
+      authorization: {
+        params: {
+          scope: 'openid profile email https://www.googleapis.com/auth/gmail.send',
+        },
+      },
     }),
     TwitterProvider({
       clientId: process.env.TWITTER_ID,

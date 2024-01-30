@@ -9,7 +9,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="12f47ec1-3102-4071-8cfe-c2cd11054e3f" name="Changes" comment="small change">
+      <change afterPath="$PROJECT_DIR$/TalStromApi/Controllers/UserInvitationController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TalStromApi/Models/UserInvitation.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TalStromApi/utils/EmailSender.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TalStromApi/utils/IEmailSender.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TalStromApi/utils/TokenGenerator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TalStrom/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TalStrom/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TalStromApi/Data/TalStromDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TalStromApi/Data/TalStromDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TalStromApi/Migrations/20240130131824_InitialCreate.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TalStromApi/Migrations/20240130131824_InitialCreate.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TalStromApi/Migrations/TalStromDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TalStromApi/Migrations/TalStromDbContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TalStromApi/Models/Admin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TalStromApi/Models/Admin.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TalStromApi/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TalStromApi/Models/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TalStromApi/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TalStromApi/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TalStromApi/TalStromApi.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TalStromApi/TalStromApi.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../talstrom_web/src/pages/admin/invite.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../talstrom_web/src/pages/admin/invite.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../talstrom_web/src/pages/api/auth/[...nextauth].ts" beforeDir="false" afterPath="$PROJECT_DIR$/../talstrom_web/src/pages/api/auth/[...nextauth].ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,8 +49,7 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStromApi/Controllers/LoginController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStromApi/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d77301864b1c48788552d75cfe890bb38e200/ae/c051a706/IEmailSender.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -54,28 +68,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "dev-day-2",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev-day-2&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "azure"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;azure&quot;
     ],
-    "rider.external.source.directories": [
-      "/Users/maide/Library/Application Support/JetBrains/Rider2023.3/resharper-host/DecompilerCache",
-      "/Users/maide/Library/Application Support/JetBrains/Rider2023.3/resharper-host/SourcesCache",
-      "/Users/maide/.local/share/Symbols/src"
+    &quot;rider.external.source.directories&quot;: [
+      &quot;/Users/maide/Library/Application Support/JetBrains/Rider2023.3/resharper-host/DecompilerCache&quot;,
+      &quot;/Users/maide/Library/Application Support/JetBrains/Rider2023.3/resharper-host/SourcesCache&quot;,
+      &quot;/Users/maide/.local/share/Symbols/src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task id="LOCAL-00001" summary="update">
@@ -93,6 +107,7 @@
       <option name="presentableId" value="Default" />
       <updated>1706542343065</updated>
       <workItem from="1706542345814" duration="5545000" />
+      <workItem from="1706640043920" duration="8005000" />
     </task>
     <task id="LOCAL-00002" summary="create user secret">
       <option name="closed" value="true" />
