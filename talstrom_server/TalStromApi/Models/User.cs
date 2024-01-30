@@ -1,6 +1,7 @@
 namespace TalStromApi.Models;
 
-public enum Role {
+public enum Role
+{
   Customer,
   Developer
 }
@@ -13,5 +14,5 @@ public class User
   public string Password { get; set; }
   public List<string> Videos { get; set; }
   public List<User>? Followers { get; set; }
-  public List<Posts> Posts { get; set; } 
+  public List<Posts> Posts { get; set; }
 }
