@@ -43,8 +43,8 @@ export default NextAuth({
       scope: "read:user",
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
+      clientId: process.env.NEXT_PUBLIC_GOOGLE_ID as string,
+      clientSecret: process.env.GOOGLE_SECRET as string,
     }),
     TwitterProvider({
       clientId: process.env.TWITTER_ID,
