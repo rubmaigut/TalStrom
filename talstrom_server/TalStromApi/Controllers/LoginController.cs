@@ -20,7 +20,7 @@ namespace TalStromApi.Controllers
             _context = context;
         }
 
-        // GET: api/Login
+        // GET: api/Loginnnnnnnnnn
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Login>>> GetLogin()
         {
