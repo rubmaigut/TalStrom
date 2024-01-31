@@ -21,17 +21,6 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 builder.Services.AddScoped<IMailSender, EmailSender>();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("MyAllowSpecificOrigins",
-        builder =>
-        {
-            builder.WithOrigins("http://localhost:3000", "https://talstromapi.azurewebsites.net")
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
-});
-
 var ccDbString = builder.Configuration["ConnectionStrings:TALSTROM_CONNECTIONSTRING"];
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -43,7 +32,12 @@ builder.Services.AddSwaggerGen(c =>
 });
 
     var app = builder.Build();
-    app.UseCors("MyAllowSpecificOrigins");
+app.UseCors(policy =>
+{
+    policy.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();  //set the allowed origin
+});
 
 // Configure the HTTP request pipeline.
 
