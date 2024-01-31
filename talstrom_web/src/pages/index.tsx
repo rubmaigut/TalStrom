@@ -13,7 +13,7 @@ export default function Page() {
   useEffect(() => {
     const fetchJwt = async () => {
       if (session) {
-        const response = await fetch("http://localhost:3001/api/endpoints/jwt");
+        const response = await fetch("http://localhost:3000/api/endpoints/jwt");
         const data = await response.json();
         setJwtData(data);
       }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TalStromApi.DTO;
 using TalStromApi.Models;
 
 namespace TalStromApi.Controllers
@@ -90,10 +91,18 @@ namespace TalStromApi.Controllers
     }
 
     [HttpPost]
-    public async Task<ActionResult<User>> PostUser(User user)
+    public async Task<ActionResult<User>> PostUser(UserPostReq userReq)
     {
       try
       {
+        var user = new User
+        {
+          Name = userReq.Name,
+          Email = userReq.Email,
+          Picture = userReq.Picture,
+          Sub = userReq.Sub
+        };
+        
         _context.User.Add(user);
         await _context.SaveChangesAsync();
 

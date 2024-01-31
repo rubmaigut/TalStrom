@@ -19,7 +19,7 @@ const SuccessLogin: NextPage<LoginProps> =({user, jwt})=>{
 
     const addUserHandler = async (user: UserProps, jwt: {sub: string} ) =>{
         try {
-            const response = await fetch('http://localhost:5000/api/User',{
+            const response = await fetch('http://localhost:5000/api/Users',{
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
