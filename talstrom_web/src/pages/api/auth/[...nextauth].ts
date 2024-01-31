@@ -12,29 +12,6 @@ import TwitterProvider from "next-auth/providers/twitter"
 export default NextAuth({
   // https://next-auth.js.org/configuration/providers
   providers: [
-    // EmailProvider({
-    //   server: process.env.EMAIL_SERVER,
-    //   from: process.env.EMAIL_FROM,
-    // }),
-    // AppleProvider({
-    //   clientId: process.env.APPLE_ID,
-    //   clientSecret: {
-    //     appleId: process.env.APPLE_ID,
-    //     teamId: process.env.APPLE_TEAM_ID,
-    //     privateKey: process.env.APPLE_PRIVATE_KEY,
-    //     keyId: process.env.APPLE_KEY_ID,
-    //   },
-    // }),
-    Auth0Provider({
-      clientId: process.env.AUTH0_ID,
-      clientSecret: process.env.AUTH0_SECRET,
-      // @ts-ignore
-      domain: process.env.AUTH0_DOMAIN,
-    }),
-    FacebookProvider({
-      clientId: process.env.FACEBOOK_ID,
-      clientSecret: process.env.FACEBOOK_SECRET,
-    }),
     GithubProvider({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
@@ -45,23 +22,17 @@ export default NextAuth({
     GoogleProvider({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_ID as string,
       clientSecret: process.env.GOOGLE_SECRET as string,
+      authorization: {
+        params: {
+          scope: 'openid profile email https://www.googleapis.com/auth/gmail.send',
+        },
+      },
     }),
     TwitterProvider({
       clientId: process.env.TWITTER_ID,
       clientSecret: process.env.TWITTER_SECRET,
     }),
   ],
-  // Database optional. MySQL, Maria DB, Postgres and MongoDB are supported.
-  // https://next-auth.js.org/configuration/databases
-  //
-  // Notes:
-  // * You must install an appropriate node_module for your database
-  // * The Email provider requires a database (OAuth providers do not)
-  // database: process.env.DATABASE_URL,
-
-  // The secret should be set to a reasonably long random string.
-  // It is used to sign cookies and to sign and encrypt JSON Web Tokens, unless
-  // a separate secret is defined explicitly for encrypting the JWT.
   secret: process.env.SECRET,
 
   session: {

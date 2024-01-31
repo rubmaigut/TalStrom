@@ -1,6 +1,6 @@
-@TalStromApi_HostAddress = http://localhost:5166
+@TalStromApi_HostAddress = http://localhost:5000/swagger
 
-GET {{TalStromApi_HostAddress}}/weatherforecast/
+GET {{TalStromApi_HostAddress}}/
 Accept: application/json
 
 ###

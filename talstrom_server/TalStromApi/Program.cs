@@ -1,7 +1,12 @@
 using System.Configuration;
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using TalStromApi.utils;
+using TalStromApi.Utils;
+
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<TalStromDbContext>(options =>
@@ -9,8 +14,24 @@ builder.Services.AddDbContext<TalStromDbContext>(options =>
 
 // Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 
-builder.Services.AddCors();
+builder.Services.AddScoped<IMailSender, EmailSender>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyAllowSpecificOrigins",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:3000")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 var ccDbString = builder.Configuration["ConnectionStrings:TALSTROM_CONNECTIONSTRING"];
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -19,18 +40,13 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "TalStrom", Version = "v1" });
        // c.OperationFilter<FormFileOperationFilter>();
-    });
+});
 
     var app = builder.Build();
-
-    app.UseCors(policy =>
-    {
-        policy.AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader();
-    });
+    app.UseCors("MyAllowSpecificOrigins");
 
 // Configure the HTTP request pipeline.
+
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
