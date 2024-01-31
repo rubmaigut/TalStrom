@@ -7,8 +7,8 @@ export default function Header() {
   const loading = status === "loading";
 
   return (
-    <header className="flex items-center h-20 gap-4 px-4 border-b border-black border-solid sm:px-8 border-opacity-20 my-4">
-      <Link href="/" className="flex items-center h-20 gap-2 sm:gap-4">
+    <header className="flex items-center h-20 gap-4 px-4 border-b border-black border-solid sm:px-8 border-opacity-20 my-4 bg-black">
+      <Link href="/" className="flex items-center h-20 gap-2 sm:gap-4n bg-black">
         <Image
           src="/next.svg"
           alt="Next.js Logo"
@@ -19,7 +19,7 @@ export default function Header() {
       </Link>
 
       <div
-        className="bg-white overflow-hidden sm:rounded-lg"
+        className="bg-white overflow-hidden sm:rounded-lg bg-black"
         style={{
           boxShadow: `0px 20px 24px -4px rgba(16, 24, 40, 0.08)`,
         }}
@@ -28,7 +28,7 @@ export default function Header() {
           {session?.user && (
             <div className="pb-6 max-h-96">
               <dt className="text-sm font-semibold">User</dt>
-              <dd className="mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2 flex gap-2">
+              <dd className="mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2 flex gap-2 bg-black">
                 {session.user.email || session.user.name}
               </dd>
 
