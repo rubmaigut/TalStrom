@@ -13,12 +13,11 @@ export default function Page() {
   useEffect(() => {
     const fetchJwt = async () => {
       if (session) {
-        const response = await fetch('http://localhost:3000/api/endpoints/jwt');
+        const response = await fetch("http://localhost:3001/api/endpoints/jwt");
         const data = await response.json();
         setJwtData(data);
       }
     };
-
     fetchJwt();
   }, [session]);
 
@@ -31,19 +30,26 @@ export default function Page() {
     );
   }
 
-  const userInfo = session.user ? {
-    email: session.user.email || '',
-    name: session.user.name || '',
-    image: session.user.image || ''
-  } : null;
+  const userInfo = session.user
+    ? {
+        email: session.user.email || "",
+        name: session.user.name || "",
+        image: session.user.image || "",
+      }
+    : null;
 
   return (
-    <Layout>
-      {session && userInfo && jwtData && <SuccessLogin user={userInfo} jwt={jwtData}/>}
+    <div>
+      {userInfo && jwtData && (
+        <SuccessLogin user={userInfo} jwt={jwtData} />
+      )}
       <div>
-        {session &&
-          "role === Admin" && (<Link href="/admin/invite">Admin Portal</Link>)}
+          {session && "role === Admin" && (
+            <Layout>
+            <Link href="/admin/invite">Admin Portal</Link>
+            </Layout>
+          )}
       </div>
-    </Layout>
+    </div>
   );
 }
