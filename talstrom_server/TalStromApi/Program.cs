@@ -1,12 +1,7 @@
-using System.Configuration;
+
 using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using TalStromApi.utils;
-using TalStromApi.Utils;
-
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<TalStromDbContext>(options =>
@@ -18,8 +13,6 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
-
-builder.Services.AddScoped<IMailSender, EmailSender>();
 
 var ccDbString = builder.Configuration["ConnectionStrings:TALSTROM_CONNECTIONSTRING"];
 
@@ -36,7 +29,7 @@ app.UseCors(policy =>
 {
     policy.AllowAnyOrigin()
         .AllowAnyMethod()
-        .AllowAnyHeader();  //set the allowed origin
+        .AllowAnyHeader(); 
 });
 
 // Configure the HTTP request pipeline.

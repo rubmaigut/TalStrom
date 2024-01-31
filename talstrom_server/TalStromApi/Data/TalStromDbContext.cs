@@ -11,10 +11,6 @@ public class TalStromDbContext : DbContext
     : base(options)
   {
   }
-
-  public DbSet<Admin> Admin { get; set; } = default!;
   public DbSet<User> User { get; set; } = default!;
   public DbSet<Posts> Posts { get; set; } = default!;
-  public DbSet<SalesRep> SalesRep { get; set; } = default!;
-  public DbSet<UserInvitation> UserInvitations { get; set; } = default!;
 }
