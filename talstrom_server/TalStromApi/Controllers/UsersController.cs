@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TalStromApi.DTO;
 using TalStromApi.Models;
 
 namespace TalStromApi.Controllers
@@ -29,18 +30,17 @@ namespace TalStromApi.Controllers
       }
       catch (Exception ex)
       {
-        // Log the exception for troubleshooting
         Console.WriteLine($"Error in GetUser: {ex}");
         return StatusCode(500, "Internal Server Error");
       }
     }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<User>> GetUser(int id)
+    [HttpGet("{sub}")]
+    public async Task<ActionResult<User>> GetUser(string sub)
     {
       try
       {
-        var user = await _context.User.FindAsync(id);
+        var user = await _context.User.FindAsync(sub);
 
         if (user == null)
         {
@@ -56,10 +56,10 @@ namespace TalStromApi.Controllers
       }
     }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutUser(int id, User user)
+    [HttpPut("{sub}")]
+    public async Task<IActionResult> PutUser(string sub, User user)
     {
-      if (id != user.Id)
+      if (sub != user.Sub)
       {
         return BadRequest("Invalid request");
       }
@@ -73,7 +73,7 @@ namespace TalStromApi.Controllers
       catch (DbUpdateConcurrencyException ex)
       {
         Console.WriteLine($"Concurrency error in PutUser: {ex}");
-        if (!UserExists(id))
+        if (!UserExists(sub))
         {
           return NotFound("User ID doesn't exist");
         }
@@ -90,10 +90,24 @@ namespace TalStromApi.Controllers
     }
 
     [HttpPost]
-    public async Task<ActionResult<User>> PostUser(User user)
+    public async Task<ActionResult<User>> PostUser(UserPostReq userReq)
     {
       try
       {
+        //var sub = await GetUser(userReq.Sub);
+        if (UserExists(userReq.Sub))
+        {
+          return Ok("User already in database");
+        }
+        
+        var user = new User
+        {
+          Name = userReq.Name,
+          Email = userReq.Email,
+          Picture = userReq.Picture,
+          Sub = userReq.Sub
+        };
+        
         _context.User.Add(user);
         await _context.SaveChangesAsync();
 
@@ -128,10 +142,9 @@ namespace TalStromApi.Controllers
         return StatusCode(500, "Internal Server Error");
       }
     }
-
-    private bool UserExists(int id)
+    private bool UserExists(string sub)
     {
-      return _context.User.Any(e => e.Id == id);
+      return _context.User.Any(e => e.Sub == sub);
     }
   }
 }

@@ -4,12 +4,12 @@ import { useSession } from 'next-auth/react';
 import InviteUserForm from '../../ui/forms/inviteUsers';
 import Layout from '../../ui/layout';
 
-const InviteUserPage: NextPage = () => {
+const AdminPage: NextPage = () => {
   const { data: session } = useSession();
 
   const handleInvite = async (email: string, role: string) => {
     try {
-      const response = await fetch('http://localhost:5000/api/UserInvitation/invite', {
+      const response = await fetch('http://localhost:5000/api/User', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, role }),
@@ -37,6 +37,6 @@ const InviteUserPage: NextPage = () => {
   );
 };
 
-export default InviteUserPage
+export default AdminPage
 
 
