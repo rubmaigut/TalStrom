@@ -8,7 +8,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <>
-      <Header />
+      <Header/>
       <main>{children}</main>
       <Footer />
     </>

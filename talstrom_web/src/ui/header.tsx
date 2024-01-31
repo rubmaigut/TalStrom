@@ -1,13 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 export default function Header() {
   const { data: session, status } = useSession();
   const loading = status === "loading";
 
   return (
-    <header className="flex items-center h-20 gap-4 px-4 border-b border-black border-solid sm:px-8 border-opacity-20">
+    <header className="flex items-center h-20 gap-4 px-4 border-b border-black border-solid sm:px-8 border-opacity-20 my-4">
       <Link href="/" className="flex items-center h-20 gap-2 sm:gap-4">
         <Image
           src="/next.svg"
@@ -24,28 +24,7 @@ export default function Header() {
           boxShadow: `0px 20px 24px -4px rgba(16, 24, 40, 0.08)`,
         }}
       >
-        <p
-          className={`nojs-show ${
-            !session && loading ? "custom-loading" : "custom-loaded"
-          }`}
-        >
-          {!session && (
-            <>
-              <span className="custom-not-signed-in-text">
-                You are not signed in
-              </span>
-              <a
-                href={`/api/auth/signin`}
-                className="custom-button-primary"
-                onClick={(e) => {
-                  e.preventDefault();
-                  signIn();
-                }}
-              >
-                Sign in
-              </a>
-            </>
-          )}
+        <div>
           {session?.user && (
             <div className="pb-6 max-h-96">
               <dt className="text-sm font-semibold">User</dt>
@@ -77,7 +56,7 @@ export default function Header() {
               </Link>
             </div>
           )}
-        </p>
+        </div>
       </div>
       <nav>
         <ul className="mb-8 p-0 list-none">{/* Nav items here */}</ul>
