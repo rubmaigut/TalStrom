@@ -4,10 +4,8 @@ import "../styles/styles.css"
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <SessionProvider
-      session={pageProps.session}
-    >
+    <SessionProvider session={pageProps.session}>
       <Component {...pageProps} />
     </SessionProvider>
-  )
+  );
 }
