@@ -22,7 +22,9 @@ namespace TalStromApi.Controllers
         [HttpPost("invite")]
         public async Task<IActionResult> InviteUser([FromBody] UserInvitationDTO invitationDto)
         {
-            var invitation = new UserInvitation
+            try
+            {
+                var invitation = new UserInvitation
             {
                 Email = invitationDto.Email,
                 Role = invitationDto.Role,
@@ -40,6 +42,13 @@ namespace TalStromApi.Controllers
             await _emailSender.SendEmailAsync(invitation.Email, "You're Invited!", $"Please use this link to join as a {invitation.Role}: {invitationLink}");
 
             return Ok("Invitation sent successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return StatusCode(500, "Internal Server Error: " + ex.Message);
+
+            }
         }
         private void SaveInvitationDetails(UserInvitation invitation, string token)
         {
