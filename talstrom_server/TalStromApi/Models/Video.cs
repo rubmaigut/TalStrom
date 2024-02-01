@@ -2,20 +2,18 @@ namespace TalStromApi.Models;
 
 public class Video
 {
-  public string Title { get; }
-  public int Duration { get; }
-  public Tuple<int, int> Resolution { get; }
-  public float FrameRate { get; }
-  public string FileFormat { get; }
-  public byte[] ByteData { get; }
+  public string Title { get; set; }
+  public long? Duration { get; set; }
+  public Tuple<int, int> Resolution { get; set; }
+  public string FileFormat { get; set; }
+  public byte[] ByteData { get; set; }
 
-  public Video(string title, int duration, Tuple<int, int> resolution, float frameRate, string fileFormat,
+  public Video(string title, long? duration, string fileFormat,
     byte[] byteData)
 
   {
     Title = title;
     Duration = duration;
-    FrameRate = frameRate;
     FileFormat = fileFormat;
     ByteData = byteData;
   }
