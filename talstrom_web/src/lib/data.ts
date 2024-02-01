@@ -28,7 +28,7 @@ export async function updateUserRole(sub: string, newRole: string) {
   const response = await fetch(url, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ newRole }),
+    body: JSON.stringify({ newRole : newRole }),
   });
   if (!response.ok) throw new Error("Failed to update user role");
   return await response.json();

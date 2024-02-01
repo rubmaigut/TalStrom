@@ -12,7 +12,10 @@ const SuccessLogin: NextPage<LoginProps> = ({ user, jwt }) => {
   const isAdmin = user?.email === adminEmail;
 
   useEffect(() => {
-    addUserHandler(user, jwt)
+    if (!loading) { 
+      setLoading(true); 
+      addUserHandler(user, jwt).finally(() => setLoading(false));
+    }
   }, []);
 
   if (loading && !isAdmin) {
