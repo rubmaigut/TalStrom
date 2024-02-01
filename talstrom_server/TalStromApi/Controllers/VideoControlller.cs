@@ -30,6 +30,21 @@ public class VideoController : ControllerBase
             return NotFound(e);
         }
     }
+    
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Video>> GetVideosById(string id)
+    {
+        Console.WriteLine($"HERE IS THE ID±!!!!! {id}");
+        try
+        {
+            var videos = await _client.GetVideosById("movies", id);
+            return Ok(videos);
+        }
+        catch (Exception e)
+        {
+            return NotFound(e);
+        }
+    }
 
     [HttpPost("upload")]
     public async Task<IActionResult> Upload([FromForm] IFormFile file, string userSub)
