@@ -1,5 +1,6 @@
 using AzureFullstackPractice.Data;
 using Microsoft.AspNetCore.Mvc;
+using TalStromApi.Models;
 
 namespace TalStromApi.Controllers;
 
@@ -14,6 +15,13 @@ public class VideoController : ControllerBase
   {
     _context = context;
     _client = client;
+  }
+
+  [HttpGet]
+  public async Task<ActionResult<Video>> GetAllVideos()
+  {
+    var videos = await _client.GetAllVideos("movies");
+    return Ok(videos);
   }
 
   [HttpPost("upload")]
@@ -43,8 +51,8 @@ public class VideoController : ControllerBase
     {
       return BadRequest("File not found.");
     }
-    
-    await _client.deleteFileAsync("movies", videoName);
+
+    await _client.DeleteFileAsync("movies", videoName);
     return Ok("File deleted.");
   }
 }
