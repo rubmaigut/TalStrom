@@ -1,6 +1,8 @@
+import { User } from "@/types/IUser";
+
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-export async function addUserHandler(user: UserProps, jwt: { sub: string }) {
+export async function addUserHandler(user: User) {
   const url = `${API_BASE_URL}/Users`;
   const response = await fetch(url, {
     method: "POST",
@@ -8,8 +10,8 @@ export async function addUserHandler(user: UserProps, jwt: { sub: string }) {
     body: JSON.stringify({
       name: user.name,
       email: user.email,
-      picture: user.image,
-      sub: jwt.sub,
+      picture: user.picture,
+      sub: user.sub,
     })
   });
   if (!response.ok) throw new Error("data.tsx : Failed to Create user")
@@ -28,8 +30,18 @@ export async function updateUserRole(sub: string, newRole: string) {
   const response = await fetch(url, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ newRole : newRole }),
+    body: JSON.stringify({ NewRole : newRole }),
   });
   if (!response.ok) throw new Error("Failed to update user role");
   return await response.json();
+}
+
+export async function deleteUser(sub:string) {
+  const response = await fetch(`${API_BASE_URL}/Users/${sub}`, {
+      method: 'DELETE'
+  })
+  if (!response.ok) {
+      throw new Error('It could not delete the developer')
+  }
+  return response.json()
 }
