@@ -27,8 +27,6 @@ namespace TalStromApi.Controllers
       {
         return await _context.User
           .Include(ctx => ctx.Posts)
-          .Include(ctx => ctx.Followers)
-          .Include(ctx => ctx.Videos)
           .ToListAsync();
       }
       catch (Exception ex)
