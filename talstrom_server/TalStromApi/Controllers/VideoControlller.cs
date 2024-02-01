@@ -29,7 +29,8 @@ public class VideoController : ControllerBase
             await file.CopyToAsync(stream);
         }
 
-        await _client.UploadFileAsync("personfullstackblob", fileName);
+        //Be specific about file format for now.
+        await _client.UploadFileAsync("movies", $"{fileName}.mp4");
         return Ok("File uploaded successfully.");
     }
 }

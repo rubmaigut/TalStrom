@@ -21,7 +21,7 @@ public class FormFileOperationFilter : IOperationFilter
                     {
                         Schema = new OpenApiSchema
                         {
-                            Type = "video/mp4",
+                            Type = "object",
                             Properties = formFileParameters.ToDictionary(
                                 p => p.Name,
                                 p => new OpenApiSchema
