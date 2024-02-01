@@ -17,7 +17,7 @@ public class VideoController : ControllerBase
     }
 
     [HttpPost("upload")]
-    public async Task<IActionResult> Upload([FromForm] IFormFile file, string fileName)
+    public async Task<IActionResult> Upload([FromForm] IFormFile file, string fileName, string userSub)
     {
         if (file == null || file.Length == 0)
         {
@@ -30,7 +30,7 @@ public class VideoController : ControllerBase
         }
 
         //Be specific about file format for now.
-        await _client.UploadFileAsync("movies", $"{fileName}.mp4");
+        await _client.UploadFileAsync("movies", $"{fileName}.mp4", userSub);
         return Ok("File uploaded successfully.");
     }
 }
