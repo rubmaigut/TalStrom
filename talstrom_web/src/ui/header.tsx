@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import MockLogo from "@/ui/mock-logo";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import SuccessLogin from "./sucess-login";
 import { useEffect, useState } from "react";
@@ -73,18 +73,6 @@ export default function Header() {
               </dd>
             </div>
             {userInfo && jwtData && <SuccessLogin user={userInfo} jwt={jwtData} />}
-            <div className="px-8 py-2">
-              <Link
-                href={`/api/auth/signout`}
-                className="w-32 flex items-center gap-5 self-start rounded-lg bg-teal-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
-                onClick={(e) => {
-                  e.preventDefault();
-                  signOut();
-                }}
-              >
-                Sign out
-              </Link>
-            </div>
           </div>
         </div>
       }
