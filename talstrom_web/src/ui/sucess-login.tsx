@@ -1,11 +1,12 @@
-import { Session } from "inspector";
+import { PowerIcon} from "@heroicons/react/24/outline";;
 import { NextPage } from "next";
+import { signOut } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 const SuccessLogin: NextPage<LoginProps> = ({ user, jwt }) => {
-  const [loading, setLoading] = useState(true); // Manage loading state
-  const router = useRouter();
+  const [loading, setLoading] = useState(true); 
 
   const adminEmail = "maidelin.rubio@appliedtechnology.se";
   const isAdmin = user?.email === adminEmail;
@@ -24,7 +25,8 @@ const SuccessLogin: NextPage<LoginProps> = ({ user, jwt }) => {
       });
 
       if (response.ok) {
-        console.log("User created")}
+        console.log("User created");
+      }
     } catch (error) {
       console.error("Error during fetch", error);
       setLoading(false);
@@ -32,17 +34,13 @@ const SuccessLogin: NextPage<LoginProps> = ({ user, jwt }) => {
   };
 
   useEffect(() => {
-    if (router.isReady) {
-      if (isAdmin) {
-        router.push('/admin');
-      } else {
-        addUserHandler(user, jwt).then(() => setLoading(false)).catch((error) => {
-          console.error("Failed to add user", error);
-          setLoading(false);
-        });
-      }
-    }
-  }, [router, isAdmin, user, jwt]);
+    addUserHandler(user, jwt)
+      .then(() => setLoading(false))
+      .catch((error) => {
+        console.error("Failed to add user", error);
+        setLoading(false);
+      });
+  }, [isAdmin, user, jwt]);
 
   if (loading && !isAdmin) {
     return <p>Loading... 🔄</p>;
@@ -50,11 +48,48 @@ const SuccessLogin: NextPage<LoginProps> = ({ user, jwt }) => {
 
   return (
     <>
-      {isAdmin ? null : (
-        <p className="text-gray-800">
-          <strong>Now you are a user! 🎊 </strong>
-          Your role will be assigned soon, {user.name}.
-        </p>
+      {isAdmin ? (
+        <div className="flex flex-col justify-center items-center">
+          <h2> Welcome Admin </h2>
+          <dd className="mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2 flex gap-2 ">
+            your last connection was : Date / Time
+          </dd>
+          <Link
+            href="/admin"
+            className="flex w-40 h-[48px] my-4 grow items-center justify-center gap-2 rounded-md bg-teal-500 p-3 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:p-2 md:px-3"
+          >
+            Go to Portal
+          </Link>
+          <Link
+            href={`/api/auth/signout`}
+            className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:p-2 md:px-3"
+            onClick={(e) => {
+              e.preventDefault();
+              signOut();
+            }}
+          >
+            <PowerIcon className="w-6" />
+            Sign out
+          </Link>
+        </div>
+      ) : (
+        <div>
+          <p className="text-gray-800">
+            <strong>Now you are a user! 🎊 </strong>
+            Your role will be assigned soon, {user.name}.
+          </p>
+          <Link
+            href={`/api/auth/signout`}
+            className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:p-2 md:px-3"
+            onClick={(e) => {
+              e.preventDefault();
+              signOut();
+            }}
+          >
+            <PowerIcon className="w-6" />
+            Sign out
+          </Link>
+        </div>
       )}
     </>
   );
