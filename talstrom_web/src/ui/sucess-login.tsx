@@ -1,21 +1,20 @@
 import { addUserHandler } from "@/lib/data";
-import { PowerIcon} from "@heroicons/react/24/outline";;
+import { LoginProps, User } from "@/types/IUser";
+import { PowerIcon } from "@heroicons/react/24/outline";
 import { NextPage } from "next";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const SuccessLogin: NextPage<LoginProps> = ({ user, jwt }) => {
-  const [loading, setLoading] = useState(true); 
+const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
+  const [loading, setLoading] = useState(true);
 
   const adminEmail = "maidelin.rubio@appliedtechnology.se";
   const isAdmin = user?.email === adminEmail;
 
   useEffect(() => {
-    if (!loading) { 
-      setLoading(true); 
-      addUserHandler(user, jwt).finally(() => setLoading(false));
-    }
+    setLoading(true);
+    addUserHandler(user).finally(() => setLoading(false));
   }, []);
 
   if (loading && !isAdmin) {
