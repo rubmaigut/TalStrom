@@ -33,10 +33,16 @@ const SuccessLogin: NextPage<LoginProps> = ({ user, jwt }) => {
 
   useEffect(() => {
     if (isAdmin) {
-        router.push('/admin'); 
-      }
-      addUserHandler(user, jwt);
-  }, []);
+      router.push('/admin');
+    } else {
+      addUserHandler(user, jwt).then(() => {
+        setLoading(false);
+      }).catch((error) => {
+        console.error("Failed to add user", error);
+        setLoading(false);
+      });
+    }
+  }, [isAdmin, router, user, jwt]);
 
   if (loading && !isAdmin) {
     return <p>Loading... 🔄</p>;
