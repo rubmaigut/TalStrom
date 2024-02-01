@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TalStromApi.DTO;
@@ -35,19 +34,14 @@ namespace TalStromApi.Controllers
       }
     }
 
-    [HttpGet("{sub}")]
-    public async Task<ActionResult<User>> GetUser(string sub)
+    [HttpGet("{id}")]
+    public async Task<ActionResult<User>> GetUserBySub(string sub)
     {
       try
       {
-        var user = await _context.User.FindAsync(sub);
-
-        if (user == null)
-        {
-          return NotFound("No User found");
-        }
-
-        return user;
+        var user = await _context.User.FirstOrDefaultAsync(x=> x.Sub == sub);;
+        
+       return user is null ? NotFound() :  Ok(user);
       }
       catch (Exception ex)
       {
@@ -55,38 +49,27 @@ namespace TalStromApi.Controllers
         return StatusCode(500, "Internal Server Error");
       }
     }
-
-    [HttpPut("{sub}")]
-    public async Task<IActionResult> PutUser(string sub, User user)
+    
+    [HttpGet("role")]
+    public async Task<IActionResult> GetUsersByRole(string role)
     {
-      if (sub != user.Sub)
-      {
-        return BadRequest("Invalid request");
-      }
+      var users = await _context.User
+        .Where(u => u.Role == role)
+        .ToListAsync();
 
-      try
-      {
-        _context.Entry(user).State = EntityState.Modified;
-        await _context.SaveChangesAsync();
-        return NoContent();
-      }
-      catch (DbUpdateConcurrencyException ex)
-      {
-        Console.WriteLine($"Concurrency error in PutUser: {ex}");
-        if (!UserExists(sub))
-        {
-          return NotFound("User ID doesn't exist");
-        }
-        else
-        {
-          return StatusCode(500, "Internal Server Error");
-        }
-      }
-      catch (Exception ex)
-      {
-        Console.WriteLine($"Error in PutUser: {ex}");
-        return StatusCode(500, "Internal Server Error");
-      }
+      return users is not null ? Ok(users) : NotFound("$User Not Found with {role}");
+    }
+
+    [HttpPatch("{sub}/role")]
+    public async Task<IActionResult> UpdateUserRole(string sub, [FromBody] string newRole)
+    {
+      var user = await _context.User.FirstOrDefaultAsync(x=> x.Sub == sub);
+
+      if (user is null) return NotFound();
+
+      user.Role = newRole;
+      await _context.SaveChangesAsync();
+      return NoContent();
     }
 
     [HttpPost]
@@ -94,11 +77,7 @@ namespace TalStromApi.Controllers
     {
       try
       {
-        //var sub = await GetUser(userReq.Sub);
-        if (UserExists(userReq.Sub))
-        {
-          return Ok("User already in database");
-        }
+        if (UserExists(userReq.Sub)) return Ok("User already in database");
         
         var user = new User
         {

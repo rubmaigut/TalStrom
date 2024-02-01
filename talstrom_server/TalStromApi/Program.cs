@@ -1,4 +1,5 @@
 
+using System;
 using System.Text.Json.Serialization;
 using Azure.Storage.Blobs;
 using AzureFullstackPractice.Data;
@@ -6,6 +7,8 @@ using AzureFullstackPractice.Services;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<TalStromDbContext>(options =>
