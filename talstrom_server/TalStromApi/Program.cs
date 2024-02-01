@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using Azure.Storage.Blobs;
 using AzureFullstackPractice.Data;
 using AzureFullstackPractice.Services;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,12 @@ builder.Services.AddControllers();
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
+
+// Configure the video file size limit HERE.
+builder.Services.Configure<KestrelServerOptions>(options =>
+{
+    options.Limits.MaxRequestBodySize  = int.MaxValue; 
 });
 
 var ccDbString = builder.Configuration["ConnectionStrings:TALSTROM_CONNECTIONSTRING"];
