@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace TalStromApi.Models;
 
 public class User
