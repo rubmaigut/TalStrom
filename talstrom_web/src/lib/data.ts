@@ -2,7 +2,7 @@
 const API_BASE_URL = 'http://localhost:5000/api'
 
 export const fetchUsersByRole = async (role: string) => {
-    const response = await fetch(`${API_BASE_URL}/Users?role=${role}`);
+    const response = await fetch(`${API_BASE_URL}/Users/role?role=${role}`);
     if (!response.ok) {
         throw new Error('Failed to fetch users');
     }
