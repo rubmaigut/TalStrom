@@ -21,24 +21,16 @@ export default function Page() {
     loadPendingUsers();
   }, []);
 
-  const handleChangeRole = async (userSub: string, newRole: string) => {
+  const handleChangeRole = async (userSub: string, role: string) => {
     try {
-      await updateUserRole(userSub, newRole);
-      // const users = await fetchUsersByRole("pending");
-      // setPendingUsers(users);
-      const newArr = [...pendingUsers];
-      const userIndex = newArr.findIndex(x => x.sub == userSub);
-      if(userIndex) {
-        newArr.splice(userIndex);
-        setPendingUsers(newArr);
-      }
-
+      await updateUserRole(userSub, role);
+      const users = await fetchUsersByRole("pending");
+      setPendingUsers(users);
     } catch (error) {
       console.error("Failed to update user role:", error);
     }
   };
 
-  console.log("pendingUSers", pendingUsers);
 
   return (
     <>
@@ -48,9 +40,8 @@ export default function Page() {
         </section>
       ) : (
         <Layout>
-          <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 px-6 py-10 md:w-2/5 md:px-20 my-4">
-          <h2>Hi {session.user?.name}</h2>
-          <p>Welcome to Admin Portal</p>
+          <div className="flex flex-col gap-6 rounded-lg bg-gray-50 px-6 py-10 md:w-full h-full md:px-20 md:my-0 my-4 ">
+          <p>Hi<strong> {session.user?.name}</strong> Welcome to Admin Portal</p>
           {pendingUsers.map((user) => (
             <div key={user.id} className="flex justify-between items-center">
               <div>{user.name}</div>
