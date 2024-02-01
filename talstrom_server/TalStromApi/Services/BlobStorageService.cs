@@ -28,6 +28,7 @@ public class BlobStorageService
 
     public Task<List<Video>> GetVideosById(string containerName, string userId)
     {
+        //userID is currently set to being user SUB.
         var blobContainer = _client.GetBlobContainerClient(containerName);
         var blobs = blobContainer.GetBlobs(BlobTraits.Metadata);
         
