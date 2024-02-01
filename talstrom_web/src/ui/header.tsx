@@ -13,7 +13,7 @@ export default function Header() {
   useEffect(() => {
     const fetchJwt = async () => {
       if (session) {
-        const response = await fetch("https://tal-strom.vercel.app/api/endpoints/jwt");
+        const response = await fetch("http://localhost:3000/api/endpoints/jwt");
         const data = await response.json();
         setJwtData(data);
       }

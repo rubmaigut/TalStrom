@@ -32,17 +32,17 @@ const SuccessLogin: NextPage<LoginProps> = ({ user, jwt }) => {
   };
 
   useEffect(() => {
-    if (isAdmin) {
-      router.push('/admin');
-    } else {
-      addUserHandler(user, jwt).then(() => {
-        setLoading(false);
-      }).catch((error) => {
-        console.error("Failed to add user", error);
-        setLoading(false);
-      });
+    if (router.isReady) {
+      if (isAdmin) {
+        router.push('/admin');
+      } else {
+        addUserHandler(user, jwt).then(() => setLoading(false)).catch((error) => {
+          console.error("Failed to add user", error);
+          setLoading(false);
+        });
+      }
     }
-  }, [isAdmin, router, user, jwt]);
+  }, [router, isAdmin, user, jwt]);
 
   if (loading && !isAdmin) {
     return <p>Loading... 🔄</p>;
