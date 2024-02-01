@@ -1,5 +1,6 @@
 
 using System.Text.Json.Serialization;
+using Azure.Storage.Blobs;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +16,10 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 
 var ccDbString = builder.Configuration["ConnectionStrings:TALSTROM_CONNECTIONSTRING"];
-var azureBlobConnectionString = builder.Configuration["ConnectionStrings:AzureBlobStorage"];
+var azureBlobSecret = builder.Configuration["ConnectionStrings:AzureBlobStorage"];
+string azureBlobConnectionString = builder.Configuration.GetConnectionString("AzureBlobStorage"); 
+
+builder.Services.AddScoped<BlobServiceClient>(x => new BlobServiceClient(azureBlobConnectionString));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
