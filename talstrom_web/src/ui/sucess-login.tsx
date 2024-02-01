@@ -43,7 +43,9 @@ const SuccessLogin: NextPage<LoginProps> =({user, jwt})=>{
 
     return (
         <div>
-            <h2>Congrats {user.name} your role will be assigned soon</h2>
+            <p className="text-gray-800">
+            <strong>Now you are a user! 🎊 </strong>
+            your role will be assigned soon {user.name}</p>
         </div>
     )
 }
