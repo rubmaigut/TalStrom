@@ -1,6 +1,7 @@
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
+using TalStromApi.DTO;
 using TalStromApi.Models;
 
 namespace AzureFullstackPractice.Data;
@@ -21,7 +22,7 @@ public class BlobStorageService
 
     var videos = blobs.Select(blob => new Video(blob.Name, blob.Properties.ContentLength,
       blob.Properties.ContentType,
-      blob.Properties.ContentHash)).ToList();
+      blob.Properties.ContentHash, blob.Metadata["userId"])).ToList();
 
     return Task.FromResult(videos);
   }
