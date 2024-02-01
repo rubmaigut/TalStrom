@@ -121,11 +121,11 @@ namespace TalStromApi.Controllers
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteUser(int id)
+    public async Task<IActionResult> DeleteUser(string sub)
     {
       try
       {
-        var user = await _context.User.FindAsync(id);
+        var user = await _context.User.FirstOrDefaultAsync(x=> x.Sub == sub);
         if (user == null)
         {
           return NotFound();
