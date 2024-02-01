@@ -27,6 +27,7 @@ namespace TalStromApi.Controllers
       {
         return await _context.User
           .Include(ctx => ctx.Posts)
+          .Include(ctx => ctx.Videos)
           .ToListAsync();
       }
       catch (Exception ex)
@@ -41,7 +42,7 @@ namespace TalStromApi.Controllers
     {
       try
       {
-        var user = await _context.User.FirstOrDefaultAsync(x=> x.Sub == sub);;
+        var user = await _context.User.FirstOrDefaultAsync(x=> x.Sub == sub);
         
        return user is null ? NotFound() :  Ok(user);
       }
