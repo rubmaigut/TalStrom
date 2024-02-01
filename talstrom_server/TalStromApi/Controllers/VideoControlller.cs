@@ -17,13 +17,14 @@ public class VideoController : ControllerBase
     }
 
     [HttpPost("upload")]
-    public async Task<IActionResult> Upload([FromForm] IFormFile file, string fileName, string userSub)
+    public async Task<IActionResult> Upload([FromForm] IFormFile file, string userSub)
     {
         if (file == null || file.Length == 0)
         {
             return BadRequest("No file uploaded.");
         }
 
+        var fileName = Guid.NewGuid();
         using (var stream = System.IO.File.Create($"{fileName}.mp4"))
         {
             await file.CopyToAsync(stream);
