@@ -34,12 +34,12 @@ public class VideoController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<List<Video>>> GetVideosByUser(string sub)
+    public async Task<ActionResult<List<Video>>> GetVideosByUser(string id)
     {
         try
         {
             //var videos = await _client.GetVideosById("movies", id);
-            var user = await _context.User.FirstOrDefaultAsync(x=> x.Sub == sub);
+            var user = await _context.User.Include(ctx=> ctx.Videos).FirstOrDefaultAsync(x=> x.Sub == id);
             return Ok(user.Videos);
         }
         catch (Exception e)
