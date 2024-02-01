@@ -15,6 +15,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 
 var ccDbString = builder.Configuration["ConnectionStrings:TALSTROM_CONNECTIONSTRING"];
+var azureBlobConnectionString = builder.Configuration["ConnectionStrings:AzureBlobStorage"];
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
