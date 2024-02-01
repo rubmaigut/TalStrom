@@ -1,4 +1,4 @@
-interface User {
+export interface User {
     id: number;
     name: string;
     email: string;
@@ -6,15 +6,11 @@ interface User {
     sub: string;
     role: string;
 }
-
-type UserProps = {
-  email: string
-  image: string
-  name : string
+export interface LoginProps {
+  user: User
 }
-interface LoginProps {
-  user: UserProps
-  jwt: {
-      sub: string
-  }
+export interface IUserContext {
+  user: User | null;
+  role: string | null;
+  updateUser: (user: User | null) => void;
 }
