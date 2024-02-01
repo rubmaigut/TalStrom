@@ -38,7 +38,7 @@ public class BlobStorageService
 
     var videos = blobs.Where(blob => blob.Metadata.Values.Contains(userId)).Select(blob => new Video(blob.Name,
       blob.Properties.ContentLength, blob.Properties.ContentType,
-      blob.Properties.ContentHash)).ToList();
+      blob.Properties.ContentHash, blob.Metadata["userId"])).ToList();
 
     return Task.FromResult(videos);
   }
