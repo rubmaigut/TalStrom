@@ -5,15 +5,15 @@ namespace TalStromApi.Models;
 
 public class Video
 {
+  public int Id { get; set; }
   public string Title { get; set; }
   public long? Duration { get; set; }
-  public Tuple<int, int> Resolution { get; set; }
   public string FileFormat { get; set; }
   public byte[] ByteData { get; set; }
-  public string UserId { get; set; }
+  public int UserId { get; set; }
 
   public Video(string title, long? duration, string fileFormat,
-    byte[] byteData, string userId)
+    byte[] byteData, int userId)
 
   {
     Title = title;
