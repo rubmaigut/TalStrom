@@ -21,16 +21,15 @@ export default function Page() {
     loadPendingUsers();
   }, []);
 
-  const handleChangeRole = async (userSub: string, role: string) => {
+  const handleChangeRole = async (userSub: string, newRole: string) => {
     try {
-      await updateUserRole(userSub, role);
+      await updateUserRole(userSub, newRole);
       const users = await fetchUsersByRole("pending");
       setPendingUsers(users);
     } catch (error) {
       console.error("Failed to update user role:", error);
     }
   };
-
 
   return (
     <>
@@ -42,7 +41,7 @@ export default function Page() {
         <Layout>
           <div className="flex flex-col gap-6 rounded-lg bg-gray-50 px-6 py-10 md:w-full h-full md:px-20 md:my-0 my-4 ">
           <p>Hi<strong> {session.user?.name}</strong> Welcome to Admin Portal</p>
-          {pendingUsers.map((user) => (
+          {pendingUsers.length ? (pendingUsers.map((user) => (
             <div key={user.id} className="flex justify-between items-center">
               <div>{user.name}</div>
               <select
@@ -54,7 +53,9 @@ export default function Page() {
                 <option value="developer">Developer</option>
               </select>
             </div>
-          ))}
+          ))) : (
+            <div>No pending users</div>
+          )}
           </div>
         </Layout>
       )}

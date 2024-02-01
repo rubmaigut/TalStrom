@@ -15,7 +15,7 @@ export const updateUserRole = async (userSub: string, newRole: string) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ role: newRole }),
+      body: JSON.stringify({ newRole }),
     });
     if (!response.ok) {
       throw new Error('Failed to update user role');
