@@ -1,6 +1,8 @@
 
 using System.Text.Json.Serialization;
 using Azure.Storage.Blobs;
+using AzureFullstackPractice.Data;
+using AzureFullstackPractice.Services;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,13 +22,14 @@ var azureBlobSecret = builder.Configuration["ConnectionStrings:AzureBlobStorage"
 string azureBlobConnectionString = builder.Configuration.GetConnectionString("AzureBlobStorage"); 
 
 builder.Services.AddScoped<BlobServiceClient>(x => new BlobServiceClient(azureBlobConnectionString));
+builder.Services.AddScoped<BlobStorageService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "TalStrom", Version = "v1" });
-       // c.OperationFilter<FormFileOperationFilter>();
+    c.OperationFilter<FormFileOperationFilter>();
 });
 
     var app = builder.Build();
