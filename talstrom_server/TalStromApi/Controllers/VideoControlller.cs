@@ -24,13 +24,14 @@ public class VideoController : ControllerBase
             return BadRequest("No file uploaded.");
         }
 
-        using (var stream = System.IO.File.Create(fileName))
+        using (var stream = System.IO.File.Create($"{fileName}.mp4"))
         {
             await file.CopyToAsync(stream);
         }
 
         //Be specific about file format for now.
         await _client.UploadFileAsync("movies", $"{fileName}.mp4", userSub);
+        System.IO.File.Delete($"{fileName}.mp4");
         return Ok("File uploaded successfully.");
     }
 }
