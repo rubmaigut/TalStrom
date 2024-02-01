@@ -1,46 +1,21 @@
-import { PowerIcon} from "@heroicons/react/24/outline";;
+import { addUserHandler } from "@/lib/data";
+import { LoginProps, User } from "@/types/IUser";
+import { PowerIcon } from "@heroicons/react/24/outline";
 import { NextPage } from "next";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const SuccessLogin: NextPage<LoginProps> = ({ user, jwt }) => {
-  const [loading, setLoading] = useState(true); 
+const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
+  const [loading, setLoading] = useState(true);
 
   const adminEmail = "maidelin.rubio@appliedtechnology.se";
   const isAdmin = user?.email === adminEmail;
 
-  const addUserHandler = async (user: UserProps, jwt: { sub: string }) => {
-    try {
-      const response = await fetch("http://localhost:5000/api/Users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: user.name,
-          email: user.email,
-          picture: user.image,
-          sub: jwt.sub,
-        }),
-      });
-
-      if (response.ok) {
-        console.log("User created");
-      }
-    } catch (error) {
-      console.error("Error during fetch", error);
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    addUserHandler(user, jwt)
-      .then(() => setLoading(false))
-      .catch((error) => {
-        console.error("Failed to add user", error);
-        setLoading(false);
-      });
-  }, [isAdmin, user, jwt]);
+    setLoading(true);
+    addUserHandler(user).finally(() => setLoading(false));
+  }, []);
 
   if (loading && !isAdmin) {
     return <p>Loading... 🔄</p>;

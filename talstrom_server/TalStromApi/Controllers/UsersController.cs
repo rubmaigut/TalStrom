@@ -64,15 +64,15 @@ namespace TalStromApi.Controllers
     }
 
     [HttpPatch("{sub}/role")]
-    public async Task<IActionResult> UpdateUserRole(string sub, [FromBody] string newRole)
+    public async Task<IActionResult> UpdateUserRole(string sub, [FromBody] RoleUpdateDTO dto)
     {
       var user = await _context.User.FirstOrDefaultAsync(x=> x.Sub == sub);
 
       if (user is null) return NotFound();
 
-      user.Role = newRole;
+      user.Role = dto.NewRole ;
       await _context.SaveChangesAsync();
-      return NoContent();
+      return Ok(user);
     }
 
     [HttpPost]
