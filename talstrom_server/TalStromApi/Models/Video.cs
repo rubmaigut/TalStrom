@@ -10,15 +10,17 @@ public class Video
   public Tuple<int, int> Resolution { get; set; }
   public string FileFormat { get; set; }
   public byte[] ByteData { get; set; }
+  public string UserId { get; set; }
 
   public Video(string title, long? duration, string fileFormat,
-    byte[] byteData)
+    byte[] byteData, string userId)
 
   {
     Title = title;
     Duration = duration;
     FileFormat = fileFormat;
     ByteData = byteData;
+    UserId = userId;
   }
 
   public void Play()

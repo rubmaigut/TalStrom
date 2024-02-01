@@ -5,127 +5,141 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TalStromApi.DTO;
 using TalStromApi.Models;
 
 namespace TalStromApi.Controllers
 {
-  [ApiController]
-  [Route("api/[controller]")]
-  public class PostsController : ControllerBase
-  {
-    private readonly TalStromDbContext _context;
-
-    public PostsController(TalStromDbContext context)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class PostsController : ControllerBase
     {
-      _context = context;
-    }
+        private readonly TalStromDbContext _context;
 
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Posts>>> GetPosts()
-    {
-      try
-      {
-        return await _context.Posts.ToListAsync();
-      }
-      catch (Exception ex)
-      {
-        // Log the exception for troubleshooting
-        Console.WriteLine($"Error in GetPosts: {ex}");
-        return StatusCode(500, "Internal Server Error");
-      }
-    }
-
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Posts>> GetPosts(int id)
-    {
-      try
-      {
-        var posts = await _context.Posts.FindAsync(id);
-
-        if (posts == null)
+        public PostsController(TalStromDbContext context)
         {
-          return NotFound();
+            _context = context;
         }
 
-        return posts;
-      }
-      catch (Exception ex)
-      {
-        Console.WriteLine($"Error in GetPosts(id): {ex}");
-        return StatusCode(500, "Internal Server Error");
-      }
-    }
-
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutPosts(int id, Posts posts)
-    {
-      if (id != posts.Id)
-      {
-        return BadRequest("Invalid request");
-      }
-
-      try
-      {
-        _context.Entry(posts).State = EntityState.Modified;
-        await _context.SaveChangesAsync();
-        return NoContent();
-      }
-      catch (DbUpdateConcurrencyException ex)
-      {
-        // Handle concurrency exception
-        Console.WriteLine($"Concurrency error in PutPosts: {ex}");
-        return Conflict("Concurrency Error");
-      }
-      catch (Exception ex)
-      {
-        Console.WriteLine($"Error in PutPosts: {ex}");
-        return StatusCode(500, "Internal Server Error");
-      }
-    }
-
-    [HttpPost]
-    public async Task<ActionResult<Posts>> PostPosts(Posts posts)
-    {
-      try
-      {
-        _context.Posts.Add(posts);
-        await _context.SaveChangesAsync();
-
-        return CreatedAtAction("GetPosts", new { id = posts.Id }, posts);
-      }
-      catch (Exception ex)
-      {
-        Console.WriteLine($"Error in PostPosts: {ex}");
-        return StatusCode(500, "Internal Server Error");
-      }
-    }
-
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeletePosts(int id)
-    {
-      try
-      {
-        var posts = await _context.Posts.FindAsync(id);
-        if (posts == null)
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Posts>>> GetPosts()
         {
-          return NotFound();
+            try
+            {
+                return await _context.Posts.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception for troubleshooting
+                Console.WriteLine($"Error in GetPosts: {ex}");
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
-        _context.Posts.Remove(posts);
-        await _context.SaveChangesAsync();
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Posts>> GetPosts(int id)
+        {
+            try
+            {
+                var posts = await _context.Posts.FindAsync(id);
 
-        return NoContent();
-      }
-      catch (Exception ex)
-      {
-        Console.WriteLine($"Error in DeletePosts: {ex}");
-        return StatusCode(500, "Internal Server Error");
-      }
-    }
+                if (posts == null)
+                {
+                    return NotFound();
+                }
 
-    private bool PostsExists(int id)
-    {
-      return _context.Posts.Any(e => e.Id == id);
+                return posts;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetPosts(id): {ex}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutPosts(int id, Posts posts)
+        {
+            if (id != posts.Id)
+            {
+                return BadRequest("Invalid request");
+            }
+
+            try
+            {
+                _context.Entry(posts).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return NoContent();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                // Handle concurrency exception
+                Console.WriteLine($"Concurrency error in PutPosts: {ex}");
+                return Conflict("Concurrency Error");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in PutPosts: {ex}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Posts>> PostPosts(PostsRequestDTO postRequest)
+        {
+            try
+            {
+                
+                var user = _context.User.FirstOrDefault(u => u.Sub == postRequest.UserSub);
+                if (user != null)
+                {
+                    
+                }
+                _context.Posts.Add(new Posts()
+                {
+                    PostType = postRequest.PostType,
+                    Author = user!.Name,
+                    Title = postRequest.Title,
+                    Content = postRequest.Content,
+                    UserId = user.Id
+                });
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction("GetPosts", new { id = postRequest.Id }, postRequest);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in PostPosts: {ex}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePosts(int id)
+        {
+            try
+            {
+                var posts = await _context.Posts.FindAsync(id);
+                if (posts == null)
+                {
+                    return NotFound();
+                }
+
+                _context.Posts.Remove(posts);
+                await _context.SaveChangesAsync();
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in DeletePosts: {ex}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        private bool PostsExists(int id)
+        {
+            return _context.Posts.Any(e => e.Id == id);
+        }
     }
-  }
 }
