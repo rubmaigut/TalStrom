@@ -123,6 +123,11 @@ namespace TalStromApi.Controllers
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteUser(string sub)
     {
+      if (!UserExists(sub))
+      {
+        return BadRequest();
+      }
+      
       try
       {
         var user = await _context.User.FirstOrDefaultAsync(x=> x.Sub == sub);
