@@ -2,7 +2,7 @@ import { User } from "@/types/IUser";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-export async function addUserHandler(user: User) {
+export async function addUserHandler(user: User) : Promise<User> {
   const url = `${API_BASE_URL}/Users`;
   const response = await fetch(url, {
     cache: "no-store",
@@ -15,8 +15,17 @@ export async function addUserHandler(user: User) {
       sub: user.sub,
     })
   });
-  if (!response.ok) throw new Error("data.tsx : Failed to Create user")
-  return await response.json
+  if (!response.ok) throw new Error("addUserHandler: Failed to Create user")
+  return await response.json();
+}
+
+export async function fetchUsersBySub(sub: string) {
+  const url = `${API_BASE_URL}/Users/${sub}`;
+  const response = await fetch(url, {
+    cache: "no-store"
+  });
+  if (!response.ok) throw new Error("fetchUsersByRole: Failed to fetch users");
+  return await response.json();
 }
 
 export async function fetchUsersByRole(role: string) {
@@ -24,7 +33,7 @@ export async function fetchUsersByRole(role: string) {
   const response = await fetch(url, {
     cache: "no-store"
   });
-  if (!response.ok) throw new Error("Failed to fetch users");
+  if (!response.ok) throw new Error("fetchUsersByRole: Failed to fetch users");
   return await response.json();
 }
 
@@ -36,7 +45,7 @@ export async function updateUserRole(sub: string, role: string) {
     headers: { "Content-Type": "application/json" },
     //body: JSON.stringify({ role }),
   });
-  if (!response.ok) throw new Error("Failed to update user role");
+  if (!response.ok) throw new Error("updateUserRole:Failed to update user role");
   return await response.json();
 }
 
@@ -45,7 +54,7 @@ export async function deleteUser(sub:string) {
       method: 'DELETE'
   })
   if (!response.ok) {
-      throw new Error('It could not delete the developer')
+      throw new Error('deleteUser:It could not delete the developer')
   }
   return response.json()
 }
