@@ -3,7 +3,7 @@ import Image from "next/image";
 import MockLogo from "@/ui/mock-logo";
 import { signIn, useSession } from "next-auth/react";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
-import SuccessLogin from "./sucess-login";
+import SuccessLogin from "./success-login";
 import { useEffect } from "react";
 import { useUser } from "@/context/UserContext";
 
