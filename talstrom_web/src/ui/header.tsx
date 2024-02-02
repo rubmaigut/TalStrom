@@ -58,6 +58,7 @@ export default function Header() {
                 <Image
                   src={`${session.user?.image}`}
                   alt={`Photo profile${session.user?.name}`}
+                  className="rounded-full"
                   width={80}
                   height={80}
                   priority
