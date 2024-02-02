@@ -28,13 +28,13 @@ export async function fetchUsersByRole(role: string) {
   return await response.json();
 }
 
-export async function updateUserRole(sub: string, newRole: string) {
-  const url = `${API_BASE_URL}/Users/${sub}/role`;
+export async function updateUserRole(sub: string, role: string) {
+  const url = `${API_BASE_URL}/Users/${sub}/${role}`;
   const response = await fetch(url, {
     cache: "no-store",
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ NewRole : newRole }),
+    //body: JSON.stringify({ role }),
   });
   if (!response.ok) throw new Error("Failed to update user role");
   return await response.json();

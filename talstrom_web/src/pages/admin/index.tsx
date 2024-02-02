@@ -23,9 +23,9 @@ export default function Page() {
     loadPendingUsers();
   }, []);
 
-  const handleChangeRole = async (userSub: string, newRole: string) => {
+  const handleChangeRole = async (userSub: string, role: string) => {
     try {
-      await updateUserRole(userSub, newRole);
+      await updateUserRole(userSub, role);
       const users = await fetchUsersByRole("pending");
       setPendingUsers(users);
     } catch (error) {
