@@ -8,8 +8,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="12f47ec1-3102-4071-8cfe-c2cd11054e3f" name="Changes" comment="frontend update ui admin portal2">
+    <list default="true" id="12f47ec1-3102-4071-8cfe-c2cd11054e3f" name="Changes" comment="Logic to send userEmail">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TalStrom/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TalStrom/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TalStromApi/Migrations/TalStromDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TalStromApi/Migrations/TalStromDbContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TalStromApi/Models/Admin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TalStromApi/Models/Admin.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TalStromApi/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TalStromApi/Models/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TalStromApi/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TalStromApi/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TalStromApi/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/TalStromApi/Properties/launchSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TalStromApi/TalStromApi.http" beforeDir="false" afterPath="$PROJECT_DIR$/TalStromApi/TalStromApi.http" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,9 +40,9 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStromApi/Controllers/UsersController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStromApi/Controllers/UsersController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../talstrom_web/package-lock.json" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStromApi/Models/Admin.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStromApi/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/maide/Desktop/salt/TalStrom/talstrom_server/TalStromApi/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d77301864b1c48788552d75cfe890bb38e200/ae/c051a706/IEmailSender.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiProvider">{
@@ -56,29 +62,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "routing-by-role-day-5",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/Users/maide/Applications/Rider.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev-day-2&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "azure"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;azure&quot;
     ],
-    "rider.external.source.directories": [
-      "/Users/maide/Library/Application Support/JetBrains/Rider2023.3/resharper-host/DecompilerCache",
-      "/Users/maide/Library/Application Support/JetBrains/Rider2023.3/resharper-host/SourcesCache",
-      "/Users/maide/.local/share/Symbols/src"
+    &quot;rider.external.source.directories&quot;: [
+      &quot;/Users/maide/Library/Application Support/JetBrains/Rider2023.3/resharper-host/DecompilerCache&quot;,
+      &quot;/Users/maide/Library/Application Support/JetBrains/Rider2023.3/resharper-host/SourcesCache&quot;,
+      &quot;/Users/maide/.local/share/Symbols/src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Build" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="$PROJECT_DIR$/TalStromApi/bin/Debug/net8.0/TalStromApi.dll" />
@@ -170,23 +175,7 @@
       <option name="project" value="LOCAL" />
       <updated>1706650255585</updated>
     </task>
-    <task id="LOCAL-00008" summary="frontend update ui admin portal">
-      <option name="closed" value="true" />
-      <created>1706906216605</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1706906216605</updated>
-    </task>
-    <task id="LOCAL-00009" summary="frontend update ui admin portal2">
-      <option name="closed" value="true" />
-      <created>1706906235886</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1706906235886</updated>
-    </task>
-    <option name="localTasksCounter" value="10" />
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,8 +190,6 @@
     <MESSAGE value="delete testController" />
     <MESSAGE value="small change" />
     <MESSAGE value="Logic to send userEmail" />
-    <MESSAGE value="frontend update ui admin portal" />
-    <MESSAGE value="frontend update ui admin portal2" />
-    <option name="LAST_COMMIT_MESSAGE" value="frontend update ui admin portal2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Logic to send userEmail" />
   </component>
 </project>
