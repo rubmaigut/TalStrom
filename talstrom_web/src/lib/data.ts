@@ -5,6 +5,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 export async function addUserHandler(user: User) {
   const url = `${API_BASE_URL}/Users`;
   const response = await fetch(url, {
+    cache: "no-store",
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -20,7 +21,9 @@ export async function addUserHandler(user: User) {
 
 export async function fetchUsersByRole(role: string) {
   const url = `${API_BASE_URL}/Users/role?role=${role}`;
-  const response = await fetch(url);
+  const response = await fetch(url, {
+    cache: "no-store"
+  });
   if (!response.ok) throw new Error("Failed to fetch users");
   return await response.json();
 }
@@ -28,6 +31,7 @@ export async function fetchUsersByRole(role: string) {
 export async function updateUserRole(sub: string, newRole: string) {
   const url = `${API_BASE_URL}/Users/${sub}/role`;
   const response = await fetch(url, {
+    cache: "no-store",
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ NewRole : newRole }),
