@@ -20,7 +20,7 @@ export async function addUserHandler(user: User) {
 }
 
 export async function fetchUsersByRole(role: string) {
-  const url = `${API_BASE_URL}/Users/role?role=${role}`;
+  const url = `${API_BASE_URL}/Users/role/${role}`;
   const response = await fetch(url, {
     cache: "no-store"
   });
