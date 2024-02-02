@@ -57,10 +57,13 @@ public class BlobStorageService
         var blobs = blobContainer.GetBlobs(BlobTraits.Metadata);
 
         var video = blobs.FirstOrDefault(blob => blob.Name == filePath);
+        var filePathsplit = filePath.Split('.');
+        var fileName = filePathsplit.First();
+        var fileformat = $".{filePathsplit.First()}";
 
 
-        return await Task.FromResult(new VideoBlobResponseDTO(video.Name,
-            video.Properties.ContentLength, video.Properties.ContentType,
+        return await Task.FromResult(new VideoBlobResponseDTO(fileName,
+            video.Properties.ContentLength, fileformat,
             video.Properties.ContentHash));
     }
 
