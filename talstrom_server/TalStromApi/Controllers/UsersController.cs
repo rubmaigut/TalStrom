@@ -53,7 +53,7 @@ namespace TalStromApi.Controllers
       }
     }
     
-    [HttpGet("role")]
+    [HttpGet("role/{role}")]
     public async Task<IActionResult> GetUsersByRole(string role)
     {
       var users = await _context.User
