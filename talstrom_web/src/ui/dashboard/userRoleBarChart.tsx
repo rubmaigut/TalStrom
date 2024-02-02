@@ -37,11 +37,6 @@ const UserRoleBarChart: React.FC<UserRoleBarChartProps> = ({ data }) => {
     return acc;
   }, {} as Record<string, number>);
 
-  // Generating dynamic title text
-  const titleText = `Users by Role - ${Object.entries(roleCounts)
-    .map(([role, count]) => `${count} ${role}`)
-    .join(" | ")}`;
-
   const options = {
     scales: {
       y: {
@@ -53,12 +48,7 @@ const UserRoleBarChart: React.FC<UserRoleBarChartProps> = ({ data }) => {
     },
     plugins: {
       legend: {
-        position: "top" as const,
-      },
-      title: {
-        display: true,
-        text: titleText,
-        position: "bottom" as "bottom",
+        position: "right" as const,
       },
     },
   };
