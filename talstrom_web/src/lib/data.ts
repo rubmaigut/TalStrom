@@ -19,6 +19,17 @@ export async function addUserHandler(user: User) : Promise<User> {
   return await response.json();
 }
 
+export async function fetchUsers() {
+  const url = `${API_BASE_URL}/Users`;
+  const response = await fetch(url, {
+    next: {
+      revalidate: 2
+    }
+  });
+  if (!response.ok) throw new Error("fetchUsersByRole: Failed to fetch users");
+  return await response.json();
+}
+
 export async function fetchUsersBySub(sub: string) {
   const url = `${API_BASE_URL}/Users/${sub}`;
   const response = await fetch(url, {

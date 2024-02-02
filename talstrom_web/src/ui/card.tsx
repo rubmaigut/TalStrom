@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export function Card({ user }: LoginProps) {
   return (
-    <div className="flex justify-center space-x-2 md:space-x-4 md:w-3/5">
+    <div className="flex justify-center space-x-2 md:space-x-4 md:w-3/5 pb-4">
       <div className="flex-shrink-0">
         <Image
           src={`${user?.picture}`}

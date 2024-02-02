@@ -5,7 +5,7 @@ export interface User {
     email: string;
     picture: string;
     sub: string;
-    role?: string;
+    role: Role;
 }
 export interface LoginProps {
   user: User
