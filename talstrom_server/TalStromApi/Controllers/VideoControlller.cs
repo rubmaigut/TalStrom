@@ -2,6 +2,7 @@ using AzureFullstackPractice.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TalStromApi.Models;
+using System.IO;
 
 namespace TalStromApi.Controllers;
 
