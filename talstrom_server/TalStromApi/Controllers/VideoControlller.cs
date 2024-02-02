@@ -24,7 +24,7 @@ public class VideoController : ControllerBase
         try
         {
             // var videos = await _client.GetAllVideos("movies");
-            var videos = await  _context.Videos.ToListAsync();
+            var videos = await _context.Videos.ToListAsync();
             return Ok(videos);
         }
         catch (Exception e)
@@ -39,7 +39,7 @@ public class VideoController : ControllerBase
         try
         {
             //var videos = await _client.GetVideosById("movies", id);
-            var user = await _context.User.Include(ctx=> ctx.Videos).FirstOrDefaultAsync(x=> x.Sub == id);
+            var user = await _context.User.Include(ctx => ctx.Videos).FirstOrDefaultAsync(x => x.Sub == id);
             return Ok(user.Videos);
         }
         catch (Exception e)
@@ -81,7 +81,14 @@ public class VideoController : ControllerBase
             return BadRequest("File not found.");
         }
 
-        await _client.DeleteFileAsync("movies", videoName);
-        return Ok("File deleted.");
+        var videoToDelete = _context.Videos.FirstOrDefault(v => v.Title == videoName);
+        if (videoToDelete != null)
+        {
+            await _client.DeleteFileAsync("movies", videoName);
+            _context.Videos.Remove(videoToDelete);
+            return Ok("File deleted.");
+        }
+
+        return NotFound();
     }
 }
