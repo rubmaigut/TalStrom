@@ -5,6 +5,7 @@ import { PowerIcon } from "@heroicons/react/24/outline";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import GreetingModal from "./greetings";
 
 interface Props {
   displayRole: string
@@ -19,6 +20,7 @@ const LoginMessage: React.FC<Props> = ({displayRole}) => {
         {displayRole === "pending" && (
           <div>
             <p className="text-gray-800">
+              <GreetingModal/>
               <strong>Now you are a user! 🎊 </strong>
               Your role will be assigned soon, {userContextG?.name}.
             </p>
@@ -37,6 +39,7 @@ const LoginMessage: React.FC<Props> = ({displayRole}) => {
         )}
         {displayRole === "admin" && (
           <div key={userContextG?.id} className="flex flex-col justify-center items-center">
+            <GreetingModal/>
             <h2> Welcome Admin </h2>
             <dd className="mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2 flex gap-2 ">
               your last connection was : Date / Time
@@ -62,6 +65,7 @@ const LoginMessage: React.FC<Props> = ({displayRole}) => {
         )}
          {displayRole !== "admin" && displayRole !== "pending" && (
           <div className="flex flex-col justify-center items-center">
+            <GreetingModal/>
           <h2> Welcome {displayRole} </h2>
           <dd className="mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2 flex gap-2 ">
             your last connection was : Date / Time
