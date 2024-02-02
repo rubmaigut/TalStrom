@@ -1,10 +1,11 @@
-import Layout from '@/ui/layout';
 import SignIn from '@/ui/sign-in';
 import { useSession } from 'next-auth/react';
+import CustomerProfilePage from './customerProfilePage';
 
 export default function Page() {
   const { data: session } = useSession();
 
+  console.log();
   return (
     <>
       {!session ? (
@@ -12,9 +13,10 @@ export default function Page() {
           <SignIn />
         </section>
       ) : (
-        <Layout>
+        <>
+          <CustomerProfilePage />
           <p>Customer Profile</p>
-        </Layout>
+        </>
       )}
     </>
   );
