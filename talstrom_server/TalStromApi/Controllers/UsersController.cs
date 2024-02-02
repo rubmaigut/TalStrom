@@ -63,14 +63,14 @@ namespace TalStromApi.Controllers
       return users is not null ? Ok(users) : NotFound("$User Not Found with {role}");
     }
 
-    [HttpPatch("{sub}/role")]
-    public async Task<IActionResult> UpdateUserRole(string sub, [FromBody] RoleUpdateDTO dto)
+    [HttpPatch("{sub}/{role}")]
+    public async Task<IActionResult> UpdateUserRole(string sub, string role)
     {
       var user = await _context.User.FirstOrDefaultAsync(x=> x.Sub == sub);
 
       if (user is null) return NotFound();
 
-      user.Role = dto.NewRole ;
+      user.Role = role ;
       await _context.SaveChangesAsync();
       return Ok(user);
     }
