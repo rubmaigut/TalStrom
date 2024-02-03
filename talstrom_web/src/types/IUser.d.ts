@@ -1,8 +1,4 @@
 export interface User {
-    phoneNumber: string;
-    followers: any;
-    posts: any;
-    dateAdded: ReactNode;
     id: number;
     name: string;
     email: string;
