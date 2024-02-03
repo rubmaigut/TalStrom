@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 export interface UserCardForUser {
   phoneNumber: string;
   followers: any;
-  posts: any;
+  posts: Post[];
   dateAdded: ReactNode;
   id: number;
   name: string;
@@ -11,4 +11,5 @@ export interface UserCardForUser {
   picture: string;
   sub: string;
   role: string;
+  videos: Video[];
 }
