@@ -9,28 +9,35 @@ const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
   const [loading, setLoading] = useState(true);
   const { updateUser, role } = useUser();
 
-  console.log("updateUser", {updateUser})
-  console.log("successRole", role)
-
   useEffect(() => {
     async function setUserInfo() {
       setLoading(true);
       try {
         const userExist = await fetchUsersBySub(user.sub);
         if (userExist) {
-          console.log("UserExist", userExist)
+          console.log("UserExist", userExist);
           updateUser(userExist);
         } else {
-           const newUser = await addUserHandler(user);
-           updateUser(newUser)
+          const newUser = await addUserHandler(user);
+          updateUser(newUser);
         }
       } catch (error) {
-        console.error("Error Adding /updating user", error);
-      } finally{
-        setLoading(false)
+        if (error instanceof Error && 'status' in error) { 
+          const err = error as unknown as Response;
+          if (err.status === 404) {
+            const newUser = await addUserHandler(user);
+            updateUser(newUser);
+          } else {
+            console.error("Error Adding /updating user", error);
+          }
+        } else {
+          console.error("Unexpected error type", error);
+        }
+      } finally {
+        setLoading(false);
       }
     }
-    setUserInfo()
+    setUserInfo();
   }, []);
 
   if (loading && role !== "admin") {

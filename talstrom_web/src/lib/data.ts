@@ -35,7 +35,12 @@ export async function fetchUsersBySub(sub: string) {
   const response = await fetch(url, {
     cache: "no-store"
   });
-  if (!response.ok) throw new Error("fetchUsersByRole: Failed to fetch users");
+  if (!response.ok) {
+    if (response.status === 404) {
+      return null;
+    }
+    throw new Error("fetchUsersByRole: Failed to fetch users")
+  };
   return await response.json();
 }
 
