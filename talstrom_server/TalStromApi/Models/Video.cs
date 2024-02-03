@@ -10,7 +10,6 @@ public class Video
   public string FileFormat { get; set; }
   public string Uri { get; set; }
   public int UserId { get; set; }
-  public int DeletedUserId { get; set; }
 
   public Video(string title, string fileFormat,
     string uri, int userId)
