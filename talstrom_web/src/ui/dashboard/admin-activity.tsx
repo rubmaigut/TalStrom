@@ -7,7 +7,12 @@ import UserSummary from './users-summary';
 const AdminActivity: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-
+  
+  const roleCounts = users.reduce((acc, user) => {
+    acc[user.role] = (acc[user.role] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+  
   useEffect(() => {
     fetchUsers()
       .then((users) => {
@@ -18,16 +23,11 @@ const AdminActivity: React.FC = () => {
         console.error('Failed to fetch users:', error);
         setLoading(false);
       });
-  }, []);
+  }, [roleCounts]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
-
-  const roleCounts = users.reduce((acc, user) => {
-    acc[user.role] = (acc[user.role] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
 
   const highestId = users.reduce((max, user) => user.id > max ? user.id : max, 0)
   const totalUsers = users.length;
