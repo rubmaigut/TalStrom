@@ -1,7 +1,7 @@
 import SignIn from '@/ui/sign-in';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
-import { fetchUserById } from '@/lib/data';
+import { fetchUsersBySub } from '@/lib/data';
 import { UserCardForUser } from '@/types/IUserCardProps';
 import UserCard from '../../../ui/user-card';
 import NavLinks, { links } from '@/ui/customer/nav-links';
@@ -20,7 +20,7 @@ export default function UserProfilePage() {
       try {
         if (session) {
           const sub = session.user?.sub || '';
-          const userData = await fetchUserById(sub);
+          const userData = await fetchUsersBySub(sub);
           setUser(userData);
         }
       } catch (error) {

@@ -5,6 +5,9 @@ import { deleteUser, fetchUsersByRole, updateUserRole } from "@/lib/data";
 import { useEffect, useState } from "react";
 import { User } from "@/types/IUser";
 import { Card } from "@/ui/card";
+import Select from "@/ui/atoms/select";
+import GreetingModal from "@/ui/atoms/greetings";
+import AdminActivity from "@/ui/dashboard/admin-activity";
 
 export default function Page() {
   const { data: session } = useSession();
@@ -49,27 +52,36 @@ export default function Page() {
         </section>
       ) : (
         <Layout>
-          <div className="flex flex-col gap-6 rounded-lg bg-gray-50 px-6 py-10 md:w-full h-full md:px-20 md:my-0 my-4 ">
-          <p>Hi<strong> {session.user?.name}</strong> Welcome to Admin Portal</p>
-          {pendingUsers.length ? (pendingUsers.map((user) => (
-            <>
-            <Card user={user}/>
-              <select
-                onChange={(e) => handleChangeRole(user.sub, e.target.value)}
-              >
-                <option value="">Select Role</option>
-                <option value="customer">Customer</option>
-                <option value="admin">Admin</option>
-                <option value="developer">Developer</option>
-              </select>
-            </>
-          ))) : (
-            <div>No pending users</div>
-          )}
+          <div className="flex flex-col gap-6 rounded-lg bg-gray-50 px-6 py-8 md:w-full h-full md:px-12 md:my-0 my-4 ">
+            <div className="flex flex-col justify-between pb-6">
+              <div>
+                <GreetingModal />
+                <p className="pb-2">
+                  Hi<strong> {session.user?.name}</strong> Welcome back!
+                </p>
+              </div>
+            </div>
+            <h3 className="font-semibold leading-none text-gray-600">
+              Latest Users
+            </h3>
+            <div className="max-w-5xl md:min-h-64">
+            {pendingUsers.length ? (
+              pendingUsers.map((user) => (
+                <div key={user.id} className="md:flex md:justify-between  py-2 border-b">
+                  <Card user={user} />
+                  <Select
+                    onRoleChange={(role) => handleChangeRole(user.sub, role)}
+                  />
+                </div>
+              ))
+            ) : (
+              <div>No pending users</div>
+            )}
+            </div>
+            <AdminActivity/>
           </div>
         </Layout>
       )}
     </>
   );
 }
-

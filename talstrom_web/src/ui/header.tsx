@@ -3,26 +3,26 @@ import Image from "next/image";
 import MockLogo from "@/ui/mock-logo";
 import { signIn, useSession } from "next-auth/react";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
-import SuccessLogin from "./sucess-login";
-import { useEffect, useState } from "react";
+import SuccessLogin from "./success-login";
+import { useEffect } from "react";
 import { useUser } from "@/context/UserContext";
 
 export default function Header() {
   const { data: session } = useSession();
-  const { user, updateUser } = useUser();
+  const { userContextG, updateUser } = useUser();
 
   useEffect(() => {
-    if (session && (!user || session.user?.sub !== user.sub))  {
+    if (session && (!userContextG || session.user?.sub !== userContextG.sub))  {
       updateUser({
         id: session.user?.id || 0,
         name: session.user?.name || "",
         email: session.user?.email || "",
         picture: session.user?.image || "",
-        sub: session.user?.sub || "",
-        role: "pending", 
+        sub: session.user?.sub || "", 
+        role: "pending"
       });
     }
-  }, [session, user, updateUser]);
+  }, [session, userContextG, updateUser]);
 
   return (
     <header className="flex min-h-screen flex-col p-6">
@@ -58,6 +58,7 @@ export default function Header() {
                 <Image
                   src={`${session.user?.image}`}
                   alt={`Photo profile${session.user?.name}`}
+                  className="rounded-full"
                   width={80}
                   height={80}
                   priority
@@ -67,7 +68,7 @@ export default function Header() {
                 {session.user?.email || session.user?.name}
               </dd>
             </div>
-            {user && <SuccessLogin user={user} />}
+            {userContextG && <SuccessLogin user={userContextG} />}
           </div>
         </div>
       )}
