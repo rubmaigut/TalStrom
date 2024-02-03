@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-export interface UserCard {
+export interface UserCardForUser {
   phoneNumber: string;
   followers: any;
   posts: any;

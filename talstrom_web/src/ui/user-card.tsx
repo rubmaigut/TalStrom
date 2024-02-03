@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
-import { UserCard } from '@/types/IUserCardProps';
+import { UserCardForUser } from '@/types/IUserCardProps';
 import Image from 'next/image';
 
 interface UserCardProps {
-  user: UserCard;
+  user: UserCardForUser;
 }
 
 const formatDate = (dateString: string) => {
