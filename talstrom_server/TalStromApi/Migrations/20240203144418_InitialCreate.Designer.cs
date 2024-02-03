@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace TalStromApi.Migrations
 {
     [DbContext(typeof(TalStromDbContext))]
-    [Migration("20240201172054_InitialCreate")]
+    [Migration("20240203144418_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -24,7 +24,7 @@ namespace TalStromApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TalStromApi.Models.Posts", b =>
+            modelBuilder.Entity("TalStromApi.Models.DeletedUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,38 +32,8 @@ namespace TalStromApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PostType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Posts");
-                });
-
-            modelBuilder.Entity("TalStromApi.Models.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("datetime2");
@@ -71,6 +41,18 @@ namespace TalStromApi.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Followers")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Following")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastLoggedIn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -91,12 +73,103 @@ namespace TalStromApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<string>("Technologies")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DeletedUsers");
+                });
+
+            modelBuilder.Entity("TalStromApi.Models.Posts", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DeletedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PostType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DeletedUserId");
+
                     b.HasIndex("UserId");
+
+                    b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("TalStromApi.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Followers")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Following")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastLoggedIn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Picture")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sub")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("User");
                 });
@@ -109,12 +182,8 @@ namespace TalStromApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<byte[]>("ByteData")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<long?>("Duration")
-                        .HasColumnType("bigint");
+                    b.Property<int>("DeletedUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("FileFormat")
                         .IsRequired()
@@ -124,10 +193,16 @@ namespace TalStromApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<string>("Uri")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DeletedUserId");
 
                     b.HasIndex("UserId");
 
@@ -136,6 +211,12 @@ namespace TalStromApi.Migrations
 
             modelBuilder.Entity("TalStromApi.Models.Posts", b =>
                 {
+                    b.HasOne("TalStromApi.Models.DeletedUser", null)
+                        .WithMany("Posts")
+                        .HasForeignKey("DeletedUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TalStromApi.Models.User", null)
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
@@ -143,24 +224,30 @@ namespace TalStromApi.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TalStromApi.Models.User", b =>
-                {
-                    b.HasOne("TalStromApi.Models.User", null)
-                        .WithMany("Followers")
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("TalStromApi.Models.Video", b =>
                 {
+                    b.HasOne("TalStromApi.Models.DeletedUser", null)
+                        .WithMany("Videos")
+                        .HasForeignKey("DeletedUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TalStromApi.Models.User", null)
                         .WithMany("Videos")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TalStromApi.Models.DeletedUser", b =>
+                {
+                    b.Navigation("Posts");
+
+                    b.Navigation("Videos");
                 });
 
             modelBuilder.Entity("TalStromApi.Models.User", b =>
                 {
-                    b.Navigation("Followers");
-
                     b.Navigation("Posts");
 
                     b.Navigation("Videos");

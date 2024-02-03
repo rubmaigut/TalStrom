@@ -2,6 +2,7 @@ using AzureFullstackPractice.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TalStromApi.Models;
+using System.IO;
 
 namespace TalStromApi.Controllers;
 
@@ -24,7 +25,7 @@ public class VideoController : ControllerBase
         try
         {
             // var videos = await _client.GetAllVideos("movies");
-            var videos = await  _context.Videos.ToListAsync();
+            var videos = await _context.Videos.ToListAsync();
             return Ok(videos);
         }
         catch (Exception e)
@@ -39,7 +40,7 @@ public class VideoController : ControllerBase
         try
         {
             //var videos = await _client.GetVideosById("movies", id);
-            var user = await _context.User.Include(ctx=> ctx.Videos).FirstOrDefaultAsync(x=> x.Sub == id);
+            var user = await _context.User.Include(ctx => ctx.Videos).FirstOrDefaultAsync(x => x.Sub == id);
             return Ok(user.Videos);
         }
         catch (Exception e)
@@ -65,7 +66,7 @@ public class VideoController : ControllerBase
         //Be specific about file format for now.
         var videoData = await _client.UploadFileAsync("movies", $"{fileName}.mp4", userSub);
         var user = _context.User.FirstOrDefault(u => u.Sub == userSub);
-        var video = new Video(videoData.Title, videoData.Duration, videoData.FileFormat, videoData.ByteData, user.Id);
+        var video = new Video(videoData.Title, videoData.FileFormat, videoData.Uri, user.Id);
         _context.Videos.Add(video);
         await _context.SaveChangesAsync();
 
@@ -81,7 +82,14 @@ public class VideoController : ControllerBase
             return BadRequest("File not found.");
         }
 
-        await _client.DeleteFileAsync("movies", videoName);
-        return Ok("File deleted.");
+        var videoToDelete = _context.Videos.FirstOrDefault(v => v.Title == videoName);
+        if (videoToDelete != null)
+        {
+            await _client.DeleteFileAsync("movies", videoName);
+            _context.Videos.Remove(videoToDelete);
+            return Ok("File deleted.");
+        }
+
+        return NotFound();
     }
 }

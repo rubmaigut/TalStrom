@@ -3,17 +3,15 @@ namespace TalStromApi.DTO;
 public class VideoBlobResponseDTO
 {
     public string Title { get; set; }
-    public long? Duration { get; set; }
     public string FileFormat { get; set; }
-    public byte[] ByteData { get; set; }
+    public string Uri { get; set; }
     
-    public VideoBlobResponseDTO(string title, long? duration, string fileFormat,
-        byte[] byteData)
+    public VideoBlobResponseDTO(string title, string fileFormat,
+        string uri)
 
     {
         Title = title;
-        Duration = duration;
         FileFormat = fileFormat;
-        ByteData = byteData;
+        Uri = uri;
     }
 }
