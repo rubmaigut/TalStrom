@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace TalStromApi.Migrations
 {
     [DbContext(typeof(TalStromDbContext))]
-    [Migration("20240203155051_InitialCreate")]
+    [Migration("20240203200405_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -103,6 +103,10 @@ namespace TalStromApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sub")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Technologies")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

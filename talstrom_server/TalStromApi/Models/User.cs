@@ -10,6 +10,7 @@ public class User
   public string Picture { get; set; }
   public string Sub { get; set; }
   public string Role { get; set; } = "pending";
+  public string Technologies { get; set; } = "";
   public string? PhoneNumber { get; set; }
   public DateTime DateAdded { get; set; } = DateTime.Now;
   public DateTime LastLoggedIn { get; set; }

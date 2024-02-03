@@ -13,7 +13,12 @@ const VideosGrid: FC<VideosGridProps> = ({ videos }) => {
         <div>
           {videos.map((video, i) => {
             // return <img key={`video-${i}`} src={video.uri} alt="video" />
-            return <div key={`video-${i}`}>{video.uri}</div>;
+            //return <div key={`video-${i}`}>{video.uri}</div>;
+            return (
+              <video width="320" height="240" controls>
+                <source src={video.uri} type="video/mp4"></source>
+              </video>
+            );
           })}
         </div>
       )}
