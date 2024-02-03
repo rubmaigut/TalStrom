@@ -1,9 +1,9 @@
-import React from 'react';
-import { User } from '@/types/IUser';
+import React, { ReactNode } from 'react';
+import { UserCard } from '@/types/IUserCardProps';
 import Image from 'next/image';
 
 interface UserCardProps {
-  user: User;
+  user: UserCard;
 }
 
 const formatDate = (dateString: string) => {
@@ -25,7 +25,7 @@ const userCard: React.FC<UserCardProps> = ({ user }) => (
     <p>Email: {user.email}</p>
     <p>Role: {user.role}</p>
     <p>Phone Number: {user.phoneNumber || 'Not available'}</p>
-    <p>Date Added: {formatDate(user.dateAdded)}</p>
+    {/* <p>Date Added: {formatDate(user.dateAdded)}</p> */}
     <p>Followers: {user.followers ? 'Yes' : 'No'}</p>
     <p>Posts: {user.posts ? 'Yes' : 'No'}</p>
   </>
