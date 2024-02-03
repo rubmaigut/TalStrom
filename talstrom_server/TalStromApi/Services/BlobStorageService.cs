@@ -83,7 +83,7 @@ public class BlobStorageService
         // Return video data to controller
         var filePathSplit = filePath.Split('.');
         var fileName = filePathSplit.First();
-        var fileFormat = $".{filePathSplit.First()}";
+        var fileFormat = $".{filePathSplit.Last()}";
 
         Console.WriteLine($"BLOB URL: {blobClient.Uri}");
         return await Task.FromResult(new VideoBlobResponseDTO(fileName, fileFormat,

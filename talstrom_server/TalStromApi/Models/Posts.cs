@@ -16,6 +16,5 @@ public class Posts
   public string Title { get; set; }
   public string Content { get; set; }
   public int UserId { get; set; }
-  public int DeletedUserId { get; set; }
   
 }
