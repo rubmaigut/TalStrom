@@ -1,7 +1,7 @@
 import Layout from "@/ui/layout";
 import SignIn from "@/ui/sign-in";
 import { useSession } from "next-auth/react";
-import { deleteUser, fetchUsersByRole, updateUserRole } from "@/lib/data";
+import { fetchUsersByRole, updateUserRole } from "@/lib/data";
 import { useEffect, useState } from "react";
 import { User } from "@/types/IUser";
 import { Card } from "@/ui/card";

@@ -6,6 +6,15 @@ export interface User {
     picture: string;
     sub: string;
     role: Role;
+    phoneNumber: null
+    dateAdded: Date
+    lastLoggedIn: Date
+    lastModified: Date
+    active: boolean
+    videos: null
+    followers: null
+    following: null,
+    posts: null
 }
 export interface LoginProps {
   user: User
