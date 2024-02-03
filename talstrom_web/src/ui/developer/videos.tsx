@@ -1,24 +1,29 @@
 import { FC } from "react";
 
 type VideosGridProps = {
-    videos: Video[] | undefined
-}
-const VideosGrid : FC<VideosGridProps> = ({videos}) => {
+  videos: Video[] | undefined;
+};
+const VideosGrid: FC<VideosGridProps> = ({ videos }) => {
+  console.log(videos);
 
-    console.log(videos);
-
-    if(videos && videos.length) return (
-      <div>
-        <p>Video Posts</p>
-        {videos.map((video, i) =>  {
+  return (
+    <section>
+      <p>Video Posts</p>
+      {videos && videos.length && (
+        <div>
+          {videos.map((video, i) => {
             // return <img key={`video-${i}`} src={video.uri} alt="video" />
-            return <div key={`video-${i}`}>{video.uri}</div>
-        })}
-      </div>
-    );
-  };
+            //return <div key={`video-${i}`}>{video.uri}</div>;
+            return (
+              <video width="320" height="240" controls>
+                <source src={video.uri} type="video/mp4"></source>
+              </video>
+            );
+          })}
+        </div>
+      )}
+    </section>
+  );
+};
 
-
-  export default VideosGrid;
-  
-  
+export default VideosGrid;
