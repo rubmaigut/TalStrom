@@ -15,6 +15,8 @@ public class DeletedUser
     public DateTime LastModified { get; set; }
     public bool Active { get; set; } = false;
     public List<Video>? Videos { get; set; }
-    public List<User>? Followers { get; set; }
+    public List<string>? Followers { get; set; }
+    public List<string>? Following { get; set; }
     public List<Posts>? Posts { get; set; }
+    
 }
