@@ -14,7 +14,7 @@ import VideosGrid from "../../../ui/developer/videos";
 export default function UserProfilePage() {
   const { data: session } = useSession();
   const [user, setUser] = useState<UserCardForUser | null>(null);
-  const [pageComponent, setPageComponent] = useState(<VideosGrid />);
+  const [pageComponent, setPageComponent] = useState(<VideosGrid videos={user?.videos} />);
   const [activeLink, setActiveLink] = useState<string>("posts");
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function UserProfilePage() {
       try {
         if (session) {
           const sub = session.user?.sub || "";
-          const userData = await fetchUsersBySub(sub);
+          const userData : UserCardForUser = await fetchUsersBySub(sub);
           setUser(userData);
         }
       } catch (error) {
@@ -38,12 +38,13 @@ export default function UserProfilePage() {
   };
 
   useEffect(() => {
+    console.log(user);
     switch (activeLink) {
       case "videos":
-        setPageComponent(<VideosGrid />);
+        setPageComponent(<VideosGrid videos={user?.videos} />);
         break;
       case "posts":
-        setPageComponent(<UserPost />);
+        setPageComponent(<UserPost posts ={user?.posts}/>);
         break;
       case "find-match":
         setPageComponent(<UserFindMatch />);
