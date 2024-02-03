@@ -37,7 +37,7 @@ namespace TalStromApi.Controllers
       }
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{sub}")]
     public async Task<ActionResult<User>> GetUserBySub(string sub)
     {
       try
