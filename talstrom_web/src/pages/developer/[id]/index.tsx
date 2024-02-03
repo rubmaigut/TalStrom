@@ -18,6 +18,10 @@ export default function UserProfilePage() {
   const [activeLink, setActiveLink] = useState<string>("posts");
 
   useEffect(() => {
+    setPageComponent(<VideosGrid videos={user?.videos} />)
+  },[])
+  
+  useEffect(() => {
     const loadUser = async () => {
       try {
         if (session) {
