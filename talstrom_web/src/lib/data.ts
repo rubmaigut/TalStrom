@@ -1,19 +1,19 @@
-import { User } from "@/types/IUser";
+import { User } from '@/types/IUser';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export async function addUserHandler(user: User) : Promise<User> {
   const url = `${API_BASE_URL}/Users`;
   const response = await fetch(url, {
-    cache: "no-store",
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+    cache: 'no-store',
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       name: user.name,
       email: user.email,
       picture: user.picture,
       sub: user.sub,
-    })
+    }),
   });
   if (!response.ok) throw new Error("addUserHandler: Failed to Create user")
   return await response.json();
@@ -42,7 +42,7 @@ export async function fetchUsersBySub(sub: string) {
 export async function fetchUsersByRole(role: string) {
   const url = `${API_BASE_URL}/Users/role/${role}`;
   const response = await fetch(url, {
-    cache: "no-store"
+    cache: 'no-store',
   });
   if (!response.ok) throw new Error("fetchUsersByRole: Failed to fetch users");
   return await response.json();
@@ -51,21 +51,21 @@ export async function fetchUsersByRole(role: string) {
 export async function updateUserRole(sub: string, role: string) {
   const url = `${API_BASE_URL}/Users/${sub}/${role}`;
   const response = await fetch(url, {
-    cache: "no-store",
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
+    cache: 'no-store',
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
     //body: JSON.stringify({ role }),
   });
   if (!response.ok) throw new Error("updateUserRole:Failed to update user role");
   return await response.json();
 }
 
-export async function deleteUser(sub:string) {
+export async function deleteUser(sub: string) {
   const response = await fetch(`${API_BASE_URL}/Users/${sub}`, {
-      method: 'DELETE'
-  })
+    method: 'DELETE',
+  });
   if (!response.ok) {
       throw new Error('deleteUser:It could not delete the developer')
   }
-  return response.json()
+  return response.json();
 }
