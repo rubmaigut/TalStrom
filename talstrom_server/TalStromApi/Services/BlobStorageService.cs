@@ -75,9 +75,9 @@ public class BlobStorageService
         var blobs = blobContainer.GetBlobs(BlobTraits.Metadata);
         var video = blobs.FirstOrDefault(blob => blob.Name == filePath);
         
-        //Create a thumbnail and add to separate blob storage
-        Stream stream = new MemoryStream(video.Properties.ContentHash);
-        await AddThumbnailToStorage(stream, filePath);
+        // //Create a thumbnail and add to separate blob storage
+        // Stream stream = new MemoryStream(video.Properties.ContentHash);
+        // await AddThumbnailToStorage(stream, filePath);
         
         // Return video data to controller
         var filePathSplit = filePath.Split('.');
