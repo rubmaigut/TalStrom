@@ -44,7 +44,7 @@ export default function UserProfilePage() {
         setPageComponent(<VideosGrid videos={user?.videos} />);
         break;
       case "posts":
-        setPageComponent(<UserPost posts ={user?.posts}/>);
+        setPageComponent(<UserPost posts={user?.posts}/>);
         break;
       case "find-match":
         setPageComponent(<UserFindMatch />);

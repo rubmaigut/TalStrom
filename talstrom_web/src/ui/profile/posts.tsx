@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 type PostsProps = {
-    posts: Post[]
+    posts: Post[] | undefined;
 }
 const Posts : FC<PostsProps> = ({posts}) => {
 

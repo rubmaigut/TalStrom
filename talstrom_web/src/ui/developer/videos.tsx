@@ -11,7 +11,8 @@ const VideosGrid : FC<VideosGridProps> = ({videos}) => {
       <div>
         <p>Video Posts</p>
         {videos.map((video, i) =>  {
-            return <img src={video.uri} alt="video" />
+            // return <img src={video.uri} alt="video" />
+            return <div>{video.uri}</div>
         })}
       </div>
     );
