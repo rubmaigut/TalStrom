@@ -1,5 +1,5 @@
 
-export default function UserPost() {
+export default function UserPosts() {
     return (
       <div>
         <p>User Posts</p>

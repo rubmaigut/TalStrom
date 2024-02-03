@@ -1,10 +1,8 @@
-const UserSaved = () => {
+export default function UserSaved () {
     return (
       <div>
         <p>Saved</p>
       </div>
     );
   };
-  
-  export default UserSaved;
   
