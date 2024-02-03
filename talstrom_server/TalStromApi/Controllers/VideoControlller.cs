@@ -66,7 +66,7 @@ public class VideoController : ControllerBase
         //Be specific about file format for now.
         var videoData = await _client.UploadFileAsync("movies", $"{fileName}.mp4", userSub);
         var user = _context.User.FirstOrDefault(u => u.Sub == userSub);
-        var video = new Video(videoData.Title, videoData.Duration, videoData.FileFormat, videoData.ByteData, user.Id);
+        var video = new Video(videoData.Title, videoData.FileFormat, videoData.Uri, user.Id);
         _context.Videos.Add(video);
         await _context.SaveChangesAsync();
 

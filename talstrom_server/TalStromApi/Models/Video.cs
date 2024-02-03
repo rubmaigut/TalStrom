@@ -7,35 +7,17 @@ public class Video
 {
   public int Id { get; set; }
   public string Title { get; set; }
-  public long? Duration { get; set; }
   public string FileFormat { get; set; }
-  public byte[] ByteData { get; set; }
+  public string Uri { get; set; }
   public int UserId { get; set; }
 
-  public Video(string title, long? duration, string fileFormat,
-    byte[] byteData, int userId)
+  public Video(string title, string fileFormat,
+    string uri, int userId)
 
   {
     Title = title;
-    Duration = duration;
     FileFormat = fileFormat;
-    ByteData = byteData;
+    Uri = uri;
     UserId = userId;
-  }
-
-  public void Play()
-  {
-    Console.WriteLine($"Playing: {Title}");
-  }
-
-  public void Save(string filePath)
-  {
-    File.WriteAllBytes(filePath, ByteData);
-    Console.WriteLine($"Video save to: {filePath}");
-  }
-
-  public void ProcessFrames()
-  {
-    Console.WriteLine($"ProcessFrames for: {Title}");
   }
 }

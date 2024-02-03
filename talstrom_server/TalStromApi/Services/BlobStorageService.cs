@@ -21,28 +21,29 @@ public class BlobStorageService
 
     private async Task AddThumbnailToStorage(Stream myBlob, string name)
     {
-            // var blobContainer = _client.GetBlobContainerClient("thumbnails");
-            // await blobContainer.CreateIfNotExistsAsync();
-            // TODO - Create a jpeg snapshot of frame
-            Stream thumbnail = await GenerateThumbnail(myBlob, 30, 30, true);
-            string thumbnailPath = "/";
-            using (BinaryWriter bw = new BinaryWriter(new FileStream(thumbnailPath, FileMode.Create, FileAccess.Write)))
-            {
-                bw.Write(ReadStream(thumbnail));
-            }
-            // await using (var stream = File.Create($"{name}.jpg"))
-            // {
-            //     await thumbnail.CopyToAsync(stream);
-            // }
+        // var blobContainer = _client.GetBlobContainerClient("thumbnails");
+        // await blobContainer.CreateIfNotExistsAsync();
+        // TODO - Create a jpeg snapshot of frame
+        Stream thumbnail = await GenerateThumbnail(myBlob, 30, 30, true);
+        string thumbnailPath = "/";
+        using (BinaryWriter bw = new BinaryWriter(new FileStream(thumbnailPath, FileMode.Create, FileAccess.Write)))
+        {
+            bw.Write(ReadStream(thumbnail));
+        }
+        // await using (var stream = File.Create($"{name}.jpg"))
+        // {
+        //     await thumbnail.CopyToAsync(stream);
+        // }
 
-            // var blobClient = blobContainer.GetBlobClient(Path.GetFileName(name));
-            // await blobClient.UploadAsync(name, true);
+        // var blobClient = blobContainer.GetBlobClient(Path.GetFileName(name));
+        // await blobClient.UploadAsync(name, true);
     }
 
     private async Task<Stream> GenerateThumbnail(Stream videoStream, int width, int height, bool smartCropping)
     {
-        ComputerVisionClient cvClient = new ComputerVisionClient(new ApiKeyServiceClientCredentials("2d59e32ce43f4a49b0191d5b07bb09bc"))
-            { Endpoint = "https://talstromcomputervision.cognitiveservices.azure.com/" };
+        ComputerVisionClient cvClient =
+            new ComputerVisionClient(new ApiKeyServiceClientCredentials("2d59e32ce43f4a49b0191d5b07bb09bc"))
+                { Endpoint = "https://talstromcomputervision.cognitiveservices.azure.com/" };
         return await cvClient.GenerateThumbnailInStreamAsync(width, height, videoStream, smartCropping);
     }
 
@@ -74,19 +75,19 @@ public class BlobStorageService
 
         var blobs = blobContainer.GetBlobs(BlobTraits.Metadata);
         var video = blobs.FirstOrDefault(blob => blob.Name == filePath);
-        
+
         // //Create a thumbnail and add to separate blob storage
         // Stream stream = new MemoryStream(video.Properties.ContentHash);
         // await AddThumbnailToStorage(stream, filePath);
-        
+
         // Return video data to controller
         var filePathSplit = filePath.Split('.');
         var fileName = filePathSplit.First();
         var fileFormat = $".{filePathSplit.First()}";
-        
-        return await Task.FromResult(new VideoBlobResponseDTO(fileName,
-            video.Properties.ContentLength, fileFormat,
-            video.Properties.ContentHash));
+
+        Console.WriteLine($"BLOB URL: {blobClient.Uri}");
+        return await Task.FromResult(new VideoBlobResponseDTO(fileName, fileFormat,
+            blobClient.Uri.ToString()));
     }
 
     public async Task DeleteFileAsync(string containerName, string filePath)
