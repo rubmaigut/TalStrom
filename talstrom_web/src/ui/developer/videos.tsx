@@ -1,25 +1,19 @@
 import { FC } from "react";
+import VideoItem from "../atoms/video-item";
 
 type VideosGridProps = {
   videos: Video[] | undefined;
+  sub: string;
 };
-const VideosGrid: FC<VideosGridProps> = ({ videos }) => {
+const VideosGrid = ({ videos, sub }: VideosGridProps) => {
   console.log(videos);
 
   return (
-    <section>
-      <p className="m-2">Video Posts</p>
-      {videos && videos.length && (
-        <div className="grid grid-cols-4 my-2 md:grid-cols-6 m-2 md:mx-32">
-          {videos.map((video, i) => {
-            return (
-              
-              <video key={i} className="object-cover mx-auto h-[10em] sm:h-[15em] w-[12em]"  loop muted src={video.uri} />
-            );
-          })}
-        </div>
-      )}
-    </section>
+    <article className="mt-4 grid 2xl:grid-cols-6 xl-grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3 px-2 lg:px-4">
+      {videos?.map((elm, i) => {
+        return <VideoItem videoItem={elm} sub={sub} />;
+      })}
+    </article>
   );
 };
 

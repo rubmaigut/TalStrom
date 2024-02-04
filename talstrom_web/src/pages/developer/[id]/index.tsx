@@ -14,11 +14,11 @@ import VideosGrid from "../../../ui/developer/videos";
 export default function UserProfilePage() {
   const { data: session } = useSession();
   const [user, setUser] = useState<UserCardForUser | null>(null);
-  const [pageComponent, setPageComponent] = useState(<VideosGrid videos={user?.videos} />);
+  const [pageComponent, setPageComponent] = useState(<VideosGrid videos={user?.videos} sub={user?.sub as string}/>);
   const [activeLink, setActiveLink] = useState<string>("posts");
 
   useEffect(() => {
-    setPageComponent(<VideosGrid videos={user?.videos} />)
+    setPageComponent(<VideosGrid videos={user?.videos} sub={user?.sub as string} />)
   },[])
   
   useEffect(() => {
@@ -45,7 +45,7 @@ export default function UserProfilePage() {
     console.log(user);
     switch (activeLink) {
       case "videos":
-        setPageComponent(<VideosGrid videos={user?.videos} />);
+        setPageComponent(<VideosGrid videos={user?.videos} sub={user?.sub as string} />);
         break;
       case "posts":
         setPageComponent(<UserPost posts={user?.posts}/>);
