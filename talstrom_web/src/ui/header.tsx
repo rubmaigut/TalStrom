@@ -19,7 +19,17 @@ export default function Header() {
         email: session.user?.email || "",
         picture: session.user?.image || "",
         sub: session.user?.sub || "", 
-        role: "pending"
+        role: "pending",
+        phoneNumber: null,
+        dateAdded: new Date(),
+        lastLoggedIn: new Date(),
+        lastModified: new Date(),
+        active: true,
+        videos: null,
+        followers: null,
+        following: null,
+        posts: null
+
       });
     }
   }, [session, userContextG, updateUser]);
