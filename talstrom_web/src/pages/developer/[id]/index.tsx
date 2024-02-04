@@ -42,7 +42,6 @@ export default function UserProfilePage() {
   };
 
   useEffect(() => {
-    console.log(user);
     switch (activeLink) {
       case "videos":
         setPageComponent(<VideosGrid videos={user?.videos} sub={user?.sub as string} />);

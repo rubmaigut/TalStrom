@@ -1,6 +1,8 @@
 import { ChangeEvent, useState } from "react";
 import { BiLoaderCircle, BiCheckCircle } from "react-icons/bi";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
+import { BiCross } from "react-icons/bi";
+import { GiCancel } from "react-icons/gi";
 import { addVideo } from "@/lib/data";
 
 type UploadError = {
@@ -9,11 +11,11 @@ type UploadError = {
 };
 
 type UploadContainerProps = {
-    closeWindow: () => void
-    sub: string
-}
+  closeWindow: () => void;
+  sub: string;
+};
 
-const UploadContainer = ({closeWindow, sub}: UploadContainerProps) => {
+const UploadContainer = ({ closeWindow, sub }: UploadContainerProps) => {
   const [fileDisplay, setFileDisplay] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<UploadError | null>(null);
@@ -40,17 +42,19 @@ const UploadContainer = ({closeWindow, sub}: UploadContainerProps) => {
   };
 
   const uploadVideoToCloud = async () => {
-    if(!file) {
-        return;
+    if (!file) { 
+      return;
     }
-    
-    await addVideo(file as File, "113603288691815899516");
+
+    await addVideo(file as File, sub);
     discardVideoHandler();
   };
 
   return (
     <section className="absolute z-50 w-96 left-0 md:left-20 top-0 mt-[80px] mb-[40px] bg-white shadow-lg rounded-md py-6 md:px-10 px-4">
-     <button onClick={closeWindow}>Close</button>
+      <button onClick={closeWindow}>
+        <GiCancel size="30" />
+      </button>
       <div>
         <h1 className="text-[23px] font-semibold">Upload video</h1>
         <h2 className="text-gray-400 mt-1">Post a video to your account</h2>
