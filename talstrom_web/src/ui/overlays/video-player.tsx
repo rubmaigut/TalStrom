@@ -7,18 +7,18 @@ import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
 type VideoPlayerProps = {
   videos: Video[] | undefined;
-  closeWindow: () => void;
   currentVideoIndex: number | null;
+  closeWindow: () => void;
   nextVideo: () => void;
   previousVideo: () => void;
 };
 
 const VideoPlayer = ({
   videos,
+  currentVideoIndex,
   closeWindow,
   nextVideo,
   previousVideo,
-  currentVideoIndex,
 }: VideoPlayerProps) => {
   const [uri, setUri] = useState("");
   const searchParams = useSearchParams();
@@ -32,17 +32,6 @@ const VideoPlayer = ({
 
     fetchVideo();
   });
-
-  if(videos && currentVideoIndex){
-      console.log("current: ", videos![currentVideoIndex].id);
-  }
-  const loopThroughPostsUp = () => {
-    previousVideo()
-  };
-
-  const loopThroughPostsDown = () => {
-    nextVideo();
-  };
 
   return (
     <div
@@ -59,14 +48,14 @@ const VideoPlayer = ({
 
         <div>
           <button
-            onClick={loopThroughPostsUp}
+            onClick={previousVideo}
             className="absolute z-20 right-4 top-4 flex items-center justify-center rounded-full bg-gray-700 p-1.5 hover:bg-gray-800"
           >
             <BiChevronUp size="25" color="fff" />
           </button>
 
           <button
-            onClick={loopThroughPostsDown}
+            onClick={nextVideo}
             className="absolute z-20 right-4 top-20 flex items-center justify-center rounded-full bg-gray-700 p-1.5 hover:bg-gray-800"
           >
             <BiChevronDown size="25" color="fff" />

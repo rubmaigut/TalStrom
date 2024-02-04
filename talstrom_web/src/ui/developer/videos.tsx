@@ -34,7 +34,6 @@ const VideosGrid = ({ videos, sub }: VideosGridProps) => {
     setCurrentVideoIndex(newIndex);
   };
 
-  console.log(currentVideoIndex);
   return (
     <article>
       {uploadVisibility && (

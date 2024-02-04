@@ -90,8 +90,6 @@ export async function addVideo(video: File, sub: string) : Promise<Video> {
       sub: sub,
     }),
   });
-
-  console.log(response);
   
   if (!response.ok) throw new Error("upload Video Error: Failed to Upload video")
   return await response.json();

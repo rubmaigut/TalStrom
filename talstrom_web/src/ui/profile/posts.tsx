@@ -5,8 +5,6 @@ type PostsProps = {
 }
 const Posts : FC<PostsProps> = ({posts}) => {
 
-    console.log(posts);
-
     if(posts && posts.length) return (
       <div>
         <p>Video Posts</p>
