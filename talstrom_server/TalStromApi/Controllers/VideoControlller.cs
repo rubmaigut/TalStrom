@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TalStromApi.Models;
 using System.IO;
+using TalStromApi.DTO;
 
 namespace TalStromApi.Controllers;
 
@@ -35,12 +36,30 @@ public class VideoController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<List<Video>>> GetVideosByUser(string id)
+    public async Task<ActionResult<VideoApiResponseDTO>> GetVideoById(string id)
     {
         try
         {
-            //var videos = await _client.GetVideosById("movies", id);
-            var user = await _context.User.Include(ctx => ctx.Videos).FirstOrDefaultAsync(x => x.Sub == id);
+            var video = _context.Videos.FirstOrDefault(v => v.Id == int.Parse(id));
+            if (video != null)
+            {
+                return Ok(new VideoApiResponseDTO(video.Id, video.Title, video.FileFormat, video.Uri));
+            }
+
+            throw new ArgumentException();
+        }
+        catch (Exception e)
+        {
+            return NotFound(e);
+        }
+    }
+
+    [HttpGet("user/{sub}")]
+    public async Task<ActionResult<List<Video>>> GetVideosByUser(string sub)
+    {
+        try
+        {
+            var user = await _context.User.Include(ctx => ctx.Videos).FirstOrDefaultAsync(x => x.Sub == sub);
             return Ok(user.Videos);
         }
         catch (Exception e)
@@ -62,9 +81,9 @@ public class VideoController : ControllerBase
         {
             await file.CopyToAsync(stream);
         }
-        
+
         var videoData = await _client.UploadFileAsync("movies", $"{fileName}.mp4", sub);
-        
+
         // Assign video to user and add to database
         var userId = _context.User.FirstOrDefault(u => u.Sub == sub)!.Id;
         var video = new Video(videoData.Title, videoData.FileFormat, videoData.Uri, userId);
