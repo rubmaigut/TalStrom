@@ -14,19 +14,22 @@ type UploadContainerProps = {
 
 const UploadContainer = () => {
   const [fileDisplay, setFileDisplay] = useState<string>("");
-  const [caption, setCaption] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<UploadError | null>(null);
   const [isUploading, setIsUploading] = useState<boolean>(false);
 
-  const uploadHandler = (event: ChangeEvent<HTMLInputElement>) => {
+  const uploadHandler = async (event: ChangeEvent<HTMLInputElement>) => {
+    setIsUploading(true);
     const files = event.target.files;
 
     if (files && files.length) {
       const file = files[0];
       const fileUrl = URL.createObjectURL(file);
-      setFileDisplay(fileUrl);
-      setFile(file);
+
+      await setFileDisplay(fileUrl);
+      await setFile(file);
+
+      setIsUploading(false);
     }
   };
 
@@ -51,7 +54,7 @@ const UploadContainer = () => {
         <h2 className="text-gray-400 mt-1">Post a video to your account</h2>
       </div>
 
-      <div className="mt-8 md:flex flex-col gap-6">
+      <div className="mt-8 md:flex flex-col gap-6 max-w-80 items-center justify-center">
         {!fileDisplay ? (
           <label
             htmlFor="input"
