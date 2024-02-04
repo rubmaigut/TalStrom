@@ -8,16 +8,13 @@ const VideosGrid: FC<VideosGridProps> = ({ videos }) => {
 
   return (
     <section>
-      <p>Video Posts</p>
+      <p className="m-2">Video Posts</p>
       {videos && videos.length && (
-        <div>
+        <div className="grid grid-cols-4 my-2 md:grid-cols-5 lg:grid-cols-6">
           {videos.map((video, i) => {
-            // return <img key={`video-${i}`} src={video.uri} alt="video" />
-            //return <div key={`video-${i}`}>{video.uri}</div>;
             return (
-              <video width="320" height="240" controls>
-                <source src={video.uri} type="video/mp4"></source>
-              </video>
+              
+              <video key={i} className="rounded-xl object-cover mx-auto h-[10em] sm:h-[15em] w-[12em]"  loop muted src={video.uri} />
             );
           })}
         </div>
