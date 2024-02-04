@@ -6,27 +6,32 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
 type VideoPlayerProps = {
-videos: Video[] | undefined;
-closeWindow: () => void;
-}
+  videos: Video[] | undefined;
+  closeWindow: () => void;
+  currentVideoIndex: number | null;
+};
 
-const VideoPlayer = ({videos, closeWindow} : VideoPlayerProps ) => {
+const VideoPlayer = ({
+  videos,
+  closeWindow,
+  currentVideoIndex,
+}: VideoPlayerProps) => {
   const [uri, setUri] = useState("");
   const searchParams = useSearchParams();
-  const userId = searchParams.get("id");
-  const postId = searchParams.get("video");
 
   useEffect(() => {
     const fetchVideo = async () => {
-      if (postId) {
-        const video = await fetchVideoById(postId as string);
-        setUri(video.uri);
+      if (currentVideoIndex) {
+        setUri(videos![currentVideoIndex].uri);
       }
     };
 
     fetchVideo();
-  }, [postId]);
-  
+  });
+
+  if(videos && currentVideoIndex){
+      console.log("current: ", videos![currentVideoIndex].id);
+  }
   const loopThroughPostsUp = () => {};
 
   const loopThroughPostsDown = () => {};
@@ -59,17 +64,16 @@ const VideoPlayer = ({videos, closeWindow} : VideoPlayerProps ) => {
             <BiChevronDown size="25" color="fff" />
           </button>
         </div>
-        
 
         <div className="bg-black bg-opacity-70 lg:min-w-[480px] z-10 relative">
-        <video
-        autoPlay
-        controls
-        loop
-        muted
-        className="h-screen mx-auto"
-          src={uri}
-        />
+          <video
+            autoPlay
+            controls
+            loop
+            muted
+            className="h-screen mx-auto"
+            src={uri}
+          />
         </div>
       </div>
     </div>

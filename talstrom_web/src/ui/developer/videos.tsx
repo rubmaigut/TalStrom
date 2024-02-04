@@ -18,8 +18,8 @@ const VideosGrid = ({ videos, sub }: VideosGridProps) => {
     setUploadVisibility(!uploadVisibility);
   };
 
-  const togglePlayerOverlay = () => {
-    console.log("Hit:")
+  const togglePlayerOverlay = (videoId?: number) => {
+    setCurrentVideoIndex(videoId ? videoId : null);
     setPlayerVisibility(!playerVisibility);
   };
 
@@ -29,7 +29,7 @@ const VideosGrid = ({ videos, sub }: VideosGridProps) => {
         <UploadContainer closeWindow={toggleUploadOverlay} sub={sub} />
       )}
       {playerVisibility && (
-        <VideoPlayer closeWindow={togglePlayerOverlay} videos={videos} />
+        <VideoPlayer closeWindow={togglePlayerOverlay} videos={videos} currentVideoIndex={currentVideoIndex} />
       )}
       <button className="mt-4 px-2 mx-3 border" onClick={toggleUploadOverlay}>
         Add Video
