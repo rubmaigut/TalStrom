@@ -1,13 +1,18 @@
 import { ChangeEvent, useState } from "react";
 import { BiLoaderCircle, BiCheckCircle } from "react-icons/bi";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
+import { addVideo } from "@/lib/data";
 
 type UploadError = {
   type: string;
   message: string;
 };
 
-const Upload = () => {
+type UploadContainerProps = {
+    sub: string
+}
+
+const UploadContainer = () => {
   const [fileDisplay, setFileDisplay] = useState<string>("");
   const [caption, setCaption] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
@@ -30,7 +35,14 @@ const Upload = () => {
     setFileDisplay("");
   };
 
-  const uploadVideoToCloud = () => {};
+  const uploadVideoToCloud = async () => {
+    if(!file) {
+        return;
+    }
+    
+    await addVideo(file as File, "113603288691815899516");
+    discardVideoHandler();
+  };
 
   return (
     <section className="w-full mt-[80px] mb-[40px] bg-white shadow-lg rounded-md py-6 md:px-10 px-4">
@@ -175,4 +187,4 @@ const Upload = () => {
   );
 };
 
-export default Upload;
+export default UploadContainer;

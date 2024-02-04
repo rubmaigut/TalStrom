@@ -50,7 +50,7 @@ public class VideoController : ControllerBase
     }
 
     [HttpPost("upload")]
-    public async Task<IActionResult> Upload([FromForm] IFormFile file, string sub)
+    public async Task<IActionResult> Upload(IFormFile file, string sub)
     {
         if (file == null || file.Length == 0)
         {
@@ -58,19 +58,20 @@ public class VideoController : ControllerBase
         }
 
         var fileName = Guid.NewGuid();
-        using (var stream = System.IO.File.Create($"{fileName}.mp4"))
+        using (var stream = System.IO.File.Create($"./Data/temp/{fileName}.mp4"))
         {
             await file.CopyToAsync(stream);
         }
-
-        //Be specific about file format for now.
+        
         var videoData = await _client.UploadFileAsync("movies", $"{fileName}.mp4", sub);
-        var user = _context.User.FirstOrDefault(u => u.Sub == sub);
-        var video = new Video(videoData.Title, videoData.FileFormat, videoData.Uri, user.Id);
+        
+        // Assign video to user and add to database
+        var userId = _context.User.FirstOrDefault(u => u.Sub == sub)!.Id;
+        var video = new Video(videoData.Title, videoData.FileFormat, videoData.Uri, userId);
         _context.Videos.Add(video);
         await _context.SaveChangesAsync();
 
-        System.IO.File.Delete($"{fileName}.mp4");
+        System.IO.File.Delete($"./Data/temp/{fileName}.mp4");
         return CreatedAtAction("GetAllVideos", new { id = video.Id }, video);
     }
 
