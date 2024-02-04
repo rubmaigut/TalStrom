@@ -106,6 +106,7 @@ const UploadContainer = ({ closeWindow, sub }: UploadContainerProps) => {
               onChange={uploadHandler}
               hidden
               accept=".mp4"
+              capture={"environment"}
               type="file"
             />
           </label>

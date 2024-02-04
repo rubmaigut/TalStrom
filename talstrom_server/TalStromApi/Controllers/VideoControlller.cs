@@ -1,32 +1,21 @@
-using AzureFullstackPractice.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TalStromApi.Models;
-using System.IO;
 using TalStromApi.DTO;
+using TalStromApi.Services;
 
 namespace TalStromApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class VideoController : ControllerBase
+public class VideoController(TalStromDbContext context, BlobStorageService client) : ControllerBase
 {
-    private readonly TalStromDbContext _context;
-    private readonly BlobStorageService _client;
-
-    public VideoController(TalStromDbContext context, BlobStorageService client)
-    {
-        _context = context;
-        _client = client;
-    }
-
     [HttpGet]
     public async Task<ActionResult<List<Video>>> GetAllVideos()
     {
         try
         {
-            // var videos = await _client.GetAllVideos("movies");
-            var videos = await _context.Videos.ToListAsync();
+            var videos = await context.Videos.ToListAsync();
             return Ok(videos);
         }
         catch (Exception e)
@@ -40,7 +29,7 @@ public class VideoController : ControllerBase
     {
         try
         {
-            var video = _context.Videos.FirstOrDefault(v => v.Id == int.Parse(id));
+            var video = context.Videos.FirstOrDefault(v => v.Id == int.Parse(id));
             if (video != null)
             {
                 return Ok(new VideoApiResponseDTO(video.Id, video.Title, video.FileFormat, video.Uri));
@@ -59,7 +48,7 @@ public class VideoController : ControllerBase
     {
         try
         {
-            var user = await _context.User.Include(ctx => ctx.Videos).FirstOrDefaultAsync(x => x.Sub == sub);
+            var user = await context.User.Include(ctx => ctx.Videos).FirstOrDefaultAsync(x => x.Sub == sub);
             return Ok(user.Videos);
         }
         catch (Exception e)
@@ -82,13 +71,13 @@ public class VideoController : ControllerBase
             await file.CopyToAsync(stream);
         }
 
-        var videoData = await _client.UploadFileAsync("movies", $"{fileName}.mp4", sub);
+        var videoData = await client.UploadFileAsync("movies", $"{fileName}.mp4", sub);
 
         // Assign video to user and add to database
-        var userId = _context.User.FirstOrDefault(u => u.Sub == sub)!.Id;
+        var userId = context.User.FirstOrDefault(u => u.Sub == sub)!.Id;
         var video = new Video(videoData.Title, videoData.FileFormat, videoData.Uri, userId);
-        _context.Videos.Add(video);
-        await _context.SaveChangesAsync();
+        context.Videos.Add(video);
+        await context.SaveChangesAsync();
 
         System.IO.File.Delete($"{fileName}.mp4");
         return CreatedAtAction("GetAllVideos", new { id = video.Id }, video);
@@ -102,11 +91,11 @@ public class VideoController : ControllerBase
             return BadRequest("File not found.");
         }
 
-        var videoToDelete = _context.Videos.FirstOrDefault(v => v.Title == videoName);
+        var videoToDelete = context.Videos.FirstOrDefault(v => v.Title == videoName);
         if (videoToDelete != null)
         {
-            await _client.DeleteFileAsync("movies", videoName);
-            _context.Videos.Remove(videoToDelete);
+            await client.DeleteFileAsync("movies", videoName);
+            context.Videos.Remove(videoToDelete);
             return Ok("File deleted.");
         }
 
