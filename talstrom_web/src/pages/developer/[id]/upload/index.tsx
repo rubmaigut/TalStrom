@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import { BiLoaderCircle } from "react-icons/bi";
+import { BiLoaderCircle, BiCheckCircle } from "react-icons/bi";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
 
 type UploadError = {
@@ -24,6 +24,11 @@ const Upload = () => {
       setFile(file);
     }
   };
+
+  const changeVideoHandler = () => {
+    setFile(null);
+    setFileDisplay('')
+  }
 
   return (
     <section className="w-full mt-[80px] mb-[40px] bg-white shadow-lg rounded-md py-6 md:px-10 px-4">
@@ -99,7 +104,7 @@ const Upload = () => {
           border-2
         border-solid
         border-gray-300
-          rounded-2xl
+          rounded-lg
           cursor-pointer
           relative"
           >
@@ -123,6 +128,18 @@ const Upload = () => {
               muted
               src={fileDisplay}
             />
+
+            <div className="absolute -bottom-12 flex items-center justify-between z-50 rounded-xl border w-full p-2 border-gray-300">
+              <div className="flex items-center truncate">
+                <BiCheckCircle size="16" className="min-w-[16px]" />
+                <p className="text-[11px] pl-1 truncate text-ellipsis">
+                  {file ? file.name : ""}
+                </p>
+              </div>
+              <button onClick={() => changeVideoHandler()} className="text-[11px] ml-2 font-semibold"> 
+                Change
+              </button>
+            </div>
           </div>
         )}
       </div>
