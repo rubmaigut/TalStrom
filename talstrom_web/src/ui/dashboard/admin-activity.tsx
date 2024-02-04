@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import UserRoleBarChart from './userRoleBarChart';
 import { User } from '@/types/IUser';
 import { fetchUsers } from '@/lib/data';
 import UserSummary from './users-summary';
+import LoadingMessage from '../atoms/loading';
 
 const AdminActivity: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -12,21 +13,27 @@ const AdminActivity: React.FC = () => {
     acc[user.role] = (acc[user.role] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);
-  
-  useEffect(() => {
+
+  const fetchAndUpdateUsers = useCallback(() => {
+    setLoading(true);
     fetchUsers()
       .then((users) => {
         setUsers(users);
-        setLoading(false);
       })
       .catch((error) => {
         console.error('Failed to fetch users:', error);
+      })
+      .finally(() => {
         setLoading(false);
       });
-  }, [roleCounts]);
+  }, []);
+  
+  useEffect(() => {
+    fetchAndUpdateUsers();
+  }, [fetchAndUpdateUsers]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingMessage/>;
   }
 
   const highestId = users.reduce((max, user) => user.id > max ? user.id : max, 0)
