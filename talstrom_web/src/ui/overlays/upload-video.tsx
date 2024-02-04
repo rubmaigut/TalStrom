@@ -9,10 +9,11 @@ type UploadError = {
 };
 
 type UploadContainerProps = {
+    closeWindow: () => void
     sub: string
 }
 
-const UploadContainer = () => {
+const UploadContainer = ({closeWindow, sub}: UploadContainerProps) => {
   const [fileDisplay, setFileDisplay] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<UploadError | null>(null);
@@ -48,7 +49,8 @@ const UploadContainer = () => {
   };
 
   return (
-    <section className="w-full mt-[80px] mb-[40px] bg-white shadow-lg rounded-md py-6 md:px-10 px-4">
+    <section className="absolute z-50 w-96 left-0 md:left-20 top-0 mt-[80px] mb-[40px] bg-white shadow-lg rounded-md py-6 md:px-10 px-4">
+     <button onClick={closeWindow}>Close</button>
       <div>
         <h1 className="text-[23px] font-semibold">Upload video</h1>
         <h2 className="text-gray-400 mt-1">Post a video to your account</h2>
