@@ -6,9 +6,10 @@ import {AiOutlineLoading3Quarters} from 'react-icons/ai'
 type VideoItemProps = {
 videoItem: Video
 sub: string
+openPlayer: () => void
 }
 
-export default function VideoItem ({videoItem, sub} : VideoItemProps) {
+export default function VideoItem ({videoItem, sub, openPlayer} : VideoItemProps) {
     useEffect(() => {
         const video = document.getElementById(`video-${videoItem.id}`) as  HTMLVideoElement
 
@@ -24,10 +25,10 @@ export default function VideoItem ({videoItem, sub} : VideoItemProps) {
                     <AiOutlineLoading3Quarters className="animate-spin ml-1" size="80" color="ffffff" />
                 </div>
             ) : (
-                <Link href={`../player/play?id=${sub}&video=${videoItem.id}`}>
+                <div onClick={openPlayer}>
                     <video id={`video-${videoItem.id}`} muted loop 
                     className="aspect=[3/4] object-cover rounded-md" src={videoItem.uri}/>
-                </Link>
+                </div>
             )}
         </div>
     )
