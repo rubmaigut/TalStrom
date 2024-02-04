@@ -71,7 +71,7 @@ const LoginMessage: React.FC<Props> = ({displayRole}) => {
             your last connection was : Date / Time
           </dd>
           <Link
-            href={`/${displayRole}`}
+            href={`/${displayRole}?sub=${userContextG?.sub}`}
             className="flex w-40 h-[48px] my-4 grow items-center justify-center gap-2 rounded-md bg-teal-500 p-3 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:p-2 md:px-3"
           >
             Go to Portal

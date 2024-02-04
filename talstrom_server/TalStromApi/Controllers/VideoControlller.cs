@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TalStromApi.Models;
 using System.IO;
+using TalStromApi.DTO;
 
 namespace TalStromApi.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class VideoController : ControllerBase
 {
     private readonly TalStromDbContext _context;
@@ -35,12 +36,30 @@ public class VideoController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<List<Video>>> GetVideosByUser(string id)
+    public async Task<ActionResult<VideoApiResponseDTO>> GetVideoById(string id)
     {
         try
         {
-            //var videos = await _client.GetVideosById("movies", id);
-            var user = await _context.User.Include(ctx => ctx.Videos).FirstOrDefaultAsync(x => x.Sub == id);
+            var video = _context.Videos.FirstOrDefault(v => v.Id == int.Parse(id));
+            if (video != null)
+            {
+                return Ok(new VideoApiResponseDTO(video.Id, video.Title, video.FileFormat, video.Uri));
+            }
+
+            throw new ArgumentException();
+        }
+        catch (Exception e)
+        {
+            return NotFound(e);
+        }
+    }
+
+    [HttpGet("user/{sub}")]
+    public async Task<ActionResult<List<Video>>> GetVideosByUser(string sub)
+    {
+        try
+        {
+            var user = await _context.User.Include(ctx => ctx.Videos).FirstOrDefaultAsync(x => x.Sub == sub);
             return Ok(user.Videos);
         }
         catch (Exception e)
@@ -50,7 +69,7 @@ public class VideoController : ControllerBase
     }
 
     [HttpPost("upload")]
-    public async Task<IActionResult> Upload([FromForm] IFormFile file, string userSub)
+    public async Task<IActionResult> Upload([FromForm] IFormFile file, string sub)
     {
         if (file == null || file.Length == 0)
         {
@@ -63,10 +82,11 @@ public class VideoController : ControllerBase
             await file.CopyToAsync(stream);
         }
 
-        //Be specific about file format for now.
-        var videoData = await _client.UploadFileAsync("movies", $"{fileName}.mp4", userSub);
-        var user = _context.User.FirstOrDefault(u => u.Sub == userSub);
-        var video = new Video(videoData.Title, videoData.FileFormat, videoData.Uri, user.Id);
+        var videoData = await _client.UploadFileAsync("movies", $"{fileName}.mp4", sub);
+
+        // Assign video to user and add to database
+        var userId = _context.User.FirstOrDefault(u => u.Sub == sub)!.Id;
+        var video = new Video(videoData.Title, videoData.FileFormat, videoData.Uri, userId);
         _context.Videos.Add(video);
         await _context.SaveChangesAsync();
 
