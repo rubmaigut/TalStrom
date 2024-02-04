@@ -7,7 +7,7 @@ using System.IO;
 namespace TalStromApi.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class VideoController : ControllerBase
 {
     private readonly TalStromDbContext _context;
