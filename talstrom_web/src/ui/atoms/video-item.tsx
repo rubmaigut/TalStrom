@@ -22,7 +22,7 @@ export default function VideoItem({
       video?.addEventListener("mouseenter", () => video.play());
       video?.addEventListener("mouseleave", () => video.pause());
     }, 50);
-  }, []);
+  }, [videoItem.id]);
 
   const openPlayerHandler = (evt: SyntheticEvent) => {
     const target = evt.target as HTMLElement;

@@ -53,7 +53,7 @@ export default function UserProfilePage() {
         setPageComponent(<UserSaved />);
         break;
     }
-  }, [activeLink]);
+  }, [activeLink, user]);
 
   return (
     <>
