@@ -1,6 +1,6 @@
 namespace TalStromApi.DTO;
 
-public class VideoBlobResponseDTO
+public record VideoBlobResponseDTO
 {
     public string Title { get; set; }
     public string FileFormat { get; set; }
