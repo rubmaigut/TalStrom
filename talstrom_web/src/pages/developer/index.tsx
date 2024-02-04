@@ -21,10 +21,6 @@ export default function UserProfilePage() {
   const sub = searchParams.get("sub");
   
   useEffect(() => {
-    setPageComponent(<VideosGrid videos={user?.videos} sub={user?.sub as string} />)
-  },[])
-  
-  useEffect(() => {
     const fetchUserData = async () => {
       if (sub) {
         const userData = await fetchUsersBySub(sub as string);
