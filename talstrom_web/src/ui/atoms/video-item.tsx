@@ -24,7 +24,7 @@ export default function VideoItem ({videoItem, sub} : VideoItemProps) {
                     <AiOutlineLoading3Quarters className="animate-spin ml-1" size="80" color="ffffff" />
                 </div>
             ) : (
-                <Link href={`../player/play/${videoItem.id}`}>
+                <Link href={`../player/play?id=${sub}&video=${videoItem.id}`}>
                     <video id={`video-${videoItem.id}`} muted loop 
                     className="aspect=[3/4] object-cover rounded-md" src={videoItem.uri}/>
                 </Link>
