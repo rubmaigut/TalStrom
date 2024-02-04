@@ -96,3 +96,18 @@ export async function addVideo(video: File, sub: string) : Promise<Video> {
   if (!response.ok) throw new Error("upload Video Error: Failed to Upload video")
   return await response.json();
 }
+
+export async function fetchVideoById(id: string) {
+  const url = `${API_BASE_URL}/Video/${id}
+  `;
+  const response = await fetch(url, {
+    cache: "no-store"
+  });
+  if (!response.ok) {
+    if (response.status === 404) {
+      return null;
+    }
+    throw new Error("fetchVideoById: Failed to fetch video")
+  };
+  return await response.json();
+}

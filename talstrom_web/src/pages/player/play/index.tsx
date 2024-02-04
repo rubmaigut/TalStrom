@@ -1,20 +1,30 @@
+import { fetchUsersBySub, fetchVideoById } from "@/lib/data";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
 const VideoPlayer = () => {
+  const [uri, setUri] = useState("");
   const searchParams = useSearchParams();
   const userId = searchParams.get("id");
   const postId = searchParams.get("video");
 
-  const loopThroughPostsUp = () => {
+  useEffect(() => {
+    const fetchVideo = async () => {
+      if (postId) {
+        const video = await fetchVideoById(postId as string);
+        setUri(video.uri);
+      }
+    };
 
-  }
+    fetchVideo();
+  }, [postId]);
+  
+  const loopThroughPostsUp = () => {};
 
-  const loopThroughPostsDown = () => {
-
-  }
+  const loopThroughPostsDown = () => {};
 
   return (
     <div
@@ -23,20 +33,38 @@ const VideoPlayer = () => {
     >
       <div className="lg:w-[calc(100%-540px] h-full relative">
         <Link
-          href={`#`}
+          href={`/developer/${userId}`}
           className="absolute text-white z-20 m-5 rounded-full bg-gray-700 p-1.5 hover:bg-gray-800"
         >
           <AiOutlineClose size="25" />
         </Link>
 
         <div>
-          <button onClick={loopThroughPostsUp} className="absolute z-20 right-4 top-4 flex items-center justify-center rounded-full bg-gray-700 p-1.5 hover:bg-gray-800">
+          <button
+            onClick={loopThroughPostsUp}
+            className="absolute z-20 right-4 top-4 flex items-center justify-center rounded-full bg-gray-700 p-1.5 hover:bg-gray-800"
+          >
             <BiChevronUp size="25" color="fff" />
           </button>
 
-          <button onClick={loopThroughPostsDown} className="absolute z-20 right-4 top-20 flex items-center justify-center rounded-full bg-gray-700 p-1.5 hover:bg-gray-800">
+          <button
+            onClick={loopThroughPostsDown}
+            className="absolute z-20 right-4 top-20 flex items-center justify-center rounded-full bg-gray-700 p-1.5 hover:bg-gray-800"
+          >
             <BiChevronDown size="25" color="fff" />
           </button>
+        </div>
+        
+
+        <div className="bg-black bg-opacity-70 lg:min-w-[480px] z-10 relative">
+        <video
+        autoPlay
+        controls
+        loop
+        muted
+        className="h-screen mx-auto"
+          src={uri}
+        />
         </div>
       </div>
     </div>
