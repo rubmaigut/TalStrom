@@ -10,26 +10,51 @@ type VideosGridProps = {
 const VideosGrid = ({ videos, sub }: VideosGridProps) => {
   const [uploadVisibility, setUploadVisibility] = useState(false);
   const [playerVisibility, setPlayerVisibility] = useState(false);
-  const [currentVideoIndex, setCurrentVideoIndex] = useState<number | null>(
-    null
-  );
+  const [currentVideoIndex, setCurrentVideoIndex] = useState<number>(0);
 
   const toggleUploadOverlay = () => {
     setUploadVisibility(!uploadVisibility);
   };
 
   const togglePlayerOverlay = (videoId?: number) => {
-    setCurrentVideoIndex(videoId ? videoId : null);
+    videoId ? setCurrentVideoIndex(videoId) : setCurrentVideoIndex(0);
     setPlayerVisibility(!playerVisibility);
   };
 
+  const nextVideo = () => {
+    // let newIndex;
+    // if (currentVideoIndex === videos!.length - 1) {
+    //   newIndex = 0;
+    // } else {
+    //   if (currentVideoIndex == null) {
+    //     newIndex = currentVideoIndex + 1;
+    //   }
+    // }
+    let newIndex =
+      currentVideoIndex === videos!.length - 1 ? 0 : currentVideoIndex + 1;
+    setCurrentVideoIndex(newIndex);
+  };
+
+  const previousVideo = () => {
+    let newIndex =
+      currentVideoIndex === 0 ? videos!.length - 1 : currentVideoIndex - 1;
+    setCurrentVideoIndex(newIndex);
+  };
+
+  console.log(currentVideoIndex);
   return (
     <article>
       {uploadVisibility && (
         <UploadContainer closeWindow={toggleUploadOverlay} sub={sub} />
       )}
       {playerVisibility && (
-        <VideoPlayer closeWindow={togglePlayerOverlay} videos={videos} currentVideoIndex={currentVideoIndex} />
+        <VideoPlayer
+          nextVideo={nextVideo}
+          previousVideo={previousVideo}
+          closeWindow={togglePlayerOverlay}
+          videos={videos}
+          currentVideoIndex={currentVideoIndex}
+        />
       )}
       <button className="mt-4 px-2 mx-3 border" onClick={toggleUploadOverlay}>
         Add Video

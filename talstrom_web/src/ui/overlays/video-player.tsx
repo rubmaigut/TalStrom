@@ -9,11 +9,15 @@ type VideoPlayerProps = {
   videos: Video[] | undefined;
   closeWindow: () => void;
   currentVideoIndex: number | null;
+  nextVideo: () => void;
+  previousVideo: () => void;
 };
 
 const VideoPlayer = ({
   videos,
   closeWindow,
+  nextVideo,
+  previousVideo,
   currentVideoIndex,
 }: VideoPlayerProps) => {
   const [uri, setUri] = useState("");
@@ -32,9 +36,13 @@ const VideoPlayer = ({
   if(videos && currentVideoIndex){
       console.log("current: ", videos![currentVideoIndex].id);
   }
-  const loopThroughPostsUp = () => {};
+  const loopThroughPostsUp = () => {
+    previousVideo()
+  };
 
-  const loopThroughPostsDown = () => {};
+  const loopThroughPostsDown = () => {
+    nextVideo();
+  };
 
   return (
     <div
