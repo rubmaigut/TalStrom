@@ -26,6 +26,7 @@ export default function VideoItem({
 
   const openPlayerHandler = (evt: SyntheticEvent) => {
     const target = evt.target as HTMLElement;
+    const index =
     openPlayer(parseInt(target.id.split("-")[1]));
   };
 
@@ -42,7 +43,7 @@ export default function VideoItem({
       ) : (
         <div onClick={openPlayerHandler}>
           <video
-            id={`video-${videoItem.id - 1}`}
+            id={`video-${videoItem.id}`}
             muted
             loop
             className="aspect=[3/4] object-cover rounded-md"

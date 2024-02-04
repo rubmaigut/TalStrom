@@ -17,19 +17,12 @@ const VideosGrid = ({ videos, sub }: VideosGridProps) => {
   };
 
   const togglePlayerOverlay = (videoId?: number) => {
-    videoId ? setCurrentVideoIndex(videoId) : setCurrentVideoIndex(0);
+    const video = videos?.find(v => v.id === videoId)
+    videoId ? setCurrentVideoIndex(videos!.indexOf(video as Video)) : setCurrentVideoIndex(0);
     setPlayerVisibility(!playerVisibility);
   };
 
   const nextVideo = () => {
-    // let newIndex;
-    // if (currentVideoIndex === videos!.length - 1) {
-    //   newIndex = 0;
-    // } else {
-    //   if (currentVideoIndex == null) {
-    //     newIndex = currentVideoIndex + 1;
-    //   }
-    // }
     let newIndex =
       currentVideoIndex === videos!.length - 1 ? 0 : currentVideoIndex + 1;
     setCurrentVideoIndex(newIndex);
