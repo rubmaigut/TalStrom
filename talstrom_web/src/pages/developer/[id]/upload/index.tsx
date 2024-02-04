@@ -25,10 +25,12 @@ const Upload = () => {
     }
   };
 
-  const changeVideoHandler = () => {
+  const discardVideoHandler = () => {
     setFile(null);
-    setFileDisplay('')
-  }
+    setFileDisplay("");
+  };
+
+  const uploadVideoToCloud = () => {};
 
   return (
     <section className="w-full mt-[80px] mb-[40px] bg-white shadow-lg rounded-md py-6 md:px-10 px-4">
@@ -37,7 +39,7 @@ const Upload = () => {
         <h2 className="text-gray-400 mt-1">Post a video to your account</h2>
       </div>
 
-      <div className="mt-8 md:flex gap-6">
+      <div className="mt-8 md:flex flex-col gap-6">
         {!fileDisplay ? (
           <label
             htmlFor="input"
@@ -136,12 +138,38 @@ const Upload = () => {
                   {file ? file.name : ""}
                 </p>
               </div>
-              <button onClick={() => changeVideoHandler()} className="text-[11px] ml-2 font-semibold"> 
-                Change
-              </button>
             </div>
           </div>
         )}
+        <div className="flex items-center justify-center mt-4 mb-6">
+          <button
+            disabled={isUploading}
+            onClick={() => discardVideoHandler()}
+            className="px-10 py-2.5 mt-2 mx-1 border text-black bg-white rounded-sm"
+          >
+            Discard
+          </button>
+          <button
+            disabled={isUploading}
+            onClick={() => uploadVideoToCloud()}
+            className={`px-10 py-2.5 mt-2 mx-1 border text-white ${
+              file && fileDisplay.length ? "bg-[#14b8a6]" : "bg-gray-300"
+            } rounded-sm`}
+          >
+            {isUploading ? (
+              <BiLoaderCircle
+                className="animate-spin"
+                color="#f12b56"
+                size={30}
+              />
+            ) : (
+              "Upload"
+            )}
+          </button>
+        </div>
+        {error ? (
+          <div className="text-red-400 mt-4">{error.message}</div>
+        ) : null}
       </div>
     </section>
   );
