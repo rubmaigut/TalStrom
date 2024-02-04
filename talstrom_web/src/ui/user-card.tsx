@@ -6,15 +6,6 @@ interface UserCardProps {
   user: UserCardForUser;
 }
 
-const formatDate = (dateString: string) => {
-  const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  };
-  return new Date(dateString).toLocaleDateString(undefined, options);
-};
-
 const userCard: React.FC<UserCardProps> = ({ user }) => (
   <>
     <p>
@@ -26,7 +17,8 @@ const userCard: React.FC<UserCardProps> = ({ user }) => (
     <p>Role: {user.role}</p>
     <p>Phone Number: {user.phoneNumber || 'Not available'}</p>
     {/* <p>Date Added: {formatDate(user.dateAdded)}</p> */}
-    <p>Followers: {user.followers ? 'Yes' : 'No'}</p>
+    <p>Followers: {user.followers ? 'Yes' : '10'}</p>
+    <p>Following: {user.following ? 'Yes' : 'No'}</p>
     <p>Posts: {user.posts ? 'Yes' : 'No'}</p>
   </>
 );
