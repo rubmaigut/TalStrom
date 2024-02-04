@@ -10,6 +10,7 @@ public class BlobStorageService(BlobServiceClient client)
     {
         var blobContainer = client.GetBlobContainerClient(containerName);
         await blobContainer.CreateIfNotExistsAsync();
+        
         var blobClient = blobContainer.GetBlobClient(Path.GetFileName(filePath));
         var blobHttpHeader = new BlobHttpHeaders { ContentType = "video/mp4" };
         await blobClient.UploadAsync(filePath, new BlobUploadOptions { HttpHeaders = blobHttpHeader });
@@ -30,9 +31,15 @@ public class BlobStorageService(BlobServiceClient client)
 
     public async Task DeleteFileAsync(string containerName, string filePath)
     {
-        var blobContainer = client.GetBlobContainerClient(containerName);
-        await blobContainer.CreateIfNotExistsAsync();
-        var blobClient = blobContainer.GetBlobClient(Path.GetFileName(filePath));
-        await blobClient.DeleteAsync();
+        try
+        {
+            var blobContainer = client.GetBlobContainerClient(containerName);
+            var blobClient = blobContainer.GetBlobClient(Path.GetFileName(filePath));
+            await blobClient.DeleteAsync();
+        }
+        catch (Exception error)
+        {
+            throw error;
+        }
     }
 }
