@@ -1,10 +1,8 @@
-import { ReactNode } from 'react';
-
 export interface UserCardForUser {
   phoneNumber: string;
-  followers: any;
-  posts: any;
-  dateAdded: ReactNode;
+  followers: string;
+  following: string;
+  posts: string;
   id: number;
   name: string;
   email: string;
