@@ -40,8 +40,9 @@ public class BlobStorageService
         // await AddThumbnailToStorage(stream, filePath);
         
         var filePathSplit = filePath.Split('.');
+        var fileName = filePathSplit.First();
         
-        return await Task.FromResult(new VideoBlobResponseDTO(filePathSplit.First(), video.Properties.ContentType,
+        return await Task.FromResult(new VideoBlobResponseDTO(fileName, video.Properties.ContentType,
             blobClient.Uri.ToString()));
     }
 

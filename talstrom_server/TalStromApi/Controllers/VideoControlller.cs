@@ -69,7 +69,7 @@ public class VideoController : ControllerBase
     }
 
     [HttpPost("upload")]
-    public async Task<IActionResult> Upload(IFormFile file, string sub)
+    public async Task<IActionResult> Upload([FromForm] IFormFile file, string sub)
     {
         if (file == null || file.Length == 0)
         {
@@ -77,7 +77,7 @@ public class VideoController : ControllerBase
         }
 
         var fileName = Guid.NewGuid();
-        using (var stream = System.IO.File.Create($"./Data/temp/{fileName}.mp4"))
+        using (var stream = System.IO.File.Create($"{fileName}.mp4"))
         {
             await file.CopyToAsync(stream);
         }
@@ -90,7 +90,7 @@ public class VideoController : ControllerBase
         _context.Videos.Add(video);
         await _context.SaveChangesAsync();
 
-        System.IO.File.Delete($"./Data/temp/{fileName}.mp4");
+        System.IO.File.Delete($"{fileName}.mp4");
         return CreatedAtAction("GetAllVideos", new { id = video.Id }, video);
     }
 
