@@ -74,3 +74,18 @@ export async function deleteUser(sub: string) {
   }
   return response.json();
 }
+
+// Video Handling
+export async function addVideo(sub: String) : Promise<Video> {
+  const url = `${API_BASE_URL}/Video/upload`;
+  const response = await fetch(url, {
+    cache: 'no-store',
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      sub: sub,
+    }),
+  });
+  if (!response.ok) throw new Error("upload Video Error: Failed to Upload video")
+  return await response.json();
+}
