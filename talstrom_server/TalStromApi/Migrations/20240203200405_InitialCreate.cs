@@ -22,6 +22,7 @@ namespace TalStromApi.Migrations
                     Picture = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Sub = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Technologies = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateAdded = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastLoggedIn = table.Column<DateTime>(type: "datetime2", nullable: false),

@@ -67,7 +67,9 @@ public class BlobStorageService
         var blobContainer = _client.GetBlobContainerClient(containerName);
         await blobContainer.CreateIfNotExistsAsync();
         var blobClient = blobContainer.GetBlobClient(Path.GetFileName(filePath));
-        await blobClient.UploadAsync(filePath, true);
+        var blobHttpHeader = new BlobHttpHeaders { ContentType = "video/mp4" };
+        
+        await blobClient.UploadAsync(filePath, new BlobUploadOptions { HttpHeaders = blobHttpHeader });
 
         Dictionary<string, string> metadata = new Dictionary<string, string>();
         metadata.Add("userId", userSub);

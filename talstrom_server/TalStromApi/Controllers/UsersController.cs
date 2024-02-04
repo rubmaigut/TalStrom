@@ -42,7 +42,10 @@ namespace TalStromApi.Controllers
     {
       try
       {
-        var user = await _context.User.FirstOrDefaultAsync(x=> x.Sub == sub);
+        var user = await _context.User.
+          Include(ctx => ctx.Posts)
+          .Include(ctx => ctx.Videos)
+          .FirstOrDefaultAsync(x=> x.Sub == sub);
         
        return user is null ? NotFound() :  Ok(user);
       }
@@ -74,6 +77,18 @@ namespace TalStromApi.Controllers
       await _context.SaveChangesAsync();
       return Ok(user);
     }
+    
+    [HttpPatch("{sub}/activeStatus/{isActive}")]
+    public async Task<IActionResult> UpdateUserActiveStatus(string sub, bool isActive)
+    {
+      var user = await _context.User.FirstOrDefaultAsync(x=> x.Sub == sub);
+
+      if (user is null) return NotFound();
+
+      user.Active = isActive ;
+      await _context.SaveChangesAsync();
+      return Ok(user);
+    }
 
     [HttpPost]
     public async Task<ActionResult<User>> PostUser(UserPostReq userReq)
@@ -102,7 +117,7 @@ namespace TalStromApi.Controllers
       }
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("{sub}")]
     public async Task<IActionResult> DeleteUser(string sub)
     {
       if (!UserExists(sub))
