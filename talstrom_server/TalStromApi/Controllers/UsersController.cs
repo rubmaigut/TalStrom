@@ -95,7 +95,11 @@ namespace TalStromApi.Controllers
     {
       try
       {
-        if (UserExists(userReq.Sub)) return Ok("User already in database");
+        var existingUser = await _context.User.FirstOrDefaultAsync(u => u.Sub == userReq.Sub);
+        if (existingUser != null)
+        {
+          return StatusCode(409, existingUser);
+        }
         
         var user = new User
         {
@@ -108,7 +112,7 @@ namespace TalStromApi.Controllers
         _context.User.Add(user);
         await _context.SaveChangesAsync();
 
-        return CreatedAtAction("GetUser", new { id = user.Id }, user);
+        return CreatedAtAction("GetUserBySub", new { sub = user.Sub }, user);
       }
       catch (Exception ex)
       {
