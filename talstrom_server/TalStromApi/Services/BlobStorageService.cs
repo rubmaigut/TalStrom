@@ -37,7 +37,7 @@ public class BlobStorageService(BlobServiceClient client)
             var blobClient = blobContainer.GetBlobClient(Path.GetFileName(filePath));
             await blobClient.DeleteAsync();
         }
-        catch (Exception error)
+        catch (FileNotFoundException error)
         {
             throw error;
         }
