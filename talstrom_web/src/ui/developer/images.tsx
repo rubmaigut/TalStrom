@@ -1,15 +1,15 @@
 import { FC, useState } from "react";
 import VideoItem from "../atoms/video-item";
-import UploadContainer from "../overlays/upload-video";
+import UploadContainer from "../overlays/upload-media";
 import VideoPlayer from "../overlays/video-player";
 import ImageItem from "../atoms/image-item";
 import ImageViewer from "../overlays/image-viewer";
 
-type VideosGridProps = {
+type ImagesGridProps = {
   images: Media[] | undefined;
   sub: string;
 };
-const VideosGrid = ({ images, sub }: VideosGridProps) => {
+const ImagesGrid = ({ images, sub }: ImagesGridProps) => {
   const [uploadVisibility, setUploadVisibility] = useState(false);
   const [playerVisibility, setPlayerVisibility] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
@@ -69,4 +69,4 @@ const VideosGrid = ({ images, sub }: VideosGridProps) => {
   );
 };
 
-export default VideosGrid;
+export default ImagesGrid;

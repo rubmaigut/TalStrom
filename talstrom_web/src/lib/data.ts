@@ -76,8 +76,8 @@ export async function deleteUser(sub: string) {
 }
 
 // Video Handling
-export async function addVideo(video: File, sub: string) : Promise<Media> {
-  const url = `${API_BASE_URL}/Video/upload`;
+export async function addMedia(video: File, sub: string, mediaType:string) : Promise<Media> {
+  const url = `${API_BASE_URL}/${mediaType}/upload`;
   const formData = new FormData()
   formData.append('file', video);
 

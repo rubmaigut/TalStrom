@@ -11,5 +11,6 @@ export interface UserCardForUser {
   picture: string;
   sub: string;
   role: string;
-  videos: Video[];
+  videos: Media[];
+  images: Media[];
 }

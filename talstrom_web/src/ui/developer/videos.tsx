@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import VideoItem from "../atoms/video-item";
-import UploadContainer from "../overlays/upload-video";
+import UploadContainer from "../overlays/upload-media";
 import VideoPlayer from "../overlays/video-player";
 
 type VideosGridProps = {
@@ -37,7 +37,7 @@ const VideosGrid = ({ videos, sub }: VideosGridProps) => {
   return (
     <article>
       {uploadVisibility && (
-        <UploadContainer closeWindow={toggleUploadOverlay} sub={sub} />
+        <UploadContainer closeWindow={toggleUploadOverlay} sub={sub} mediaType="Video" />
       )}
       {playerVisibility && (
         <VideoPlayer

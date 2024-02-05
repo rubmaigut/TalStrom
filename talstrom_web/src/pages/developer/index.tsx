@@ -11,6 +11,7 @@ import UserPost from "../../ui/profile/posts";
 import UserSaved from "../../ui/profile/saved";
 import VideosGrid from "../../ui/developer/videos";
 import { useSearchParams } from "next/navigation";
+import ImagesGrid from "@/ui/developer/images";
 
 export default function UserProfilePage() {
   const { data: session } = useSession();
@@ -39,6 +40,9 @@ export default function UserProfilePage() {
     switch (activeLink) {
       case "videos":
         setPageComponent(<VideosGrid videos={user?.videos} sub={user!.sub} />);
+        break;
+      case "images":
+        setPageComponent(<ImagesGrid images={user?.images} sub={user!.sub} />);
         break;
       case "posts":
         setPageComponent(<UserPost posts={user?.posts}/>);
