@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
 export interface UserCardForUser {
+  technologies: string;
   phoneNumber: string;
   followers: any;
   following: any;
