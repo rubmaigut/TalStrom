@@ -41,13 +41,13 @@ const userCard: React.FC<UserCardProps> = ({ user }) => (
       </p>
     </div>
     <div className="ml-4">
-      <p className="mt-2">Role: {user.role}</p>
+      <p className="mt-2">Role:</p>
       <p className="mt-2">
-        Phone Number: {user.phoneNumber || 'Not available'}
+        Phone Number:
       </p>
     </div>
     <div className="rounded border p-4 mb-4 mt-2">
-      <p>Technologies: {user.technologies || 'Not available'}</p>
+      <p>Technologies: </p>
     </div>
   </div>
 );
