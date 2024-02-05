@@ -1,6 +1,6 @@
 import SignIn from "@/ui/sign-in";
 import { useSession } from "next-auth/react";
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { fetchUsersBySub } from "@/lib/data";
 import { UserCardForUser } from "@/types/IUserCardProps";
 import UserCard from "../../ui/user-card";
@@ -12,9 +12,13 @@ import UserSaved from "../../ui/profile/saved";
 import VideosGrid from "../../ui/developer/videos";
 import { useSearchParams } from "next/navigation";
 import ImagesGrid from "@/ui/developer/images";
+import WrongRolePageMessage from "@/ui/atoms/wrong-role-message";
+import { useUser } from "@/context/UserContext";
 
 export default function UserProfilePage() {
   const { data: session } = useSession();
+  const {userContextG} = useUser();
+
   const [user, setUser] = useState<UserCardForUser | null>(null);
   const [pageComponent, setPageComponent] = useState(<VideosGrid videos={user?.videos} sub={user?.sub as string}/>);
   const [activeLink, setActiveLink] = useState<string>("posts");
@@ -24,18 +28,15 @@ export default function UserProfilePage() {
   useEffect(() => {
     const loadUser = async () => {
       try {
-        if (session) {
-          const sub = session.user?.sub || '';
-          const userData = await fetchUsersBySub(sub);
+          const userData = await fetchUsersBySub(sub as string);
           setUser(userData);
-        }
       } catch (error) {
         console.error('Failed to fetch user data:', error);
       }
     };
 
     loadUser();
-  }, [session]);
+  }, [sub]);
 
   const handleLinkClick = (link: string) => {
     setActiveLink(link);
@@ -64,7 +65,7 @@ export default function UserProfilePage() {
     }
   }, [activeLink, user]);
 
-  return (
+  if(user && user.role == 'developer') return (
     <>
       {!session ? (
         <section>
@@ -88,4 +89,19 @@ export default function UserProfilePage() {
       )}
     </>
   );
+
+  if(user && user.role == 'customer') return (
+    <>
+      {!session ? (
+        <section>
+          <SignIn />
+        </section>
+      ) : (
+        <>
+            <WrongRolePageMessage displayRole={user.role} sub={user.sub}/>
+        </>
+      )}
+    </>
+  );
+
 }
