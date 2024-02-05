@@ -23,15 +23,20 @@ export default function UserProfilePage() {
   const sub = searchParams.get('sub');
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      if (sub) {
-        const userData = await fetchUsersBySub(sub as string);
-        setUser(userData);
+    const loadUser = async () => {
+      try {
+        if (session) {
+          const sub = session.user?.sub || '';
+          const userData = await fetchUsersBySub(sub);
+          setUser(userData);
+        }
+      } catch (error) {
+        console.error('Failed to fetch user data:', error);
       }
     };
 
-    fetchUserData();
-  }, [sub]);
+    loadUser();
+  }, [session]);
 
   const handleLinkClick = (link: string) => {
     setActiveLink(link);
