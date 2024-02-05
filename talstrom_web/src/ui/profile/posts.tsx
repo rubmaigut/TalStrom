@@ -7,7 +7,7 @@ const Posts : FC<PostsProps> = ({posts}) => {
 
     if(posts && posts.length) return (
       <div>
-        <p>Video Posts</p>
+        <p>Posts</p>
         {posts.map((post, i) =>  {
             return (
             <div key={`post-${i}`} className="container mx-auto my-2 p-2 border border-black rounded-md">
