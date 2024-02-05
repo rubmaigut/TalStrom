@@ -11,7 +11,7 @@ type UploadError = {
 };
 
 type UploadContainerProps = {
-  closeWindow: () => void;
+  closeWindow: (uploaded: boolean) => void;
   sub: string;
   mediaType: string
 };
@@ -49,6 +49,7 @@ const UploadContainer = ({ closeWindow, sub, mediaType }: UploadContainerProps) 
 
     await addMedia(file as File, sub, mediaType);
     discardMediaHandler();
+    closeWindow(true);
   };
 
   return (
@@ -57,7 +58,7 @@ const UploadContainer = ({ closeWindow, sub, mediaType }: UploadContainerProps) 
       className="fixed flex justify-center align-middle items-center z-10 left-0 top-0 w-full h-screen bg-white overflow-auto"
     >
       <div className="container w-[300px] top-12 md:top-40">
-      <button className="mx-8" onClick={closeWindow}>
+      <button className="mx-8" onClick={() => closeWindow(false)}>
         <GiCancel size="30" />
       </button>
       <div>

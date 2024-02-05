@@ -8,13 +8,17 @@ import ImageViewer from "../overlays/image-viewer";
 type ImagesGridProps = {
   images: Media[] | undefined;
   sub: string;
+  loadUser: () => void
 };
-const ImagesGrid = ({ images, sub }: ImagesGridProps) => {
+const ImagesGrid = ({ images, sub, loadUser }: ImagesGridProps) => {
   const [uploadVisibility, setUploadVisibility] = useState(false);
   const [playerVisibility, setPlayerVisibility] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
 
-  const toggleUploadOverlay = () => {
+  const toggleUploadOverlay = (uploaded: boolean) => {
+    if(uploaded) {
+      loadUser();
+    }
     setUploadVisibility(!uploadVisibility);
   };
 
@@ -50,7 +54,7 @@ const ImagesGrid = ({ images, sub }: ImagesGridProps) => {
           currentImageIndex={currentImageIndex}
         />
       )}
-      <button className="mt-4 px-2 mx-3 border" onClick={toggleUploadOverlay}>
+      <button className="mt-4 px-2 mx-3 border" onClick={() => toggleUploadOverlay(false)}>
         Add Picture
       </button>
       <div className="mt-4 grid 2xl:grid-cols-6 xl-grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-1 px-2 lg:px-4">

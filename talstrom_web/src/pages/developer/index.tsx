@@ -16,27 +16,27 @@ import WrongRolePageMessage from "@/ui/atoms/wrong-role-message";
 import { useUser } from "@/context/UserContext";
 
 export default function UserProfilePage() {
+  const loadUser = async () => {
+    try {
+      if(sub){
+        const userData = await fetchUsersBySub(sub as string);
+        setUser(userData);
+      }
+    } catch (error) {
+      console.error('Failed to fetch user data:', error);
+    }
+  };
+
   const { data: session } = useSession();
   const {userContextG} = useUser();
-
   const [user, setUser] = useState<UserCardForUser | null>(null);
-  const [pageComponent, setPageComponent] = useState(<VideosGrid videos={user?.videos} sub={user?.sub as string}/>);
+  const [pageComponent, setPageComponent] = useState(<VideosGrid videos={user?.videos} sub={user?.sub as string} loadUser={loadUser}/>);
   const [activeLink, setActiveLink] = useState<string>("posts");
   const searchParams = useSearchParams();
   const sub = searchParams.get("sub");
   
-  useEffect(() => {
-    const loadUser = async () => {
-      try {
-        if(sub){
-          const userData = await fetchUsersBySub(sub as string);
-          setUser(userData);
-        }
-      } catch (error) {
-        console.error('Failed to fetch user data:', error);
-      }
-    };
 
+  useEffect(() => {
     loadUser();
   }, [sub]);
 
@@ -47,10 +47,10 @@ export default function UserProfilePage() {
   useEffect(() => {
     switch (activeLink) {
       case "Videos":
-        setPageComponent(<VideosGrid videos={user?.videos} sub={user!.sub} />);
+        setPageComponent(<VideosGrid videos={user?.videos} sub={user!.sub} loadUser={loadUser}/>);
         break;
       case "Images":
-        setPageComponent(<ImagesGrid images={user?.images} sub={user!.sub} />);
+        setPageComponent(<ImagesGrid images={user?.images} sub={user!.sub} loadUser={loadUser}/>);
         break;
       case "Posts":
         setPageComponent(<Posts posts={user?.posts}/>);
