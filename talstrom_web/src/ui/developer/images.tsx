@@ -2,59 +2,61 @@ import { FC, useState } from "react";
 import VideoItem from "../atoms/video-item";
 import UploadContainer from "../overlays/upload-media";
 import VideoPlayer from "../overlays/video-player";
+import ImageItem from "../atoms/image-item";
+import ImageViewer from "../overlays/image-viewer";
 
-type VideosGridProps = {
-  videos: Media[] | undefined;
+type ImagesGridProps = {
+  images: Media[] | undefined;
   sub: string;
 };
-const VideosGrid = ({ videos, sub }: VideosGridProps) => {
+const ImagesGrid = ({ images, sub }: ImagesGridProps) => {
   const [uploadVisibility, setUploadVisibility] = useState(false);
   const [playerVisibility, setPlayerVisibility] = useState(false);
-  const [currentVideoIndex, setCurrentVideoIndex] = useState<number>(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
 
   const toggleUploadOverlay = () => {
     setUploadVisibility(!uploadVisibility);
   };
 
   const togglePlayerOverlay = (videoId?: number) => {
-    const video = videos?.find(v => v.id === videoId)
-    videoId ? setCurrentVideoIndex(videos!.indexOf(video as Media)) : setCurrentVideoIndex(0);
+    const video = images?.find(v => v.id === videoId)
+    videoId ? setCurrentImageIndex(images!.indexOf(video as Media)) : setCurrentImageIndex(0);
     setPlayerVisibility(!playerVisibility);
   };
 
-  const nextVideo = () => {
+  const nextImage = () => {
     let newIndex =
-      currentVideoIndex === videos!.length - 1 ? 0 : currentVideoIndex + 1;
-    setCurrentVideoIndex(newIndex);
+      currentImageIndex === images!.length - 1 ? 0 : currentImageIndex + 1;
+    setCurrentImageIndex(newIndex);
   };
 
-  const previousVideo = () => {
+  const previousImage = () => {
     let newIndex =
-      currentVideoIndex === 0 ? videos!.length - 1 : currentVideoIndex - 1;
-    setCurrentVideoIndex(newIndex);
+      currentImageIndex === 0 ? images!.length - 1 : currentImageIndex - 1;
+    setCurrentImageIndex(newIndex);
   };
 
   return (
     <article>
       {uploadVisibility && (
-        <UploadContainer closeWindow={toggleUploadOverlay} sub={sub} mediaType="Video" />
+        <UploadContainer closeWindow={toggleUploadOverlay} sub={sub} mediaType="Image" />
       )}
       {playerVisibility && (
-        <VideoPlayer
-          nextVideo={nextVideo}
-          previousVideo={previousVideo}
+        <ImageViewer
+          nextImage={nextImage}
+          previousImage={previousImage}
           closeWindow={togglePlayerOverlay}
-          videos={videos}
-          currentVideoIndex={currentVideoIndex}
+          images={images}
+          currentImageIndex={currentImageIndex}
         />
       )}
       <button className="mt-4 px-2 mx-3 border" onClick={toggleUploadOverlay}>
-        Add Video
+        Add Picture
       </button>
       <div className="mt-4 grid 2xl:grid-cols-6 xl-grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-1 px-2 lg:px-4">
-        {videos?.map((elm, i) => {
+        {images?.map((elm, i) => {
           return (
-            <VideoItem
+            <ImageItem
               key={i}
               videoItem={elm}
               sub={sub}
@@ -67,4 +69,4 @@ const VideosGrid = ({ videos, sub }: VideosGridProps) => {
   );
 };
 
-export default VideosGrid;
+export default ImagesGrid;

@@ -8,7 +8,7 @@ type VideoItemProps = {
   openPlayer: (videoId?: number) => void;
 };
 
-export default function VideoItem({
+export default function ImageItem({
   videoItem,
   sub,
   openPlayer,

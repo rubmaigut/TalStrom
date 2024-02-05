@@ -6,7 +6,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
 type VideoPlayerProps = {
-  videos: Video[] | undefined;
+  videos: Media[] | undefined;
   currentVideoIndex: number | null;
   closeWindow: () => void;
   nextVideo: () => void;

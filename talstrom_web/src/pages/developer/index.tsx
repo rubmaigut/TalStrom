@@ -1,27 +1,26 @@
-import SignIn from '@/ui/sign-in';
-import { useSession } from 'next-auth/react';
-import { FC, useEffect, useState } from 'react';
-import { fetchUsersBySub } from '@/lib/data';
-import { UserCardForUser } from '@/types/IUserCardProps';
-import UserCard from '../../ui/user-card';
-import NavLinks, { links } from '@/ui/developer/nav-links';
-import UserFindMatch from '../../ui/profile/find-match';
-import UserMyNetwork from '../../ui/profile/networking';
-import UserPost from '../../ui/profile/posts';
-import UserSaved from '../../ui/profile/saved';
-import VideosGrid from '../../ui/developer/videos';
-import { useSearchParams } from 'next/navigation';
+import SignIn from "@/ui/sign-in";
+import { useSession } from "next-auth/react";
+import { FC, useEffect, useState } from "react";
+import { fetchUsersBySub } from "@/lib/data";
+import { UserCardForUser } from "@/types/IUserCardProps";
+import UserCard from "../../ui/user-card";
+import NavLinks, { links } from "@/ui/developer/nav-links";
+import UserFindMatch from "../../ui/profile/find-match";
+import UserMyNetwork from "../../ui/profile/networking";
+import UserPost from "../../ui/profile/posts";
+import UserSaved from "../../ui/profile/saved";
+import VideosGrid from "../../ui/developer/videos";
+import { useSearchParams } from "next/navigation";
+import ImagesGrid from "@/ui/developer/images";
 
 export default function UserProfilePage() {
   const { data: session } = useSession();
   const [user, setUser] = useState<UserCardForUser | null>(null);
-  const [pageComponent, setPageComponent] = useState(
-    <VideosGrid videos={user?.videos} sub={user?.sub as string} />,
-  );
-  const [activeLink, setActiveLink] = useState<string>('posts');
+  const [pageComponent, setPageComponent] = useState(<VideosGrid videos={user?.videos} sub={user?.sub as string}/>);
+  const [activeLink, setActiveLink] = useState<string>("posts");
   const searchParams = useSearchParams();
-  const sub = searchParams.get('sub');
-
+  const sub = searchParams.get("sub");
+  
   useEffect(() => {
     const loadUser = async () => {
       try {
@@ -44,19 +43,22 @@ export default function UserProfilePage() {
 
   useEffect(() => {
     switch (activeLink) {
-      case 'videos':
+      case "videos":
         setPageComponent(<VideosGrid videos={user?.videos} sub={user!.sub} />);
         break;
-      case 'posts':
-        setPageComponent(<UserPost posts={user?.posts as Post[]} />);
+      case "images":
+        setPageComponent(<ImagesGrid images={user?.images} sub={user!.sub} />);
         break;
-      case 'find-match':
+      case "posts":
+        setPageComponent(<UserPost posts={user?.posts}/>);
+        break;
+      case "find-match":
         setPageComponent(<UserFindMatch />);
         break;
-      case 'my-opportunities':
+      case "my-opportunities":
         setPageComponent(<UserMyNetwork />);
         break;
-      case 'saved':
+      case "saved":
         setPageComponent(<UserSaved />);
         break;
     }

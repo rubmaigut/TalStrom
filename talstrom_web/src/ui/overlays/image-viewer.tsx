@@ -5,70 +5,72 @@ import { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
-const VideoPlayer = () => {
+type VideoPlayerProps = {
+  images: Media[] | undefined;
+  currentImageIndex: number | null;
+  closeWindow: () => void;
+  nextImage: () => void;
+  previousImage: () => void;
+};
+
+const ImageViewer = ({
+  images,
+  currentImageIndex,
+  closeWindow,
+  nextImage,
+  previousImage,
+}: VideoPlayerProps) => {
   const [uri, setUri] = useState("");
   const searchParams = useSearchParams();
-  const userId = searchParams.get("id");
-  const postId = searchParams.get("video");
 
   useEffect(() => {
     const fetchVideo = async () => {
-      if (postId) {
-        const video = await fetchVideoById(postId as string);
-        setUri(video.uri);
+      if (currentImageIndex) {
+        setUri(images![currentImageIndex].uri);
       }
     };
 
     fetchVideo();
-  }, [postId]);
-  
-  const loopThroughPostsUp = () => {};
-
-  const loopThroughPostsDown = () => {};
+  });
 
   return (
     <div
       id="video-player"
-      className="lg:flex justify-between w-full h-screen bg-black overflow-auto"
+      className="fixed z-10 left-0 top-0 lg:flex justify-center w-full h-screen bg-black bg-opacity-80 overflow-auto"
     >
       <div className="lg:w-[calc(100%-540px] h-full relative">
-        <Link
-          href={`/developer/${userId}`}
+        <div
+          onClick={closeWindow}
           className="absolute text-white z-20 m-5 rounded-full bg-gray-700 p-1.5 hover:bg-gray-800"
         >
           <AiOutlineClose size="25" />
-        </Link>
+        </div>
 
         <div>
           <button
-            onClick={loopThroughPostsUp}
+            onClick={previousImage}
             className="absolute z-20 right-4 top-4 flex items-center justify-center rounded-full bg-gray-700 p-1.5 hover:bg-gray-800"
           >
             <BiChevronUp size="25" color="fff" />
           </button>
 
           <button
-            onClick={loopThroughPostsDown}
+            onClick={nextImage}
             className="absolute z-20 right-4 top-20 flex items-center justify-center rounded-full bg-gray-700 p-1.5 hover:bg-gray-800"
           >
             <BiChevronDown size="25" color="fff" />
           </button>
         </div>
-        
 
-        <div className="bg-black bg-opacity-70 lg:min-w-[480px] z-10 relative">
-        <video
-        autoPlay
-        controls
-        loop
-        muted
-        className="h-screen mx-auto"
-          src={uri}
-        />
+        <div className="bg-black bg-opacity-50 lg:min-w-[480px] z-10 relative">
+          <img
+            className="h-screen mx-auto"
+            src={uri}
+          />
         </div>
       </div>
     </div>
   );
 };
 
-export default VideoPlayer;
+export default ImageViewer;

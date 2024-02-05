@@ -1,4 +1,4 @@
-type Video = {
+type Media = {
     id: number,
     title: string,
     fileFormat: string,
