@@ -5,7 +5,7 @@ import { fetchUsersBySub } from "@/lib/data";
 import { UserCardForUser } from "@/types/IUserCardProps";
 import UserCard from "../../ui/user-card";
 import NavLinks from "@/ui/customer/nav-links";
-import UserFindMatch from "../../ui/profile/find-match";
+import UserFindMatch from "../../ui/customer/find-match";
 import UserMyNetwork from "../../ui/profile/networking";
 import UserPost from "../../ui/profile/posts";
 import UserSaved from "../../ui/profile/saved";
@@ -36,7 +36,7 @@ const UserProfilePage: React.FC = () => {
     };
 
     loadUser();
-  }, [sub]);
+  }, [session]);
 
   const handleLinkClick = (link: string) => {
     setActiveLink(link);
@@ -48,7 +48,7 @@ const UserProfilePage: React.FC = () => {
         setPageComponent(<UserPosts posts={user?.posts || []} />);
         break;
       case "find-match":
-        setPageComponent(<UserFindMatch />);
+        setPageComponent(<UserFindMatch sub={sub as string} />);
         break;
       case "networking":
         setPageComponent(<UserMyNetwork />);

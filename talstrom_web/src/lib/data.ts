@@ -54,6 +54,16 @@ export async function fetchUsersByRole(role: string) {
   return await response.json();
 }
 
+export async function fetchUsersByFilter(sub: string) {
+  const url = `${API_BASE_URL}/Users/technologies/filter/${sub}/`;
+  const response = await fetch(url, {
+    cache: "no-store",
+    headers: { "Content-Type": "application/json" }
+  });
+  if (!response.ok) throw new Error("fetchUsersByRole: Failed to fetch users");
+  return await response.json();
+}
+
 export async function updateUserRole(sub: string, role: string) {
   const url = `${API_BASE_URL}/Users/${sub}/${role}`;
   const response = await fetch(url, {
