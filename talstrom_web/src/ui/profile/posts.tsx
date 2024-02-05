@@ -7,7 +7,8 @@ type PostsProps = {
 const UserPosts: FC<PostsProps> = ({ posts }) => {
   console.log(posts);
 
-    if(posts && posts.length) return (
+  if (posts && posts.length)
+    return (
       <div>
         <p>Video Posts</p>
         {posts.map((post, i) => (
@@ -21,9 +22,6 @@ const UserPosts: FC<PostsProps> = ({ posts }) => {
         ))}
       </div>
     );
-  } else {
-    return <p>No posts available.</p>;
-  }
 };
 
 export default UserPosts;
