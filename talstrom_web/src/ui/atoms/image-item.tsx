@@ -2,37 +2,21 @@ import Link from "next/link";
 import { SyntheticEvent, useEffect } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
-type VideoItemProps = {
-  videoItem: Media;
-  sub: string;
-  openPlayer: (videoId?: number) => void;
+type ImageItemProps = {
+  imageItem: Media;
+  openPlayer: (imageId?: number) => void;
 };
 
-export default function ImageItem({
-  videoItem,
-  sub,
-  openPlayer,
-}: VideoItemProps) {
-  useEffect(() => {
-    const video = document.getElementById(
-      `video-${videoItem.id}`
-    ) as HTMLVideoElement;
-
-    setTimeout(() => {
-      video?.addEventListener("mouseenter", () => video.play());
-      video?.addEventListener("mouseleave", () => video.pause());
-    }, 50);
-  }, [videoItem.id]);
-
+export default function ImageItem({ imageItem, openPlayer }: ImageItemProps) {
   const openPlayerHandler = (evt: SyntheticEvent) => {
     const target = evt.target as HTMLElement;
-    const index =
-    openPlayer(parseInt(target.id.split("-")[1]));
+    const index = openPlayer(parseInt(target.id.split("-")[1]));
   };
 
+  console.log(imageItem.uri)
   return (
     <div className="relative brightness-90 hover:brightness-[1.1] cursor-pointer">
-      {!videoItem.uri ? (
+      {!imageItem.uri ? (
         <div className="absolute flex items-center justify-center top-0 left-0 aspect-[3/4] w-full object-cover  rounded-md bg-black">
           <AiOutlineLoading3Quarters
             className="animate-spin ml-1"
@@ -42,12 +26,10 @@ export default function ImageItem({
         </div>
       ) : (
         <div onClick={openPlayerHandler}>
-          <video
-            id={`video-${videoItem.id}`}
-            muted
-            loop
+          <img
+            id={`image-${imageItem.id}`}
             className="aspect=[3/4] object-cover rounded-none"
-            src={videoItem.uri}
+            src={imageItem.uri}
           />
         </div>
       )}

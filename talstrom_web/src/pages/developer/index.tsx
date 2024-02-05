@@ -7,7 +7,7 @@ import UserCard from "../../ui/user-card";
 import NavLinks, { links } from "@/ui/developer/nav-links";
 import UserFindMatch from "../../ui/profile/find-match";
 import UserMyNetwork from "../../ui/profile/networking";
-import UserPost from "../../ui/profile/posts";
+import Posts from "../../ui/profile/posts";
 import UserSaved from "../../ui/profile/saved";
 import VideosGrid from "../../ui/developer/videos";
 import { useSearchParams } from "next/navigation";
@@ -50,7 +50,7 @@ export default function UserProfilePage() {
         setPageComponent(<ImagesGrid images={user?.images} sub={user!.sub} />);
         break;
       case "posts":
-        setPageComponent(<UserPost posts={user?.posts}/>);
+        setPageComponent(<Posts posts={user?.posts}/>);
         break;
       case "find-match":
         setPageComponent(<UserFindMatch />);

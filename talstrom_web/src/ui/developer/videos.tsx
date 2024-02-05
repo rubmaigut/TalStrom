@@ -57,7 +57,6 @@ const VideosGrid = ({ videos, sub }: VideosGridProps) => {
             <VideoItem
               key={i}
               videoItem={elm}
-              sub={sub}
               openPlayer={togglePlayerOverlay}
             />
           );

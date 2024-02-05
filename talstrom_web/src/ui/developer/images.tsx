@@ -18,9 +18,9 @@ const ImagesGrid = ({ images, sub }: ImagesGridProps) => {
     setUploadVisibility(!uploadVisibility);
   };
 
-  const togglePlayerOverlay = (videoId?: number) => {
-    const video = images?.find(v => v.id === videoId)
-    videoId ? setCurrentImageIndex(images!.indexOf(video as Media)) : setCurrentImageIndex(0);
+  const togglePlayerOverlay = (imageId?: number) => {
+    const video = images?.find(v => v.id === imageId)
+    imageId ? setCurrentImageIndex(images!.indexOf(video as Media)) : setCurrentImageIndex(0);
     setPlayerVisibility(!playerVisibility);
   };
 
@@ -58,8 +58,7 @@ const ImagesGrid = ({ images, sub }: ImagesGridProps) => {
           return (
             <ImageItem
               key={i}
-              videoItem={elm}
-              sub={sub}
+              imageItem={elm}
               openPlayer={togglePlayerOverlay}
             />
           );

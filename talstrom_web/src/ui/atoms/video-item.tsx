@@ -4,13 +4,11 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 type VideoItemProps = {
   videoItem: Media;
-  sub: string;
   openPlayer: (videoId?: number) => void;
 };
 
 export default function VideoItem({
   videoItem,
-  sub,
   openPlayer,
 }: VideoItemProps) {
   useEffect(() => {
