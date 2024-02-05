@@ -17,7 +17,7 @@ export default function Page() {
       ) : (
         <Layout>
           <p>Invoices Page</p>
-          <EditProfile name={"maide"} picture={userContextG?.picture || ""} email={"bla bla bla"} technologies={'hhs'} phoneNumber={0} lastModified={new Date()}/>
+          <EditProfile/>
         </Layout>
       )}
     </>
