@@ -1,103 +1,54 @@
+import Layout from "@/ui/layout";
 import SignIn from "@/ui/sign-in";
 import { useSession } from "next-auth/react";
+import { fetchUsersByRole, fetchUsersBySub, updateUserRole } from "@/lib/data";
 import { useEffect, useState } from "react";
-import { fetchUsersBySub } from "@/lib/data";
-import { UserCardForUser } from "@/types/IUserCardProps";
-import UserCard from "../../ui/user-card";
-import NavLinks from "@/ui/customer/nav-links";
-import UserFindMatch from "../../ui/profile/find-match";
-import UserMyNetwork from "../../ui/profile/networking";
-import UserPost from "../../ui/profile/posts";
-import UserSaved from "../../ui/profile/saved";
-import UserPosts from "../../ui/profile/posts";
-import { useSearchParams } from "next/navigation";
+import GreetingModal from "@/ui/atoms/greetings";
 import { useUser } from "@/context/UserContext";
+import AccessDenied from "@/ui/access-denied";
+import { UserCardForUser } from "@/types/IUserCardProps";
 
-const UserProfilePage: React.FC = () => {
+export default function Page() {
   const { data: session } = useSession();
   const { userContextG } = useUser();
-  const [user, setUser] = useState<UserCardForUser | null>(null);
-  const [activeLink, setActiveLink] = useState<string>("posts");
-  const [pageComponent, setPageComponent] = useState<React.ReactNode>(
-    <UserPost posts={user?.posts || []} />
-  );
-
-  const searchParams = useSearchParams();
-  const sub = searchParams.get("sub");
+  const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
 
   useEffect(() => {
-    const loadUser = async () => {
-      try {
-        const userData = await fetchUsersBySub(sub as string);
-        setUser(userData);
-      } catch (error) {
-        console.error("Failed to fetch user data:", error);
-      }
-    };
+    const loadCustomerUsers = async () => {
+        try {
+          const users = await fetchUsersByRole("customer");
+          setUserInfo(users);
+        } catch (error) {
+          console.error("Failed to fetch customer users:", error);
+        }
+      };
+      loadCustomerUsers();
+  }, []);
 
-    loadUser();
-  }, [sub]);
-
-  const handleLinkClick = (link: string) => {
-    setActiveLink(link);
-  };
-
-  useEffect(() => {
-    switch (activeLink) {
-      case "posts":
-        setPageComponent(<UserPosts posts={user?.posts || []} />);
-        break;
-      case "find-match":
-        setPageComponent(<UserFindMatch />);
-        break;
-      case "networking":
-        setPageComponent(<UserMyNetwork />);
-        break;
-      case "saved":
-        setPageComponent(<UserSaved />);
-        break;
-    }
-  }, [activeLink, user]);
-
-  if (user && userContextG?.role == "customer")
+  if (!session) {
     return (
-      <>
-        {!session ? (
-          <section>
-            <SignIn />
-          </section>
-        ) : (
-          <>
+      <section>
+        <SignIn />
+      </section>
+    );
+  } else if (userContextG?.role !== "customer") {
+    return <AccessDenied role="Customer" />;
+  }
+
+  return (
+    <>
+      <Layout>
+        <div className="flex flex-col gap-6 rounded-lg bg-gray-50 px-6 py-8 md:w-full h-full md:px-12 md:my-0 my-4 ">
+          <div className="flex flex-col justify-between pb-6">
             <div>
-              {user ? (
-                <>
-                  <UserCard user={user} />
-                  <NavLinks onLinkClick={handleLinkClick} />
-                  <div>{pageComponent}</div>
-                </>
-              ) : (
-                <p>Loading user data...</p>
-              )}
+              <GreetingModal />
+              <p className="pb-2">
+                Hi<strong> {session?.user?.name}</strong> Welcome back!
+              </p>
             </div>
-          </>
-        )}
-      </>
-    );
-
-  if (user && user.role == "developer")
-    return (
-      <>
-        {!session ? (
-          <section>
-            <SignIn />
-          </section>
-        ) : (
-          <>
-            <div>Hello</div>
-          </>
-        )}
-      </>
-    );
-};
-
-export default UserProfilePage;
+          </div>
+        </div>
+      </Layout>
+    </>
+  );
+}
