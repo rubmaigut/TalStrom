@@ -4,7 +4,6 @@ import { Role } from "@/types/IUser";
 import { PowerIcon } from "@heroicons/react/24/outline";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import GreetingModal from "./greetings";
 
 interface Props {
