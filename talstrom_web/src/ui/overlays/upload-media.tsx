@@ -150,13 +150,22 @@ const UploadContainer = ({ closeWindow, sub, mediaType }: UploadContainerProps) 
               </div>
             ) : null}
 
-            <video
-              className="absolute rounded-xl object-cover z-10 p-[13px] w-full-h-full"
-              autoPlay
-              loop
-              muted
-              src={fileDisplay}
-            />
+              {mediaType == "Video" && (
+                <video
+                  className="absolute rounded-xl object-cover z-10 p-[13px] w-full-h-full"
+                  autoPlay
+                  loop
+                  muted
+                  src={fileDisplay}
+                />
+              )}
+
+              {mediaType == "Image" && (
+                <img
+                  className="absolute object-cover z-10 w-full-h-full"
+                  src={fileDisplay}
+                />
+              )} 
 
             <div className="absolute -bottom-12 flex items-center justify-between z-50 rounded-xl border w-full p-2 border-gray-300">
               <div className="flex items-center truncate">
