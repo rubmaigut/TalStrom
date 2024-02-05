@@ -12,9 +12,11 @@ import UserSaved from '../../ui/profile/saved';
 import posts from '../../ui/profile/posts';
 import UserPosts from '../../ui/profile/posts';
 import { useSearchParams } from 'next/navigation';
+import { useUser } from '@/context/UserContext';
 
 const UserProfilePage: React.FC = () => {
   const { data: session } = useSession();
+  const { userContextG } = useUser();
   const [user, setUser] = useState<UserCardForUser | null>(null);
   const [activeLink, setActiveLink] = useState<string>('posts');
   const [pageComponent, setPageComponent] = useState<React.ReactNode>(
@@ -27,18 +29,15 @@ const UserProfilePage: React.FC = () => {
   useEffect(() => {
     const loadUser = async () => {
       try {
-        if (session) {
-          const sub = session.user?.sub || '';
-          const userData = await fetchUsersBySub(sub);
-          setUser(userData);
-        }
+        const userData = await fetchUsersBySub(sub as string);
+        setUser(userData);
       } catch (error) {
         console.error('Failed to fetch user data:', error);
       }
     };
 
     loadUser();
-  }, [session]);
+  }, [sub]);
 
   const handleLinkClick = (link: string) => {
     setActiveLink(link);
@@ -61,30 +60,46 @@ const UserProfilePage: React.FC = () => {
     }
   }, [activeLink, user]);
 
-  return (
-    <>
-      {!session ? (
-        <section>
-          <SignIn />
-        </section>
-      ) : (
-        <>
-          <div>
-            {user ? (
-              <>
-                <p>User Profile</p>
-                <UserCard user={user} />
-                <NavLinks onLinkClick={handleLinkClick} />
-                <div>{pageComponent}</div>
-              </>
-            ) : (
-              <p>Loading user data...</p>
-            )}
-          </div>
-        </>
-      )}
-    </>
-  );
+  if (user && userContextG?.role == 'customer')
+    return (
+      <>
+        {!session ? (
+          <section>
+            <SignIn />
+          </section>
+        ) : (
+          <>
+            <div>
+              {user ? (
+                <>
+                  <p>User Profile</p>
+                  <UserCard user={user} />
+                  <NavLinks onLinkClick={handleLinkClick} />
+                  <div>{pageComponent}</div>
+                </>
+              ) : (
+                <p>Loading user data...</p>
+              )}
+            </div>
+          </>
+        )}
+      </>
+    );
+
+  if (user && user.role == 'developer')
+    return (
+      <>
+        {!session ? (
+          <section>
+            <SignIn />
+          </section>
+        ) : (
+          <>
+            <div>Hello</div>
+          </>
+        )}
+      </>
+    );
 };
 
 export default UserProfilePage;
