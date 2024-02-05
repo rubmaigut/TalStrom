@@ -12,6 +12,7 @@ public class BlobStorageService(BlobServiceClient client)
         await blobContainer.CreateIfNotExistsAsync();
         
         var blobClient = blobContainer.GetBlobClient(Path.GetFileName(filePath));
+        var contentType = filePath.EndsWith(".mp4") ? "video/mp4" : filePath.EndsWith(".jpg") ? "image/jpg" : "";
         var blobHttpHeader = new BlobHttpHeaders { ContentType = "video/mp4" };
         await blobClient.UploadAsync(filePath, new BlobUploadOptions { HttpHeaders = blobHttpHeader });
 
