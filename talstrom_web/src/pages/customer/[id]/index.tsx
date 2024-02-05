@@ -5,16 +5,21 @@ import { fetchUsersBySub } from '@/lib/data';
 import { UserCardForUser } from '@/types/IUserCardProps';
 import UserCard from '../../../ui/user-card';
 import NavLinks from '@/ui/customer/nav-links';
-import UserFindMatch from "../../../ui/profile/find-match";
-import UserMyNetwork from "../../../ui/profile/networking";
-import UserPost from "../../../ui/profile/posts";
-import UserSaved from "../../../ui/profile/saved";
+import UserFindMatch from '../../../ui/profile/find-match';
+import UserMyNetwork from '../../../ui/profile/networking';
+import UserPost from '../../../ui/profile/posts';
+import UserSaved from '../../../ui/profile/saved';
+import posts from '../../../ui/profile/posts';
+import UserPosts from '../../../ui/profile/posts';
+import { Post } from '@/types/Posts';
 
 const UserProfilePage: React.FC = () => {
   const { data: session } = useSession();
   const [user, setUser] = useState<UserCardForUser | null>(null);
   const [activeLink, setActiveLink] = useState<string>('posts');
-  const [pageComponent, setPageComponent] = useState<React.ReactNode>(<UserPost />);
+  const [pageComponent, setPageComponent] = useState<React.ReactNode>(
+    <UserPost posts={user?.posts || []} />,
+  );
 
   useEffect(() => {
     const loadUser = async () => {
@@ -39,22 +44,19 @@ const UserProfilePage: React.FC = () => {
   useEffect(() => {
     switch (activeLink) {
       case 'posts':
-        setPageComponent(<UserPost />);
+        setPageComponent(<UserPosts posts={user?.posts || []} />);
         break;
       case 'find-match':
         setPageComponent(<UserFindMatch />);
         break;
-      case 'my-devs':
+      case 'networking':
         setPageComponent(<UserMyNetwork />);
         break;
       case 'saved':
         setPageComponent(<UserSaved />);
         break;
-      default:
-        setPageComponent(<UserPost />);
-        break;
     }
-  }, [activeLink]);
+  }, [activeLink, user]);
 
   return (
     <>
