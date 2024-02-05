@@ -13,6 +13,13 @@ import posts from '../../ui/profile/posts';
 import UserPosts from '../../ui/profile/posts';
 import { useSearchParams } from 'next/navigation';
 
+const UserProfilePage: React.FC = () => {
+  const { data: session } = useSession();
+  const [user, setUser] = useState<UserCardForUser | null>(null);
+  const [activeLink, setActiveLink] = useState<string>('posts');
+  const [pageComponent, setPageComponent] = useState<React.ReactNode>(
+    <UserPost posts={user?.posts || []} />,
+  );
 
   const searchParams = useSearchParams();
   const sub = searchParams.get('sub');
