@@ -4,6 +4,7 @@ import { User } from "@/types/IUser";
 import { fetchUsersBySub, updateUserProfile } from "@/lib/data";
 import { useUser } from "@/context/UserContext";
 import { SelectTechnologies } from "./technologies";
+import { PencilIcon } from "@heroicons/react/24/outline";
 
 export interface EditProfileProps {
   bio?: string;
@@ -73,7 +74,15 @@ const EditProfile: React.FC = () => {
   return (
     <div className="container mx-auto px-4">
       <div className="bg-white shadow rounded-lg p-6">
-        <div className="flex items-center space-x-6 mb-4">
+        <i
+          className={`flex h-2 p-1 text-gray-500 rounded-full cursor-pointer ${
+            isEditMode ? "text-gray-500" : "text-green-500"
+          }`}
+          onClick={toggleEditMode}
+        >
+          <PencilIcon className="w-6 h-6" />
+        </i>
+        <div className="flex flex-col md:flex-row items-center md:space-x-6 mb-4">
           <div className="flex flex-col justify-center items-center">
             <dd className="my-2 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
               <Image
@@ -86,7 +95,7 @@ const EditProfile: React.FC = () => {
               />
             </dd>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col justify-center items-center">
             <h1 className="text-xl font-bold text-gray-900">
               {userContextG?.name}
             </h1>
@@ -97,12 +106,6 @@ const EditProfile: React.FC = () => {
               {userContextG?.role}
             </dd>
           </div>
-          <button
-            onClick={toggleEditMode}
-            className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
-          >
-            {isEditMode ? "Cancel" : "Edit"}
-          </button>
         </div>
         {isEditMode ? (
           <div>
