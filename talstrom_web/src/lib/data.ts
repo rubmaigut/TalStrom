@@ -23,7 +23,7 @@ export async function fetchUsers() {
   const url = `${API_BASE_URL}/Users`;
   const response = await fetch(url, {
     next: {
-      revalidate: 2
+      revalidate: 60
     }
   });
   if (!response.ok) throw new Error("fetchUsersByRole: Failed to fetch users");

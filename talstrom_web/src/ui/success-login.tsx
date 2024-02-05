@@ -1,9 +1,10 @@
 import { useUser } from "@/context/UserContext";
 import { addUserHandler, fetchUsersBySub } from "@/lib/data";
-import { LoginProps, Role, User } from "@/types/IUser";
+import { LoginProps} from "@/types/IUser";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import LoginMessage from "./atoms/login-message";
+import LoadingMessage from "./atoms/loading";
 
 const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
   const [loading, setLoading] = useState(true);
@@ -35,13 +36,12 @@ const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
         }
       } finally {
         setLoading(false);
-      }
-    }
+      }}
     setUserInfo();
   }, []);
 
-  if (loading && role !== "admin") {
-    return <p>Loading... 🔄</p>;
+  if (loading) {
+    return <LoadingMessage message="We are loading your experience..."/>;
   }
 
   return (

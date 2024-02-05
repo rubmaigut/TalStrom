@@ -1,12 +1,11 @@
 import Layout from "@/ui/layout";
-import { useSession } from "next-auth/react";
 import { deleteUser, fetchUsersByRole, updateUserRole } from "@/lib/data";
 import { useEffect, useState } from "react";
 import { User } from "@/types/IUser";
 import Image from "next/image";
+import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 
 export default function Page() {
-  const { data: session } = useSession();
   const [customers, setCustomer] = useState<User[]>([]);
 
   useEffect(() => {
@@ -21,20 +20,11 @@ export default function Page() {
     loadCustomer();
   }, []);
 
-  const handleChangeRole = async (userSub: string, role: string) => {
-    try {
-      await updateUserRole(userSub, role);
-      const users = await fetchUsersByRole("pending");
-      setCustomer(users);
-    } catch (error) {
-      console.error("Failed to update user role:", error);
-    }
-  };
-
   const handleDelete = async (sub: string) => {
     try {
       await deleteUser(sub);
-      const users = await fetchUsersByRole("pending");
+      const users = await fetchUsersByRole("customer");
+      setCustomer(users);
     } catch (error) {
       console.error("Error Deleting developer", error);
     }
@@ -122,6 +112,23 @@ export default function Page() {
                           </span>
                         )}
                         <p className="text-gray-900 whitespace-no-wrap"></p>
+                      </td>
+                      <td>
+                        <div className="flex justify-around gap-1">
+                          <i
+                            title="Edit"
+                            className="p-1 text-green-500 rounded-full cursor-pointer"
+                          >
+                            <PencilIcon className="w-6" />
+                          </i>
+                          <i
+                            title="Delete"
+                            className="p-1 text-red-500 rounded-full cursor-pointer"
+                            onClick={() => handleDelete(user.sub)}
+                          >
+                            <TrashIcon className="w-6" />
+                          </i>
+                        </div>
                       </td>
                     </tr>
                   ))}
