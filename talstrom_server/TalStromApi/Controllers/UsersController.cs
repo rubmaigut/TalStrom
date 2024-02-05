@@ -90,7 +90,25 @@ namespace TalStromApi.Controllers
       await _context.SaveChangesAsync();
       return Ok(user);
     }
+    
+    [HttpPatch("/editProfile/{sub}")]
+    public async Task<ActionResult<User>> EditUserProfile(string sub, EditUserDTO editUserDto)
+    {
+      var user = await _context.User.FirstOrDefaultAsync(x=> x.Sub == sub);
 
+      if (user is null) return NotFound();
+      
+      user.UserName = editUserDto.UserName;
+      user.Technologies = editUserDto.Technologies; 
+      user.Bio = editUserDto.Bio;
+      user.Position = editUserDto.Position;
+      user.LastModified = DateTime.Now;
+
+      _context.User.Update(user);
+      await _context.SaveChangesAsync();
+      return Ok(user);;
+    }
+    
     [HttpPost]
     public async Task<ActionResult<User>> PostUser(UserPostReq userReq)
     {
