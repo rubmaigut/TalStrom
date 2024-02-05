@@ -1,8 +1,10 @@
 import { ReactNode } from "react";
+import { Post } from "./Posts";
 
 export interface UserCardForUser {
   phoneNumber: string;
   followers: any;
+  following: any;
   posts: Post[];
   dateAdded: ReactNode;
   id: number;
