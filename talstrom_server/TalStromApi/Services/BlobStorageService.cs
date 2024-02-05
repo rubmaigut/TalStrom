@@ -43,4 +43,23 @@ public class BlobStorageService(BlobServiceClient client)
             throw error;
         }
     }
+    
+    public async Task<string> UploadPdfAsync(string containerName, IFormFile pdfFile, string userSub)
+    {
+        var blobContainer = client.GetBlobContainerClient(containerName);
+        await blobContainer.CreateIfNotExistsAsync(PublicAccessType.Blob);
+
+        var blobClient = blobContainer.GetBlobClient(pdfFile.FileName);
+        var contentType = "application/pdf";
+        await using (var stream = pdfFile.OpenReadStream())
+        {
+            await blobClient.UploadAsync(stream, new BlobUploadOptions { HttpHeaders = new BlobHttpHeaders { ContentType = contentType } });
+        }
+
+        // Add metadata
+        var metadata = new Dictionary<string, string> { { "userId", userSub } };
+        await blobClient.SetMetadataAsync(metadata);
+
+        return blobClient.Uri.ToString();
+    }
 }
