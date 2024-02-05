@@ -13,5 +13,6 @@ public class TalStromDbContext : DbContext
   }
   public DbSet<User> User { get; set; } = default!;
   public DbSet<Posts> Posts { get; set; } = default!;
-  public DbSet<Video> Videos { get; set; } = default!;
+  public DbSet<Media> Videos { get; set; } = default!;
+  public DbSet<Media> Images { get; set; } = default!;
 }

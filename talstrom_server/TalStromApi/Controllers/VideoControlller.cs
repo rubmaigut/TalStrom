@@ -11,7 +11,7 @@ namespace TalStromApi.Controllers;
 public class VideoController(TalStromDbContext context, BlobStorageService client) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<List<Video>>> GetAllVideos()
+    public async Task<ActionResult<List<Media>>> GetAllVideos()
     {
         try
         {
@@ -44,7 +44,7 @@ public class VideoController(TalStromDbContext context, BlobStorageService clien
     }
 
     [HttpGet("user/{sub}")]
-    public async Task<ActionResult<List<Video>>> GetVideosByUser(string sub)
+    public async Task<ActionResult<List<Media>>> GetVideosByUser(string sub)
     {
         try
         {
@@ -75,7 +75,7 @@ public class VideoController(TalStromDbContext context, BlobStorageService clien
 
         // Assign video to user and add to database
         var userId = context.User.FirstOrDefault(u => u.Sub == sub)!.Id;
-        var video = new Video(videoData.Title, videoData.FileFormat, videoData.Uri, userId);
+        var video = new Media(videoData.Title, videoData.FileFormat, videoData.Uri, userId);
         context.Videos.Add(video);
         await context.SaveChangesAsync();
 
