@@ -1,5 +1,3 @@
-import { fetchUsersBySub, fetchVideoById } from "@/lib/data";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
