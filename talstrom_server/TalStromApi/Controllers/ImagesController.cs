@@ -8,14 +8,14 @@ namespace TalStromApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class VideoController(TalStromDbContext context, BlobStorageService client) : ControllerBase
+public class ImagesController(TalStromDbContext context, BlobStorageService client) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<List<Video>>> GetAllVideos()
+    public async Task<ActionResult<List<Image>>> GetAllVideos()
     {
         try
         {
-            var videos = await context.Videos.ToListAsync();
+            var videos = await context.Images.ToListAsync();
             return Ok(videos);
         }
         catch (Exception e)
@@ -29,10 +29,10 @@ public class VideoController(TalStromDbContext context, BlobStorageService clien
     {
         try
         {
-            var video = context.Videos.FirstOrDefault(v => v.Id == int.Parse(id));
-            if (video != null)
+            var image = context.Images.FirstOrDefault(v => v.Id == int.Parse(id));
+            if (image != null)
             {
-                return Ok(new VideoApiResponseDTO(video.Id, video.Title, video.FileFormat, video.Uri));
+                return Ok(new VideoApiResponseDTO(image.Id, image.Title, image.FileFormat, image.Uri));
             }
 
             throw new ArgumentException();
@@ -44,12 +44,12 @@ public class VideoController(TalStromDbContext context, BlobStorageService clien
     }
 
     [HttpGet("user/{sub}")]
-    public async Task<ActionResult<List<Video>>> GetVideosByUser(string sub)
+    public async Task<ActionResult<List<Image>>> GetVideosByUser(string sub)
     {
         try
         {
-            var user = await context.User.Include(ctx => ctx.Videos).FirstOrDefaultAsync(x => x.Sub == sub);
-            return Ok(user.Videos);
+            var user = await context.User.Include(ctx => ctx.Images).FirstOrDefaultAsync(x => x.Sub == sub);
+            return Ok(user.Images);
         }
         catch (Exception e)
         {
@@ -66,21 +66,21 @@ public class VideoController(TalStromDbContext context, BlobStorageService clien
         }
 
         var fileName = Guid.NewGuid();
-        using (var stream = System.IO.File.Create($"{fileName}.mp4"))
+        using (var stream = System.IO.File.Create($"{fileName}.jpg"))
         {
             await file.CopyToAsync(stream);
         }
 
-        var videoData = await client.UploadFileAsync("movies", $"{fileName}.mp4", sub);
+        var videoData = await client.UploadFileAsync("images", $"{fileName}.jpg", sub);
 
-        // Assign video to user and add to database
+        // Assign image to user and add to database
         var userId = context.User.FirstOrDefault(u => u.Sub == sub)!.Id;
-        var video = new Video(videoData.Title, videoData.FileFormat, videoData.Uri, userId);
-        context.Videos.Add(video);
+        var image = new Image(videoData.Title, videoData.FileFormat, videoData.Uri, userId);
+        context.Images.Add(image);
         await context.SaveChangesAsync();
 
-        System.IO.File.Delete($"{fileName}.mp4");
-        return CreatedAtAction("GetAllVideos", new { id = video.Id }, video);
+        System.IO.File.Delete($"{fileName}.jpg");
+        return CreatedAtAction("GetAllVideos", new { id = image.Id }, image);
     }
 
     [HttpDelete("delete")]
@@ -91,11 +91,11 @@ public class VideoController(TalStromDbContext context, BlobStorageService clien
             return BadRequest("File not found.");
         }
 
-        var videoToDelete = context.Videos.FirstOrDefault(v => v.Title == videoName);
+        var videoToDelete = context.Images.FirstOrDefault(v => v.Title == videoName);
         if (videoToDelete != null)
         {
-            await client.DeleteFileAsync("movies", videoName);
-            context.Videos.Remove(videoToDelete);
+            await client.DeleteFileAsync("images", videoName);
+            context.Images.Remove(videoToDelete);
             return Ok("File deleted.");
         }
 

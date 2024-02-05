@@ -1,6 +1,6 @@
 namespace TalStromApi.Models;
 
-public class Media(string title, string fileFormat,
+public class Video(string title, string fileFormat,
   string uri, int userId)
 {
   public int Id { get; set; }
