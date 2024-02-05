@@ -62,14 +62,25 @@ namespace TalStromApi.Controllers
     {
       try
       {
-        Console.WriteLine(sub);
+        var user = _context.User
+          .FirstOrDefault(user => user.Sub == sub);
+
+        if (user == null)
+        {
+          return NotFound();
+        }
         
-        var user = await _context.User.Include(ctx => ctx.Posts)
+        var filterKey = user
+          .Technologies.Split(',')
+          .ToList();
+        
+        var filteredUsers = await _context.User.Include(ctx => ctx.Posts)
           .Include(ctx => ctx.Videos)
           .Include(ctx => ctx.Images)
+          .Where(user => filterKey.Any(elm => user.Technologies.Contains(elm)))
           .ToListAsync();
         
-        return user is null ? NotFound() :  Ok(user);
+        return  Ok(filteredUsers);
       }
       catch (Exception ex)
       {
