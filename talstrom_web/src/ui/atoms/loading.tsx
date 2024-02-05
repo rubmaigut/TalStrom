@@ -52,9 +52,7 @@ const LoadingMessage: React.FC<LoadingMessageProps> = ({
             />
           </svg>
         </div>
-        <div className="mt-3 text-gray-600 font-mono sm:text-xs">
-          {message}
-        </div>
+        <div className="mt-3 text-gray-600 font-mono sm:text-xs">{message}</div>
       </div>
     </div>
   );

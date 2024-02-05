@@ -24,8 +24,7 @@ export default function VideoItem({
 
   const openPlayerHandler = (evt: SyntheticEvent) => {
     const target = evt.target as HTMLElement;
-    const index =
-    openPlayer(parseInt(target.id.split("-")[1]));
+    const index = openPlayer(parseInt(target.id.split("-")[1]));
   };
 
   return (

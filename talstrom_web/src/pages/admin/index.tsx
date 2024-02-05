@@ -88,7 +88,6 @@ export default function Page() {
                   priority
                 />
                 <h1 className="md:text-xl lg:text-5xl">Nothing here yet ...</h1>
-                
               </div>
             )}
           </div>

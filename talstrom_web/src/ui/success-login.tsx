@@ -1,6 +1,6 @@
 import { useUser } from "@/context/UserContext";
 import { addUserHandler, fetchUsersBySub } from "@/lib/data";
-import { LoginProps} from "@/types/IUser";
+import { LoginProps } from "@/types/IUser";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import LoginMessage from "./atoms/login-message";
@@ -23,7 +23,7 @@ const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
           updateUser(newUser);
         }
       } catch (error) {
-        if (error instanceof Error && 'status' in error) { 
+        if (error instanceof Error && "status" in error) {
           const err = error as unknown as Response;
           if (err.status === 404) {
             const newUser = await addUserHandler(user);
@@ -36,12 +36,13 @@ const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
         }
       } finally {
         setLoading(false);
-      }}
+      }
+    }
     setUserInfo();
   }, []);
 
   if (loading) {
-    return <LoadingMessage message="We are loading your experience..."/>;
+    return <LoadingMessage message="We are loading your experience..." />;
   }
 
   return (
