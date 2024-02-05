@@ -10,11 +10,12 @@ import GreetingModal from "@/ui/atoms/greetings";
 import AdminActivity from "@/ui/dashboard/admin-activity";
 import { useUser } from "@/context/UserContext";
 import AccessDenied from "@/ui/access-denied";
+import Image from "next/image";
 
 export default function Page() {
   const { data: session } = useSession();
   const [pendingUsers, setPendingUsers] = useState<User[]>([]);
-  const { role } = useUser();
+  const { userContextG } = useUser();
 
   useEffect(() => {
     const loadPendingUsers = async () => {
@@ -44,7 +45,7 @@ export default function Page() {
         <SignIn />
       </section>
     );
-  } else if (role !== "admin") {
+  } else if (userContextG?.role !== "admin") {
     return <AccessDenied role="Admin" />;
   }
 
@@ -77,7 +78,18 @@ export default function Page() {
                 </div>
               ))
             ) : (
-              <div>No pending users</div>
+              <div className="w-full flex justify-center items-center">
+                <Image
+                  src="watch.svg"
+                  alt="watch"
+                  className="md:w-32 lg:w-48"
+                  width={100}
+                  height={100}
+                  priority
+                />
+                <h1 className="md:text-xl lg:text-5xl">Nothing here yet ...</h1>
+                
+              </div>
             )}
           </div>
           <AdminActivity />
