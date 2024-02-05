@@ -1,5 +1,4 @@
 import { usePathname } from 'next/navigation';
-import Link from 'next/link';
 import clsx from 'clsx';
 import {
   NewspaperIcon,
@@ -13,14 +12,14 @@ interface NavLinksProps {
 }
 
 export const links = [
-  { name: 'Posts', href: '/customer/[id]/post', icon: NewspaperIcon },
+  { name: 'posts', href: '/customer/[id]/post', icon: NewspaperIcon },
   {
-    name: 'Find Match',
+    name: 'find-match',
     href: '/customer/[id]/find-match',
     icon: MagnifyingGlassIcon,
   },
-  { name: 'My Devs', href: '/customer/[id]/my-devs', icon: UserGroupIcon },
-  { name: 'Saved', href: '/customer/[id]/saved', icon: SolidStarIcon },
+  { name: 'networking', href: '/customer/[id]/my-devs', icon: UserGroupIcon },
+  { name: 'saved', href: '/customer/[id]/saved', icon: SolidStarIcon },
 ];
 
 const NavLinks: React.FC<NavLinksProps> = ({ onLinkClick }) => {
