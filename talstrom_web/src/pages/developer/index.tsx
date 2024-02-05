@@ -44,23 +44,17 @@ export default function UserProfilePage() {
 
   useEffect(() => {
     switch (activeLink) {
-      case "videos":
+      case "Videos":
         setPageComponent(<VideosGrid videos={user?.videos} sub={user!.sub} />);
         break;
-      case "images":
+      case "Images":
         setPageComponent(<ImagesGrid images={user?.images} sub={user!.sub} />);
         break;
-      case "posts":
+      case "Posts":
         setPageComponent(<Posts posts={user?.posts}/>);
         break;
-      case "find-match":
-        setPageComponent(<UserFindMatch />);
-        break;
-      case "my-opportunities":
+      case "Opportunities":
         setPageComponent(<UserMyNetwork />);
-        break;
-      case "saved":
-        setPageComponent(<UserSaved />);
         break;
     }
   }, [activeLink, user]);

@@ -13,10 +13,10 @@ interface NavLinksProps {
 }
 
 export const links = [
-  { name: "videos", href: "/developer/[id]/videos", icon: TvIcon },
-  { name: "images", href: "/developer/[id]/images", icon: PhotoIcon },
-  { name: "posts", href: "/developer/[id]/post", icon: NewspaperIcon },
-  { name: "my-opportunities", href: "/developer/[id]/my-oppurtunities", icon: UserGroupIcon }
+  { name: "Videos", href: "/developer/[id]/videos", icon: TvIcon },
+  { name: "Images", href: "/developer/[id]/images", icon: PhotoIcon },
+  { name: "Posts", href: "/developer/[id]/post", icon: NewspaperIcon },
+  { name: "Opportunities", href: "/developer/[id]/my-oppurtunities", icon: UserGroupIcon }
 ];
 
 const NavLinks: React.FC<NavLinksProps> = ({ onLinkClick }) => {

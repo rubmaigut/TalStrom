@@ -110,7 +110,7 @@ const UploadContainer = ({ closeWindow, sub, mediaType }: UploadContainerProps) 
               id="fileInput"
               onChange={uploadHandler}
               hidden
-              accept=".mp4"
+              accept={mediaType === "Video" ? ".mp4" : mediaType === "Image" ? ".jpg" : ""}
               capture={"environment"}
               type="file"
             />
