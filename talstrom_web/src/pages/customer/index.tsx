@@ -3,14 +3,15 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { fetchUsersBySub } from '@/lib/data';
 import { UserCardForUser } from '@/types/IUserCardProps';
-import UserCard from '../../../ui/user-card';
+import UserCard from '../../ui/user-card';
 import NavLinks from '@/ui/customer/nav-links';
-import UserFindMatch from '../../../ui/profile/find-match';
-import UserMyNetwork from '../../../ui/profile/networking';
-import UserPost from '../../../ui/profile/posts';
-import UserSaved from '../../../ui/profile/saved';
-import posts from '../../../ui/profile/posts';
-import UserPosts from '../../../ui/profile/posts';
+import UserFindMatch from '../../ui/profile/find-match';
+import UserMyNetwork from '../../ui/profile/networking';
+import UserPost from '../../ui/profile/posts';
+import UserSaved from '../../ui/profile/saved';
+import posts from '../../ui/profile/posts';
+import UserPosts from '../../ui/profile/posts';
+import { useSearchParams } from 'next/navigation';
 
 const UserProfilePage: React.FC = () => {
   const { data: session } = useSession();
@@ -19,6 +20,9 @@ const UserProfilePage: React.FC = () => {
   const [pageComponent, setPageComponent] = useState<React.ReactNode>(
     <UserPost posts={user?.posts || []} />,
   );
+
+  const searchParams = useSearchParams();
+  const sub = searchParams.get('sub');
 
   useEffect(() => {
     const loadUser = async () => {
