@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { Post } from "./Posts";
 
 export interface UserCardForUser {
   phoneNumber: string;

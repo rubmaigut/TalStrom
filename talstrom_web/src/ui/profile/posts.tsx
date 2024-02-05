@@ -1,4 +1,3 @@
-import { Post } from '@/types/Posts';
 import { FC } from 'react';
 
 type PostsProps = {

@@ -11,7 +11,6 @@ import UserPost from '../../../ui/profile/posts';
 import UserSaved from '../../../ui/profile/saved';
 import posts from '../../../ui/profile/posts';
 import UserPosts from '../../../ui/profile/posts';
-import { Post } from '@/types/Posts';
 
 const UserProfilePage: React.FC = () => {
   const { data: session } = useSession();
