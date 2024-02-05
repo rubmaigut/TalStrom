@@ -28,8 +28,10 @@ export default function UserProfilePage() {
   useEffect(() => {
     const loadUser = async () => {
       try {
+        if(sub){
           const userData = await fetchUsersBySub(sub as string);
           setUser(userData);
+        }
       } catch (error) {
         console.error('Failed to fetch user data:', error);
       }
