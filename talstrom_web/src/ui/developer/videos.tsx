@@ -51,7 +51,7 @@ const VideosGrid = ({ videos, sub }: VideosGridProps) => {
       <button className="mt-4 px-2 mx-3 border" onClick={toggleUploadOverlay}>
         Add Video
       </button>
-      <div className="mt-4 grid 2xl:grid-cols-6 xl-grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3 px-2 lg:px-4">
+      <div className="mt-4 grid 2xl:grid-cols-6 xl-grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-1 px-2 lg:px-4">
         {videos?.map((elm, i) => {
           return (
             <VideoItem

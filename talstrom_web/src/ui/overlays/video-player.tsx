@@ -36,7 +36,7 @@ const VideoPlayer = ({
   return (
     <div
       id="video-player"
-      className="fixed z-10 left-0 top-0 lg:flex justify-between w-full h-screen bg-black bg-opacity-80 overflow-auto"
+      className="fixed z-10 left-0 top-0 lg:flex justify-center w-full h-screen bg-black bg-opacity-80 overflow-auto"
     >
       <div className="lg:w-[calc(100%-540px] h-full relative">
         <div
