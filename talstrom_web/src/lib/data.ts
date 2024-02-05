@@ -74,3 +74,38 @@ export async function deleteUser(sub: string) {
   }
   return response.json();
 }
+
+// Video Handling
+export async function addVideo(video: File, sub: string) : Promise<Video> {
+  const url = `${API_BASE_URL}/Video/upload`;
+  const formData = new FormData()
+  formData.append('file', video);
+
+  const response = await fetch(url, {
+    cache: 'no-store',
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      file: formData,
+      sub: sub,
+    }),
+  });
+  
+  if (!response.ok) throw new Error("upload Video Error: Failed to Upload video")
+  return await response.json();
+}
+
+export async function fetchVideoById(id: string) {
+  const url = `${API_BASE_URL}/Video/${id}
+  `;
+  const response = await fetch(url, {
+    cache: "no-store"
+  });
+  if (!response.ok) {
+    if (response.status === 404) {
+      return null;
+    }
+    throw new Error("fetchVideoById: Failed to fetch video")
+  };
+  return await response.json();
+}

@@ -1,17 +1,17 @@
 namespace TalStromApi.DTO;
 
-public record VideoBlobResponseDTO
+public record VideoApiResponseDTO()
 {
+    public int Id { get; set; }
     public string Title { get; set; }
     public string FileFormat { get; set; }
     public string Uri { get; set; }
-    
-    public VideoBlobResponseDTO(string title, string fileFormat,
-        string uri)
 
+    public VideoApiResponseDTO(int id, string title, string fileFormat, string uri) : this()
     {
+        Id = id;
         Title = title;
         FileFormat = fileFormat;
         Uri = uri;
     }
-}
+};
