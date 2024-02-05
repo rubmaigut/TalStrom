@@ -54,7 +54,7 @@ const ImagesGrid = ({ images, sub, loadUser }: ImagesGridProps) => {
           currentImageIndex={currentImageIndex}
         />
       )}
-      <button className="mt-4 px-2 mx-3 border" onClick={() => toggleUploadOverlay(false)}>
+      <button className="h-[48px] items-center justify-center gap-2 mt-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:p-2 md:px-3" onClick={() => toggleUploadOverlay(false)}>
         Add Picture
       </button>
       <div className="mt-4 grid 2xl:grid-cols-6 xl-grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-1 px-2 lg:px-4">
