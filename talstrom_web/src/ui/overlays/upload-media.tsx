@@ -11,7 +11,7 @@ type UploadError = {
 };
 
 type UploadContainerProps = {
-  closeWindow: () => void;
+  closeWindow: (uploaded: boolean) => void;
   sub: string;
   mediaType: string
 };
@@ -49,6 +49,7 @@ const UploadContainer = ({ closeWindow, sub, mediaType }: UploadContainerProps) 
 
     await addMedia(file as File, sub, mediaType);
     discardMediaHandler();
+    closeWindow(true);
   };
 
   return (
@@ -57,7 +58,7 @@ const UploadContainer = ({ closeWindow, sub, mediaType }: UploadContainerProps) 
       className="fixed flex justify-center align-middle items-center z-10 left-0 top-0 w-full h-screen bg-white overflow-auto"
     >
       <div className="container w-[300px] top-12 md:top-40">
-      <button className="mx-8" onClick={closeWindow}>
+      <button className="mx-8" onClick={() => closeWindow(false)}>
         <GiCancel size="30" />
       </button>
       <div>
@@ -110,7 +111,7 @@ const UploadContainer = ({ closeWindow, sub, mediaType }: UploadContainerProps) 
               id="fileInput"
               onChange={uploadHandler}
               hidden
-              accept=".mp4"
+              accept={mediaType === "Video" ? ".mp4" : mediaType === "Image" ? ".jpg" : ""}
               capture={"environment"}
               type="file"
             />
@@ -150,13 +151,22 @@ const UploadContainer = ({ closeWindow, sub, mediaType }: UploadContainerProps) 
               </div>
             ) : null}
 
-            <video
-              className="absolute rounded-xl object-cover z-10 p-[13px] w-full-h-full"
-              autoPlay
-              loop
-              muted
-              src={fileDisplay}
-            />
+              {mediaType == "Video" && (
+                <video
+                  className="absolute rounded-xl object-cover z-10 p-[13px] w-full-h-full"
+                  autoPlay
+                  loop
+                  muted
+                  src={fileDisplay}
+                />
+              )}
+
+              {mediaType == "Image" && (
+                <img
+                  className="absolute object-cover z-10 w-full-h-full"
+                  src={fileDisplay}
+                />
+              )} 
 
             <div className="absolute -bottom-12 flex items-center justify-between z-50 rounded-xl border w-full p-2 border-gray-300">
               <div className="flex items-center truncate">

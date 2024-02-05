@@ -58,7 +58,7 @@ public class VideoController(TalStromDbContext context, BlobStorageService clien
     }
 
     [HttpPost("upload")]
-    public async Task<IActionResult> Upload([FromForm] IFormFile file, string sub)
+    public async Task<IActionResult> Upload([FromForm] string sub, [FromForm] IFormFile file)
     {
         if (file == null || file.Length == 0)
         {

@@ -7,7 +7,7 @@ using TalStromApi.Services;
 namespace TalStromApi.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/Image")]
 public class ImagesController(TalStromDbContext context, BlobStorageService client) : ControllerBase
 {
     [HttpGet]
@@ -58,7 +58,7 @@ public class ImagesController(TalStromDbContext context, BlobStorageService clie
     }
 
     [HttpPost("upload")]
-    public async Task<IActionResult> Upload([FromForm] IFormFile file, string sub)
+    public async Task<IActionResult> Upload([FromForm] string sub, [FromForm] IFormFile file)
     {
         if (file == null || file.Length == 0)
         {
