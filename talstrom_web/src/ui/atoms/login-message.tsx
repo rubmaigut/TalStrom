@@ -77,7 +77,7 @@ const LoginMessage: React.FC<Props> = ({ displayRole }) => {
             </dd>
             <div className="flex justify-center items-center">
               <Link
-                href="/admin"
+                href={`/${displayRole}?sub=${userContextG!.sub}`}
                 className="flex w-28 h-11 my-4 mr-4 grow items-center justify-center gap-2 rounded-md bg-teal-500 text-white p-3 text-sm font-bold hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:p-2 md:px-3"
               >
                 Go to Portal
