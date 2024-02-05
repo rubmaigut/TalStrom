@@ -5,29 +5,31 @@ import Image from 'next/image';
 interface UserCardProps {
   user: UserCardForUser;
 }
-
-const formatDate = (dateString: string) => {
-  const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  };
-  return new Date(dateString).toLocaleDateString(undefined, options);
-};
-
 const userCard: React.FC<UserCardProps> = ({ user }) => (
   <>
-    <p>
-      <Image src={user.picture} alt="Profile" width={96} height={96} />
-    </p>
-    <p>ID: {user.id}</p>
-    <p>Name: {user.name}</p>
-    <p>Email: {user.email}</p>
-    <p>Role: {user.role}</p>
-    <p>Phone Number: {user.phoneNumber || 'Not available'}</p>
-    {/* <p>Date Added: {formatDate(user.dateAdded)}</p> */}
-    <p>Followers: {user.followers ? 'Yes' : 'No'}</p>
-    <p>Posts: {user.posts ? 'Yes' : 'No'}</p>
+    <div>
+      <Image
+        src={`${user?.picture}`}
+        alt={`Photo profile${user?.name}`}
+        className="rounded-full"
+        width={40}
+        height={40}
+        priority
+      />
+      <p>Followers: {user.followers ? 'Yes' : '10'}</p>
+      <p>Following: {user.following ? 'Yes' : 'No'}</p>
+      <p>Posts: {user.posts ? 'Yes' : 'No'}</p>
+    </div>
+    <div className="flex-1 min-w-0">
+      <p className="text-sm font-medium text-gray-600 truncate">{user.name}</p>
+      <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+        {user.email}
+      </p>
+    </div>
+    <div>
+      <p>Role: {user.role}</p>
+      <p>Phone Number: {user.phoneNumber || 'Not available'}</p>
+    </div>
   </>
 );
 

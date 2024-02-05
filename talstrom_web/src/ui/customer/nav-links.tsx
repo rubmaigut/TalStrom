@@ -1,5 +1,4 @@
 import { usePathname } from 'next/navigation';
-import Link from 'next/link';
 import clsx from 'clsx';
 import {
   NewspaperIcon,
@@ -8,19 +7,31 @@ import {
   StarIcon as SolidStarIcon,
 } from '@heroicons/react/24/outline';
 
+interface Link {
+  name: string;
+  href: string;
+  icon: React.ComponentType<
+    React.SVGProps<SVGSVGElement> & { ref?: React.Ref<SVGSVGElement> }
+  >;
+}
+
 interface NavLinksProps {
   onLinkClick: (link: string) => void;
 }
 
 export const links = [
-  { name: 'Posts', href: '/customer/[id]/post', icon: NewspaperIcon },
+  { name: 'posts', href: '/customer/[id]/post', icon: NewspaperIcon },
   {
-    name: 'Find Match',
+    name: 'find-match',
     href: '/customer/[id]/find-match',
     icon: MagnifyingGlassIcon,
   },
-  { name: 'My Devs', href: '/customer/[id]/my-devs', icon: UserGroupIcon },
-  { name: 'Saved', href: '/customer/[id]/saved', icon: SolidStarIcon },
+  {
+    name: 'networking',
+    href: `/customer/[id]/my-oppurtunities`,
+    icon: UserGroupIcon,
+  },
+  { name: 'saved', href: '/customer/[id]/saved', icon: SolidStarIcon },
 ];
 
 const NavLinks: React.FC<NavLinksProps> = ({ onLinkClick }) => {

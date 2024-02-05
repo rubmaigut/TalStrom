@@ -46,7 +46,7 @@ export default function VideoItem({
             id={`video-${videoItem.id}`}
             muted
             loop
-            className="aspect=[3/4] object-cover rounded-md"
+            className="aspect=[3/4] object-cover rounded-none"
             src={videoItem.uri}
           />
         </div>

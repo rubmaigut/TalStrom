@@ -45,6 +45,7 @@ namespace TalStromApi.Controllers
         var user = await _context.User.
           Include(ctx => ctx.Posts)
           .Include(ctx => ctx.Videos)
+          .Include(ctx => ctx.Images)
           .FirstOrDefaultAsync(x=> x.Sub == sub);
         
        return user is null ? NotFound() :  Ok(user);
@@ -117,7 +118,7 @@ namespace TalStromApi.Controllers
       catch (Exception ex)
       {
         Console.WriteLine($"Error in PostUser: {ex}");
-        return StatusCode(500, "Internal Server Error");
+        throw ex;
       }
     }
 

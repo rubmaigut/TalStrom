@@ -3,17 +3,26 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { fetchUsersBySub } from '@/lib/data';
 import { UserCardForUser } from '@/types/IUserCardProps';
-import UserCard from '../../../ui/user-card';
-import NavLinks, { links } from '@/ui/customer/nav-links';
-import UserFindMatch from '../[id]/find-match/index';
-import UserMyDevs from '../[id]/my-devs/index';
-import UserPost from '../[id]/post/index';
-import UserSaved from '../[id]/saved/index';
+import UserCard from '../../ui/user-card';
+import NavLinks from '@/ui/customer/nav-links';
+import UserFindMatch from '../../ui/profile/find-match';
+import UserMyNetwork from '../../ui/profile/networking';
+import UserPost from '../../ui/profile/posts';
+import UserSaved from '../../ui/profile/saved';
+import posts from '../../ui/profile/posts';
+import UserPosts from '../../ui/profile/posts';
+import { useSearchParams } from 'next/navigation';
 
-export default function UserProfilePage() {
+const UserProfilePage: React.FC = () => {
   const { data: session } = useSession();
   const [user, setUser] = useState<UserCardForUser | null>(null);
   const [activeLink, setActiveLink] = useState<string>('posts');
+  const [pageComponent, setPageComponent] = useState<React.ReactNode>(
+    <UserPost posts={user?.posts || []} />,
+  );
+
+  const searchParams = useSearchParams();
+  const sub = searchParams.get('sub');
 
   useEffect(() => {
     const loadUser = async () => {
@@ -35,20 +44,22 @@ export default function UserProfilePage() {
     setActiveLink(link);
   };
 
-  const renderPageContent = () => {
+  useEffect(() => {
     switch (activeLink) {
       case 'posts':
-        return <UserPost />;
+        setPageComponent(<UserPosts posts={user?.posts || []} />);
+        break;
       case 'find-match':
-        return <UserFindMatch />;
-      case 'my-devs':
-        return <UserMyDevs />;
+        setPageComponent(<UserFindMatch />);
+        break;
+      case 'networking':
+        setPageComponent(<UserMyNetwork />);
+        break;
       case 'saved':
-        return <UserSaved />;
-      default:
-        return null;
+        setPageComponent(<UserSaved />);
+        break;
     }
-  };
+  }, [activeLink, user]);
 
   return (
     <>
@@ -61,10 +72,10 @@ export default function UserProfilePage() {
           <div>
             {user ? (
               <>
-                <p>user Profile</p>
+                <p>User Profile</p>
                 <UserCard user={user} />
                 <NavLinks onLinkClick={handleLinkClick} />
-                <div>{renderPageContent()}</div>
+                <div>{pageComponent}</div>
               </>
             ) : (
               <p>Loading user data...</p>
@@ -74,4 +85,6 @@ export default function UserProfilePage() {
       )}
     </>
   );
-}
+};
+
+export default UserProfilePage;
