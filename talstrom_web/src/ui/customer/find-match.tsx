@@ -23,7 +23,7 @@ const UserFindMatch = ({sub}: FindMatchProps) => {
       <div>
         {suggestions.map((elm, i) => {
           return (
-            <p>{elm.name}</p>
+            <p key={i}>{elm.name}</p>
           )
         })}
       </div>
