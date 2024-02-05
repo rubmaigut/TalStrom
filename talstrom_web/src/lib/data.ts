@@ -1,4 +1,5 @@
 import { User } from '@/types/IUser';
+import { EditProfileProps } from '@/ui/profile/edit-profile';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -60,6 +61,22 @@ export async function updateUserRole(sub: string, role: string) {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     //body: JSON.stringify({ role }),
+  });
+  if (!response.ok) throw new Error("updateUserRole:Failed to update user role");
+  return await response.json();
+}
+
+export async function updateUserProfile(sub: string, props: EditProfileProps) {
+  const adjustedProps = {
+    ...props,
+    technologies: props.technologies.join(',')
+  }
+  const url = `${API_BASE_URL}/Users/editProfile/${sub}`;
+  const response = await fetch(url, {
+    cache: 'no-store',
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(adjustedProps),
   });
   if (!response.ok) throw new Error("updateUserRole:Failed to update user role");
   return await response.json();
