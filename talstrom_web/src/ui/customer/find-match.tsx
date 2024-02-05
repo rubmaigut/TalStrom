@@ -21,7 +21,11 @@ const UserFindMatch = ({sub}: FindMatchProps) => {
   console.log("Suggestions:", suggestions);
     return (
       <div>
-        <p>Find Match</p>
+        {suggestions.map((elm, i) => {
+          return (
+            <p>{elm.name}</p>
+          )
+        })}
       </div>
     );
   };
