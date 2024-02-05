@@ -3,9 +3,7 @@ import Link from "next/link";
 import clsx from "clsx";
 import {
   NewspaperIcon,
-  MagnifyingGlassIcon,
   UserGroupIcon,
-  StarIcon as SolidStarIcon,
   TvIcon,
   PhotoIcon,
 } from "@heroicons/react/24/outline";
@@ -15,15 +13,10 @@ interface NavLinksProps {
 }
 
 export const links = [
-  { name: "videos", icon: TvIcon },
-  { name: "images", icon: PhotoIcon },
-  { name: "posts", icon: NewspaperIcon },
-  {
-    name: "find-match",
-    href: "/developer/[id]/find-match",
-    icon: MagnifyingGlassIcon,
-  },
-  { name: "my-opportunities", icon: UserGroupIcon }
+  { name: "videos", href: "/developer/[id]/videos", icon: TvIcon },
+  { name: "images", href: "/developer/[id]/images", icon: PhotoIcon },
+  { name: "posts", href: "/developer/[id]/post", icon: NewspaperIcon },
+  { name: "my-opportunities", href: "/developer/[id]/my-oppurtunities", icon: UserGroupIcon }
 ];
 
 const NavLinks: React.FC<NavLinksProps> = ({ onLinkClick }) => {

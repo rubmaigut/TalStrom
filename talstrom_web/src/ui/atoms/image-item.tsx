@@ -12,8 +12,7 @@ export default function ImageItem({ imageItem, openPlayer }: ImageItemProps) {
     const target = evt.target as HTMLElement;
     const index = openPlayer(parseInt(target.id.split("-")[1]));
   };
-
-  console.log(imageItem.uri)
+  
   return (
     <div className="relative brightness-90 hover:brightness-[1.1] cursor-pointer">
       {!imageItem.uri ? (
