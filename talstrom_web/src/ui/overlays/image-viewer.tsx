@@ -6,27 +6,27 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
 type VideoPlayerProps = {
-  videos: Media[] | undefined;
-  currentVideoIndex: number | null;
+  images: Media[] | undefined;
+  currentImageIndex: number | null;
   closeWindow: () => void;
-  nextVideo: () => void;
-  previousVideo: () => void;
+  nextImage: () => void;
+  previousImage: () => void;
 };
 
-const VideoPlayer = ({
-  videos,
-  currentVideoIndex,
+const ImageViewer = ({
+  images,
+  currentImageIndex,
   closeWindow,
-  nextVideo,
-  previousVideo,
+  nextImage,
+  previousImage,
 }: VideoPlayerProps) => {
   const [uri, setUri] = useState("");
   const searchParams = useSearchParams();
 
   useEffect(() => {
     const fetchVideo = async () => {
-      if (currentVideoIndex) {
-        setUri(videos![currentVideoIndex].uri);
+      if (currentImageIndex) {
+        setUri(images![currentImageIndex].uri);
       }
     };
 
@@ -48,14 +48,14 @@ const VideoPlayer = ({
 
         <div>
           <button
-            onClick={previousVideo}
+            onClick={previousImage}
             className="absolute z-20 right-4 top-4 flex items-center justify-center rounded-full bg-gray-700 p-1.5 hover:bg-gray-800"
           >
             <BiChevronUp size="25" color="fff" />
           </button>
 
           <button
-            onClick={nextVideo}
+            onClick={nextImage}
             className="absolute z-20 right-4 top-20 flex items-center justify-center rounded-full bg-gray-700 p-1.5 hover:bg-gray-800"
           >
             <BiChevronDown size="25" color="fff" />
@@ -63,11 +63,7 @@ const VideoPlayer = ({
         </div>
 
         <div className="bg-black bg-opacity-50 lg:min-w-[480px] z-10 relative">
-          <video
-            autoPlay
-            controls
-            loop
-            muted
+          <img
             className="h-screen mx-auto"
             src={uri}
           />
@@ -77,4 +73,4 @@ const VideoPlayer = ({
   );
 };
 
-export default VideoPlayer;
+export default ImageViewer;

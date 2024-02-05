@@ -13,6 +13,7 @@ type UploadError = {
 type UploadContainerProps = {
   closeWindow: () => void;
   sub: string;
+  mediaType: string
 };
 
 const UploadContainer = ({ closeWindow, sub }: UploadContainerProps) => {
