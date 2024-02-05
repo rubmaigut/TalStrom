@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace TalStromApi.Migrations
 {
     [DbContext(typeof(TalStromDbContext))]
-    [Migration("20240203200405_InitialCreate")]
+    [Migration("20240205094756_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -23,6 +23,36 @@ namespace TalStromApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("TalStromApi.Models.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FileFormat")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Uri")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Images");
+                });
 
             modelBuilder.Entity("TalStromApi.Models.Posts", b =>
                 {
@@ -68,11 +98,18 @@ namespace TalStromApi.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Bio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Favorites")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Followers")
@@ -98,6 +135,10 @@ namespace TalStromApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Position")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -107,6 +148,10 @@ namespace TalStromApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Technologies")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -145,6 +190,15 @@ namespace TalStromApi.Migrations
                     b.ToTable("Videos");
                 });
 
+            modelBuilder.Entity("TalStromApi.Models.Image", b =>
+                {
+                    b.HasOne("TalStromApi.Models.User", null)
+                        .WithMany("Images")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("TalStromApi.Models.Posts", b =>
                 {
                     b.HasOne("TalStromApi.Models.User", null)
@@ -165,6 +219,8 @@ namespace TalStromApi.Migrations
 
             modelBuilder.Entity("TalStromApi.Models.User", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("Posts");
 
                     b.Navigation("Videos");
