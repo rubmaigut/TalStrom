@@ -91,7 +91,7 @@ namespace TalStromApi.Controllers
       return Ok(user);
     }
     
-    [HttpPatch("/editProfile/{sub}")]
+    [HttpPatch("editProfile/{sub}")]
     public async Task<ActionResult<User>> EditUserProfile(string sub, EditUserDTO editUserDto)
     {
       var user = await _context.User.FirstOrDefaultAsync(x=> x.Sub == sub);
