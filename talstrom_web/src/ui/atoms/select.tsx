@@ -1,34 +1,36 @@
-import React, { useState } from 'react';
-import Select from 'react-select';
+import React, { useState } from "react";
+import Select from "react-select";
 
 interface Option {
-    readonly value: string;
-    readonly label: string;
-    readonly isFixed?: boolean;
-    readonly isDisabled?: boolean;
+  readonly value: string;
+  readonly label: string;
+  readonly isFixed?: boolean;
+  readonly isDisabled?: boolean;
 }
 
 interface SelectComponentProps {
-    onRoleChange: (role: string) => void;
+  onRoleChange: (role: string) => void;
 }
 
-export const SelectComponent: React.FC<SelectComponentProps> = ({onRoleChange}) => {
-    const [isClearable, setIsClearable] = useState(true);
-    const [isSearchable, setIsSearchable] = useState(true);
-    const [isDisabled, setIsDisabled] = useState(false);
+export const SelectComponent: React.FC<SelectComponentProps> = ({
+  onRoleChange,
+}) => {
+  const [isClearable, setIsClearable] = useState(true);
+  const [isSearchable, setIsSearchable] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(false);
 
-    const options: readonly Option[] = [
-        { value: '', label: 'Select Role', isDisabled: true  },
-        { value: 'admin', label: 'Admin' },
-        { value: 'customer', label: 'Customer' },
-        { value: 'developer', label: 'Developer' }
-    ];
+  const options: readonly Option[] = [
+    { value: "", label: "Select Role", isDisabled: true },
+    { value: "admin", label: "Admin" },
+    { value: "customer", label: "Customer" },
+    { value: "developer", label: "Developer" },
+  ];
 
-    const handleChange = (selectedOption: Option | null) => {
-        if (selectedOption) {
-            onRoleChange(selectedOption.value);
-        }
-      };
+  const handleChange = (selectedOption: Option | null) => {
+    if (selectedOption) {
+      onRoleChange(selectedOption.value);
+    }
+  };
 
   return (
     <>
@@ -45,14 +47,14 @@ export const SelectComponent: React.FC<SelectComponentProps> = ({onRoleChange}) 
       />
       <div
         style={{
-          color: 'hsl(0, 0%, 40%)',
-          display: 'inline-block',
+          color: "hsl(0, 0%, 40%)",
+          display: "inline-block",
           fontSize: 12,
-          fontStyle: 'normal',
-          marginTop: '1em',
+          fontStyle: "normal",
+          marginTop: "1em",
         }}
-      >    
-      </div>
-    </>)
-}
+      ></div>
+    </>
+  );
+};
 export default SelectComponent;

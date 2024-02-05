@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { User } from "@/types/IUser";
 import { fetchUsersBySub, updateUserProfile } from "@/lib/data";
 import { useUser } from "@/context/UserContext";
 import { SelectTechnologies } from "./technologies";

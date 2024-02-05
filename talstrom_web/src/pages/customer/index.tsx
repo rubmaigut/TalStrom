@@ -1,30 +1,29 @@
-import SignIn from '@/ui/sign-in';
-import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
-import { fetchUsersBySub } from '@/lib/data';
-import { UserCardForUser } from '@/types/IUserCardProps';
-import UserCard from '../../ui/user-card';
-import NavLinks from '@/ui/customer/nav-links';
-import UserFindMatch from '../../ui/profile/find-match';
-import UserMyNetwork from '../../ui/profile/networking';
-import UserPost from '../../ui/profile/posts';
-import UserSaved from '../../ui/profile/saved';
-import posts from '../../ui/profile/posts';
-import UserPosts from '../../ui/profile/posts';
-import { useSearchParams } from 'next/navigation';
-import { useUser } from '@/context/UserContext';
+import SignIn from "@/ui/sign-in";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { fetchUsersBySub } from "@/lib/data";
+import { UserCardForUser } from "@/types/IUserCardProps";
+import UserCard from "../../ui/user-card";
+import NavLinks from "@/ui/customer/nav-links";
+import UserFindMatch from "../../ui/profile/find-match";
+import UserMyNetwork from "../../ui/profile/networking";
+import UserPost from "../../ui/profile/posts";
+import UserSaved from "../../ui/profile/saved";
+import UserPosts from "../../ui/profile/posts";
+import { useSearchParams } from "next/navigation";
+import { useUser } from "@/context/UserContext";
 
 const UserProfilePage: React.FC = () => {
   const { data: session } = useSession();
   const { userContextG } = useUser();
   const [user, setUser] = useState<UserCardForUser | null>(null);
-  const [activeLink, setActiveLink] = useState<string>('posts');
+  const [activeLink, setActiveLink] = useState<string>("posts");
   const [pageComponent, setPageComponent] = useState<React.ReactNode>(
-    <UserPost posts={user?.posts || []} />,
+    <UserPost posts={user?.posts || []} />
   );
 
   const searchParams = useSearchParams();
-  const sub = searchParams.get('sub');
+  const sub = searchParams.get("sub");
 
   useEffect(() => {
     const loadUser = async () => {
@@ -32,7 +31,7 @@ const UserProfilePage: React.FC = () => {
         const userData = await fetchUsersBySub(sub as string);
         setUser(userData);
       } catch (error) {
-        console.error('Failed to fetch user data:', error);
+        console.error("Failed to fetch user data:", error);
       }
     };
 
@@ -45,22 +44,22 @@ const UserProfilePage: React.FC = () => {
 
   useEffect(() => {
     switch (activeLink) {
-      case 'posts':
+      case "posts":
         setPageComponent(<UserPosts posts={user?.posts || []} />);
         break;
-      case 'find-match':
+      case "find-match":
         setPageComponent(<UserFindMatch />);
         break;
-      case 'networking':
+      case "networking":
         setPageComponent(<UserMyNetwork />);
         break;
-      case 'saved':
+      case "saved":
         setPageComponent(<UserSaved />);
         break;
     }
   }, [activeLink, user]);
 
-  if (user && userContextG?.role == 'customer')
+  if (user && userContextG?.role == "customer")
     return (
       <>
         {!session ? (
@@ -72,7 +71,6 @@ const UserProfilePage: React.FC = () => {
             <div>
               {user ? (
                 <>
-                  <p>User Profile</p>
                   <UserCard user={user} />
                   <NavLinks onLinkClick={handleLinkClick} />
                   <div>{pageComponent}</div>
@@ -86,7 +84,7 @@ const UserProfilePage: React.FC = () => {
       </>
     );
 
-  if (user && user.role == 'developer')
+  if (user && user.role == "developer")
     return (
       <>
         {!session ? (

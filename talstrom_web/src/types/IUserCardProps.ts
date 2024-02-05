@@ -5,7 +5,6 @@ export interface UserCardForUser {
   followers: any;
   following: any;
   posts: Post[];
-  dateAdded: ReactNode;
   id: number;
   name: string;
   email: string;
@@ -14,4 +13,5 @@ export interface UserCardForUser {
   role: string;
   images: Media[];
   videos: Media[];
+  bio: string;
 }
