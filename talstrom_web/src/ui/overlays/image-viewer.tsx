@@ -19,20 +19,16 @@ const ImageViewer = ({
   previousImage,
 }: VideoPlayerProps) => {
   const [uri, setUri] = useState("");
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     const fetchVideo = async () => {
-      if (!currentImageIndex) {
-        currentImageIndex = 0;
-      }
-      console.log(images![currentImageIndex].uri)
+      if (!currentImageIndex) currentImageIndex = 0;
       setUri(images![currentImageIndex].uri);
     };
 
     fetchVideo();
-  },[currentImageIndex]);
-  // console.log(uri);
+  }, [currentImageIndex]);
+
   return (
     <div
       id="image-viewer"
@@ -63,7 +59,8 @@ const ImageViewer = ({
         </div>
 
         <div className="bg-black bg-opacity-50 lg:min-w-[480px] z-10 relative flex justify-center items-center">
-          <img id="image-expanded"
+          <img
+            id="image-expanded"
             className="w-screen lg:w-[1200px] mx-auto"
             src={uri}
           />
