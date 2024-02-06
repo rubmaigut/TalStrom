@@ -1,6 +1,4 @@
 import { useUser } from "@/context/UserContext";
-import { PowerIcon } from "@heroicons/react/24/outline";
-import { signOut } from "next-auth/react";
 import Link from "next/link";
 import GreetingModal from "./greetings";
 import LoginButton from "../profile/login-button";
@@ -32,25 +30,25 @@ const LoginMessage: React.FC<Props> = ({ displayRole, userSub }) => {
           className="flex flex-col justify-center items-center"
         >
           <GreetingModal />
-          <h2> Welcome Admin </h2>
+          <h2 className="text-gray-600 font-semibold"> Welcome Admin </h2>
           <dd className="mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2 flex gap-2 ">
             your last connection was :
           </dd>
-          <div className="flex justify-center items-center">
+          <div className="flex flex-col md:flex-row justify-center items-center">
             <Link
               href="/admin"
-              className="flex w-28 h-11 my-4 mr-4 grow items-center justify-center gap-2 rounded-md bg-teal-500 text-white p-3 text-sm font-bold hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:p-2 md:px-3"
+              className="flex w-44 h-11 my-4 grow items-center justify-center gap-2 rounded-md bg-teal-500 text-white p-3 text-sm font-bold hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:p-2 md:px-3"
             >
               Go to Portal
             </Link>
-            <LoginButton/>
+            <LoginButton classNameTitle="text-gray-600 px-2"/>
           </div>
         </div>
       )}
       {displayRole !== "admin" && displayRole !== "pending" && (
         <div className="flex flex-col justify-center items-center">
           <GreetingModal />
-          <h2> Welcome {displayRole} </h2>
+          <h2 className="text-gray-600 font-semibold"> Welcome {displayRole} </h2>
           <dd className="mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2 flex gap-2 ">
             your last connection was:
           </dd>

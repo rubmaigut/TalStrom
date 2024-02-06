@@ -1,10 +1,9 @@
-import Image from "next/image";
 import { useSession } from "next-auth/react";
-import SuccessLogin from "./success-login";
+import SuccessLogin from "./atoms/general ui/success-login";
 import { useEffect } from "react";
 import { useUser } from "@/context/UserContext";
-import TalstromLogo from "@/ui/talstrom-logo";
-import Wave from "./atoms/wave";
+import TalstromLogo from "@/ui/atoms/general ui/talstrom-logo";
+import Wave from "./atoms/general ui/wave";
 import LoginButton from "./atoms/profile/login-button";
 import { MailImage } from "./atoms/profile/email-image";
 
@@ -35,14 +34,14 @@ export default function Header() {
   }, [session, userContextG, updateUser]);
 
   return (
-    <header className="flex min-h-screen flex-col p-6 bg-neutral-950 md:p-8">
-      <div className="w-full h-16 bg-gray-50">
-        <Wave />
+    <header className={`${!session ? "bg-neutral-950" : "bg-gray-50" } flex min-h-screen flex-col p-6 md:p-8`}>
+      <div className={`${!session ? "bg-neutral-950" : "bg-gray-50"} w-full h-16`}>
+        <Wave waveLight={!session ? false : true} />
       </div>
       <div className="flex relative mt-16 z-0 w-full h-22 justify-center items-center shrink-0 md:h-58">
-        <TalstromLogo />
+        <TalstromLogo isDark={!session ? false : true} />
       </div>
-      {!session ? (
+      {!session ? ( 
         <div className="mt-4 flex grow flex-col gap-4 md:flex-row">
           <div className="flex flex-col w-full justify-center items-center gap-6 rounded-lg px-6 py-2 md:px-1">
             <h1 className="text-3xl md:text-5xl  text-white md:leading-normal">
