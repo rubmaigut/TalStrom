@@ -94,6 +94,7 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
             {filterArray.map((elm, i) => {
               return (
                 <button
+                key={i}
                   className="m-1"
                   value={elm.label}
                   onClick={toggleFilter}
@@ -106,7 +107,7 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
           </div>
           {suggestions.map((elm, i) => {
             return (
-              <div className="flex flex-col justify-center space-x-2 md:space-x-4 md:w-3/5 pb-4">
+              <div key={i} className="flex flex-col justify-center space-x-2 md:space-x-4 md:w-3/5 pb-4">
                 <div className="flex">
                   <div className="flex-shrink-0">
                     <Image
