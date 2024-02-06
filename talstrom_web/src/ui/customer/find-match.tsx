@@ -1,6 +1,10 @@
 import { fetchUsersByFilter } from "@/lib/data";
+import { capitalizeFirstLetter } from "@/lib/utils/capitaliseString";
 import { UserCardForUser } from "@/types/IUserCardProps";
-import { SyntheticEvent, useEffect, useState } from "react";
+import React from "react";
+import { ReactNode, SyntheticEvent, useEffect, useState } from "react";
+import * as ReactIcons from "react-icons/si";
+import { IconType } from "react-icons";
 
 type FindMatchProps = {
   sub: string;
@@ -42,21 +46,41 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
           return user.technologies.includes(filter.label) && filter.status;
         });
       });
-    
+
       return filtered;
     });
   }, [filterArray]);
 
   const toggleFilter = (evt: SyntheticEvent) => {
     const target = evt.target as HTMLButtonElement;
+    console.log(target);
+    const parent = target.parentElement as HTMLButtonElement;
     !target.classList.contains("text-gray-300")
       ? target.classList.add("text-gray-300")
       : target.classList.remove("text-gray-300");
-    const targetIndex = filterArray.findIndex((s) => s.label === target.value);
+    const targetIndex = filterArray.findIndex((s) => s.label === parent.value);
     const newArray = [...filterArray];
     newArray[targetIndex].status = !newArray[targetIndex].status;
+    console.log(target.value);
 
     setFilterArray(newArray);
+  };
+
+  const getIconForTechnology = (technology: string): ReactNode => {
+    const icon: IconType = (ReactIcons as any)[
+      `Si${capitalizeFirstLetter(technology)}`
+    ];
+
+    if (typeof icon === "function") {
+      return React.createElement(icon as React.ElementType, {
+        id: `filter-${technology}`,
+        value: { technology },
+        size: 25,
+        color: "black",
+      });
+    }
+
+    return <span>Icon not found for {technology}</span>;
   };
 
   console.log(filterArray);
@@ -65,13 +89,8 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
       <div className="flex">
         {filterArray.map((elm, i) => {
           return (
-            <button
-              value={elm.label}
-              onClick={toggleFilter}
-              key={i}
-              className="p-2"
-            >
-              {elm.label}
+            <button className="m-1" value={elm.label} onClick={(e) => { e.stopPropagation(); toggleFilter(e); }}>
+              {getIconForTechnology(elm.label)}
             </button>
           );
         })}
