@@ -1,6 +1,7 @@
-import { updateUserPost } from '@/lib/data';
+import { addNewPost, deleteUserPost, updateUserPost } from '@/lib/data';
 import React, { useState } from 'react';
 import PostOverlay from '../overlays/post-viewer';
+import AddPostOverlay from '../overlays/add-post-overlay';
 
 type Post = {
   id: number;
@@ -14,18 +15,17 @@ type Post = {
 interface PostsProps {
   posts: Post[];
 }
-
 const UserPost: React.FC<PostsProps> = ({ posts }) => {
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [isEditMode, setEditMode] = useState<boolean>(false);
   const [editedContent, setEditedContent] = useState<string>('');
+  const [isAddPostMode, setAddPostMode] = useState<boolean>(false);
 
   const handlePostEditClick = (post: Post) => {
     setSelectedPost(post);
     setEditedContent(post.content);
     setEditMode(true);
   };
-
   const handlePostSaveClick = async () => {
     if (selectedPost) {
       try {
@@ -39,14 +39,49 @@ const UserPost: React.FC<PostsProps> = ({ posts }) => {
     }
   };
 
+  const handleAddPost = async (content: string) => {
+    try {
+      await addNewPost(content);
+      // const updatedPosts = await fetchPosts();
+      // setPosts(updatedPosts);
+      setAddPostMode(false);
+    } catch (error) {
+      console.error('Failed to add new post', error);
+    }
+  };
+
   const handlePostCancelClick = () => {
     setEditedContent(selectedPost?.content || '');
     setEditMode(false);
     setSelectedPost(null);
   };
 
+  const handleAddPostClick = () => {
+    setAddPostMode(true);
+  };
+
+  const handleAddPostCancelClick = () => {
+    setAddPostMode(false);
+  };
+
+  const handlePostDeleteClick = async () => {
+    if (selectedPost) {
+      try {
+        // Delete the post
+        await deleteUserPost(String(selectedPost.id));
+
+        // Clear the selectedPost and exit edit mode after successful deletion
+        setEditMode(false);
+        setSelectedPost(null);
+      } catch (error) {
+        console.error('Failed to delete post', error);
+      }
+    }
+  };
   return (
     <div className="w-[calc(100%-50px)] mx-auto px-4">
+      <button onClick={handleAddPostClick}>Add Post</button>
+
       {posts.map((post) => (
         <div
           key={post.id}
@@ -58,16 +93,7 @@ const UserPost: React.FC<PostsProps> = ({ posts }) => {
               : 'bg-white-100'
           }`}
           onClick={() => handlePostEditClick(post)}
-        >
-          <p className="text-sm text-gray-500">{post.postType}</p>
-          <h1 className="text-xl font-bold mb-2">{post.title}</h1>
-          <div className="mt-4 flex items-center justify-between">
-            {post.author && post.author !== 'string' && (
-              <p className="text-gray-600">{post.author}</p>
-            )}
-            <p className="text-gray-600">{post.createdDate}</p>
-          </div>
-        </div>
+        ></div>
       ))}
 
       {selectedPost && (
@@ -77,8 +103,16 @@ const UserPost: React.FC<PostsProps> = ({ posts }) => {
           editedContent={editedContent}
           onEditClick={() => setEditMode(true)}
           onSaveClick={handlePostSaveClick}
+          onDeleteClick={handlePostDeleteClick}
           onCancelClick={handlePostCancelClick}
           onContentChange={setEditedContent}
+        />
+      )}
+
+      {isAddPostMode && (
+        <AddPostOverlay
+          onAddPost={handleAddPost}
+          onCancelClick={handleAddPostCancelClick}
         />
       )}
     </div>
