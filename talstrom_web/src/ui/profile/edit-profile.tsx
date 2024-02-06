@@ -72,7 +72,7 @@ const EditProfile: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4">
-      <div className="bg-white shadow rounded-lg p-6">
+      <div className="bg-gray-50 shadow rounded-lg p-6">
         <i
           className={`flex  justify-end h-2 p-1 text-gray-500 rounded-full cursor-pointer ${
             isEditMode ? "text-gray-500" : "text-green-500"

@@ -34,10 +34,10 @@ const LoginMessage: React.FC<Props> = ({ displayRole, userSub }) => {
           <dd className="mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2 flex gap-2 ">
             your last connection was :
           </dd>
-          <div className="flex flex-col md:flex-row justify-center items-center">
+          <div className="flex flex-col md:flex-row justify-center items-center md:my-6 ">
             <Link
               href="/admin"
-              className="flex w-44 h-11 my-4 grow items-center justify-center gap-2 rounded-md bg-teal-500 text-white p-3 text-sm font-bold hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:p-2 md:px-3"
+              className="flex w-44 h-11 my-4 grow items-center justify-center gap-2 rounded-md bg-teal-500 text-white p-3 text-sm font-bold hover:bg-sky-100 hover:text-teal-600 md:mx-4"
             >
               Go to Portal
             </Link>

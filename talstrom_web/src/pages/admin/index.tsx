@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { fetchUsersByRole, updateUserRole } from "@/lib/data";
 import { useEffect, useState } from "react";
 import { User } from "@/types/IUser";
-import { Card } from "@/ui/card";
+import { Card } from "@/ui/dashboard/card";
 import Select from "@/ui/atoms/select";
 import GreetingModal from "@/ui/atoms/general ui/greetings";
 import AdminActivity from "@/ui/dashboard/admin-activity";
@@ -16,7 +16,8 @@ export default function Page() {
   const { data: session } = useSession();
   const [pendingUsers, setPendingUsers] = useState<User[]>([]);
   const { userContextG } = useUser();
-
+  
+  console.log("AdminContext",userContextG)
   useEffect(() => {
     const loadPendingUsers = async () => {
       try {
@@ -27,7 +28,7 @@ export default function Page() {
       }
     };
     loadPendingUsers();
-  }, []);
+  }, [pendingUsers]);
 
   const handleChangeRole = async (userSub: string, role: string) => {
     try {

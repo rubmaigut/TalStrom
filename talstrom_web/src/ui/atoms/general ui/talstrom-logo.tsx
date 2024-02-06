@@ -10,18 +10,9 @@ export default function TalstromLogo({isDark}: LogoProps) {
       <Image
         src={`${isDark ? "/talstrom-light.png" : "/talstrom-dark.png"}`}
         alt="talstrom logo"
-        className="flex md:hidden"
-        width={250}
-        height={200}
-        priority
-      />
-
-      <Image
-        src={`${isDark ? "/talstrom-light.png" : "/talstrom-dark.png"}`}
-        alt="talstrom logo"
-        className="hidden md:flex"
-        width={350}
-        height={350}
+        className="w-52 h-52 2xl:w-64 2xl:h-64 object-fit xl:mt-28 mt-12"
+        width={100}
+        height={100}
         priority
       />
     </div>

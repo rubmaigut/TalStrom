@@ -34,11 +34,11 @@ export default function Header() {
   }, [session, userContextG, updateUser]);
 
   return (
-    <header className={`${!session ? "bg-neutral-950" : "bg-gray-50" } flex min-h-screen flex-col p-6 md:p-8`}>
+    <header className={`${!session ? "bg-neutral-950" : "bg-gray-50" } w-full flex flex-col max-w-8xl justify-center items-center h-screen`}>
       <div className={`${!session ? "bg-neutral-950" : "bg-gray-50"} w-full h-16`}>
         <Wave waveLight={!session ? false : true} />
       </div>
-      <div className="flex relative mt-16 z-0 w-full h-22 justify-center items-center shrink-0 md:h-58">
+      <div className="flex relative mt-2 z-0 w-full h-22 justify-center items-center shrink-0">
         <TalstromLogo isDark={!session ? false : true} />
       </div>
       {!session ? ( 
@@ -52,8 +52,8 @@ export default function Header() {
           </div>
         </div>
       ) : (
-        <div className="mt-4 flex grow flex-col gap-4 md:flex-row 2xl:h-48">
-          <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 px-6 py-10 md:w-2/5 md:px-20">
+        <div className="mt-4 w-full flex grow flex-col gap-4 md:items-center 2xl:h-32">
+          <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 px-6 py-10 w-full md:px-16">
             <MailImage picture={session!.user?.image as string} name={session!.user?.name as string} email={session!.user?.email as string} />
             {userContextG && <SuccessLogin user={userContextG} />}
           </div>
