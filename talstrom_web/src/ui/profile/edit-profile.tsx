@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import Image from "next/image";
 import { fetchUsersBySub, updateUserProfile } from "@/lib/data";
 import { useUser } from "@/context/UserContext";
 import { SelectTechnologies } from "./technologies";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import { useSession } from "next-auth/react";
+import * as ReactIcons from 'react-icons'
+import { IconType } from "react-icons";
 
 export interface EditProfileProps {
   bio?: string;
@@ -19,13 +21,13 @@ const EditProfile: React.FC = () => {
   const { userContextG } = useUser();
   const staticPicture = session?.user?.image || userContextG?.picture
   const [userProfile, setUserProfile] = useState<EditProfileProps>({
-    username: "",
-    bio: "",
+    username: '',
+    bio: '',
     technologies: [],
-    position: "",
+    position: '',
   });
   const [selectedTechnologies, setSelectedTechnologies] = useState<string[]>(
-    []
+    [],
   );
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
@@ -34,13 +36,13 @@ const EditProfile: React.FC = () => {
       try {
         const data = await fetchUsersBySub(userContextG!.sub);
         setUserProfile({
-          username: data.username,
+          username: data.username || '',
           bio: data.bio,
-          technologies: data.technologies.split(","),
+          technologies: data.technologies.split(''),
           position: data.position,
         });
       } catch (error) {
-        console.error("Failed to fetch profile", error);
+        console.error('Failed to fetch profile', error);
       }
     };
     fetchUserProfile();
@@ -55,15 +57,16 @@ const EditProfile: React.FC = () => {
     const userSub = userContextG!.sub;
     try {
       await updateUserProfile(userSub, userProfile);
-      alert("Profile updated successfully!");
+      alert('Profile updated successfully!');
+      setIsEditMode(false);
     } catch (error) {
-      console.error("Failed to update profile", error);
-      alert("Failed to update profile");
+      console.error('Failed to update profile', error);
+      alert('Failed to update profile');
     }
   };
 
   const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = event.target;
     setUserProfile({ ...userProfile, [name]: value });
@@ -71,21 +74,33 @@ const EditProfile: React.FC = () => {
 
   const handleTechnologiesChange = (selectedOptions: string[]) => {
     setSelectedTechnologies(selectedOptions);
-    setUserProfile({ ...userProfile, technologies: selectedOptions });
+    setUserProfile({
+      ...userProfile,
+      technologies: selectedOptions.map((icon) => icon.toString()),
+    });
   };
 
+  const getIconForTechnology = (technology: string): ReactNode => {
+    const icon: IconType = (ReactIcons as any)[technology];
+
+    if (typeof icon === 'function') {
+      return React.createElement(icon as React.ElementType, { size: 24 });
+    }
+
+    return <span>Icon not found for {technology}</span>;
+  };
   return (
-    <div className="container mx-auto px-4">
+    <div className="max-w-screen-lg mx-auto px-4">
       <div className="bg-white shadow rounded-lg p-6">
         <i
           className={`flex  justify-end h-2 p-1 text-gray-500 rounded-full cursor-pointer ${
-            isEditMode ? "text-gray-500" : "text-green-500"
+            isEditMode ? 'text-gray-500' : 'text-green-500'
           }`}
           onClick={toggleEditMode}
         >
           <PencilIcon className="w-6 h-6" />
         </i>
-        <div className="flex flex-col md:flex-row items-center md:space-x-6 mb-4">
+        <div className="flex flex-col xl:flex-row items-center xl:space-x-6 mb-4">
           <div className="flex flex-col justify-center items-center">
             <dd className="my-2 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
               <Image
@@ -109,13 +124,51 @@ const EditProfile: React.FC = () => {
               {userContextG?.role}
             </dd>
           </div>
+          <div className="flex items-center ml-4">
+            {userContextG && (
+              <>
+                <div className="text-center mr-4" style={{ width: '100px' }}>
+                  <p className="mb-0.5">
+                    {(userContextG.followers as unknown as string[] | undefined)
+                      ?.length || 0}
+                  </p>
+                  <p className="text-sm">Followers</p>
+                </div>
+                <div className="text-center mr-4" style={{ width: '100px' }}>
+                  <p className="mb-0.5">
+                    {(userContextG.following as unknown as string[] | undefined)
+                      ?.length || 0}
+                  </p>
+                  <p className="text-sm">Following</p>
+                </div>
+                <div className="text-center mr-4" style={{ width: '100px' }}>
+                  <p className="mb-0.5">
+                    {(userContextG.posts as unknown as string[] | undefined)
+                      ?.length || 0}
+                  </p>
+                  <p className="text-sm">Posts</p>
+                </div>
+              </>
+            )}
+          </div>
         </div>
         {!isEditMode ? (
           <div>
             <p>Username: {userProfile.username}</p>
+            <p>Technology: {userProfile.technologies}</p>
+            <div className="flex">
+              {userProfile.technologies.map((tech, index) => (
+                <div key={index} className="mr-2">
+                  {getIconForTechnology(tech)}
+                </div>
+              ))}
+            </div>
+
             <p>Bio: {userProfile.bio}</p>
             <p>Position: {userProfile.position}</p>
-            <p>Technologies: {selectedTechnologies.join(", ")}</p>
+            <p className="hidden">
+              Technologies: {selectedTechnologies.join(', ')}
+            </p>
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
