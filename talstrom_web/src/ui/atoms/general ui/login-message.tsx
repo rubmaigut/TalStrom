@@ -21,7 +21,7 @@ const LoginMessage: React.FC<Props> = ({ displayRole, userSub }) => {
             <strong>Now you are a user! 🎊 </strong>
             Your role will be assigned soon, {userContextG?.name}.
           </p>
-          <LoginButton/>
+          <LoginButton classNameButton="px-2"/>
         </div>
       )}
       {displayRole === "admin" && (

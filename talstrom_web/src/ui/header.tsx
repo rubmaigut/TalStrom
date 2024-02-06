@@ -48,7 +48,7 @@ export default function Header() {
              Welcome to TalStrom
             </h1>
               <dd className=" text-white text-xl">Sing in and find the best allies for your company.</dd>
-            <LoginButton/>
+            <LoginButton classNameButton="px-2"/>
           </div>
         </div>
       ) : (

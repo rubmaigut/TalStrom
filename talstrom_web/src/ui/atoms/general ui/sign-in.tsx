@@ -29,7 +29,7 @@ const SignIn: FC = () => {
               priority
             />
             <h2 className="text-md text-center text-white my-6"> Sign in to take you career to the next Level</h2>
-          <LoginButton />
+          <LoginButton classNameButton="px-2"/>
         </div>
       )}
     </div>
