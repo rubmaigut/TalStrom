@@ -8,7 +8,7 @@ import LoadingMessage from "./atoms/loading";
 
 const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
   const [loading, setLoading] = useState(true);
-  const { updateUser, role } = useUser();
+ const { updateUser, role } = useUser();
 
   useEffect(() => {
     async function setUserInfo() {

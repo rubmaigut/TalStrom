@@ -1,41 +1,40 @@
 import SignIn from "@/ui/sign-in";
 import { useSession } from "next-auth/react";
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchUsersBySub } from "@/lib/data";
 import { UserCardForUser } from "@/types/IUserCardProps";
-import UserCard from "../../ui/user-card";
-import NavLinks, { links } from "@/ui/developer/nav-links";
-import UserFindMatch from "../../ui/profile/find-match";
-import UserMyNetwork from "../../ui/profile/networking";
-import UserPost from "../../ui/profile/posts";
-import UserSaved from "../../ui/profile/saved";
-import VideosGrid from "../../ui/developer/videos";
-import { useSearchParams } from "next/navigation";
+import UserCard from "@/ui/user-card";
+import NavLinks from "@/ui/developer/nav-links";
+import UserFindMatch from "@/ui/profile/find-match";
+import UserMyNetwork from "@/ui/profile/networking";
+import UserPost from "@/ui/profile/posts";
+import UserSaved from "@/ui/profile/saved";
+import VideosGrid from "@/ui/developer/videos";
 import ImagesGrid from "@/ui/developer/images";
+import { useUser } from "@/context/UserContext";
+import LoginMessage from "@/ui/atoms/login-message";
 
 export default function UserProfilePage() {
   const { data: session } = useSession();
-  const [user, setUser] = useState<UserCardForUser | null>(null);
-  const [pageComponent, setPageComponent] = useState(<VideosGrid videos={user?.videos} sub={user?.sub as string}/>);
+  const { userContextG } = useUser();
+  const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
+  const [pageComponent, setPageComponent] = useState(<VideosGrid videos={userInfo?.videos} sub={userInfo?.sub as string}/>);
   const [activeLink, setActiveLink] = useState<string>("posts");
-  const searchParams = useSearchParams();
-  const sub = searchParams.get("sub");
   
   useEffect(() => {
-    const loadUser = async () => {
-      try {
-        if (session) {
-          const sub = session.user?.sub || '';
-          const userData = await fetchUsersBySub(sub);
-          setUser(userData);
+    if(session){
+      const userSub = session.user?.sub
+      const loadDeveloper = async () => {
+        try {
+          const developer = await fetchUsersBySub(userSub!);
+          setUserInfo(developer);
+        } catch (error) {
+          console.error("Failed to fetch Developer:", error);
         }
-      } catch (error) {
-        console.error('Failed to fetch user data:', error);
-      }
-    };
-
-    loadUser();
-  }, [session]);
+      };
+      loadDeveloper();
+    }
+  }, [session, userInfo]);
 
   const handleLinkClick = (link: string) => {
     setActiveLink(link);
@@ -44,13 +43,13 @@ export default function UserProfilePage() {
   useEffect(() => {
     switch (activeLink) {
       case "videos":
-        setPageComponent(<VideosGrid videos={user?.videos} sub={user!.sub} />);
+        setPageComponent(<VideosGrid videos={userInfo?.videos} sub={userInfo!.sub} />);
         break;
       case "images":
-        setPageComponent(<ImagesGrid images={user?.images} sub={user!.sub} />);
+        setPageComponent(<ImagesGrid images={userInfo?.images} sub={userInfo!.sub} />);
         break;
       case "posts":
-        setPageComponent(<UserPost posts={user?.posts}/>);
+        setPageComponent(<UserPost posts={userInfo?.posts}/>);
         break;
       case "find-match":
         setPageComponent(<UserFindMatch />);
@@ -62,7 +61,7 @@ export default function UserProfilePage() {
         setPageComponent(<UserSaved />);
         break;
     }
-  }, [activeLink, user]);
+  }, [activeLink, userInfo, userContextG]);
 
   return (
     <>
@@ -71,20 +70,21 @@ export default function UserProfilePage() {
           <SignIn />
         </section>
       ) : (
-        <>
           <div>
-            {user ? (
-              <>
-                <p>User Profile</p>
-                <UserCard user={user} />
+            {userInfo && userInfo?.role === "developer" ? (
+              <div>
+                <UserCard user={userInfo} />
                 <NavLinks onLinkClick={handleLinkClick} />
                 <div>{pageComponent}</div>
-              </>
+              </div>
             ) : (
-              <p>Loading user data...</p>
+              <div className="flex flex-col w-full h-full justify-center items-center mt-12 px-8">
+              <span className=" break-words text-center text-xl font-bold text-teal-600 lg:text-2xl my-8 "> Ops! Seems like you are in the wrong profile</span>
+              <LoginMessage displayRole="customer" userSub={userInfo?.sub}/>
+              </div>
             )}
           </div>
-        </>
+      
       )}
     </>
   );

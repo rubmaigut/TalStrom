@@ -1,29 +1,30 @@
 import Layout from "@/ui/layout";
 import SignIn from "@/ui/sign-in";
 import { useSession } from "next-auth/react";
-import { fetchUsersByRole, fetchUsersBySub, updateUserRole } from "@/lib/data";
+import { fetchUsersBySub } from "@/lib/data";
 import { useEffect, useState } from "react";
 import GreetingModal from "@/ui/atoms/greetings";
-import { useUser } from "@/context/UserContext";
-import AccessDenied from "@/ui/access-denied";
 import { UserCardForUser } from "@/types/IUserCardProps";
+import LoginMessage from "@/ui/atoms/login-message";
 
 export default function Page() {
   const { data: session } = useSession();
-  const { userContextG } = useUser();
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
 
   useEffect(() => {
-    const loadCustomerUsers = async () => {
-        try {
-          const users = await fetchUsersByRole("customer");
-          setUserInfo(users);
-        } catch (error) {
-          console.error("Failed to fetch customer users:", error);
-        }
-      };
-      loadCustomerUsers();
-  }, []);
+    if(session) {
+      const userSub = session.user?.sub
+      const loadCustomer = async () => {
+          try {
+            const customer = await fetchUsersBySub(userSub!);
+            setUserInfo(customer);
+          } catch (error) {
+            console.error("Failed to fetch customer:", error);
+          }
+        };
+        loadCustomer();
+    }
+  }, [session, userInfo]);
 
   if (!session) {
     return (
@@ -31,8 +32,8 @@ export default function Page() {
         <SignIn />
       </section>
     );
-  } else if (userContextG?.role !== "customer") {
-    return <AccessDenied role="Customer" />;
+  } else if (userInfo?.role !== "customer") {
+    return <LoginMessage displayRole="developer" userSub={userInfo?.sub} />;
   }
 
   return (
@@ -43,7 +44,7 @@ export default function Page() {
             <div>
               <GreetingModal />
               <p className="pb-2">
-                Hi<strong> {session?.user?.name}</strong> Welcome back!
+                Hi<strong> {userInfo.name}</strong> Welcome back!
               </p>
             </div>
           </div>
