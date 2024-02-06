@@ -29,7 +29,7 @@ const NavLinks: React.FC<NavLinksProps> = ({ onLinkClick }) => {
   };
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 justify-center">
       {links.map((link) => {
         const IconComponent = link.icon;
         return (
