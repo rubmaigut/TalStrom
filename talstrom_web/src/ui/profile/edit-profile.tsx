@@ -4,16 +4,20 @@ import { fetchUsersBySub, updateUserProfile } from "@/lib/data";
 import { useUser } from "@/context/UserContext";
 import { SelectTechnologies } from "./technologies";
 import { PencilIcon } from "@heroicons/react/24/outline";
+import { useSession } from "next-auth/react";
 
 export interface EditProfileProps {
   bio?: string;
   technologies: string[];
   position?: string;
   username?: string;
+  picture?: string;
 }
 
 const EditProfile: React.FC = () => {
+  const {data: session} = useSession();
   const { userContextG } = useUser();
+  const staticPicture = session?.user?.image || userContextG?.picture
   const [userProfile, setUserProfile] = useState<EditProfileProps>({
     username: "",
     bio: "",
@@ -85,7 +89,7 @@ const EditProfile: React.FC = () => {
           <div className="flex flex-col justify-center items-center">
             <dd className="my-2 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
               <Image
-                src={`${userContextG?.picture}`}
+                src={`${staticPicture}`}
                 alt={`Photo profile${userContextG?.name}`}
                 className="rounded-full bg-black"
                 width={80}

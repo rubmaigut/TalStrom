@@ -14,4 +14,5 @@ export interface UserCardForUser {
   images: Media[];
   videos: Media[];
   bio: string;
+  technologies: string
 }
