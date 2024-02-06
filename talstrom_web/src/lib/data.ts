@@ -1,5 +1,5 @@
 import { User } from "@/types/IUser";
-import { EditProfileProps } from "@/ui/profile/edit-profile";
+import { EditUserProfile } from "@/ui/profile/edit-profile";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -77,7 +77,7 @@ export async function updateUserRole(sub: string, role: string) {
   return await response.json();
 }
 
-export async function updateUserProfile(sub: string, props: EditProfileProps) {
+export async function updateUserProfile(sub: string, props: EditUserProfile) {
   const adjustedProps = {
     ...props,
     technologies: props.technologies.join(","),
