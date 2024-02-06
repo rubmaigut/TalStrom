@@ -13,6 +13,7 @@ type FilterItem = {
 };
 
 const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
+  const [usersArray, setUsersArray] = useState<UserCardForUser[]>([]);
   const [suggestions, setSuggestions] = useState<UserCardForUser[]>([]);
 
   const initial: FilterItem[] = filterOptions.split(",").map((x) => {
@@ -28,16 +29,20 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
     const loadSuggestions = async () => {
       const users: UserCardForUser[] = await fetchUsersByFilter(sub);
       setSuggestions(users);
+      setUsersArray(users);
     };
 
     loadSuggestions();
   }, []);
 
   useEffect(() => {
-    setSuggestions((users) => {
-      const filtered = users.filter((user) => {
-        return user.name.includes("Chris");
+    setSuggestions(() => {
+      const filtered = usersArray.filter((user) => {
+        return filterArray.some((filter) => {
+          return user.technologies.includes(filter.label) && filter.status;
+        });
       });
+    
       return filtered;
     });
   }, [filterArray]);
