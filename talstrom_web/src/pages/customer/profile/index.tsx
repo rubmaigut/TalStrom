@@ -70,7 +70,10 @@ const UserProfilePage: React.FC = () => {
     <div>
         <UserCard user={userInfo} />
         <NavLinks onLinkClick={handleLinkClick} />
-        <div>{pageComponent}</div>
+        
+        <div className="w-[calc(100%-50px)] h-screen mx-auto my-3">
+          {pageComponent}
+          </div>
     </div>
   )
 }
