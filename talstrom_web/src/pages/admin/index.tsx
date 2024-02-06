@@ -1,7 +1,7 @@
 import Layout from "@/ui/layout";
 import SignIn from "@/ui/atoms/general ui/sign-in";
 import { useSession } from "next-auth/react";
-import { fetchUsersByRole, updateUserRole } from "@/lib/data";
+import { fetchUsersByRole, fetchUsersBySub, updateUserRole } from "@/lib/data";
 import { useEffect, useState } from "react";
 import { User } from "@/types/IUser";
 import { Card } from "@/ui/dashboard/card";
@@ -15,20 +15,34 @@ import Image from "next/image";
 export default function Page() {
   const { data: session } = useSession();
   const [pendingUsers, setPendingUsers] = useState<User[]>([]);
-  const { userContextG } = useUser();
-  
-  console.log("AdminContext",userContextG)
+  const { userContextG, updateUser } = useUser();
+
   useEffect(() => {
-    const loadPendingUsers = async () => {
-      try {
-        const users = await fetchUsersByRole("pending");
-        setPendingUsers(users);
-      } catch (error) {
-        console.error("Failed to fetch pending users:", error);
+    const updateUserContext = async () => {
+      if (session) {
+        const userSub = session?.user?.sub;
+        try {
+          const updateUserInfo = await fetchUsersBySub(userSub!);
+          updateUser({ ...updateUserInfo });
+        } catch (error) {
+          console.error("Failed to update user context:", error);
+        }
       }
     };
-    loadPendingUsers();
-  }, [pendingUsers]);
+    updateUserContext()
+  }, [session]);
+
+  useEffect(()=>{
+    const loadPendingUsers= async () =>{
+      try {
+        const users = await fetchUsersByRole("pending")
+        setPendingUsers(users)
+      } catch (error) {
+        console.error("Failed to get pending users")
+      }
+    }
+    loadPendingUsers()
+  },[])
 
   const handleChangeRole = async (userSub: string, role: string) => {
     try {
