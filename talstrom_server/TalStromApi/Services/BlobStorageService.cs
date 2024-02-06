@@ -51,6 +51,7 @@ public class BlobStorageService(BlobServiceClient client)
 
         var blobClient = blobContainer.GetBlobClient(pdfFile.FileName);
         var contentType = "application/pdf";
+        
         await using (var stream = pdfFile.OpenReadStream())
         {
             await blobClient.UploadAsync(stream, new BlobUploadOptions { HttpHeaders = new BlobHttpHeaders { ContentType = contentType } });

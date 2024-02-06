@@ -26,6 +26,7 @@ public class PdfController : ControllerBase
         }
 
         var containerName = "pdf";
+        
         try
         {
             var pdfUri = await _blobStorageService.UploadPdfAsync(containerName, formDto.PdfFile, formDto.UserSub);
@@ -40,7 +41,7 @@ public class PdfController : ControllerBase
 
             _context.ApplicationForms.Add(applicationForm);
             await _context.SaveChangesAsync();
-
+            
             return CreatedAtAction(nameof(SubmitApplicationForm), new { id = applicationForm.Id }, applicationForm);
         }
         catch (System.Exception ex)
