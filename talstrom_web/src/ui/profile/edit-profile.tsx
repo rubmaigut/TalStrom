@@ -87,7 +87,6 @@ const EditProfile = ({user}: EditProfileProps) => {
   };
 
   const getIconForTechnology = (technology: string, scaling: number): ReactNode => {
-    console.log(technology)
     const icon: IconType = (ReactIcons as any)[`Si${capitalizeFirstLetter(technology)}`];
 
     if (typeof icon === 'function') {
