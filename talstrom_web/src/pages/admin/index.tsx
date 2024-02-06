@@ -1,5 +1,5 @@
 import Layout from "@/ui/layout";
-import SignIn from "@/ui/sign-in";
+import SignIn from "@/ui/atoms/general ui/sign-in";
 import { useSession } from "next-auth/react";
 import { fetchUsersByRole, updateUserRole } from "@/lib/data";
 import { useEffect, useState } from "react";

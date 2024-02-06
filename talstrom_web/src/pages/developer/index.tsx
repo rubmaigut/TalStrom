@@ -1,4 +1,4 @@
-import SignIn from "@/ui/sign-in";
+import SignIn from "@/ui/atoms/general ui/sign-in";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { fetchUsersBySub } from "@/lib/data";
