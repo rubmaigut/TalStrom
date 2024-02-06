@@ -82,13 +82,14 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
   };
 
   console.log(filterArray);
+  console.log(suggestions);
   return (
     <section>
     {filterOptions.length ? (<div>
       <div className="flex">
         {filterArray.map((elm, i) => {
           return (
-            <button className="m-1" value={elm.label} onClick={(e) => { e.stopPropagation(); toggleFilter(e); }}>
+            <button className="m-1" value={elm.label} onClick={toggleFilter}>
               {/* {getIconForTechnology(elm.label)} */}
               {elm.label}
             </button>
