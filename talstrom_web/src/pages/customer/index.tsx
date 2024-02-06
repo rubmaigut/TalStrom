@@ -1,103 +1,55 @@
+import Layout from "@/ui/layout";
 import SignIn from "@/ui/sign-in";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
 import { fetchUsersBySub } from "@/lib/data";
+import { useEffect, useState } from "react";
+import GreetingModal from "@/ui/atoms/greetings";
 import { UserCardForUser } from "@/types/IUserCardProps";
-import UserCard from "../../ui/user-card";
-import NavLinks from "@/ui/customer/nav-links";
-import UserFindMatch from "../../ui/customer/find-match";
-import UserMyNetwork from "../../ui/profile/networking";
-import UserPost from "../../ui/profile/posts";
-import UserSaved from "../../ui/profile/saved";
-import UserPosts from "../../ui/profile/posts";
-import { useSearchParams } from "next/navigation";
-import { useUser } from "@/context/UserContext";
+import LoginMessage from "@/ui/atoms/login-message";
 
-const UserProfilePage: React.FC = () => {
+export default function Page() {
   const { data: session } = useSession();
-  const { userContextG } = useUser();
-  const [user, setUser] = useState<UserCardForUser | null>(null);
-  const [activeLink, setActiveLink] = useState<string>("posts");
-  const [pageComponent, setPageComponent] = useState<React.ReactNode>(
-    <UserPost posts={user?.posts || []} />
-  );
-
-  const searchParams = useSearchParams();
-  const sub = searchParams.get("sub");
+  const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
 
   useEffect(() => {
-    const loadUser = async () => {
-      try {
-        const userData = await fetchUsersBySub(sub as string);
-        setUser(userData);
-      } catch (error) {
-        console.error("Failed to fetch user data:", error);
-      }
-    };
-
-    loadUser();
-  }, [session]);
-
-  const handleLinkClick = (link: string) => {
-    setActiveLink(link);
-  };
-
-  useEffect(() => {
-    switch (activeLink) {
-      case "posts":
-        setPageComponent(<UserPosts posts={user?.posts || []} />);
-        break;
-      case "find-match":
-        setPageComponent(<UserFindMatch sub={sub as string} />);
-        break;
-      case "networking":
-        setPageComponent(<UserMyNetwork />);
-        break;
-      case "saved":
-        setPageComponent(<UserSaved />);
-        break;
+    if(session) {
+      const userSub = session.user?.sub
+      const loadCustomer = async () => {
+          try {
+            const customer = await fetchUsersBySub(userSub!);
+            setUserInfo(customer);
+          } catch (error) {
+            console.error("Failed to fetch customer:", error);
+          }
+        };
+        loadCustomer();
     }
-  }, [activeLink, user]);
+  }, [session, userInfo]);
 
-  if (user && userContextG?.role == "customer")
+  if (!session) {
     return (
-      <>
-        {!session ? (
-          <section>
-            <SignIn />
-          </section>
-        ) : (
-          <>
+      <section>
+        <SignIn />
+      </section>
+    );
+  } else if (userInfo?.role !== "customer") {
+    return <LoginMessage displayRole="developer" userSub={userInfo?.sub} />;
+  }
+
+  return (
+    <>
+      <Layout>
+        <div className="flex flex-col gap-6 rounded-lg bg-gray-50 px-6 py-8 md:w-full h-full md:px-12 md:my-0 my-4 ">
+          <div className="flex flex-col justify-between pb-6">
             <div>
-              {user ? (
-                <>
-                  <UserCard user={user} />
-                  <NavLinks onLinkClick={handleLinkClick} />
-                  <div>{pageComponent}</div>
-                </>
-              ) : (
-                <p>Loading user data...</p>
-              )}
+              <GreetingModal />
+              <p className="pb-2">
+                Hi<strong> {userInfo.name}</strong> Welcome back!
+              </p>
             </div>
-          </>
-        )}
-      </>
-    );
-
-  if (user && user.role == "developer")
-    return (
-      <>
-        {!session ? (
-          <section>
-            <SignIn />
-          </section>
-        ) : (
-          <>
-            <div>Hello</div>
-          </>
-        )}
-      </>
-    );
-};
-
-export default UserProfilePage;
+          </div>
+        </div>
+      </Layout>
+    </>
+  );
+}

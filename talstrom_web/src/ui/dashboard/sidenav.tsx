@@ -3,8 +3,12 @@ import NavLinks from "@/ui/dashboard/nav-links";
 import MockLogo from "@/ui/mock-logo";
 import { PowerIcon } from "@heroicons/react/24/outline";
 import { signOut } from "next-auth/react";
+import { useUser } from "@/context/UserContext";
+import CustomerNavLinks from "../customer/dashboard/nav-links";
 
 export default function SideNav() {
+  const {userContextG} = useUser()
+
   return (
     <div className="flex h-full flex-col px-3 py-4 md:px-2">
       <Link
@@ -14,7 +18,11 @@ export default function SideNav() {
         <MockLogo />
       </Link>
       <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
-        <NavLinks />
+        {userContextG?.role === "admin" ? (
+          <NavLinks />
+        ) : (
+          <CustomerNavLinks/>
+        )}
         <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
         <Link
           href={`/api/auth/signout`}

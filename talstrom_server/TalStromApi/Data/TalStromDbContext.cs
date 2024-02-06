@@ -15,4 +15,5 @@ public class TalStromDbContext : DbContext
   public DbSet<Posts> Posts { get; set; } = default!;
   public DbSet<Video> Videos { get; set; } = default!;
   public DbSet<Image> Images { get; set; } = default!;
+  public DbSet<ApplicationForm> ApplicationForms { get; set; } = default!;
 }

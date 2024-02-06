@@ -1,44 +1,50 @@
 import SignIn from "@/ui/sign-in";
 import { useSession } from "next-auth/react";
-import { FC, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchUsersBySub } from "@/lib/data";
 import { UserCardForUser } from "@/types/IUserCardProps";
-import UserCard from "../../ui/user-card";
-import NavLinks, { links } from "@/ui/developer/nav-links";
-import UserFindMatch from "../../ui/profile/find-match";
-import UserMyNetwork from "../../ui/profile/networking";
-import Posts from "../../ui/profile/posts";
-import UserSaved from "../../ui/profile/saved";
-import VideosGrid from "../../ui/developer/videos";
-import { useSearchParams } from "next/navigation";
+import UserCard from "@/ui/user-card";
+import NavLinks from "@/ui/developer/nav-links";
+import UserMyNetwork from "@/ui/profile/networking";
+import UserPost from "@/ui/profile/posts";
+import VideosGrid from "@/ui/developer/videos";
 import ImagesGrid from "@/ui/developer/images";
-import WrongRolePageMessage from "@/ui/atoms/wrong-role-message";
 import { useUser } from "@/context/UserContext";
+import LoginMessage from "@/ui/atoms/login-message";
 
 export default function UserProfilePage() {
+  const { data: session } = useSession();
+  const { userContextG } = useUser();
+  const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
+  const [activeLink, setActiveLink] = useState<string>("posts");
+  
+  const userSub = session?.user?.sub
+  
   const loadUser = async () => {
     try {
-      if(sub){
-        const userData = await fetchUsersBySub(sub as string);
-        setUser(userData);
-      }
+      const userData = await fetchUsersBySub(userSub!);
+      setUserInfo(userData);
     } catch (error) {
       console.error('Failed to fetch user data:', error);
     }
   };
-
-  const { data: session } = useSession();
-  const {userContextG} = useUser();
-  const [user, setUser] = useState<UserCardForUser | null>(null);
-  const [pageComponent, setPageComponent] = useState(<VideosGrid videos={user?.videos} sub={user?.sub as string} loadUser={loadUser}/>);
-  const [activeLink, setActiveLink] = useState<string>("posts");
-  const searchParams = useSearchParams();
-  const sub = searchParams.get("sub");
   
-
+  const [pageComponent, setPageComponent] = useState(<VideosGrid videos={userInfo?.videos} sub={userInfo?.sub as string} loadUser={loadUser}/>);
+  
   useEffect(() => {
-    loadUser();
-  }, [sub]);
+    if(session){
+      
+      const loadDeveloper = async () => {
+        try {
+          const developer = await fetchUsersBySub(userSub!);
+          setUserInfo(developer);
+        } catch (error) {
+          console.error("Failed to fetch Developer:", error);
+        }
+      };
+      loadDeveloper();
+    }
+  }, [session, userInfo]);
 
   const handleLinkClick = (link: string) => {
     setActiveLink(link);
@@ -46,58 +52,45 @@ export default function UserProfilePage() {
 
   useEffect(() => {
     switch (activeLink) {
-      case "Videos":
-        setPageComponent(<VideosGrid videos={user?.videos} sub={user!.sub} loadUser={loadUser}/>);
+      case "videos":
+        setPageComponent(<VideosGrid videos={userInfo?.videos} sub={userInfo!.sub} loadUser={loadUser}/>);
         break;
-      case "Images":
-        setPageComponent(<ImagesGrid images={user?.images} sub={user!.sub} loadUser={loadUser}/>);
+      case "images":
+        setPageComponent(<ImagesGrid images={userInfo?.images} sub={userInfo!.sub} loadUser={loadUser} />);
         break;
-      case "Posts":
-        setPageComponent(<Posts posts={user?.posts}/>);
+      case "posts":
+        setPageComponent(<UserPost posts={userInfo?.posts}/>);
         break;
       case "Opportunities":
         setPageComponent(<UserMyNetwork />);
         break;
     }
-  }, [activeLink, user]);
+  }, [activeLink, userInfo, userContextG]);
 
-  if(user && user.role == 'developer') return (
+  return (
     <>
       {!session ? (
         <section>
           <SignIn />
         </section>
       ) : (
-        <>
           <div>
-            {user ? (
-              <>
-                <p>User Profile</p>
-                <UserCard user={user} />
+            {userInfo && userInfo?.role === "developer" ? (
+              <div>
+                <UserCard user={userInfo} />
                 <NavLinks onLinkClick={handleLinkClick} />
                 <div>{pageComponent}</div>
-              </>
+              </div>
             ) : (
-              <p>Loading user data...</p>
+              <div className="flex flex-col w-full h-full justify-center items-center mt-12 px-8">
+              <span className=" break-words text-center text-xl font-bold text-teal-600 lg:text-2xl my-8 "> Oops! Seems like you are in the wrong profile</span>
+              <LoginMessage displayRole="customer" userSub={userInfo?.sub}/>
+              </div>
             )}
           </div>
-        </>
+      
       )}
     </>
   );
 
-  if(user && user.role == 'customer') return (
-    <>
-      {!session ? (
-        <section>
-          <SignIn />
-        </section>
-      ) : (
-        <>
-            <WrongRolePageMessage displayRole={user.role} sub={user.sub}/>
-        </>
-      )}
-    </>
-  );
-
-}
+  }

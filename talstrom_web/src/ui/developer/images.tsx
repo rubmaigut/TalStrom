@@ -8,7 +8,7 @@ import ImageViewer from "../overlays/image-viewer";
 type ImagesGridProps = {
   images: Media[] | undefined;
   sub: string;
-  loadUser: () => void
+  loadUser: (sub : string) => void
 };
 const ImagesGrid = ({ images, sub, loadUser }: ImagesGridProps) => {
   const [uploadVisibility, setUploadVisibility] = useState(false);
@@ -17,7 +17,7 @@ const ImagesGrid = ({ images, sub, loadUser }: ImagesGridProps) => {
 
   const toggleUploadOverlay = (uploaded: boolean) => {
     if(uploaded) {
-      loadUser();
+      loadUser(sub);
     }
     setUploadVisibility(!uploadVisibility);
   };

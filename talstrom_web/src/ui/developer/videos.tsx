@@ -6,7 +6,7 @@ import VideoPlayer from "../overlays/video-player";
 type VideosGridProps = {
   videos: Media[] | undefined;
   sub: string;
-  loadUser: () => void
+  loadUser: (sub: string) => void
 };
 const VideosGrid = ({ videos, sub, loadUser }: VideosGridProps) => {
   const [uploadVisibility, setUploadVisibility] = useState(false);
@@ -15,7 +15,7 @@ const VideosGrid = ({ videos, sub, loadUser }: VideosGridProps) => {
 
   const toggleUploadOverlay = (uploaded: boolean) => {
     if(uploaded) {
-      loadUser();
+      loadUser(sub);
     }
     setUploadVisibility(!uploadVisibility);
   };
