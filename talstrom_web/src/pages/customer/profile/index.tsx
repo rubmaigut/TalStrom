@@ -10,7 +10,7 @@ import UserMyNetwork from "@/ui/profile/networking";
 import UserPost from "@/ui/profile/posts";
 import UserSaved from "@/ui/profile/saved";
 import UserPosts from "@/ui/profile/posts";
-import LoginMessage from "@/ui/atoms/login-message";
+import LoginMessage from "@/ui/atoms/general ui/login-message";
 
 const UserProfilePage: React.FC = () => {
   const { data: session } = useSession();

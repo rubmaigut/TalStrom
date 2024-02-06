@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { User } from "@/types/IUser";
 import { Card } from "@/ui/card";
 import Select from "@/ui/atoms/select";
-import GreetingModal from "@/ui/atoms/greetings";
+import GreetingModal from "@/ui/atoms/general ui/greetings";
 import AdminActivity from "@/ui/dashboard/admin-activity";
 import { useUser } from "@/context/UserContext";
 import AccessDenied from "@/ui/access-denied";

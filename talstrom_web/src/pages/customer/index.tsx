@@ -3,9 +3,9 @@ import SignIn from "@/ui/sign-in";
 import { useSession } from "next-auth/react";
 import { fetchUsersBySub } from "@/lib/data";
 import { useEffect, useState } from "react";
-import GreetingModal from "@/ui/atoms/greetings";
+import GreetingModal from "@/ui/atoms/general ui/greetings";
 import { UserCardForUser } from "@/types/IUserCardProps";
-import LoginMessage from "@/ui/atoms/login-message";
+import LoginMessage from "@/ui/atoms/general ui/login-message";
 
 export default function Page() {
   const { data: session } = useSession();

@@ -10,7 +10,7 @@ import UserPost from "@/ui/profile/posts";
 import VideosGrid from "@/ui/developer/videos";
 import ImagesGrid from "@/ui/developer/images";
 import { useUser } from "@/context/UserContext";
-import LoginMessage from "@/ui/atoms/login-message";
+import LoginMessage from "@/ui/atoms/general ui/login-message";
 
 export default function UserProfilePage() {
   const { data: session } = useSession();
