@@ -11,6 +11,7 @@ import Link from "next/link";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import { useUser } from "@/context/UserContext";
+import { useSession } from "next-auth/react";
 
 
 // Map of links to display in the side navigation.
@@ -18,12 +19,11 @@ import { useUser } from "@/context/UserContext";
 
 export default function CustomerNavLinks() {
   const pathname = usePathname();
-  
-  const {userContextG} = useUser();
+  const { data: session } = useSession();
 
   const links = [
     { name: "Home", href: "/customer", icon: HomeIcon },
-    { name: "My Profile", href: `/customer/profile?sub=${userContextG?.sub}`, icon: UserIcon },
+    { name: "My Profile", href: `/customer/profile?sub=${session?.user?.sub}`, icon: UserIcon },
     { name: "Jobs", href: "/customer/jobs", icon: BriefcaseIcon },
     { name: "Candidates", href: "/customer/candidates", icon: PaperClipIcon },
     { name: "Consultants", href: "/customer/consultants", icon: UserGroupIcon },
