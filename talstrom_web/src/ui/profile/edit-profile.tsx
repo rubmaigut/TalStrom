@@ -1,27 +1,37 @@
-import React, { ReactNode, useEffect, useState } from 'react';
-import Image from 'next/image';
-import { fetchUsersBySub, updateUserProfile } from '@/lib/data';
-import { useUser } from '@/context/UserContext';
-import { SelectTechnologies } from './technologies';
-import { PencilIcon } from '@heroicons/react/24/outline';
-import { IconType } from 'react-icons';
+import React, { ReactNode, useEffect, useState } from "react";
+import Image from "next/image";
+import { fetchUsersBySub, updateUserProfile } from "@/lib/data";
+import { useUser } from "@/context/UserContext";
+import { SelectTechnologies } from "./technologies";
+import { PencilIcon } from "@heroicons/react/24/outline";
+import { useSession } from "next-auth/react";
+import * as ReactIcons from 'react-icons/si'
+import { IconType } from "react-icons";
+import { UserCardForUser } from "@/types/IUserCardProps";
+import { capitalizeFirstLetter } from "@/lib/utils/capitaliseString";
 
-import * as ReactIcons from 'react-icons';
-
-export interface EditProfileProps {
+export interface EditUserProfile {
   bio?: string;
   technologies: string[];
   position?: string;
-  username?: string;
+  userName?: string;
+  picture?: string;
 }
 
-const EditProfile: React.FC = () => {
+type EditProfileProps ={
+user: UserCardForUser
+}
+
+const EditProfile = ({user}: EditProfileProps) => {
+  const {data: session} = useSession();
   const { userContextG } = useUser();
-  const [userProfile, setUserProfile] = useState<EditProfileProps>({
-    username: '',
-    bio: '',
-    technologies: [],
-    position: '',
+  const staticPicture = session?.user?.image || userContextG?.picture
+  const staticSub = session?.user?.sub || userContextG?.sub
+  const [userProfile, setUserProfile] = useState<EditUserProfile>({
+    userName: user.userName,
+    bio: user.bio,
+    technologies: user.technologies.split(","),
+    position: user.position,
   });
   const [selectedTechnologies, setSelectedTechnologies] = useState<string[]>(
     [],
@@ -31,9 +41,9 @@ const EditProfile: React.FC = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const data = await fetchUsersBySub(userContextG!.sub);
+        const data = await fetchUsersBySub(staticSub!);
         setUserProfile({
-          username: data.username || '',
+          userName: data.userName || '',
           bio: data.bio,
           technologies: data.technologies.split(''),
           position: data.position,
@@ -51,9 +61,8 @@ const EditProfile: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const userSub = userContextG!.sub;
     try {
-      await updateUserProfile(userSub, userProfile);
+      await updateUserProfile(staticSub!, userProfile);
       alert('Profile updated successfully!');
       setIsEditMode(false);
     } catch (error) {
@@ -77,18 +86,20 @@ const EditProfile: React.FC = () => {
     });
   };
 
-  const getIconForTechnology = (technology: string): ReactNode => {
-    const icon: IconType = (ReactIcons as any)[technology];
+  const getIconForTechnology = (technology: string, scaling: number): ReactNode => {
+    console.log(technology)
+    const icon: IconType = (ReactIcons as any)[`Si${capitalizeFirstLetter(technology)}`];
 
     if (typeof icon === 'function') {
-      return React.createElement(icon as React.ElementType, { size: 24 });
+      return React.createElement(icon as React.ElementType, { size: scaling, color:'black' });
     }
 
     return <span>Icon not found for {technology}</span>;
   };
+  
   return (
-    <div className="max-w-screen-lg mx-auto px-4">
-      <div className="bg-white shadow rounded-lg p-6">
+    <div className="w-[calc(100%-50px)] mx-auto px-4">
+      <div className="bg-white p-6">
         <i
           className={`flex  justify-end h-2 p-1 text-gray-500 rounded-full cursor-pointer ${
             isEditMode ? 'text-gray-500' : 'text-green-500'
@@ -101,7 +112,7 @@ const EditProfile: React.FC = () => {
           <div className="flex flex-col justify-center items-center">
             <dd className="my-2 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
               <Image
-                src={`${userContextG?.picture}`}
+                src={`${staticPicture}`}
                 alt={`Photo profile${userContextG?.name}`}
                 className="rounded-full bg-black"
                 width={80}
@@ -151,38 +162,39 @@ const EditProfile: React.FC = () => {
         </div>
         {!isEditMode ? (
           <div>
-            <p>Username: {userProfile.username}</p>
-            <p>Technology: {userProfile.technologies}</p>
-            <div className="flex">
-              {userProfile.technologies.map((tech, index) => (
-                <div key={index} className="mr-2">
-                  {getIconForTechnology(tech)}
-                </div>
-              ))}
-            </div>
-
-            <p>Bio: {userProfile.bio}</p>
-            <p>Position: {userProfile.position}</p>
-            <p className="hidden">
+            <p>Username: {user.userName ? user.userName : "Not Set"}</p>
+            <p>Bio: {user.bio ? user.bio : "Not Set"}</p>
+            <p>Position: {user.position ? user.position : "Not Set"}</p>
+              <p className="hidden">
               Technologies: {selectedTechnologies.join(', ')}
             </p>
+
+            <div className="grid grid-cols-6 2xl:grid-cols-10">
+              {user.technologies.length ? (user.technologies.split(",").map((tech, index) => (
+                <div key={index} className="mr-2">
+                  {getIconForTechnology(tech, 20)}
+                </div>
+              ))) : (
+                <p className="col-span-3 text-xs text-gray-400" >No technologies set</p>
+              )}
+            </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="username"
+                htmlFor="userName"
               >
-                username
+                userName
               </label>
               <textarea
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="username"
-                name="username"
-                value={userProfile.username}
+                id="userName"
+                name="userName"
+                value={userProfile.userName}
                 onChange={handleChange}
-                placeholder="Your username"
+                placeholder="Your userName"
               />
             </div>
 

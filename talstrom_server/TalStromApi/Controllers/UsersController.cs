@@ -57,6 +57,40 @@ namespace TalStromApi.Controllers
       }
     }
     
+    [HttpGet("technologies/filter/{sub}")]
+    public async Task<ActionResult<User>> GetUserByFilter(string sub)
+    {
+      try
+      {
+        var user = _context.User
+          .FirstOrDefault(user => user.Sub == sub);
+
+        if (user == null)
+        {
+          return NotFound();
+        }
+        
+        var filterKey = user
+          .Technologies.Split(',')
+          .ToList();
+        
+        var filteredUsers = await _context.User.Include(ctx => ctx.Posts)
+          .Include(ctx => ctx.Videos)
+          .Include(ctx => ctx.Images)
+          // .Where(user => user.Role == "developer")
+          .Where(user => filterKey.Any(elm => user.Technologies.Contains(elm)))
+          .ToListAsync();
+        //&& user.Sub != sub after Contains(elm)
+        
+        return  Ok(filteredUsers);
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine($"Error in GetUser(id): {ex}");
+        return StatusCode(500, "Internal Server Error");
+      }
+    }
+    
     [HttpGet("role/{role}")]
     public async Task<IActionResult> GetUsersByRole(string role)
     {

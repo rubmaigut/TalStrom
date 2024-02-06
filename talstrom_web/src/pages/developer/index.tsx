@@ -44,7 +44,7 @@ export default function UserProfilePage() {
       };
       loadDeveloper();
     }
-  }, [session, userInfo]);
+  }, [session]);
 
   const handleLinkClick = (link: string) => {
     setActiveLink(link);
@@ -52,13 +52,13 @@ export default function UserProfilePage() {
 
   useEffect(() => {
     switch (activeLink) {
-      case "videos":
+      case "Videos":
         setPageComponent(<VideosGrid videos={userInfo?.videos} sub={userInfo!.sub} loadUser={loadUser}/>);
         break;
-      case "images":
+      case "Images":
         setPageComponent(<ImagesGrid images={userInfo?.images} sub={userInfo!.sub} loadUser={loadUser} />);
         break;
-      case "posts":
+      case "Posts":
         setPageComponent(<UserPost posts={userInfo?.posts}/>);
         break;
       case "Opportunities":

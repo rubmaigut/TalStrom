@@ -28,7 +28,22 @@ public class FormFileOperationFilter : IOperationFilter
                                     Format = p.ParameterType == typeof(IFormFile) ? "binary" : null
                                 })
                         }
-                    }
+                    },
+                    ["application/json"] = new OpenApiMediaType()
+                    {
+                        Schema = new OpenApiSchema
+                        {
+                            Type = "object",
+                            Properties = formFileParameters.ToDictionary(
+                                p => p.Name,
+                                p => new OpenApiSchema
+                                {
+                                    Type = "string",
+                                    Format = "binary"
+                                })
+                        }
+                    },
+                    
                 }
             };
         }
