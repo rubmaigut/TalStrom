@@ -146,6 +146,27 @@ export async function fetchVideoById(id: string) {
   return await response.json();
 }
 
+// Posts
+
+export async function addNewPost(content: string): Promise<Post> {
+  const url = `${API_BASE_URL}/Posts`;
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      content,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to add a new post');
+  }
+
+  return await response.json();
+}
+
 export async function updateUserPost(
   postId: number,
   content: string,
@@ -168,4 +189,17 @@ export async function updateUserPost(
   } catch (error) {
     throw error;
   }
+}
+
+export async function deleteUserPost(sub: string) {
+  const url = `${API_BASE_URL}/Posts/user/${sub}`;
+  const response = await fetch(url, {
+    method: 'DELETE',
+  });
+
+  if (!response.ok) {
+    throw new Error('deleteUserPost: Failed to delete user posts');
+  }
+
+  return response.json();
 }
