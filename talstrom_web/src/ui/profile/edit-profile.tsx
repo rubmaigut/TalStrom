@@ -98,7 +98,7 @@ const EditProfile = ({user}: EditProfileProps) => {
   
   return (
     
-      <div className="bg-white p-6">
+      <div className="bg-white w-full p-6">
         <i
           className={`flex  justify-end h-2 p-1 text-gray-500 rounded-full cursor-pointer ${
             isEditMode ? 'text-gray-500' : 'text-green-500'
