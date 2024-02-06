@@ -5,10 +5,8 @@ import { fetchUsersBySub } from "@/lib/data";
 import { UserCardForUser } from "@/types/IUserCardProps";
 import UserCard from "@/ui/user-card";
 import NavLinks from "@/ui/developer/nav-links";
-import UserFindMatch from "@/ui/profile/find-match";
 import UserMyNetwork from "@/ui/profile/networking";
 import UserPost from "@/ui/profile/posts";
-import UserSaved from "@/ui/profile/saved";
 import VideosGrid from "@/ui/developer/videos";
 import ImagesGrid from "@/ui/developer/images";
 import { useUser } from "@/context/UserContext";
@@ -18,12 +16,23 @@ export default function UserProfilePage() {
   const { data: session } = useSession();
   const { userContextG } = useUser();
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
-  const [pageComponent, setPageComponent] = useState(<VideosGrid videos={userInfo?.videos} sub={userInfo?.sub as string}/>);
   const [activeLink, setActiveLink] = useState<string>("posts");
+  const userSub = session!.user?.sub
+  
+  const loadUser = async () => {
+    try {
+      const userData = await fetchUsersBySub(userSub!);
+      setUserInfo(userData);
+    } catch (error) {
+      console.error('Failed to fetch user data:', error);
+    }
+  };
+  
+  const [pageComponent, setPageComponent] = useState(<VideosGrid videos={userInfo?.videos} sub={userInfo?.sub as string} loadUser={loadUser}/>);
   
   useEffect(() => {
     if(session){
-      const userSub = session.user?.sub
+      
       const loadDeveloper = async () => {
         try {
           const developer = await fetchUsersBySub(userSub!);
@@ -43,22 +52,16 @@ export default function UserProfilePage() {
   useEffect(() => {
     switch (activeLink) {
       case "videos":
-        setPageComponent(<VideosGrid videos={userInfo?.videos} sub={userInfo!.sub} />);
+        setPageComponent(<VideosGrid videos={userInfo?.videos} sub={userInfo!.sub} loadUser={loadUser}/>);
         break;
       case "images":
-        setPageComponent(<ImagesGrid images={userInfo?.images} sub={userInfo!.sub} />);
+        setPageComponent(<ImagesGrid images={userInfo?.images} sub={userInfo!.sub} loadUser={loadUser} />);
         break;
       case "posts":
         setPageComponent(<UserPost posts={userInfo?.posts}/>);
         break;
-      case "find-match":
-        setPageComponent(<UserFindMatch />);
-        break;
-      case "my-opportunities":
+      case "Opportunities":
         setPageComponent(<UserMyNetwork />);
-        break;
-      case "saved":
-        setPageComponent(<UserSaved />);
         break;
     }
   }, [activeLink, userInfo, userContextG]);
@@ -88,4 +91,5 @@ export default function UserProfilePage() {
       )}
     </>
   );
-}
+
+  }
