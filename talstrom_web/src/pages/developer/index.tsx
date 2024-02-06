@@ -17,7 +17,8 @@ export default function UserProfilePage() {
   const { userContextG } = useUser();
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
   const [activeLink, setActiveLink] = useState<string>("posts");
-  const userSub = session!.user?.sub
+  
+  const userSub = session?.user?.sub
   
   const loadUser = async () => {
     try {
@@ -82,7 +83,7 @@ export default function UserProfilePage() {
               </div>
             ) : (
               <div className="flex flex-col w-full h-full justify-center items-center mt-12 px-8">
-              <span className=" break-words text-center text-xl font-bold text-teal-600 lg:text-2xl my-8 "> Ops! Seems like you are in the wrong profile</span>
+              <span className=" break-words text-center text-xl font-bold text-teal-600 lg:text-2xl my-8 "> Oops! Seems like you are in the wrong profile</span>
               <LoginMessage displayRole="customer" userSub={userInfo?.sub}/>
               </div>
             )}
