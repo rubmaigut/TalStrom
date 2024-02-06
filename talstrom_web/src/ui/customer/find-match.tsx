@@ -4,7 +4,10 @@ import { UserCardForUser } from "@/types/IUserCardProps";
 import React from "react";
 import { ReactNode, SyntheticEvent, useEffect, useState } from "react";
 import * as ReactIcons from "react-icons/si";
+import { CgArrowRightO } from "react-icons/cg";
 import { IconType } from "react-icons";
+import Image from "next/image";
+import Link from "next/link";
 
 type FindMatchProps = {
   sub: string;
@@ -64,16 +67,18 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
     setFilterArray(newArray);
   };
 
-  const getIconForTechnology = (technology: string): ReactNode => {
+  const getIconForTechnology = (
+    technology: string,
+    scaling: number
+  ): ReactNode => {
+    console.log(technology);
     const icon: IconType = (ReactIcons as any)[
       `Si${capitalizeFirstLetter(technology)}`
     ];
 
     if (typeof icon === "function") {
       return React.createElement(icon as React.ElementType, {
-        id: `filter-${technology}`,
-        value: { technology },
-        size: 25,
+        size: scaling,
         color: "black",
       });
     }
@@ -81,25 +86,68 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
     return <span>Icon not found for {technology}</span>;
   };
 
-  console.log(filterArray);
-  console.log(suggestions);
   return (
     <section>
-    {filterOptions.length ? (<div>
-      <div className="flex">
-        {filterArray.map((elm, i) => {
-          return (
-            <button className="m-1" value={elm.label} onClick={toggleFilter}>
-              {/* {getIconForTechnology(elm.label)} */}
-              {elm.label}
-            </button>
-          );
-        })}
-      </div>
-      {suggestions.map((elm, i) => {
-        return <p key={i}>{elm.name}</p>;
-      })}
-    </div>) : (<p>No technologies currently listed. Complete your profile to see matches</p>)}
+      {filterOptions.length ? (
+        <div>
+          <div className="flex">
+            {filterArray.map((elm, i) => {
+              return (
+                <button
+                  className="m-1"
+                  value={elm.label}
+                  onClick={toggleFilter}
+                >
+                  {/* {getIconForTechnology(tech, 20)} */}
+                  {elm.label}
+                </button>
+              );
+            })}
+          </div>
+          {suggestions.map((elm, i) => {
+            return (
+              <div className="flex flex-col justify-center space-x-2 md:space-x-4 md:w-3/5 pb-4">
+                <div className="flex">
+                  <div className="flex-shrink-0">
+                    <Image
+                      src={`${elm?.picture}`}
+                      alt={`Photo profile${elm?.name}`}
+                      className="rounded-full"
+                      width={32}
+                      height={32}
+                      priority
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0 mx-1">
+                    <p className="text-sm font-medium text-gray-600 truncate">
+                      {elm.name}
+                    </p>
+                    <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+                      {elm.email}
+                    </p>
+                  </div>
+                  <div className="flex pr-2">
+                    <Link href={`/${elm.role}?sub=${elm.sub}`}>
+                      <CgArrowRightO size={25} />
+                    </Link>
+                  </div>
+                </div>
+                <div className="flex m-0.5">
+                  {elm.technologies.split(",").map((tech, index) => (
+                    <div key={index} className="mr-2">
+                      {getIconForTechnology(tech, 15)}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <p>
+          No technologies currently listed. Complete your profile to see matches
+        </p>
+      )}
     </section>
   );
 };

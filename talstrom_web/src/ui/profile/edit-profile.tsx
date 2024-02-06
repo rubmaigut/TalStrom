@@ -86,20 +86,20 @@ const EditProfile = ({user}: EditProfileProps) => {
     });
   };
 
-  const getIconForTechnology = (technology: string): ReactNode => {
+  const getIconForTechnology = (technology: string, scaling: number): ReactNode => {
     console.log(technology)
     const icon: IconType = (ReactIcons as any)[`Si${capitalizeFirstLetter(technology)}`];
 
     if (typeof icon === 'function') {
-      return React.createElement(icon as React.ElementType, { size: 20, color:'black' });
+      return React.createElement(icon as React.ElementType, { size: scaling, color:'black' });
     }
 
     return <span>Icon not found for {technology}</span>;
   };
-  console.log(user.technologies)
+  
   return (
-    <div className="max-w-screen-lg mx-auto px-4">
-      <div className="bg-white shadow rounded-lg p-6">
+    <div className="w-[calc(100%-50px)] mx-auto px-4">
+      <div className="bg-white p-6">
         <i
           className={`flex  justify-end h-2 p-1 text-gray-500 rounded-full cursor-pointer ${
             isEditMode ? 'text-gray-500' : 'text-green-500'
@@ -172,7 +172,7 @@ const EditProfile = ({user}: EditProfileProps) => {
             <div className="grid grid-cols-6 2xl:grid-cols-10">
               {user.technologies.length ? (user.technologies.split(",").map((tech, index) => (
                 <div key={index} className="mr-2">
-                  {getIconForTechnology(tech)}
+                  {getIconForTechnology(tech, 20)}
                 </div>
               ))) : (
                 <p className="col-span-3 text-xs text-gray-400" >No technologies set</p>
