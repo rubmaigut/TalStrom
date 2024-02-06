@@ -159,10 +159,10 @@ const EditProfile = ({user}: EditProfileProps) => {
         </div>
         {!isEditMode ? (
           <div>
-            <p>Username: {userProfile.username}</p>
-            <p>Technology: {userProfile.technologies}</p>
+            <p>Username: {user.username}</p>
+            <p>Technology: {user.technologies}</p>
             <div className="flex">
-              {userProfile.technologies.map((tech, index) => (
+              {user.technologies.split(",").map((tech, index) => (
                 <div key={index} className="mr-2">
                   {getIconForTechnology(tech)}
                 </div>
