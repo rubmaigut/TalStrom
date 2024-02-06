@@ -14,7 +14,7 @@ export interface EditUserProfile {
   bio?: string;
   technologies: string[];
   position?: string;
-  username?: string;
+  userName?: string;
   picture?: string;
 }
 
@@ -26,8 +26,9 @@ const EditProfile = ({user}: EditProfileProps) => {
   const {data: session} = useSession();
   const { userContextG } = useUser();
   const staticPicture = session?.user?.image || userContextG?.picture
+  const staticSub = session?.user?.sub || userContextG?.sub
   const [userProfile, setUserProfile] = useState<EditUserProfile>({
-    username: user.username,
+    userName: user.userName,
     bio: user.bio,
     technologies: user.technologies.split(","),
     position: user.position,
@@ -40,9 +41,9 @@ const EditProfile = ({user}: EditProfileProps) => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const data = await fetchUsersBySub(userContextG!.sub);
+        const data = await fetchUsersBySub(staticSub!);
         setUserProfile({
-          username: data.username || '',
+          userName: data.userName || '',
           bio: data.bio,
           technologies: data.technologies.split(''),
           position: data.position,
@@ -60,9 +61,8 @@ const EditProfile = ({user}: EditProfileProps) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const userSub = userContextG!.sub;
     try {
-      await updateUserProfile(userSub, userProfile);
+      await updateUserProfile(staticSub!, userProfile);
       alert('Profile updated successfully!');
       setIsEditMode(false);
     } catch (error) {
@@ -87,16 +87,16 @@ const EditProfile = ({user}: EditProfileProps) => {
   };
 
   const getIconForTechnology = (technology: string): ReactNode => {
-    console.log("icon name: ", technology);
+    console.log(technology)
     const icon: IconType = (ReactIcons as any)[`Si${capitalizeFirstLetter(technology)}`];
-    console.log(ReactIcons);
 
     if (typeof icon === 'function') {
-      return React.createElement(icon as React.ElementType, { size: 24 });
+      return React.createElement(icon as React.ElementType, { size: 20, color:'black' });
     }
 
     return <span>Icon not found for {technology}</span>;
   };
+  console.log(user.technologies)
   return (
     <div className="max-w-screen-lg mx-auto px-4">
       <div className="bg-white shadow rounded-lg p-6">
@@ -162,38 +162,37 @@ const EditProfile = ({user}: EditProfileProps) => {
         </div>
         {!isEditMode ? (
           <div>
-            <p>Username: {user.username}</p>
-            <p>Technology: {user.technologies}</p>
-            <div className="flex">
+            <p>Username: {user.userName ? user.userName : "Not set"}</p>
+            <p>Bio: {userProfile.bio}</p>
+            <p>Position: {userProfile.position}</p>
+
+            <div className="grid grid-cols-6 2xl:grid-cols-10">
+              <p className="hidden">
+              Technologies: {selectedTechnologies.join(', ')}
+            </p>
               {user.technologies.split(",").map((tech, index) => (
                 <div key={index} className="mr-2">
                   {getIconForTechnology(tech)}
                 </div>
               ))}
             </div>
-
-            <p>Bio: {userProfile.bio}</p>
-            <p>Position: {userProfile.position}</p>
-            <p className="hidden">
-              Technologies: {selectedTechnologies.join(', ')}
-            </p>
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="username"
+                htmlFor="userName"
               >
-                username
+                userName
               </label>
               <textarea
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="username"
-                name="username"
-                value={userProfile.username}
+                id="userName"
+                name="userName"
+                value={userProfile.userName}
                 onChange={handleChange}
-                placeholder="Your username"
+                placeholder="Your userName"
               />
             </div>
 

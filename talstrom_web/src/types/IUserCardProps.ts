@@ -7,7 +7,7 @@ export interface UserCardForUser {
   posts: Post[];
   id: number;
   name: string;
-  username: string
+  userName: string
   email: string;
   picture: string;
   sub: string;
