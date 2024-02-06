@@ -1,4 +1,4 @@
-import SignIn from "@/ui/sign-in";
+import SignIn from "@/ui/atoms/general ui/sign-in";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { fetchUsersBySub } from "@/lib/data";
@@ -10,7 +10,7 @@ import UserMyNetwork from "@/ui/profile/networking";
 import UserPost from "@/ui/profile/posts";
 import UserSaved from "@/ui/profile/saved";
 import UserPosts from "@/ui/profile/posts";
-import LoginMessage from "@/ui/atoms/login-message";
+import LoginMessage from "@/ui/atoms/general ui/login-message";
 
 const UserProfilePage: React.FC = () => {
   const { data: session } = useSession();

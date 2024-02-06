@@ -6,13 +6,13 @@ import Image from "next/image";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 
 export default function Page() {
-  const [developers, setDeveloper] = useState<User[]>([]);
+  const [developers, setDevelopers] = useState<User[]>([]);
 
   useEffect(() => {
     const loadDeveloper = async () => {
       try {
         const users = await fetchUsersByRole("Developer");
-        setDeveloper(users);
+        setDevelopers(users);
       } catch (error) {
         console.error("Failed to fetch pending users:", error);
       }
@@ -23,8 +23,7 @@ export default function Page() {
   const handleDelete = async (sub: string) => {
     try {
       await deleteUser(sub);
-      const users = await fetchUsersByRole("developer");
-      setDeveloper(users);
+      setDevelopers(developers.filter(user => user.sub !==sub));
     } catch (error) {
       console.error("Error Deleting developer", error);
     }
@@ -33,7 +32,7 @@ export default function Page() {
   return (
     <>
       <Layout>
-        <div className="flex flex-col gap-6 rounded-lg bg-gray-50 px-6 py-8 md:w-full h-full md:px-12 md:my-0 my-4 ">
+        <div className="flex flex-col gap-6 rounded-lg bg-gray-50 border border-text-gray-300 px-6 py-8 md:w-full h-full md:px-12 md:my-0 my-4 ">
           <h3 className="font-semibold leading-none text-gray-600">
             Developer Table
           </h3>

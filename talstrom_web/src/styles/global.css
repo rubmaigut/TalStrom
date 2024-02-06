@@ -2,3 +2,9 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+.html, :root{
+    width: 100%;
+    height: 100vh;
+    background-color: #F9FAFB ;
+}
+    

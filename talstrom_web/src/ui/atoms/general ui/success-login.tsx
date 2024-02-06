@@ -3,8 +3,8 @@ import { addUserHandler, fetchUsersBySub } from "@/lib/data";
 import { LoginProps } from "@/types/IUser";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
-import LoginMessage from "./atoms/login-message";
-import LoadingMessage from "./atoms/loading";
+import LoginMessage from "./login-message";
+import LoadingMessage from "./loading";
 
 const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
   const [loading, setLoading] = useState(true);
@@ -16,7 +16,6 @@ const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
       try {
         const userExist = await fetchUsersBySub(user.sub);
         if (userExist) {
-          console.log("UserExist", userExist);
           updateUser(userExist);
         } else {
           const newUser = await addUserHandler(user);

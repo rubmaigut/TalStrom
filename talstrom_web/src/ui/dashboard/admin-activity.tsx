@@ -3,7 +3,7 @@ import UserRoleBarChart from './userRoleBarChart';
 import { User } from '@/types/IUser';
 import { fetchUsers } from '@/lib/data';
 import UserSummary from './users-summary';
-import LoadingMessage from '../atoms/loading';
+import LoadingMessage from '../atoms/general ui/loading';
 
 const AdminActivity: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
