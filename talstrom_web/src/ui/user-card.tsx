@@ -5,10 +5,10 @@ import EditProfile from './profile/edit-profile';
 interface UserCardProps {
   user: UserCardForUser;
 }
-const userCard: React.FC<UserCardProps> = () => (
+const userCard = ({user}: UserCardProps) => (
   <div className="relative max-w-2xl mx-auto my-3">
     <div className="flex justify-between max-w-2xl items-center text-sm">
-      <EditProfile />
+      <EditProfile user={user}/>
     </div>
   </div>
 );

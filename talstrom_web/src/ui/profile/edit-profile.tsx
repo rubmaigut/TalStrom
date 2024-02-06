@@ -7,8 +7,9 @@ import { PencilIcon } from "@heroicons/react/24/outline";
 import { useSession } from "next-auth/react";
 import * as ReactIcons from 'react-icons'
 import { IconType } from "react-icons";
+import { UserCardForUser } from "@/types/IUserCardProps";
 
-export interface EditProfileProps {
+export interface EditUserProfile {
   bio?: string;
   technologies: string[];
   position?: string;
@@ -16,15 +17,19 @@ export interface EditProfileProps {
   picture?: string;
 }
 
-const EditProfile: React.FC = () => {
+type EditProfileProps ={
+user: UserCardForUser
+}
+
+const EditProfile = ({user}: EditProfileProps) => {
   const {data: session} = useSession();
   const { userContextG } = useUser();
   const staticPicture = session?.user?.image || userContextG?.picture
-  const [userProfile, setUserProfile] = useState<EditProfileProps>({
-    username: '',
-    bio: '',
-    technologies: [],
-    position: '',
+  const [userProfile, setUserProfile] = useState<EditUserProfile>({
+    username: user.username,
+    bio: user.bio,
+    technologies: user.technologies.split(","),
+    position: user.position,
   });
   const [selectedTechnologies, setSelectedTechnologies] = useState<string[]>(
     [],
