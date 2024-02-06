@@ -23,11 +23,11 @@ export const SelectTechnologies: React.FC<Props> = ({
 
   const options: readonly Option[] = [
     { value: '', label: 'Choose your Programming Languages', isDisabled: true },
-    { value: 'Python', label: 'Python' },
-    { value: 'Javascript', label: 'JavaScript' },
-    { value: 'Java', label: 'Java' },
-    { value: 'Csharp', label: 'C#' },
-    { value: 'Cplusplus', label: 'C++' },
+    { value: 'python', label: 'Python' },
+    { value: 'javascript', label: 'JavaScript' },
+    { value: 'java', label: 'Java' },
+    { value: 'csharp', label: 'C#' },
+    { value: 'cplusplus', label: 'C++' },
     // { value: 'C', label: 'C' },
     // { value: 'php', label: 'PHP' },
     // { value: 'swift', label: 'Swift' },
