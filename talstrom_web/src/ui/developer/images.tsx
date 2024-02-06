@@ -1,7 +1,5 @@
 import { FC, useState } from "react";
-import VideoItem from "../atoms/video-item";
 import UploadContainer from "../overlays/upload-media";
-import VideoPlayer from "../overlays/video-player";
 import ImageItem from "../atoms/image-item";
 import ImageViewer from "../overlays/image-viewer";
 
@@ -23,8 +21,8 @@ const ImagesGrid = ({ images, sub, loadUser }: ImagesGridProps) => {
   };
 
   const togglePlayerOverlay = (imageId?: number) => {
-    const video = images?.find(v => v.id === imageId)
-    imageId ? setCurrentImageIndex(images!.indexOf(video as Media)) : setCurrentImageIndex(0);
+    const image = images?.find(i => i.id === imageId)
+    imageId ? setCurrentImageIndex(images!.indexOf(image as Media)) : setCurrentImageIndex(0);
     setPlayerVisibility(!playerVisibility);
   };
 
