@@ -162,19 +162,21 @@ const EditProfile = ({user}: EditProfileProps) => {
         </div>
         {!isEditMode ? (
           <div>
-            <p>Username: {user.userName ? user.userName : "Not set"}</p>
-            <p>Bio: {userProfile.bio}</p>
-            <p>Position: {userProfile.position}</p>
-
-            <div className="grid grid-cols-6 2xl:grid-cols-10">
+            <p>Username: {user.userName ? user.userName : "Not Set"}</p>
+            <p>Bio: {user.bio ? user.bio : "Not Set"}</p>
+            <p>Position: {user.position ? user.position : "Not Set"}</p>
               <p className="hidden">
               Technologies: {selectedTechnologies.join(', ')}
             </p>
-              {user.technologies.split(",").map((tech, index) => (
+
+            <div className="grid grid-cols-6 2xl:grid-cols-10">
+              {user.technologies.length ? (user.technologies.split(",").map((tech, index) => (
                 <div key={index} className="mr-2">
                   {getIconForTechnology(tech)}
                 </div>
-              ))}
+              ))) : (
+                <p className="col-span-3 text-xs text-gray-400" >No technologies set</p>
+              )}
             </div>
           </div>
         ) : (
