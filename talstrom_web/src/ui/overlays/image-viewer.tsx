@@ -23,15 +23,16 @@ const ImageViewer = ({
 
   useEffect(() => {
     const fetchVideo = async () => {
-      if (currentImageIndex) {
-        console.log(images![currentImageIndex].uri)
-        setUri(images![currentImageIndex].uri);
+      if (!currentImageIndex) {
+        currentImageIndex = 0;
       }
+      console.log(images![currentImageIndex].uri)
+      setUri(images![currentImageIndex].uri);
     };
 
     fetchVideo();
   },[currentImageIndex]);
-
+  // console.log(uri);
   return (
     <div
       id="image-viewer"
