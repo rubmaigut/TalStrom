@@ -98,7 +98,7 @@ const EditProfile = ({user}: EditProfileProps) => {
   };
   
   return (
-    <div className="w-[calc(100%-50px)] mx-auto px-4">
+    
       <div className="bg-white p-6">
         <i
           className={`flex  justify-end h-2 p-1 text-gray-500 rounded-full cursor-pointer ${
@@ -261,7 +261,6 @@ const EditProfile = ({user}: EditProfileProps) => {
           </form>
         )}
       </div>
-    </div>
   );
 };
 

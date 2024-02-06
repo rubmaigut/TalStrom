@@ -78,8 +78,10 @@ export default function UserProfilePage() {
             {userInfo && userInfo?.role === "developer" ? (
               <div>
                 <UserCard user={userInfo} />
+                <div className="w-[calc(100%-50px)] md:w-[calc(100%-500px)] h-screen mx-auto my-3">
                 <NavLinks onLinkClick={handleLinkClick} />
-                <div>{pageComponent}</div>
+                  {pageComponent}
+                  </div>
               </div>
             ) : (
               <div className="flex flex-col w-full h-full justify-center items-center mt-12 px-8">
