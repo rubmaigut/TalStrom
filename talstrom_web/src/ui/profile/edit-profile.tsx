@@ -5,9 +5,10 @@ import { useUser } from "@/context/UserContext";
 import { SelectTechnologies } from "./technologies";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import { useSession } from "next-auth/react";
-import * as ReactIcons from 'react-icons'
+import * as ReactIcons from 'react-icons/si'
 import { IconType } from "react-icons";
 import { UserCardForUser } from "@/types/IUserCardProps";
+import { capitalizeFirstLetter } from "@/lib/utils/capitaliseString";
 
 export interface EditUserProfile {
   bio?: string;
@@ -86,7 +87,9 @@ const EditProfile = ({user}: EditProfileProps) => {
   };
 
   const getIconForTechnology = (technology: string): ReactNode => {
-    const icon: IconType = (ReactIcons as any)[technology];
+    console.log("icon name: ", technology);
+    const icon: IconType = (ReactIcons as any)[`Si${capitalizeFirstLetter(technology)}`];
+    console.log(ReactIcons);
 
     if (typeof icon === 'function') {
       return React.createElement(icon as React.ElementType, { size: 24 });
