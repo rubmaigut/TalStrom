@@ -78,6 +78,7 @@ const VideosGrid = ({ videos, sub, loadUser }: VideosGridProps) => {
         {videos?.map((elm, i) => {
           return (
             <VideoItem
+              deleteMode={deleteMode}
               key={i}
               videoItem={elm}
               openPlayer={togglePlayerOverlay}

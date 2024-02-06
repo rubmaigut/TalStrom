@@ -1,15 +1,17 @@
-import Link from "next/link";
 import { SyntheticEvent, useEffect } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { TiDeleteOutline } from "react-icons/ti";
 
 type VideoItemProps = {
   videoItem: Media;
   openPlayer: (videoId?: number) => void;
+  deleteMode: boolean;
 };
 
 export default function VideoItem({
   videoItem,
   openPlayer,
+  deleteMode,
 }: VideoItemProps) {
   useEffect(() => {
     const video = document.getElementById(
@@ -38,7 +40,7 @@ export default function VideoItem({
           />
         </div>
       ) : (
-        <div onClick={openPlayerHandler}>
+        <div onClick={openPlayerHandler} className="">
           <video
             id={`video-${videoItem.id}`}
             muted
@@ -46,6 +48,11 @@ export default function VideoItem({
             className="aspect=[3/4] object-cover rounded-none"
             src={videoItem.uri}
           />
+          {deleteMode && (
+            <div className="absolute top-[6px] left-[90px] bg-black rounded-full">
+              <TiDeleteOutline size={30} color="white" />
+            </div>
+          )}
         </div>
       )}
     </div>

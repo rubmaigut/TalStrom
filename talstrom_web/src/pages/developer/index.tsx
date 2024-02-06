@@ -32,12 +32,12 @@ export default function UserProfilePage() {
   const components = [
     <VideosGrid
       videos={userInfo?.videos}
-      sub={userInfo?.sub as string}
+      sub={userInfo?.sub || userContextG?.sub || userSub!}
       loadUser={loadUser}
     />,
     <ImagesGrid
       images={userInfo?.images}
-      sub={userInfo?.sub || userContextG?.sub || ""}
+      sub={userInfo?.sub || userContextG?.sub || userSub!}
       loadUser={loadUser}
     />,
     <UserPost posts={userInfo?.posts} />,
