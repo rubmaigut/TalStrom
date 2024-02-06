@@ -53,12 +53,10 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
 
   const toggleFilter = (evt: SyntheticEvent) => {
     const target = evt.target as HTMLButtonElement;
-    console.log(target);
-    const parent = target.parentElement as HTMLButtonElement;
     !target.classList.contains("text-gray-300")
       ? target.classList.add("text-gray-300")
       : target.classList.remove("text-gray-300");
-    const targetIndex = filterArray.findIndex((s) => s.label === parent.value);
+    const targetIndex = filterArray.findIndex((s) => s.label === target.value);
     const newArray = [...filterArray];
     newArray[targetIndex].status = !newArray[targetIndex].status;
     console.log(target.value);
@@ -85,12 +83,14 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
 
   console.log(filterArray);
   return (
-    <div>
+    <section>
+    {filterOptions.length ? (<div>
       <div className="flex">
         {filterArray.map((elm, i) => {
           return (
             <button className="m-1" value={elm.label} onClick={(e) => { e.stopPropagation(); toggleFilter(e); }}>
-              {getIconForTechnology(elm.label)}
+              {/* {getIconForTechnology(elm.label)} */}
+              {elm.label}
             </button>
           );
         })}
@@ -98,7 +98,8 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
       {suggestions.map((elm, i) => {
         return <p key={i}>{elm.name}</p>;
       })}
-    </div>
+    </div>) : (<p>No technologies currently listed. Complete your profile to see matches</p>)}
+    </section>
   );
 };
 
