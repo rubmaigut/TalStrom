@@ -6,7 +6,7 @@ const nextConfig = {
     if(!isServer) config.externals.push('canvas');
     return config;
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
     domains: ['lh3.googleusercontent.com'],
   },
