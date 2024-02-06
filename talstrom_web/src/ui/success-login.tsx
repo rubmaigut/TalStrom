@@ -3,8 +3,8 @@ import { addUserHandler, fetchUsersBySub } from "@/lib/data";
 import { LoginProps } from "@/types/IUser";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
-import LoginMessage from "./atoms/login-message";
-import LoadingMessage from "./atoms/loading";
+import LoginMessage from "./atoms/general ui/login-message";
+import LoadingMessage from "./atoms/general ui/loading";
 
 const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
   const [loading, setLoading] = useState(true);

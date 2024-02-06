@@ -1,7 +1,7 @@
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/dist/client/link";
 import { FC } from "react";
-import MockLogo from "@/ui/mock-logo";
+import MockLogo from "@/ui/talstrom-logo";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
 const SignIn: FC = () => {

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import NavLinks from "@/ui/dashboard/nav-links";
-import MockLogo from "@/ui/mock-logo";
+import MockLogo from "@/ui/talstrom-logo";
 import { PowerIcon } from "@heroicons/react/24/outline";
 import { signOut } from "next-auth/react";
 import { useUser } from "@/context/UserContext";
