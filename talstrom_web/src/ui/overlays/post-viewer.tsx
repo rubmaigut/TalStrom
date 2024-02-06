@@ -6,6 +6,7 @@ type PostOverlayProps = {
   editedContent: string;
   onEditClick: () => void;
   onSaveClick: () => void;
+  onDeleteClick: () => void;
   onCancelClick: () => void;
   onContentChange: (content: string) => void;
 };
@@ -16,6 +17,7 @@ const PostOverlay: React.FC<PostOverlayProps> = ({
   editedContent,
   onEditClick,
   onSaveClick,
+  onDeleteClick,
   onCancelClick,
   onContentChange,
 }) => {
@@ -53,14 +55,28 @@ const PostOverlay: React.FC<PostOverlayProps> = ({
             >
               Cancel
             </button>
+            <button
+              className="px-4 py-2 text-white bg-gray-500 rounded-md"
+              onClick={onDeleteClick}
+            >
+              Delete
+            </button>
           </div>
         ) : (
-          <button
-            className="mt-4 px-4 py-2 text-white bg-blue-500 rounded-md"
-            onClick={onEditClick}
-          >
-            Edit
-          </button>
+          <div className="mt-4 flex items-center space-x-2">
+            <button
+              className="px-4 py-2 text-white bg-blue-500 rounded-md"
+              onClick={onEditClick}
+            >
+              Edit
+            </button>
+            <button
+              className="px-4 py-2 text-white bg-gray-500 rounded-md"
+              onClick={onDeleteClick}
+            >
+              Delete
+            </button>
+          </div>
         )}
       </div>
     </div>
