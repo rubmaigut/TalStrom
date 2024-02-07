@@ -17,7 +17,7 @@ export default function UserProfilePage() {
   const { userContextG, updateUser } = useUser();
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
   const [activeLink, setActiveLink] = useState<string>("posts");
-  const userSub = session?.user?.sub
+  const userSub = session?.user?.sub;
 
   useEffect(() => {
     const updateUserContext = async () => {
@@ -47,11 +47,24 @@ export default function UserProfilePage() {
     loadUser();
   }, []);
 
-  const [pageComponent, setPageComponent] = useState(<VideosGrid
-    videos={userInfo?.videos}
-    sub={userInfo?.sub as string}
-    loadUser={loadUser}
-  />);
+  const components = [
+    <VideosGrid
+  key={"videos-grid"}
+      videos={userInfo?.videos}
+      sub={userInfo?.sub as string}
+      loadUser={loadUser}
+    />,
+    <ImagesGrid
+  key={"images-grid"}
+      images={userInfo?.images}
+      sub={userInfo?.sub as string}
+      loadUser={loadUser}
+    />,
+    <UserPost key={"posts"} posts={userInfo?.posts as Post[]} />,
+    <UserMyNetwork key={"network"}/>,
+  ];
+
+  const [pageComponent, setPageComponent] = useState(components[0]);
 
   const handleLinkClick = (link: string) => {
     setActiveLink(link);
@@ -60,28 +73,16 @@ export default function UserProfilePage() {
   useEffect(() => {
     switch (activeLink) {
       case "Videos":
-        setPageComponent(
-          <VideosGrid
-            videos={userInfo?.videos}
-            sub={userInfo?.sub as string}
-            loadUser={loadUser}
-          />
-        );
+        setPageComponent(components[0]);
         break;
       case "Images":
-        setPageComponent(
-          <ImagesGrid
-            images={userInfo?.images}
-            sub={userInfo?.sub as string}
-            loadUser={loadUser}
-          />
-        );
+        setPageComponent(components[1]);
         break;
       case "Posts":
-        setPageComponent(<UserPost posts={userInfo?.posts as Post[]} />,);
+        setPageComponent(components[2]);
         break;
       case "Opportunities":
-        setPageComponent(<UserMyNetwork />);
+        setPageComponent(components[3]);
         break;
     }
   }, [activeLink, userInfo, userContextG]);
