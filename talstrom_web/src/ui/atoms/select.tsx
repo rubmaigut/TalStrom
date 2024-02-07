@@ -46,9 +46,11 @@ export const SelectComponent: React.FC<SelectComponentProps> = ({
         isSearchable={isSearchable}
         isDisabled={isDisabled}
         name="role"
-        styles={customStyles}
         options={options}
         onChange={(option) => handleChange(option as Option)}
+        menuPortalTarget={document.body}
+        styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
+
       />
       <div
         style={{
