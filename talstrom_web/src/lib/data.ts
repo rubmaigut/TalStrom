@@ -1,5 +1,5 @@
 import { User } from '@/types/IUser';
-import { EditUserProfile } from '@/ui/profile/edit-profile';
+import { EditUserProfile } from '@/ui/atoms/profile/edit-profile';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 

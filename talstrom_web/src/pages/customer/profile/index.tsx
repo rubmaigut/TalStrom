@@ -6,10 +6,10 @@ import { UserCardForUser } from "@/types/IUserCardProps";
 import UserCard from "@/ui/user-card";
 import NavLinks from "@/ui/customer/nav-links";
 import UserFindMatch from "@/ui/customer/find-match";
-import UserMyNetwork from "@/ui/profile/networking";
-import UserPost from "@/ui/profile/posts";
-import UserSaved from "@/ui/profile/saved";
-import UserPosts from "@/ui/profile/posts";
+import UserMyNetwork from "@/ui/atoms/profile/networking";
+import UserPost from "@/ui/atoms/profile/posts";
+import UserSaved from "@/ui/atoms/profile/saved";
+import UserPosts from "@/ui/atoms/profile/posts";
 import LoginMessage from "@/ui/atoms/general ui/login-message";
 
 const UserProfilePage: React.FC = () => {
