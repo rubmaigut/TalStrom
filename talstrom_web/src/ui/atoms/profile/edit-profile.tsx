@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { updateUserProfile } from "@/lib/data";
+import { updateUserProfile } from "@/lib/data-user";
 import { SelectTechnologies } from "./technologies";
 import { UserCardForUser } from "@/types/IUserCardProps";
 

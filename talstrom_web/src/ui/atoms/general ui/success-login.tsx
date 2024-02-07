@@ -1,14 +1,14 @@
 import { useUser } from "@/context/UserContext";
-import { addUserHandler, fetchUsersBySub } from "@/lib/data";
+import { addUserHandler, fetchUsersBySub } from "@/lib/data-user";
 import { LoginProps } from "@/types/IUser";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
-import LoginMessage from "./login-message";
+import {LoginMessage} from "./login-message";
 import LoadingMessage from "./loading";
 
 const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
   const [loading, setLoading] = useState(true);
- const { updateUser, role } = useUser();
+  const { updateUser } = useUser();
 
   useEffect(() => {
     async function setUserInfo() {
@@ -46,7 +46,7 @@ const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
 
   return (
     <>
-      <LoginMessage displayRole={role || "pending"} />
+      <LoginMessage id={user.sub}/>
     </>
   );
 };

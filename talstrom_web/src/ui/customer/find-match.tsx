@@ -1,4 +1,4 @@
-import { fetchUsersByFilter } from '@/lib/data';
+import { fetchUsersByFilter } from '@/lib/data-user';
 import { UserCardForUser } from '@/types/IUserCardProps';
 import React from 'react';
 import { ReactNode, SyntheticEvent, useEffect, useState } from 'react';

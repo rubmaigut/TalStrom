@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import UserRoleBarChart from './userRoleBarChart';
 import { User } from '@/types/IUser';
-import { fetchUsers } from '@/lib/data';
+import { fetchUsers } from '@/lib/data-user';
 import UserSummary from './users-summary';
 import LoadingMessage from '../atoms/general ui/loading';
 

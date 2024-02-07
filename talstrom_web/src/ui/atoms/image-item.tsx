@@ -1,4 +1,4 @@
-import { deleteMedia } from "@/lib/data";
+import { deleteMedia } from "@/lib/data-video";
 import { SyntheticEvent, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { TiDeleteOutline } from "react-icons/ti";

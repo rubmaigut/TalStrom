@@ -1,11 +1,11 @@
 import Layout from "@/ui/layout";
 import SignIn from "@/ui/atoms/general ui/sign-in";
 import { useSession } from "next-auth/react";
-import { fetchUsersBySub } from "@/lib/data";
+import { fetchUsersBySub } from "@/lib/data-user";
 import { useEffect, useState } from "react";
 import GreetingModal from "@/ui/atoms/general ui/greetings";
 import { UserCardForUser } from "@/types/IUserCardProps";
-import LoginMessage from "@/ui/atoms/general ui/login-message";
+import {LoginMessage} from "@/ui/atoms/general ui/login-message";
 import ToDoList from "@/ui/customer/dashboard/todos/todo-list";
 
 export default function Page() {
@@ -25,7 +25,7 @@ export default function Page() {
       };
       loadCustomer();
     }
-  }, [session, userInfo]);
+  },[]);
 
   if (!session) {
     return (
