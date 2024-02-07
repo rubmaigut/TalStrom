@@ -11,7 +11,7 @@ const UserSaved = () => {
       id: 1,
       name: 'John Doe',
       email: 'john.doe@example.com',
-      picture: 'https://placekitten.com/32/32', 
+      picture: 'https://placekitten.com/32/32',
     },
     {
       id: 2,
@@ -46,17 +46,30 @@ const UserSaved = () => {
   ];
 
   return (
-    <div>
+    <div className="flex items-center justify-center flex-col">
       <p>Saved</p>
       {hardcodedUsers.map((user) => (
-        <div key={user.id} className="flex flex-col justify-center space-x-2 md:space-x-4 md:w-3/5 pb-4">
+        <div
+          key={user.id}
+          className="flex flex-col justify-center space-x-2 md:space-x-4 w-full md:w-3/5 pb-4"
+        >
           <div className="flex">
             <div className="flex-shrink-0">
-              <img src={user.picture} alt={`Photo profile ${user.name}`} className="rounded-full" width={32} height={32} />
+              <img
+                src={user.picture}
+                alt={`Photo profile ${user.name}`}
+                className="rounded-full"
+                width={32}
+                height={32}
+              />
             </div>
             <div className="flex-1 min-w-0 mx-1">
-              <p className="text-sm font-medium text-gray-600 truncate">{user.name}</p>
-              <p className="text-sm text-gray-500 truncate dark:text-gray-400">{user.email}</p>
+              <p className="text-sm font-medium text-gray-600 truncate">
+                {user.name}
+              </p>
+              <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+                {user.email}
+              </p>
             </div>
           </div>
         </div>
