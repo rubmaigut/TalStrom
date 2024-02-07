@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { UserCardForUser } from '@/types/IUserCardProps';
-import { fetchUsersByRole } from '@/lib/data';
 import { StarIcon as SolidStarIcon } from '@heroicons/react/24/outline';
+import { fetchUsersByRole } from '@/lib/data-user';
 
 const UserMyNetwork = () => {
   const [users, setUsers] = useState<UserCardForUser[]>([]);
