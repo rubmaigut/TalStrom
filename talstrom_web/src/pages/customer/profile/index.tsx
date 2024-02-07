@@ -1,7 +1,7 @@
 import SignIn from '@/ui/atoms/general ui/sign-in';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
-import { fetchUsersBySub } from '@/lib/data';
+import { fetchUsersBySub } from '@/lib/data-user';
 import { UserCardForUser } from '@/types/IUserCardProps';
 import UserCard from '@/ui/atoms/profile/user-card';
 import ProfileNavLinks from '@/ui/customer/nav-links';

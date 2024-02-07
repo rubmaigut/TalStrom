@@ -3,7 +3,7 @@ import { BiLoaderCircle, BiCheckCircle } from "react-icons/bi";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
 import { BiCross } from "react-icons/bi";
 import { GiCancel } from "react-icons/gi";
-import { addMedia } from "@/lib/data";
+import { addMedia } from "@/lib/data-user";
 
 type UploadError = {
   type: string;

@@ -1,7 +1,7 @@
 import Layout from "@/ui/layout";
 import SignIn from "@/ui/atoms/general ui/sign-in";
 import { useSession } from "next-auth/react";
-import { fetchUsersBySub } from "@/lib/data";
+import { fetchUsersBySub } from "@/lib/data-user";
 import { useEffect, useState } from "react";
 import GreetingModal from "@/ui/atoms/general ui/greetings";
 import { UserCardForUser } from "@/types/IUserCardProps";

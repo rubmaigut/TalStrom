@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { addNewPostHandler, deleteUserPost, updateUserPost } from '@/lib/data';
+import { addNewPostHandler, deleteUserPost, updateUserPost } from '@/lib/data-user';
 import PostOverlay from '@/ui/overlays/post-viewer';
 import AddPostOverlay from '@/ui/overlays/add-post-overlay';
 

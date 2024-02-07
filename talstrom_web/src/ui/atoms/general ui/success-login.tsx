@@ -1,5 +1,5 @@
 import { useUser } from "@/context/UserContext";
-import { addUserHandler, fetchUsersBySub } from "@/lib/data";
+import { addUserHandler, fetchUsersBySub } from "@/lib/data-user";
 import { LoginProps } from "@/types/IUser";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";

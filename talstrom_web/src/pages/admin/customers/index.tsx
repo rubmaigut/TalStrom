@@ -1,5 +1,5 @@
 import Layout from "@/ui/layout";
-import { deleteUser, fetchUsersByRole, updateUserRole } from "@/lib/data";
+import { deleteUser, fetchUsersByRole, updateUserRole } from "@/lib/data-user";
 import { useEffect, useState } from "react";
 import { User } from "@/types/IUser";
 import Image from "next/image";

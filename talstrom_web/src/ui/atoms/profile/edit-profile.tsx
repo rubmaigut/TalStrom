@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { updateUserProfile } from "@/lib/data";
+import { updateUserProfile } from "@/lib/data-user";
 import { useUser } from "@/context/UserContext";
 import { SelectTechnologies } from "./technologies";
 import { useSession } from "next-auth/react";

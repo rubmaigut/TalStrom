@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import { useUser } from "@/context/UserContext";
 import * as ReactIcons from "@/lib/reactIconComponents";
 import { IconType } from "react-icons";
-import { fetchUsersBySub } from "@/lib/data";
+import { fetchUsersBySub } from "@/lib/data-user";
 import { PencilIcon } from "@heroicons/react/24/outline";
 
 interface UserCardProps {
