@@ -3,29 +3,44 @@ import React from 'react';
 type PostOverlayProps = {
   post: Post;
   isEditMode: boolean;
+  editedTitle: string; 
   editedContent: string;
   onEditClick: () => void;
   onSaveClick: () => void;
   onDeleteClick: () => void;
   onCancelClick: () => void;
+  onTitleChange: (title: string) => void; 
   onContentChange: (content: string) => void;
 };
 
 const PostOverlay: React.FC<PostOverlayProps> = ({
   post,
   isEditMode,
+  editedTitle,
   editedContent,
   onEditClick,
   onSaveClick,
   onDeleteClick,
   onCancelClick,
+  onTitleChange,
   onContentChange,
 }) => {
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 bg-gray-800 bg-opacity-50 z-50 flex justify-center items-center">
       <div className="w-[400px] bg-white p-6 rounded-md">
         <p className="text-sm text-gray-500">{post.postType}</p>
-        <h1 className="text-xl font-bold mb-2">{post.title}</h1>
+        <h1 className="text-xl font-bold mb-2">
+          {isEditMode ? (
+            <input
+              type="text"
+              value={editedTitle}
+              onChange={(e) => onTitleChange(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md"
+            />
+          ) : (
+            <p>{post.title}</p>
+          )}
+        </h1>
         {isEditMode ? (
           <textarea
             className="w-full h-32 p-2 border border-gray-300 rounded-md"
