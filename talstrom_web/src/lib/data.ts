@@ -165,8 +165,8 @@ export async function deleteMedia(mediaType: string, mediaTitle: string) {
 export async function addNewPostHandler(
   title: string,
   content: string,
-  sub: string,
-
+  userSub: string,
+  postType: string,
 ): Promise<Post> {
   const url = `${API_BASE_URL}/Posts`;
   try {
@@ -177,9 +177,10 @@ export async function addNewPostHandler(
       },
       body: JSON.stringify({
         id: 0,
+        postType: postType,
         title: title,
         content: content,
-        userSub: sub,
+        userSub: userSub,
       }),
     });
 
@@ -201,6 +202,7 @@ export async function updateUserPost(
   title: string,
   content: string,
   postType: string,
+  userSub: string,
 ): Promise<void> {
   const url = `${API_BASE_URL}/Posts/${postId}`;
   try {
@@ -213,6 +215,7 @@ export async function updateUserPost(
         postType: postType,
         title: title,
         content: content,
+        userSub: userSub,
       }),
     });
 
@@ -227,7 +230,6 @@ export async function updateUserPost(
     throw error;
   }
 }
-
 
 export async function deleteUserPost(postId: number): Promise<void> {
   const url = `${API_BASE_URL}/Posts/${postId}`;

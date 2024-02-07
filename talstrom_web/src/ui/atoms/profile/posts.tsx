@@ -3,15 +3,6 @@ import { addNewPostHandler, deleteUserPost, updateUserPost } from '@/lib/data';
 import PostOverlay from '@/ui/overlays/post-viewer';
 import AddPostOverlay from '@/ui/overlays/add-post-overlay';
 
-type Post = {
-  id: number;
-  postType: string;
-  title: string;
-  content: string;
-  author: string;
-  createdDate: string;
-};
-
 interface PostsProps {
   postType: string;
   sub: string;
@@ -32,15 +23,12 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, postType }) => {
     setEditMode(true);
   };
 
-  const handleAddPost = async (
-    title: string,
-    content: string,
-  ) => {
+  const handleAddPost = async (title: string, content: string) => {
     try {
       console.log('Adding post:', title, content);
 
       if (content.trim() !== '') {
-        const response = await addNewPostHandler(title, content, sub);
+        const response = await addNewPostHandler(title, content, sub, postType);
         console.log('Add Post Response:', response);
         setAddPostMode(false);
       }
@@ -65,6 +53,7 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, postType }) => {
           editedTitle,
           editedContent,
           selectedPost.postType,
+          sub,
         );
         console.log('Update Post Response:', response);
 
@@ -149,9 +138,7 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, postType }) => {
 
       {isAddPostMode && (
         <AddPostOverlay
-          onAddPost={(title, content) =>
-            handleAddPost(title, content)
-          }
+          onAddPost={(title, content) => handleAddPost(title, content)}
           onCancelClick={handleAddPostCancelClick}
         />
       )}

@@ -16,7 +16,7 @@ export default function UserProfilePage() {
   const { data: session } = useSession();
   const { userContextG, updateUser } = useUser();
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
-  const [activeLink, setActiveLink] = useState<string>("posts");
+  const [activeLink, setActiveLink] = useState<string>('posts');
   const userSub = session?.user?.sub;
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export default function UserProfilePage() {
 
   const components = [
     <VideosGrid
-      key={"videos-grid"}
+      key={'videos-grid'}
       videos={userInfo?.videos}
       sub={userInfo?.sub as string}
       loadUser={loadUser}
@@ -61,13 +61,18 @@ export default function UserProfilePage() {
       loadUser={loadUser}
     />,
     <ImagesGrid
-      key={"images-grid"}
+      key={'images-grid'}
       images={userInfo?.images}
       sub={userInfo?.sub as string}
       loadUser={loadUser}
     />,
-    <UserPost key={"posts"} posts={userInfo?.posts as Post[]} sub={userInfo?.sub as string} postType={''} />,
-    <UserMyNetwork key={"network"} />,
+    <UserPost
+      key={'posts'}
+      posts={userInfo?.posts as Post[]}
+      sub={userInfo?.sub as string}
+      postType={''}
+    />,
+    <UserMyNetwork key={'network'} />,
   ];
 
   const [pageComponent, setPageComponent] = useState(components[0]);
