@@ -7,8 +7,7 @@ import NavLinks from "@/ui/developer/nav-links";
 import UserPost from "@/ui/atoms/profile/posts";
 import VideosGrid from "@/ui/developer/videos";
 import ImagesGrid from "@/ui/developer/images";
-import { useUser } from "@/context/UserContext";
-import LoginMessage from "@/ui/atoms/general ui/login-message";
+import {LoginMessage} from "@/ui/atoms/general ui/login-message";
 import Bio from "@/ui/atoms/profile/bio";
 import JobsPage from "@/ui/atoms/profile/jobs";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
@@ -128,10 +127,7 @@ export const UserProfilePage = ({
                 {" "}
                 Oops! Seems like you are in the wrong profile
               </span>
-              <LoginMessage
-                displayRole={userInfo?.role as string}
-                userSub={userInfo?.sub}
-              />
+              <LoginMessage/>
             </div>
           )}
         </div>

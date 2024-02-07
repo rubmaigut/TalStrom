@@ -2,15 +2,16 @@ import { useUser } from "@/context/UserContext";
 import Link from "next/link";
 import GreetingModal from "./greetings";
 import LoginButton from "../profile/login-button";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
-interface Props {
-  displayRole: string;
-  userSub?: string;
-}
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const { id } = context.params;
+  return { props: { id } };
+};
 
-const LoginMessage: React.FC<Props> = ({ displayRole, userSub }) => {
+export const LoginMessage = ({ id } : InferGetServerSidePropsType<typeof getServerSideProps>)  => {
   const { userContextG } = useUser();
-  const subValidation = userContextG?.sub || userSub;
+  const displayRole = userContextG?.role
 
   return (
     <div>
@@ -54,7 +55,7 @@ const LoginMessage: React.FC<Props> = ({ displayRole, userSub }) => {
           </dd>
           <div className="flex justify-center items-center">
             <Link
-              href={`/${displayRole}/${subValidation}`}
+              href={`/${displayRole}/${id}`}
               className="flex w-28 h-11 my-4 mr-4 grow items-center justify-center gap-2 rounded-md bg-teal-500 text-white p-3 text-sm font-bold hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:p-2 md:px-3"
             >
               Go to Portal
@@ -66,5 +67,3 @@ const LoginMessage: React.FC<Props> = ({ displayRole, userSub }) => {
     </div>
   );
 };
-
-export default LoginMessage;

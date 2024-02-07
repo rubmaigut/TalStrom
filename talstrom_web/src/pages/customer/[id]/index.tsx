@@ -5,7 +5,7 @@ import { fetchUsersBySub } from "@/lib/data-user";
 import { useEffect, useState } from "react";
 import GreetingModal from "@/ui/atoms/general ui/greetings";
 import { UserCardForUser } from "@/types/IUserCardProps";
-import LoginMessage from "@/ui/atoms/general ui/login-message";
+import {LoginMessage} from "@/ui/atoms/general ui/login-message";
 import ToDoList from "@/ui/customer/dashboard/todos/todo-list";
 
 export default function Page() {

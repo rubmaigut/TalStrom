@@ -8,15 +8,23 @@ import UserFindMatch from "@/ui/customer/find-match";
 import UserMyNetwork from "@/ui/atoms/profile/networking";
 import UserPost from "@/ui/atoms/profile/posts";
 import UserSaved from "@/ui/atoms/profile/saved";
-import LoginMessage from "@/ui/atoms/general ui/login-message";
+import {LoginMessage} from "@/ui/atoms/general ui/login-message";
 import { useUser } from "@/context/UserContext";
 import SignIn from "@/ui/atoms/general ui/sign-in";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 type ComponentMapping = {
   [key: string]: JSX.Element;
 };
 
-const UserProfilePage: React.FC = () => {
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const { id } = context.params;
+  return { props: { id } };
+};
+
+export const UserProfilePage = ({
+  id,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { data: session } = useSession();
   const { updateUser } = useUser();
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
@@ -29,12 +37,10 @@ const UserProfilePage: React.FC = () => {
       session={session}
     />,
   );
-  const userSub = session?.user?.sub;
 
   useEffect(() => {
-    const userSub = session?.user?.sub;
-    if (userSub) {
-      fetchUsersBySub(userSub)
+    if (id) {
+      fetchUsersBySub(id)
         .then((fetchedUserInfo: UserCardForUser) => {
           if (fetchedUserInfo.posts) {
             const sortedPosts = [...fetchedUserInfo.posts].sort(
