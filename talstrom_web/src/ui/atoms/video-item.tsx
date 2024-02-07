@@ -6,12 +6,14 @@ type VideoItemProps = {
   videoItem: Media;
   openPlayer: (videoId?: number) => void;
   deleteMode: boolean;
+  removeVideoFromGrid: (uri: string) => void
 };
 
 export default function VideoItem({
   videoItem,
   openPlayer,
   deleteMode,
+  removeVideoFromGrid
 }: VideoItemProps) {
   const [confirmBoxVisibility, setConfirmBoxVisibility] = useState(false);
 
@@ -31,7 +33,10 @@ export default function VideoItem({
     const index = openPlayer(parseInt(target.id.split("-")[1]));
   };
 
-  const confirmDelete = () => {};
+  const confirmDelete = () => {
+    removeVideoFromGrid(videoItem.uri);
+    setConfirmBoxVisibility(!confirmBoxVisibility)
+  };
 
   return (
     <div className="relative brightness-90 hover:brightness-[1.1] cursor-pointer">
@@ -63,17 +68,17 @@ export default function VideoItem({
         </div>
       )}
       {confirmBoxVisibility && (
-        <div className="absolute top-20 left-10 rounded-md bg-white p-3 flex flex-col">
+        <div className="absolute top-20 rounded-md bg-white p-3 flex flex-col">
           <h3> Delete Video?</h3>
-          <div id="confirm-delete-buttons">
+          <div id="confirm-delete-buttons" className="flex justify-between mt-1">
             <button
-              className="mt-2 ml-2 h-[48px] rounded-md bg-green-200 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:px-3"
+              className="h-[48px] px-3 rounded-md bg-green-200 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start"
               onClick={confirmDelete}
             >
               Yes
             </button>
             <button
-              className="mt-2 ml-2 h-[48px] rounded-md bg-red-200 text-sm font-medium hover:bg-red-300 hover:text-red md:flex-none md:justify-start md:px-3"
+              className="h-[48px] px-3 rounded-md bg-red-200 text-sm font-medium hover:bg-red-300 hover:text-red md:flex-none md:justify-start"
               onClick={() => setConfirmBoxVisibility(!confirmBoxVisibility)}
             >
               No
