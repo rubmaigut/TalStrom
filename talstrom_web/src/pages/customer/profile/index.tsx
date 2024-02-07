@@ -17,7 +17,7 @@ const UserProfilePage: React.FC = () => {
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
   const [activeLink, setActiveLink] = useState<string>('posts');
   const [pageComponent, setPageComponent] = useState<React.ReactNode>(
-    <UserPost posts={userInfo?.posts ?? []} sub={userInfo?.sub ?? ''} />,
+    <UserPost posts={userInfo?.posts ?? []} sub={userInfo?.sub ?? ''} postType={''} />,
   );
   const userSub = session?.user?.sub;
 
@@ -43,7 +43,7 @@ const UserProfilePage: React.FC = () => {
     switch (activeLink) {
       case 'posts':
         setPageComponent(
-          <UserPosts posts={userInfo?.posts ?? []} sub={userInfo?.sub ?? ''} />,
+          <UserPosts posts={userInfo?.posts ?? []} sub={userInfo?.sub ?? ''} postType={''} />,
         );
         break;
       case 'find-match':

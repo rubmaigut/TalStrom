@@ -83,8 +83,7 @@ export default function UserProfilePage() {
         setPageComponent(
           <UserPost
             posts={userInfo?.posts as Post[]}
-            sub={userInfo?.sub as string}
-          />,
+            sub={userInfo?.sub as string} postType={''}          />,
         );
         break;
       case 'Opportunities':
