@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { updateUserProfile } from "@/lib/data-user";
-import { useUser } from "@/context/UserContext";
 import { SelectTechnologies } from "./technologies";
-import { useSession } from "next-auth/react";
 import { UserCardForUser } from "@/types/IUserCardProps";
 
 export interface EditUserProfile {
@@ -16,11 +14,10 @@ export interface EditUserProfile {
 type EditProfileProps = {
   user: UserCardForUser;
   toggleEditMode: () => void;
+  updateUser: (updateDetails: UserCardForUser) => void;
 };
 
-const EditProfile = ({ user, toggleEditMode }: EditProfileProps) => {
-  const { data: session } = useSession();
-  const { userContextG } = useUser();
+const EditProfile = ({ user, toggleEditMode, updateUser }: EditProfileProps) => {
   const [userProfile, setUserProfile] = useState<EditUserProfile>({
     userName: user.userName,
     bio: user.bio,
@@ -31,13 +28,18 @@ const EditProfile = ({ user, toggleEditMode }: EditProfileProps) => {
     []
   );
 
-  const staticSub = session?.user?.sub || userContextG?.sub;
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      await updateUserProfile(staticSub!, userProfile);
-      alert("Profile updated successfully!");
+      await updateUserProfile(user.sub, userProfile);
+      console.log("Profile updated successfully!");
+      // updateUser({
+      //   ...user,
+      //   userName: userProfile.userName || user.userName,
+      //   bio: userProfile.bio || user.bio,
+      //   technologies: userProfile.bio || "",
+      //   position: userProfile.position || user.position,
+      // })
       toggleEditMode();
     } catch (error) {
       console.error("Failed to update profile", error);
@@ -132,7 +134,7 @@ const EditProfile = ({ user, toggleEditMode }: EditProfileProps) => {
           Save
         </button>
         <button
-          onClick={toggleEditMode}
+          onClick={() => toggleEditMode()}
           className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
           type="button"
         >

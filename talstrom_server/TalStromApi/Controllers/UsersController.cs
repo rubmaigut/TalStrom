@@ -77,10 +77,9 @@ namespace TalStromApi.Controllers
         var filteredUsers = await _context.User.Include(ctx => ctx.Posts)
           .Include(ctx => ctx.Videos)
           .Include(ctx => ctx.Images)
-          // .Where(user => user.Role == "developer")
-          .Where(user => filterKey.Any(elm => user.Technologies.Contains(elm)))
+          .Where(user => user.Role == "developer")
+          .Where(user => filterKey.Any(elm => user.Technologies.Contains(elm)&& user.Sub != sub))
           .ToListAsync();
-        //&& user.Sub != sub after Contains(elm)
         
         return  Ok(filteredUsers);
       }

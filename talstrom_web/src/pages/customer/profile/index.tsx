@@ -20,7 +20,16 @@ const UserProfilePage: React.FC = () => {
   const { data: session } = useSession();
   const { updateUser } = useUser();
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
-  const [activeLink, setActiveLink] = useState<string>("posts");
+  const [activeLink, setActiveLink] = useState<string>('posts');
+  const [pageComponent, setPageComponent] = useState<React.ReactNode>(
+    <UserPost
+      posts={userInfo?.posts ?? []}
+      sub={userInfo?.sub ?? ''}
+      postType={''}
+      session={session}
+    />,
+  );
+  const userSub = session?.user?.sub;
 
   useEffect(() => {
     const userSub = session?.user?.sub;
@@ -51,7 +60,7 @@ const UserProfilePage: React.FC = () => {
   ): JSX.Element => {
     const mapping: ComponentMapping = {
       posts: (
-        <UserPost posts={userInfo?.posts ?? []} sub={userInfo?.sub ?? ""} />
+        <UserPost posts={userInfo?.posts ?? []} sub={userInfo?.sub ?? ""} session={session} />
       ),
       "find-match": (
         <UserFindMatch
@@ -67,6 +76,8 @@ const UserProfilePage: React.FC = () => {
     return mapping[activeLink] || <div>Component not found</div>;
   };
 
+  const updateContentFromCard = (updatedUser: UserCardForUser) => setUserInfo(updatedUser)
+
   if (!session) {
     return (
       <section>
@@ -79,7 +90,7 @@ const UserProfilePage: React.FC = () => {
 
   return (
     <div>
-      <UserCard user={userInfo} />
+      <UserCard user={userInfo} session={session} updateUser={updateContentFromCard} />
       <ProfileNavLinks onLinkClick={handleLinkClick} />
       <div className="w-[calc(100%-50px)] h-screen mx-auto my-3">
         {getActiveComponent(userInfo)}
