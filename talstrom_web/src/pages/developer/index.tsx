@@ -19,6 +19,7 @@ export default function UserProfilePage() {
   const [activeLink, setActiveLink] = useState<string>("posts");
   
   const userSub = session?.user?.sub
+
   
   const loadUser = async () => {
     try {

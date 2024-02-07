@@ -32,6 +32,10 @@ export const SelectComponent: React.FC<SelectComponentProps> = ({
     }
   };
 
+  const customStyles = {
+    menu: (provided: any) => ({ ...provided, maxHeight: '200px', overflowY: 'auto' }),
+  };
+
   return (
     <>
       <Select
@@ -42,6 +46,7 @@ export const SelectComponent: React.FC<SelectComponentProps> = ({
         isSearchable={isSearchable}
         isDisabled={isDisabled}
         name="role"
+        styles={customStyles}
         options={options}
         onChange={(option) => handleChange(option as Option)}
       />
