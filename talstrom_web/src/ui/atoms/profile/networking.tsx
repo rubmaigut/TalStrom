@@ -29,12 +29,12 @@ const UserMyNetwork = () => {
   };
 
   return (
-    <div>
+    <div className="flex items-center justify-center flex-col">
       <p>My Network</p>
       {users.map((user) => (
         <div
           key={user.id}
-          className="flex flex-col justify-center space-x-2 md:space-x-4 md:w-3/5 pb-4"
+          className="flex flex-col justify-center space-x-2 md:space-x-4 w-full md:w-3/5 pb-4"
         >
           <div className="flex">
             <div className="flex-shrink-0">
