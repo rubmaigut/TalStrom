@@ -77,7 +77,7 @@ export default function Header() {
         </div>
       ) : (
         <div className="mt-4 w-full flex grow flex-col gap-4 md:items-center 2xl:h-32">
-          <div className="flex flex-col justify-center gap-6 mt-8 lg:mt-16 rounded-lg bg-gray-50 px-6 py-10 w-full md:px-16">
+          <div className="flex flex-col justify-center gap-6 mt-8 lg:mt-28 rounded-lg bg-gray-50 px-6 py-10 w-full md:px-16">
             <MailImage
               picture={session!.user?.image as string}
               name={session!.user?.name as string}
