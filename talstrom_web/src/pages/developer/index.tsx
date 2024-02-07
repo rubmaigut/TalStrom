@@ -17,7 +17,7 @@ export default function UserProfilePage() {
   const { userContextG, updateUser } = useUser();
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
   const [activeLink, setActiveLink] = useState<string>("posts");
-  const userSub = session?.user?.sub;
+  const userSub = session?.user?.sub
 
   useEffect(() => {
     const updateUserContext = async () => {
@@ -26,13 +26,12 @@ export default function UserProfilePage() {
           const updateUserInfo = await fetchUsersBySub(userSub!);
           updateUser({ ...updateUserInfo });
           setUserInfo(updateUserInfo);
-
         } catch (error) {
           console.error("Failed to update user context:", error);
         }
       }
     };
-    updateUserContext()
+    updateUserContext();
   }, [session]);
 
   const loadUser = async () => {
@@ -46,26 +45,13 @@ export default function UserProfilePage() {
 
   useEffect(() => {
     loadUser();
-  }, [])
+  }, []);
 
-  const components = [
-    <VideosGrid
-      key={'videosgrid'}
-      videos={userInfo?.videos}
-      sub={userInfo!.sub}
-      loadUser={loadUser}
-    />,
-    <ImagesGrid
-      key={'imagesgrid'}
-      images={userInfo?.images}
-      sub={userInfo!.sub}
-      loadUser={loadUser}
-    />,
-    <UserPost  key={'userposts'} posts={userInfo!.posts} />,
-    <UserMyNetwork key={'mynetwork'} />,
-  ];
-
-  const [pageComponent, setPageComponent] = useState(components[0]);
+  const [pageComponent, setPageComponent] = useState(<VideosGrid
+    videos={userInfo?.videos}
+    sub={userInfo?.sub as string}
+    loadUser={loadUser}
+  />);
 
   const handleLinkClick = (link: string) => {
     setActiveLink(link);
@@ -74,16 +60,28 @@ export default function UserProfilePage() {
   useEffect(() => {
     switch (activeLink) {
       case "Videos":
-        setPageComponent(components[0]);
+        setPageComponent(
+          <VideosGrid
+            videos={userInfo?.videos}
+            sub={userInfo?.sub as string}
+            loadUser={loadUser}
+          />
+        );
         break;
       case "Images":
-        setPageComponent(components[1]);
+        setPageComponent(
+          <ImagesGrid
+            images={userInfo?.images}
+            sub={userInfo?.sub as string}
+            loadUser={loadUser}
+          />
+        );
         break;
       case "Posts":
-        setPageComponent(components[2]);
+        setPageComponent(<UserPost posts={userInfo?.posts as Post[]} />,);
         break;
       case "Opportunities":
-        setPageComponent(components[3]);
+        setPageComponent(<UserMyNetwork />);
         break;
     }
   }, [activeLink, userInfo, userContextG]);
@@ -110,7 +108,10 @@ export default function UserProfilePage() {
                 {" "}
                 Oops! Seems like you are in the wrong profile
               </span>
-              <LoginMessage displayRole={userInfo?.role as string} userSub={userInfo?.sub} />
+              <LoginMessage
+                displayRole={userInfo?.role as string}
+                userSub={userInfo?.sub}
+              />
             </div>
           )}
         </div>
@@ -118,4 +119,3 @@ export default function UserProfilePage() {
     </>
   );
 }
-
