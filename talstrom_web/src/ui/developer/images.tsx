@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import UploadContainer from "../overlays/upload-media";
 import ImageItem from "../atoms/image-item";
 import ImageViewer from "../overlays/image-viewer";
-import MediaDeleteButtons from "../dashboard/media-delete-buttons";
+import MediaDeleteButtons from "../atoms/profile/media-delete-buttons";
 
 type ImagesGridProps = {
   images: Media[] | undefined;
@@ -56,7 +56,7 @@ const ImagesGrid = ({ images, sub, loadUser }: ImagesGridProps) => {
   };
 
   return (
-    <article>
+    <article className="flex flex-col justify-center items-center">
       {uploadVisibility && (
         <UploadContainer
           closeWindow={toggleUploadOverlay}
@@ -73,8 +73,13 @@ const ImagesGrid = ({ images, sub, loadUser }: ImagesGridProps) => {
           currentImageIndex={currentImageIndex}
         />
       )}
-      <MediaDeleteButtons toggleUploadOverlay={toggleUploadOverlay} toggleDeleteable={toggleDeleteable} deleteMode />
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl-grid-cols-5 2xl:grid-cols-6  gap-1 px-2 lg:px-4">
+      
+      <MediaDeleteButtons
+        toggleUploadOverlay={toggleUploadOverlay}
+        toggleDeleteable={toggleDeleteable}
+        deleteMode
+      />
+      <div className="w-[calc(100%+20px)] md:w-[700px] lg:w-[800px] xl:w-[900px] lg:mt-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl-grid-cols-4  gap-1 px-2 lg:px-4">
         {images?.map((elm, i) => {
           return (
             <ImageItem
