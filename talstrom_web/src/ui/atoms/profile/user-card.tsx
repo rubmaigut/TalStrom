@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import { UserCardForUser } from "@/types/IUserCardProps";
-import EditProfile, { EditUserProfile } from "./profile/edit-profile";
+import EditProfile, { EditUserProfile } from "./edit-profile";
 import Image from "next/image";
 import techIcons from "@/lib/reactIconComponents/reactIcons";
 import { useSession } from "next-auth/react";

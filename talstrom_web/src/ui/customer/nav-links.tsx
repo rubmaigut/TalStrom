@@ -22,7 +22,7 @@ export const links = [
   { name: "saved", href: "/customer/[id]/saved", icon: SolidStarIcon },
 ];
 
-const NavLinks: React.FC<NavLinksProps> = ({ onLinkClick }) => {
+const ProfileNavLinks: React.FC<NavLinksProps> = ({ onLinkClick }) => {
   const pathname = usePathname();
 
   const handleLinkClick = (link: string) => {
@@ -55,4 +55,4 @@ const NavLinks: React.FC<NavLinksProps> = ({ onLinkClick }) => {
   );
 };
 
-export default NavLinks;
+export default ProfileNavLinks;

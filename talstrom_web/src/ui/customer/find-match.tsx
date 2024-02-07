@@ -12,7 +12,7 @@ import techIcons from "@/lib/reactIconComponents/reactIcons";
 
 type FindMatchProps = {
   sub: string;
-  filterOptions: string;
+  filterOptions: string[];
 };
 
 type FilterItem = {
@@ -24,7 +24,7 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
   const [usersArray, setUsersArray] = useState<UserCardForUser[]>([]);
   const [suggestions, setSuggestions] = useState<UserCardForUser[]>([]);
 
-  const initial: FilterItem[] = filterOptions.split(",").map((x) => {
+  const initial: FilterItem[] = filterOptions.map((x) => {
     return {
       label: x,
       status: true,
@@ -54,30 +54,30 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
       return filtered;
     });
   }, [filterArray]);
-
+  
   const toggleFilter = (evt: SyntheticEvent) => {
     const target = evt.target as HTMLButtonElement;
-    !target.classList.contains("text-gray-300")
-      ? target.classList.add("text-gray-300")
-      : target.classList.remove("text-gray-300");
-    const targetIndex = filterArray.findIndex((s) => s.label === target.value);
+    !target.classList.contains('text-gray-300')
+      ? target.classList.add('text-gray-300')
+      : target.classList.remove('text-gray-300');
+    const targetIndex = filterArray.findIndex((s) => s.label === target.value!); 
     const newArray = [...filterArray];
     newArray[targetIndex].status = !newArray[targetIndex].status;
     console.log(target.value);
-
+  
     setFilterArray(newArray);
   };
 
   const getIconForTechnology = (
     technology: string,
-    scaling: number
+    scaling: number,
   ): ReactNode => {
     const i = techIcons.findIndex(x => x.language == technology);
     const icon: IconType = (ReactIcons as any)[
       `${techIcons[i].reactIcon}`
     ];
 
-    if (typeof icon === "function") {
+    if (typeof icon === 'function') {
       return React.createElement(icon as React.ElementType, {
         size: scaling,
         color: techIcons[i].color,
@@ -95,7 +95,7 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
             {filterArray.map((elm, i) => {
               return (
                 <button
-                key={i}
+                  key={i}
                   className="m-1"
                   value={elm.label}
                   onClick={toggleFilter}
@@ -107,7 +107,10 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
           </div>
           {suggestions.map((elm, i) => {
             return (
-              <div key={i} className="flex flex-col justify-center space-x-2 md:space-x-4 md:w-3/5 pb-4">
+              <div
+                key={i}
+                className="flex flex-col justify-center space-x-2 md:space-x-4 md:w-3/5 pb-4"
+              >
                 <div className="flex">
                   <div className="flex-shrink-0">
                     <Image
@@ -134,7 +137,7 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
                   </div>
                 </div>
                 <div className="flex m-0.5">
-                  {elm.technologies.split(",").map((tech, index) => (
+                  {elm.technologies.split(',').map((tech, index) => (
                     <div key={index} className="mr-2">
                       {/* {getIconForTechnology(tech, 15)} */}
                     </div>

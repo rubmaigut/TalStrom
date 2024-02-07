@@ -1,5 +1,5 @@
 import { User } from '@/types/IUser';
-import { EditUserProfile } from '@/ui/profile/edit-profile';
+import { EditUserProfile } from '@/ui/atoms/profile/edit-profile';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -148,8 +148,8 @@ export async function fetchVideoById(id: string) {
 export async function deleteMedia(mediaType: string, mediaTitle: string) {
   const url = `${API_BASE_URL}/${mediaType}/delete?${mediaType.toLowerCase()}Name=${mediaTitle}`;
   const response = await fetch(url, {
-    cache: "no-store",
-    method: "DELETE",
+    cache: 'no-store',
+    method: 'DELETE',
   });
   if (!response.ok) {
     if (response.status === 404) {
@@ -159,30 +159,48 @@ export async function deleteMedia(mediaType: string, mediaTitle: string) {
   }
   return await response.json();
 }
+
 // Posts
 
-export async function addNewPost(content: string): Promise<Post> {
+export async function addNewPostHandler(
+  title: string,
+  content: string,
+  sub: string,
+
+): Promise<Post> {
   const url = `${API_BASE_URL}/Posts`;
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      content,
-    }),
-  });
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: 0,
+        title: title,
+        content: content,
+        userSub: sub,
+      }),
+    });
 
-  if (!response.ok) {
-    throw new Error('Failed to add a new post');
+    if (!response.ok) {
+      throw new Error(
+        `Failed to add a new post. Server responded with ${response.status}`,
+      );
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error in addNewPostHandler:', error);
+    throw error;
   }
-
-  return await response.json();
 }
 
 export async function updateUserPost(
   postId: number,
+  title: string,
   content: string,
+  postType: string,
 ): Promise<void> {
   const url = `${API_BASE_URL}/Posts/${postId}`;
   try {
@@ -192,20 +210,27 @@ export async function updateUserPost(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        content,
+        postType: postType,
+        title: title,
+        content: content,
       }),
     });
 
+    console.log('Update Post Response:', response);
+
     if (!response.ok) {
+      console.error('Failed to update post. Server response:', response);
       throw new Error('Failed to update post');
     }
   } catch (error) {
+    console.error('Error in updateUserPost:', error);
     throw error;
   }
 }
 
-export async function deleteUserPost(sub: string) {
-  const url = `${API_BASE_URL}/Posts/user/${sub}`;
+
+export async function deleteUserPost(postId: number): Promise<void> {
+  const url = `${API_BASE_URL}/Posts/${postId}`;
   const response = await fetch(url, {
     method: 'DELETE',
   });
@@ -213,6 +238,4 @@ export async function deleteUserPost(sub: string) {
   if (!response.ok) {
     throw new Error('deleteUserPost: Failed to delete user posts');
   }
-
-  return response.json();
 }
