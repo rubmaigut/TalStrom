@@ -65,11 +65,12 @@ export default function Header() {
           </div>
           <div className="hidden md:block h-screen md:w-2/6 lg:w-3/6 bg-red-500 ">
            <Image
-              src="/hero-desktop.png"
+              src="/hero-desktop.jpg"
               alt="Man choosing"
               className="w-full h-full object-cover"
               width={100}
               height={100}
+              quality={100}
               priority
             />
           </div>
