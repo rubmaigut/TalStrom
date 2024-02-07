@@ -29,7 +29,7 @@ export default function CustomerNavLinks() {
     },
   ];
   return (
-    <div className="flex flex-wrap -m-1">
+    <div className="flex md:flex-col -m-1">
       {links.map((link) => {
         const LinkIcon = link.icon;
         return (
@@ -37,9 +37,9 @@ export default function CustomerNavLinks() {
             key={link.name}
             href={link.href}
             className={clsx(
-              "flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:p-2 md:px-3",
+              "flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-200 p-3 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:p-2 md:px-3 md:mb-1",
               {
-                "bg-sky-100 text-teal-600": pathname === link.href,
+                "bg-teal-100 text-teal-600": pathname === link.href,
               }
             )}
           >
