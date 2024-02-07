@@ -29,6 +29,10 @@ export default function VideoItem({
     const index = openPlayer(parseInt(target.id.split("-")[1]));
   };
 
+  const deleteVideo = () => {
+    
+  }
+
   return (
     <div className="relative brightness-90 hover:brightness-[1.1] cursor-pointer">
       {!videoItem.uri ? (
@@ -49,7 +53,7 @@ export default function VideoItem({
             src={videoItem.uri}
           />
           {deleteMode && (
-            <div className="absolute top-[6px] left-[90px] bg-black rounded-full">
+            <div className="absolute top-[6px] left-[90px] md:left-[185px] bg-black hover:bg-red-500 rounded-full" onClick={deleteVideo}>
               <TiDeleteOutline size={30} color="white" />
             </div>
           )}
