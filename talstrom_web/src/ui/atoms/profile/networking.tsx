@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { UserCardForUser } from '@/types/IUserCardProps';
 import { fetchUsersByRole } from '@/lib/data';
+import { StarIcon as SolidStarIcon } from '@heroicons/react/24/outline';
 
 const UserMyNetwork = () => {
   const [users, setUsers] = useState<UserCardForUser[]>([]);
@@ -29,14 +30,13 @@ const UserMyNetwork = () => {
   };
 
   return (
-    <div className="flex items-center justify-center flex-col">
-      <p>My Network</p>
+    <div className="flex items-center justify-center flex-col mt-10">
       {users.map((user) => (
         <div
           key={user.id}
           className="flex flex-col justify-center space-x-2 md:space-x-4 w-full md:w-3/5 pb-4"
         >
-          <div className="flex">
+          <div className="flex items-center justify-center">
             <div className="flex-shrink-0">
               <img
                 src={user.picture}
@@ -56,9 +56,10 @@ const UserMyNetwork = () => {
             </div>
             <button
               onClick={() => handleStarClick(user.id)}
-              className="bg-yellow-400 text-white px-2 py-1 rounded"
+              className="bg-yellow-400 text-white px-2 py-2 rounded flex items-center"
             >
-              Star
+              <SolidStarIcon className="w-5 h-5 mr-1" />
+            
             </button>
           </div>
         </div>
