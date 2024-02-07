@@ -5,7 +5,6 @@ import { fetchUsersBySub } from "@/lib/data";
 import { UserCardForUser } from "@/types/IUserCardProps";
 import UserCard from "@/ui/atoms/profile/user-card";
 import NavLinks from "@/ui/developer/nav-links";
-import UserMyNetwork from "@/ui/atoms/profile/networking";
 import UserPost from "@/ui/atoms/profile/posts";
 import VideosGrid from "@/ui/developer/videos";
 import ImagesGrid from "@/ui/developer/images";
@@ -13,32 +12,35 @@ import { useUser } from "@/context/UserContext";
 import LoginMessage from "@/ui/atoms/general ui/login-message";
 import Bio from "@/ui/atoms/profile/bio";
 import JobsPage from "@/ui/atoms/profile/jobs";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
-export default function UserProfilePage() {
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const { id } = context.params;
+  return { props: { id } };
+};
+
+export const UserProfilePage = ({
+  id,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { data: session } = useSession();
-  const { userContextG, updateUser } = useUser();
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
   const [activeLink, setActiveLink] = useState<string>("Bio");
-  const userSub = session?.user?.sub;
 
   useEffect(() => {
     const updateUserContext = async () => {
-      if (session) {
         try {
-          const updateUserInfo = await fetchUsersBySub(userSub!);
-          updateUser({ ...updateUserInfo });
+          const updateUserInfo = await fetchUsersBySub(id);
           setUserInfo(updateUserInfo);
         } catch (error) {
           console.error("Failed to update user context:", error);
         }
-      }
     };
     updateUserContext();
-  }, [session]);
+  }, []);
 
   const loadUser = async () => {
     try {
-      const developer = await fetchUsersBySub(userSub!);
+      const developer = await fetchUsersBySub(id);
       setUserInfo(developer);
     } catch (error) {
       throw error;
@@ -51,7 +53,7 @@ export default function UserProfilePage() {
   }, []);
 
   const components = [
-    <Bio key={"biography"} biography={userInfo?.bio as string}/>,
+    <Bio key={"biography"} biography={userInfo?.bio as string} />,
     <VideosGrid
       key={"videos-grid"}
       videos={userInfo?.videos}
@@ -97,8 +99,9 @@ export default function UserProfilePage() {
         setPageComponent(components[4]);
         break;
     }
-  }, [activeLink, userInfo, userContextG]);
+  }, [activeLink, userInfo]);
 
+  console.log(id);
   return (
     <>
       {!session ? (
@@ -131,4 +134,6 @@ export default function UserProfilePage() {
       )}
     </>
   );
-}
+};
+
+export default UserProfilePage;
