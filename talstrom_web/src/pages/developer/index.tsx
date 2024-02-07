@@ -52,16 +52,16 @@ export default function UserProfilePage() {
     <VideosGrid
       key={'videosgrid'}
       videos={userInfo?.videos}
-      sub={userInfo?.sub as string}
+      sub={userInfo!.sub}
       loadUser={loadUser}
     />,
     <ImagesGrid
       key={'imagesgrid'}
       images={userInfo?.images}
-      sub={userInfo?.sub as string}
+      sub={userInfo!.sub}
       loadUser={loadUser}
     />,
-    <UserPost  key={'userposts'} posts={userInfo?.posts} />,
+    <UserPost  key={'userposts'} posts={userInfo!.posts} />,
     <UserMyNetwork key={'mynetwork'} />,
   ];
 
