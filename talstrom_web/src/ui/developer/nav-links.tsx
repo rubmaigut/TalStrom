@@ -3,7 +3,6 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import {
   NewspaperIcon,
-  UserGroupIcon,
   TvIcon,
   PhotoIcon,
   BriefcaseIcon,
