@@ -51,7 +51,7 @@ export default function UserProfilePage() {
   }, []);
 
   const components = [
-    <Bio biography={userInfo?.bio as string}/>,
+    <Bio key={"biography"} biography={userInfo?.bio as string}/>,
     <VideosGrid
       key={"videos-grid"}
       videos={userInfo?.videos}
@@ -70,7 +70,7 @@ export default function UserProfilePage() {
       sub={userInfo?.sub as string}
       postType={""}
     />,
-    <JobsPage />,
+    <JobsPage key={"jobs-page"} />,
   ];
 
   const [pageComponent, setPageComponent] = useState(components[0]);
