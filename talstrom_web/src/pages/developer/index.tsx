@@ -60,7 +60,7 @@ export default function UserProfilePage() {
         setPageComponent(<ImagesGrid images={userInfo?.images} sub={userInfo!.sub} loadUser={loadUser} />);
         break;
       case "Posts":
-        setPageComponent(<UserPost posts={userInfo?.posts}/>);
+        setPageComponent(<UserPost posts={userInfo?.posts || []} />);
         break;
       case "Opportunities":
         setPageComponent(<UserMyNetwork />);

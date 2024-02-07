@@ -1,22 +1,26 @@
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-import clsx from "clsx";
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import clsx from 'clsx';
 import {
   NewspaperIcon,
   UserGroupIcon,
   TvIcon,
   PhotoIcon,
-} from "@heroicons/react/24/outline";
+} from '@heroicons/react/24/outline';
 
 interface NavLinksProps {
   onLinkClick: (link: string) => void;
 }
 
 export const links = [
-  { name: "Videos", href: "/developer/[id]/videos", icon: TvIcon },
-  { name: "Images", href: "/developer/[id]/images", icon: PhotoIcon },
-  { name: "Posts", href: "/developer/[id]/post", icon: NewspaperIcon },
-  { name: "Opportunities", href: "/developer/[id]/my-oppurtunities", icon: UserGroupIcon }
+  { name: 'Videos', href: '/developer/[id]/videos', icon: TvIcon },
+  { name: 'Images', href: '/developer/[id]/images', icon: PhotoIcon },
+  { name: 'Posts', href: '/developer/[id]/post', icon: NewspaperIcon },
+  {
+    name: 'Opportunities',
+    href: '/developer/[id]/my-oppurtunities',
+    icon: UserGroupIcon,
+  },
 ];
 
 const NavLinks: React.FC<NavLinksProps> = ({ onLinkClick }) => {
@@ -29,7 +33,7 @@ const NavLinks: React.FC<NavLinksProps> = ({ onLinkClick }) => {
   };
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 justify-center">
       {links.map((link) => {
         const IconComponent = link.icon;
         return (
@@ -37,10 +41,10 @@ const NavLinks: React.FC<NavLinksProps> = ({ onLinkClick }) => {
             key={link.name}
             onClick={() => handleLinkClick(link.name)}
             className={clsx(
-              "flex h-[48px] items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:p-2 md:px-3",
+              'flex items-center justify-center gap-2 rounded-lg bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 lg:flex-none lg:justify-start lg:p-2 lg:px-3 custom-justify-center',
               {
-                "bg-sky-100 text-teal-600": pathname === link.href,
-              }
+                'bg-sky-100 text-teal-600': pathname === link.href,
+              },
             )}
           >
             <IconComponent className="w-6" />
