@@ -3,13 +3,15 @@ import UploadContainer from "../overlays/upload-media";
 import ImageItem from "../atoms/image-item";
 import ImageViewer from "../overlays/image-viewer";
 import MediaDeleteButtons from "../atoms/profile/media-delete-buttons";
+import { Session } from "next-auth";
 
 type ImagesGridProps = {
   images: Media[] | undefined;
   sub: string;
   loadUser: (sub: string) => void;
+  session: Session | null
 };
-const ImagesGrid = ({ images, sub, loadUser }: ImagesGridProps) => {
+const ImagesGrid = ({ images, sub, loadUser, session }: ImagesGridProps) => {
   const [uploadVisibility, setUploadVisibility] = useState(false);
   const [playerVisibility, setPlayerVisibility] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);

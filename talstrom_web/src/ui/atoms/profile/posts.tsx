@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import { addNewPostHandler, deleteUserPost, updateUserPost } from '@/lib/data';
 import PostOverlay from '@/ui/overlays/post-viewer';
 import AddPostOverlay from '@/ui/overlays/add-post-overlay';
+import { Session } from 'next-auth';
 
 interface PostsProps {
   postType: string;
   sub: string;
   posts: Post[];
+  session: Session | null
 }
 
-const UserPost: React.FC<PostsProps> = ({ posts, sub, postType }) => {
+const UserPost: React.FC<PostsProps> = ({ posts, sub, postType, session }) => {
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [isEditMode, setEditMode] = useState<boolean>(false);
   const [editedTitle, setEditedTitle] = useState<string>('');

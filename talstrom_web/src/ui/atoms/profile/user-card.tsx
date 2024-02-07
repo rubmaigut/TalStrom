@@ -1,50 +1,25 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { UserCardForUser } from "@/types/IUserCardProps";
-import EditProfile, { EditUserProfile } from "./edit-profile";
+import EditProfile from "./edit-profile";
 import Image from "next/image";
 import techIcons from "@/lib/reactIconComponents/reactIcons";
-import { useSession } from "next-auth/react";
 import { useUser } from "@/context/UserContext";
 import * as ReactIcons from "@/lib/reactIconComponents";
 import { IconType } from "react-icons";
-import { fetchUsersBySub } from "@/lib/data";
 import { PencilIcon } from "@heroicons/react/24/outline";
+import { Session } from "next-auth";
 
 interface UserCardProps {
   user: UserCardForUser;
+  session: Session | null;
 }
-const UserCard = ({ user }: UserCardProps) => {
-  const { data: session } = useSession();
+const UserCard = ({ user, session }: UserCardProps) => {
   const { userContextG } = useUser();
   const staticPicture = session?.user?.image || userContextG?.picture;
-  const staticSub = session?.user?.sub || userContextG?.sub;
-  const [_userProfile, setUserProfile] = useState<EditUserProfile>({
-    userName: user.userName,
-    bio: user.bio,
-    technologies: user.technologies.split(","),
-    position: user.position,
-  });
-  const [selectedTechnologies, _setSelectedTechnologies] = useState<string[]>(
+  const [selectedTechnologies, setSelectedTechnologies] = useState<string[]>(
     []
   );
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
-
-  useEffect(() => {
-    const fetchUserProfile = async () => {
-      try {
-        const data = await fetchUsersBySub(staticSub!);
-        setUserProfile({
-          userName: data.userName || "",
-          bio: data.bio,
-          technologies: data.technologies.split(""),
-          position: data.position,
-        });
-      } catch (error) {
-        console.error("Failed to fetch profile", error);
-      }
-    };
-    fetchUserProfile();
-  }, []);
 
   const toggleEditMode = () => {
     setIsEditMode(!isEditMode);
@@ -54,10 +29,8 @@ const UserCard = ({ user }: UserCardProps) => {
     technology: string,
     scaling: number
   ): ReactNode => {
-    const i = techIcons.findIndex(x => x.language == technology);
-    const icon: IconType = (ReactIcons as any)[
-      `${techIcons[i].reactIcon}`
-    ];
+    const i = techIcons.findIndex((x) => x.language == technology);
+    const icon: IconType = (ReactIcons as any)[`${techIcons[i].reactIcon}`];
 
     if (typeof icon === "function") {
       return React.createElement(icon as React.ElementType, {
@@ -73,20 +46,22 @@ const UserCard = ({ user }: UserCardProps) => {
     <div className="relative max-w-2xl mx-auto my-3">
       <div className="flex justify-center max-w-2xl items-center text-sm">
         <div className="bg-white w-full p-6">
-          <i
-            className={`flex  justify-end h-2 p-1 text-gray-500 rounded-full cursor-pointer ${
-              isEditMode ? "text-gray-500" : "text-green-500"
-            }`}
-            onClick={toggleEditMode}
-          >
-            <PencilIcon className="w-6 h-6" />
-          </i>
+          {session && session?.user?.sub === user.sub && (
+            <i
+              className={`flex  justify-end h-2 p-1 text-gray-500 rounded-full cursor-pointer ${
+                isEditMode ? "text-gray-500" : "text-green-500"
+              }`}
+              onClick={toggleEditMode}
+            >
+              <PencilIcon className="w-6 h-6" />
+            </i>
+          )}
           <div className="flex flex-col xl:flex-row items-center xl:space-x-6 mb-4">
             <div className="flex flex-col justify-center items-center">
               <dd className="my-2 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
                 <Image
-                  src={`${staticPicture}`}
-                  alt={`Photo profile${userContextG?.name}`}
+                  src={`${user.picture}`}
+                  alt={`Photo profile${user.name}`}
                   className="rounded-full bg-black"
                   width={80}
                   height={80}
@@ -96,8 +71,12 @@ const UserCard = ({ user }: UserCardProps) => {
             </div>
             <div>
               <p>{user.name ? user.name : "Not Set"}</p>
-              <p className="text-xs">{user.userName ? user.userName : "Not Set"}</p>
-              <p className="text-xs text-gray-400 italic mb-1" >{user.position ? user.position : "No position set"}</p>
+              <p className="text-xs">
+                {user.userName ? user.userName : "Not Set"}
+              </p>
+              <p className="text-xs text-gray-400 italic mb-1">
+                {user.position ? user.position : "No position set"}
+              </p>
               <p className="hidden">
                 Technologies: {selectedTechnologies.join(", ")}
               </p>

@@ -3,13 +3,16 @@ import VideoItem from "../atoms/video-item";
 import UploadContainer from "../overlays/upload-media";
 import VideoPlayer from "../overlays/video-player";
 import MediaDeleteButtons from "../atoms/profile/media-delete-buttons";
+import { Session } from "next-auth";
 
 type VideosGridProps = {
   videos: Media[] | undefined;
   sub: string;
   loadUser: (sub: string) => void;
+  session: Session | null
 };
-const VideosGrid = ({ videos, sub, loadUser }: VideosGridProps) => {
+
+const VideosGrid = ({ videos, sub, loadUser, session }: VideosGridProps) => {
   const [uploadVisibility, setUploadVisibility] = useState(false);
   const [playerVisibility, setPlayerVisibility] = useState(false);
   const [currentVideoIndex, setCurrentVideoIndex] = useState<number>(0);

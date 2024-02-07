@@ -59,18 +59,21 @@ export const UserProfilePage = ({
       videos={userInfo?.videos as Media[]}
       sub={userInfo?.sub as string}
       loadUser={loadUser}
+      session={session}
     />,
     <ImagesGrid
       key={"images-grid"}
       images={userInfo?.images as Media[]}
       sub={userInfo?.sub as string}
       loadUser={loadUser}
+      session={session}
     />,
     <UserPost
       key={"posts"}
       posts={userInfo?.posts as Post[]}
       sub={userInfo?.sub as string}
       postType={""}
+      session={session}
     />,
     <JobsPage key={"jobs-page"} />,
   ];
@@ -111,7 +114,7 @@ export const UserProfilePage = ({
         <div>
           {userInfo && userInfo.role === "developer" ? (
             <div>
-              <UserCard user={userInfo} />
+              <UserCard user={userInfo} session={session} />
               <div className="w-[calc(100%-50px)] md:w-[calc(100%-180px)] lg:w-[calc(100%-350px)] xl:w-[calc(100%-770px)] h-screen mx-auto my-3">
                 <NavLinks onLinkClick={handleLinkClick} />
                 {pageComponent}
