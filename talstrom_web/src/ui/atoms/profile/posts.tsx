@@ -13,11 +13,12 @@ type Post = {
 };
 
 interface PostsProps {
+  postType: string;
   sub: string;
   posts: Post[];
 }
 
-const UserPost: React.FC<PostsProps> = ({ posts, sub }) => {
+const UserPost: React.FC<PostsProps> = ({ posts, sub, postType }) => {
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [isEditMode, setEditMode] = useState<boolean>(false);
   const [editedTitle, setEditedTitle] = useState<string>('');
@@ -31,13 +32,16 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub }) => {
     setEditMode(true);
   };
 
-  const handleAddPost = async (title: string, content: string) => {
+  const handleAddPost = async (
+    title: string,
+    content: string,
+  ) => {
     try {
       console.log('Adding post:', title, content);
 
       if (content.trim() !== '') {
-        // const response = await addNewPostHandler(title, content, sub);
-        // console.log('Add Post Response:', response);
+        const response = await addNewPostHandler(title, content, sub);
+        console.log('Add Post Response:', response);
         setAddPostMode(false);
       }
     } catch (error) {
@@ -55,7 +59,7 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub }) => {
           editedContent,
           selectedPost.postType,
         );
-  
+
         const response = await updateUserPost(
           selectedPost.id,
           editedTitle,
@@ -63,7 +67,7 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub }) => {
           selectedPost.postType,
         );
         console.log('Update Post Response:', response);
-  
+
         setEditMode(false);
         setSelectedPost(null);
       } catch (error) {
@@ -71,7 +75,6 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub }) => {
       }
     }
   };
-  
 
   const handlePostCancelClick = () => {
     setEditedContent(selectedPost?.content || '');
@@ -146,7 +149,9 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub }) => {
 
       {isAddPostMode && (
         <AddPostOverlay
-          onAddPost={(title, content) => handleAddPost(title, content)}
+          onAddPost={(title, content) =>
+            handleAddPost(title, content)
+          }
           onCancelClick={handleAddPostCancelClick}
         />
       )}
