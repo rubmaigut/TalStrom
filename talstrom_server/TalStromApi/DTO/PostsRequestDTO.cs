@@ -9,4 +9,9 @@ public record PostsRequestDTO
     public string Title { get; set; }
     public string Content { get; set; }
     public string UserSub { get; set; }
+
+    public string RecruiterName { get; set; } = "";
+
+    public string? RecruiterEmail { get; set; } = "";
+
 }

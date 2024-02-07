@@ -113,7 +113,10 @@ namespace TalStromApi.Controllers
           Author = user.Name,
           Title = postRequest.Title,
           Content = postRequest.Content,
-          UserId = user.Id
+          UserId = user.Id,
+          RecruiterName = !string.IsNullOrEmpty(postRequest.RecruiterName) ? postRequest.RecruiterName : null,
+          RecruiterEmail = !string.IsNullOrEmpty(postRequest.RecruiterEmail) ? postRequest.RecruiterEmail : null,
+          
         });
 
         await _context.SaveChangesAsync();
