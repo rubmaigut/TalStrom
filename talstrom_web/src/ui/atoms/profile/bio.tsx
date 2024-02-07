@@ -6,11 +6,11 @@ type BioPageProps = {
 
 const BioPage = ({biography}: BioPageProps) => {
     return (
-      <section className="mt-10 flex flex-col justify-center items-center w-[400px]">
+      <section className="mt-10 flex flex-col justify-center items-center md:w-[400px] lg:w-[700px]">
         {biography ? (
-            <div>
+            <div >
             <h3 className="mb-2 text-xl ">About me:</h3>
-            <p>{biography}</p>
+            <p >{biography}</p>
             </div>
         ) : (
             <div className="flex align-middle items-center justify-left">
