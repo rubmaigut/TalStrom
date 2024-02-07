@@ -16,7 +16,7 @@ export default function UserProfilePage() {
   const { data: session } = useSession();
   const { userContextG, updateUser } = useUser();
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
-  const [activeLink, setActiveLink] = useState<string>('posts');
+  const [activeLink, setActiveLink] = useState<string>("posts");
   const userSub = session?.user?.sub;
 
   useEffect(() => {
@@ -47,13 +47,24 @@ export default function UserProfilePage() {
     loadUser();
   }, []);
 
-  const [pageComponent, setPageComponent] = useState(
+  const components = [
     <VideosGrid
+      key={"videos-grid"}
       videos={userInfo?.videos}
       sub={userInfo?.sub as string}
       loadUser={loadUser}
     />,
-  );
+    <ImagesGrid
+      key={"images-grid"}
+      images={userInfo?.images}
+      sub={userInfo?.sub as string}
+      loadUser={loadUser}
+    />,
+    <UserPost key={"posts"} posts={userInfo?.posts as Post[]} sub={userInfo?.sub as string} postType={''} />,
+    <UserMyNetwork key={"network"} />,
+  ];
+
+  const [pageComponent, setPageComponent] = useState(components[0]);
 
   const handleLinkClick = (link: string) => {
     setActiveLink(link);
@@ -61,33 +72,17 @@ export default function UserProfilePage() {
 
   useEffect(() => {
     switch (activeLink) {
-      case 'Videos':
-        setPageComponent(
-          <VideosGrid
-            videos={userInfo?.videos}
-            sub={userInfo?.sub as string}
-            loadUser={loadUser}
-          />,
-        );
+      case "Videos":
+        setPageComponent(components[0]);
         break;
-      case 'Images':
-        setPageComponent(
-          <ImagesGrid
-            images={userInfo?.images}
-            sub={userInfo?.sub as string}
-            loadUser={loadUser}
-          />,
-        );
+      case "Images":
+        setPageComponent(components[1]);
         break;
-      case 'Posts':
-        setPageComponent(
-          <UserPost
-            posts={userInfo?.posts as Post[]}
-            sub={userInfo?.sub as string} postType={''}          />,
-        );
+      case "Posts":
+        setPageComponent(components[2]);
         break;
-      case 'Opportunities':
-        setPageComponent(<UserMyNetwork />);
+      case "Opportunities":
+        setPageComponent(components[3]);
         break;
     }
   }, [activeLink, userInfo, userContextG]);

@@ -1,13 +1,14 @@
-import { fetchUsersByFilter } from '@/lib/data';
-import { capitalizeFirstLetter } from '@/lib/utils/capitaliseString';
-import { UserCardForUser } from '@/types/IUserCardProps';
-import React from 'react';
-import { ReactNode, SyntheticEvent, useEffect, useState } from 'react';
-import * as ReactIcons from 'react-icons/si';
-import { CgArrowRightO } from 'react-icons/cg';
-import { IconType } from 'react-icons';
-import Image from 'next/image';
-import Link from 'next/link';
+import { fetchUsersByFilter } from "@/lib/data";
+import { capitalizeFirstLetter } from "@/lib/utils/capitaliseString";
+import { UserCardForUser } from "@/types/IUserCardProps";
+import React from "react";
+import { ReactNode, SyntheticEvent, useEffect, useState } from "react";
+import { CgArrowRightO } from "react-icons/cg";
+import { IconType } from "react-icons";
+import Image from "next/image";
+import Link from "next/link";
+import * as ReactIcons from "@/lib/reactIconComponents";
+import techIcons from "@/lib/reactIconComponents/reactIcons";
 
 type FindMatchProps = {
   sub: string;
@@ -71,15 +72,15 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
     technology: string,
     scaling: number,
   ): ReactNode => {
-    console.log(technology);
+    const i = techIcons.findIndex(x => x.language == technology);
     const icon: IconType = (ReactIcons as any)[
-      `Si${capitalizeFirstLetter(technology)}`
+      `${techIcons[i].reactIcon}`
     ];
 
     if (typeof icon === 'function') {
       return React.createElement(icon as React.ElementType, {
         size: scaling,
-        color: 'black',
+        color: techIcons[i].color,
       });
     }
 
@@ -90,7 +91,7 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
     <section>
       {filterOptions.length ? (
         <div>
-          <div className="flex">
+          <div className="flex mb-5">
             {filterArray.map((elm, i) => {
               return (
                 <button
@@ -99,8 +100,7 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
                   value={elm.label}
                   onClick={toggleFilter}
                 >
-                  {/* {getIconForTechnology(tech, 20)} */}
-                  {elm.label}
+                  {getIconForTechnology(elm.label, 30)}
                 </button>
               );
             })}
@@ -139,7 +139,7 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
                 <div className="flex m-0.5">
                   {elm.technologies.split(',').map((tech, index) => (
                     <div key={index} className="mr-2">
-                      {getIconForTechnology(tech, 15)}
+                      {/* {getIconForTechnology(tech, 15)} */}
                     </div>
                   ))}
                 </div>

@@ -57,7 +57,7 @@ const UploadContainer = ({ closeWindow, sub, mediaType }: UploadContainerProps) 
       id="upload-video-overlay"
       className="fixed flex justify-center align-middle items-center z-10 left-0 top-0 w-full h-screen bg-white overflow-auto"
     >
-      <div className="container w-[300px] top-12 md:top-40">
+      <div className="container w-[300px] top-12 md:top-30">
       <button className="mx-8" onClick={() => closeWindow(false)}>
         <GiCancel size="30" />
       </button>

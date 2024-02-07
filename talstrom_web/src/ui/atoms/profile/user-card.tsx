@@ -2,10 +2,10 @@ import React, { ReactNode, useEffect, useState } from "react";
 import { UserCardForUser } from "@/types/IUserCardProps";
 import EditProfile, { EditUserProfile } from "./edit-profile";
 import Image from "next/image";
+import techIcons from "@/lib/reactIconComponents/reactIcons";
 import { useSession } from "next-auth/react";
 import { useUser } from "@/context/UserContext";
-import { capitalizeFirstLetter } from "@/lib/utils/capitaliseString";
-import * as ReactIcons from "react-icons/si";
+import * as ReactIcons from "@/lib/reactIconComponents";
 import { IconType } from "react-icons";
 import { fetchUsersBySub } from "@/lib/data";
 import { PencilIcon } from "@heroicons/react/24/outline";
@@ -54,14 +54,15 @@ const UserCard = ({ user }: UserCardProps) => {
     technology: string,
     scaling: number
   ): ReactNode => {
+    const i = techIcons.findIndex(x => x.language == technology);
     const icon: IconType = (ReactIcons as any)[
-      `Si${capitalizeFirstLetter(technology)}`
+      `${techIcons[i].reactIcon}`
     ];
 
     if (typeof icon === "function") {
       return React.createElement(icon as React.ElementType, {
         size: scaling,
-        color: "black",
+        color: techIcons[i].color,
       });
     }
 
@@ -94,17 +95,17 @@ const UserCard = ({ user }: UserCardProps) => {
               </dd>
             </div>
             <div>
-              <p>Username: {user.userName ? user.userName : "Not Set"}</p>
-              <p>Bio: {user.bio ? user.bio : "Not Set"}</p>
-              <p>Position: {user.position ? user.position : "Not Set"}</p>
+              <p>{user.name ? user.name : "Not Set"}</p>
+              <p className="text-xs">{user.userName ? user.userName : "Not Set"}</p>
+              <p className="text-xs text-gray-400 italic mb-1" >{user.position ? user.position : "No position set"}</p>
               <p className="hidden">
                 Technologies: {selectedTechnologies.join(", ")}
               </p>
 
-              <div className="grid grid-cols-6 2xl:grid-cols-10">
+              <div className="grid items-center grid-cols-6 2xl:grid-cols-10">
                 {user.technologies.length ? (
                   user.technologies.split(",").map((tech, index) => (
-                    <div key={index} className="mr-2">
+                    <div key={index} className="mx-0.2">
                       {getIconForTechnology(tech, 20)}
                     </div>
                   ))
