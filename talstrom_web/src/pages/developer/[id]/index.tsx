@@ -28,12 +28,12 @@ export const UserProfilePage = ({
 
   useEffect(() => {
     const updateUserContext = async () => {
-        try {
-          const updateUserInfo = await fetchUsersBySub(id);
-          setUserInfo(updateUserInfo);
-        } catch (error) {
-          console.error("Failed to update user context:", error);
-        }
+      try {
+        const updateUserInfo = await fetchUsersBySub(id);
+        setUserInfo(updateUserInfo);
+      } catch (error) {
+        throw error;
+      }
     };
     updateUserContext();
   }, []);
@@ -56,13 +56,13 @@ export const UserProfilePage = ({
     <Bio key={"biography"} biography={userInfo?.bio as string} />,
     <VideosGrid
       key={"videos-grid"}
-      videos={userInfo?.videos}
+      videos={userInfo?.videos as Media[]}
       sub={userInfo?.sub as string}
       loadUser={loadUser}
     />,
     <ImagesGrid
       key={"images-grid"}
-      images={userInfo?.images}
+      images={userInfo?.images as Media[]}
       sub={userInfo?.sub as string}
       loadUser={loadUser}
     />,
@@ -101,7 +101,6 @@ export const UserProfilePage = ({
     }
   }, [activeLink, userInfo]);
 
-  console.log(id);
   return (
     <>
       {!session ? (
