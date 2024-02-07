@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Select, { ActionMeta, MultiValue } from 'react-select';
+import React, { useState } from "react";
+import Select, { ActionMeta, MultiValue } from "react-select";
 
 interface Props {
   selectedTechnologies: string[];
@@ -22,14 +22,14 @@ export const SelectTechnologies: React.FC<Props> = ({
   const [isDisabled, setIsDisabled] = useState(false);
 
   const options: readonly Option[] = [
-    { value: '', label: 'Choose your Programming Languages', isDisabled: true },
-    { value: 'python', label: 'Python' },
-    { value: 'javascript', label: 'JavaScript' },
-    { value: 'java', label: 'Java' },
-    { value: 'csharp', label: 'C#' },
-    { value: 'cplusplus', label: 'C++' },
-    // { value: 'C', label: 'C' },
-    // { value: 'php', label: 'PHP' },
+    //When adding new language, update @lib/reactIcons.ts file
+    { value: "", label: "Choose your Programming Languages", isDisabled: true },
+    { value: "python", label: "Python" },
+    { value: "javascript", label: "JavaScript" },
+    { value: "java", label: "Java" },
+    { value: "csharp", label: "C#" },
+    { value: "cplusplus", label: "C++" },
+    { value: 'php', label: 'PHP' },
     // { value: 'swift', label: 'Swift' },
     // { value: 'ruby', label: 'Ruby' },
     // { value: 'typescript', label: 'TypeScript' },
@@ -67,7 +67,7 @@ export const SelectTechnologies: React.FC<Props> = ({
 
   const handleSelectChange = (
     newValue: MultiValue<Option>,
-    actionMeta: ActionMeta<Option>,
+    actionMeta: ActionMeta<Option>
   ) => {
     const values = newValue ? newValue.map((option) => option.value) : [];
     onChange(values);
@@ -79,7 +79,7 @@ export const SelectTechnologies: React.FC<Props> = ({
         className="basic-single"
         classNamePrefix="select"
         defaultValue={options.find((option) =>
-          selectedTechnologies.includes(option.value),
+          selectedTechnologies.includes(option.value)
         )}
         isClearable={isClearable}
         isSearchable={isSearchable}
@@ -90,11 +90,11 @@ export const SelectTechnologies: React.FC<Props> = ({
       />
       <div
         style={{
-          color: 'hsl(0, 0%, 40%)',
-          display: 'inline-block',
+          color: "hsl(0, 0%, 40%)",
+          display: "inline-block",
           fontSize: 12,
-          fontStyle: 'normal',
-          marginTop: '1em',
+          fontStyle: "normal",
+          marginTop: "1em",
         }}
       ></div>
     </>

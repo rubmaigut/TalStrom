@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import VideoItem from "../atoms/video-item";
 import UploadContainer from "../overlays/upload-media";
 import VideoPlayer from "../overlays/video-player";
+import MediaDeleteButtons from "../dashboard/media-delete-buttons";
 
 type VideosGridProps = {
   videos: Media[] | undefined;
@@ -74,23 +75,7 @@ const VideosGrid = ({ videos, sub, loadUser }: VideosGridProps) => {
           currentVideoIndex={currentVideoIndex}
         />
       )}
-      <div id="confirm-delete-buttons" className="flex justify-left mt-1">
-        <button
-          className="m-1 p-1 h-[48px] rounded-md bg-green-200 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:px-3"
-          onClick={() => toggleUploadOverlay(false)}
-        >
-          Add Video
-        </button>
-        <button
-          type="button"
-          className={`m-1 px-4 p-1 h-[48px] rounded-md ${
-            deleteMode ? "bg-gray-300" : "bg-red-200"
-          } text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:px-3`}
-          onClick={toggleDeleteable}
-        >
-          Delete
-        </button>
-      </div>
+      <MediaDeleteButtons toggleUploadOverlay={toggleUploadOverlay} toggleDeleteable={toggleDeleteable} deleteMode />
       <div className="mt-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl-grid-cols-5 2xl:grid-cols-6  gap-1 px-2 lg:px-4">
         {currentVideos?.map((elm, i) => {
           return (
