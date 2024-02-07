@@ -166,7 +166,7 @@ export async function addNewPostHandler(
   title: string,
   content: string,
   sub: string,
-  postType: string,
+
 ): Promise<Post> {
   const url = `${API_BASE_URL}/Posts`;
   try {
@@ -177,7 +177,6 @@ export async function addNewPostHandler(
       },
       body: JSON.stringify({
         id: 0,
-        postType: postType,
         title: title,
         content: content,
         userSub: sub,
