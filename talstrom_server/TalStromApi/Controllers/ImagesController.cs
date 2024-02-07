@@ -66,7 +66,7 @@ public class ImagesController(TalStromDbContext context, BlobStorageService clie
         }
 
         var fileName = Guid.NewGuid();
-        using (var stream = System.IO.File.Create($"{fileName}.jpg"))
+        await using (var stream = System.IO.File.Create($"{fileName}.jpg"))
         {
             await file.CopyToAsync(stream);
         }
@@ -84,21 +84,32 @@ public class ImagesController(TalStromDbContext context, BlobStorageService clie
     }
 
     [HttpDelete("delete")]
-    public async Task<IActionResult> Delete(string videoName)
+    public async Task<IActionResult> Delete(string imageName)
     {
-        if (videoName == null)
+        if (imageName == null)
         {
-            return BadRequest("File not found.");
+            return BadRequest("Must provide a filename");
         }
 
-        var videoToDelete = context.Images.FirstOrDefault(v => v.Title == videoName);
-        if (videoToDelete != null)
+        try
         {
-            await client.DeleteFileAsync("images", videoName);
-            context.Images.Remove(videoToDelete);
-            return Ok("File deleted.");
-        }
+            var videoToDelete = context.Images.FirstOrDefault(i => i.Title == imageName);
 
-        return NotFound();
+
+            if (videoToDelete != null)
+            {
+                await client.DeleteFileAsync("images", $"{imageName}.jpg");
+                await client.DeleteFileAsync("thumbnails", $"{imageName}.jpg");
+                context.Images.Remove(videoToDelete);
+                await context.SaveChangesAsync();
+                return Ok("File deleted.");
+            }
+
+            return NotFound();
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
 }

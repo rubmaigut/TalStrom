@@ -14,38 +14,44 @@ import LoginMessage from "@/ui/atoms/general ui/login-message";
 
 export default function UserProfilePage() {
   const { data: session } = useSession();
-  const { userContextG } = useUser();
+  const { userContextG, updateUser } = useUser();
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
   const [activeLink, setActiveLink] = useState<string>("posts");
-  
   const userSub = session?.user?.sub
 
-  
+  useEffect(() => {
+    const updateUserContext = async () => {
+      if (session) {
+        try {
+          const updateUserInfo = await fetchUsersBySub(userSub!);
+          updateUser({ ...updateUserInfo });
+          setUserInfo(updateUserInfo);
+        } catch (error) {
+          console.error("Failed to update user context:", error);
+        }
+      }
+    };
+    updateUserContext();
+  }, [session]);
+
   const loadUser = async () => {
     try {
-      const userData = await fetchUsersBySub(userSub!);
-      setUserInfo(userData);
+      const developer = await fetchUsersBySub(userSub!);
+      setUserInfo(developer);
     } catch (error) {
-      console.error('Failed to fetch user data:', error);
+      throw error;
     }
   };
-  
-  const [pageComponent, setPageComponent] = useState(<VideosGrid videos={userInfo?.videos} sub={userInfo?.sub as string} loadUser={loadUser}/>);
-  
+
   useEffect(() => {
-    if(session){
-      
-      const loadDeveloper = async () => {
-        try {
-          const developer = await fetchUsersBySub(userSub!);
-          setUserInfo(developer);
-        } catch (error) {
-          console.error("Failed to fetch Developer:", error);
-        }
-      };
-      loadDeveloper();
-    }
-  }, [session]);
+    loadUser();
+  }, []);
+
+  const [pageComponent, setPageComponent] = useState(<VideosGrid
+    videos={userInfo?.videos}
+    sub={userInfo?.sub as string}
+    loadUser={loadUser}
+  />);
 
   const handleLinkClick = (link: string) => {
     setActiveLink(link);
@@ -54,13 +60,25 @@ export default function UserProfilePage() {
   useEffect(() => {
     switch (activeLink) {
       case "Videos":
-        setPageComponent(<VideosGrid videos={userInfo?.videos} sub={userInfo!.sub} loadUser={loadUser}/>);
+        setPageComponent(
+          <VideosGrid
+            videos={userInfo?.videos}
+            sub={userInfo?.sub as string}
+            loadUser={loadUser}
+          />
+        );
         break;
       case "Images":
-        setPageComponent(<ImagesGrid images={userInfo?.images} sub={userInfo!.sub} loadUser={loadUser} />);
+        setPageComponent(
+          <ImagesGrid
+            images={userInfo?.images}
+            sub={userInfo?.sub as string}
+            loadUser={loadUser}
+          />
+        );
         break;
       case "Posts":
-        setPageComponent(<UserPost posts={userInfo?.posts || []} />);
+        setPageComponent(<UserPost posts={userInfo?.posts as Post[]} />,);
         break;
       case "Opportunities":
         setPageComponent(<UserMyNetwork />);
@@ -75,23 +93,29 @@ export default function UserProfilePage() {
           <SignIn />
         </section>
       ) : (
-          <div>
-            {userInfo && userInfo?.role === "developer" ? (
-              <div>
-                <UserCard user={userInfo} />
+        <div>
+          {userInfo && userInfo.role === "developer" ? (
+            <div>
+              <UserCard user={userInfo} />
+              <div className="w-[calc(100%-50px)] md:w-[calc(100%-500px)] h-screen mx-auto my-3">
                 <NavLinks onLinkClick={handleLinkClick} />
-                <div>{pageComponent}</div>
+                {pageComponent}
               </div>
-            ) : (
-              <div className="flex flex-col w-full h-full justify-center items-center mt-12 px-8">
-              <span className=" break-words text-center text-xl font-bold text-teal-600 lg:text-2xl my-8 "> Oops! Seems like you are in the wrong profile</span>
-              <LoginMessage displayRole="customer" userSub={userInfo?.sub}/>
-              </div>
-            )}
-          </div>
-      
+            </div>
+          ) : (
+            <div className="flex flex-col w-full h-full justify-center items-center mt-12 px-8">
+              <span className=" break-words text-center text-xl font-bold text-teal-600 lg:text-2xl my-8 ">
+                {" "}
+                Oops! Seems like you are in the wrong profile
+              </span>
+              <LoginMessage
+                displayRole={userInfo?.role as string}
+                userSub={userInfo?.sub}
+              />
+            </div>
+          )}
+        </div>
       )}
     </>
   );
-
-  }
+}
