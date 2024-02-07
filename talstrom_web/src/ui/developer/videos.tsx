@@ -44,8 +44,10 @@ const VideosGrid = ({ videos, sub, loadUser }: VideosGridProps) => {
 
   const removeVideo = (uri: string) => {
     const videoToDelete = currentVideos?.findIndex(video => video.uri == uri);
+    console.log(uri)
+    console.log(videoToDelete);
     const arrayToRemove = [...currentVideos];
-    arrayToRemove.splice(videoToDelete, 0);
+    arrayToRemove.splice(videoToDelete, 1);
 
     setCurrentVideos(arrayToRemove);
   }
