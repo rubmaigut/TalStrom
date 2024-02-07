@@ -74,6 +74,8 @@ const UserProfilePage: React.FC = () => {
     }
   }, [activeLink, userInfo]);
 
+  const updateContentFromCard = (updatedUser: UserCardForUser) => setUserInfo(updatedUser)
+
   if (!session) {
     return (
       <section>
@@ -86,7 +88,7 @@ const UserProfilePage: React.FC = () => {
 
   return (
     <div>
-      <UserCard user={userInfo} session={session}/>
+      <UserCard user={userInfo} session={session} updateUser={updateContentFromCard} />
       <ProfileNavLinks onLinkClick={handleLinkClick} />
 
       <div className="w-[calc(100%-50px)] h-screen mx-auto my-3">

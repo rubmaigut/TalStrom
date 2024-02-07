@@ -52,6 +52,8 @@ export const UserProfilePage = ({
     setActiveLink("Bio");
   }, []);
 
+  const updateContentFromCard = (updatedUser: UserCardForUser) => setUserInfo(updatedUser)
+
   const components = [
     <Bio key={"biography"} biography={userInfo?.bio as string} />,
     <VideosGrid
@@ -103,7 +105,7 @@ export const UserProfilePage = ({
         break;
     }
   }, [activeLink, userInfo]);
-
+  console.log(userInfo);
   return (
     <>
       {!session ? (
@@ -114,7 +116,7 @@ export const UserProfilePage = ({
         <div>
           {userInfo && userInfo.role === "developer" ? (
             <div>
-              <UserCard user={userInfo} session={session} />
+              <UserCard user={userInfo} session={session} updateUser={updateContentFromCard}/>
               <div className="w-[calc(100%-50px)] md:w-[calc(100%-180px)] lg:w-[calc(100%-350px)] xl:w-[calc(100%-770px)] h-screen mx-auto my-3">
                 <NavLinks onLinkClick={handleLinkClick} />
                 {pageComponent}

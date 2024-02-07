@@ -14,9 +14,10 @@ export interface EditUserProfile {
 type EditProfileProps = {
   user: UserCardForUser;
   toggleEditMode: () => void;
+  updateUser: (updateDetails: UserCardForUser) => void;
 };
 
-const EditProfile = ({ user, toggleEditMode }: EditProfileProps) => {
+const EditProfile = ({ user, toggleEditMode, updateUser }: EditProfileProps) => {
   const [userProfile, setUserProfile] = useState<EditUserProfile>({
     userName: user.userName,
     bio: user.bio,
@@ -31,7 +32,14 @@ const EditProfile = ({ user, toggleEditMode }: EditProfileProps) => {
     event.preventDefault();
     try {
       await updateUserProfile(user.sub, userProfile);
-      alert("Profile updated successfully!");
+      console.log("Profile updated successfully!");
+      // updateUser({
+      //   ...user,
+      //   userName: userProfile.userName || user.userName,
+      //   bio: userProfile.bio || user.bio,
+      //   technologies: userProfile.bio || "",
+      //   position: userProfile.position || user.position,
+      // })
       toggleEditMode();
     } catch (error) {
       console.error("Failed to update profile", error);
@@ -126,7 +134,7 @@ const EditProfile = ({ user, toggleEditMode }: EditProfileProps) => {
           Save
         </button>
         <button
-          onClick={toggleEditMode}
+          onClick={() => toggleEditMode()}
           className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
           type="button"
         >

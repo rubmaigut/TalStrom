@@ -11,8 +11,9 @@ import { Session } from "next-auth";
 interface UserCardProps {
   user: UserCardForUser;
   session: Session | null;
+  updateUser: (updatedUser: UserCardForUser) => void
 }
-const UserCard = ({ user, session }: UserCardProps) => {
+const UserCard = ({ user, session, updateUser }: UserCardProps) => {
   const [selectedTechnologies, _setSelectedTechnologies] = useState<string[]>(
     []
   );
@@ -48,7 +49,7 @@ const UserCard = ({ user, session }: UserCardProps) => {
               className={`flex  justify-end h-2 p-1 text-gray-500 rounded-full cursor-pointer ${
                 isEditMode ? "text-gray-500" : "text-green-500"
               }`}
-              onClick={toggleEditMode}
+              onClick={() => toggleEditMode()}
             >
               <PencilIcon className="w-6 h-6" />
             </i>
@@ -95,7 +96,7 @@ const UserCard = ({ user, session }: UserCardProps) => {
           </div>
 
           {isEditMode && (
-            <EditProfile user={user} toggleEditMode={toggleEditMode} />
+            <EditProfile user={user} toggleEditMode={toggleEditMode} updateUser={updateUser} />
           )}
         </div>
       </div>
