@@ -10,12 +10,7 @@ import {
 import Link from "next/link";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
-import { useUser } from "@/context/UserContext";
 import { useSession } from "next-auth/react";
-
-
-// Map of links to display in the side navigation.
-// Depending on the size of the application, this would be stored in a database.
 
 export default function CustomerNavLinks() {
   const pathname = usePathname();
@@ -34,7 +29,7 @@ export default function CustomerNavLinks() {
     },
   ];
   return (
-    <>
+    <div className="flex flex-wrap -m-1">
       {links.map((link) => {
         const LinkIcon = link.icon;
         return (
@@ -53,7 +48,7 @@ export default function CustomerNavLinks() {
           </Link>
         );
       })}
-    </>
+    </div>
   );
 }
 
