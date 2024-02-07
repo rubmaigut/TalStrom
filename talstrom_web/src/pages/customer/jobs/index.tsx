@@ -1,7 +1,7 @@
 import Layout from "@/ui/layout";
 import SignIn from "@/ui/atoms/general ui/sign-in";
 import { useSession } from "next-auth/react";
-import LoginMessage from "@/ui/atoms/general ui/login-message";
+import {LoginMessage} from "@/ui/atoms/general ui/login-message";
 import { useUser } from "@/context/UserContext";
 import JobList from "@/ui/customer/dashboard/jobs/job-list";
 
