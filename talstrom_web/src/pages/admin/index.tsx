@@ -5,7 +5,7 @@ import { fetchUsersByRole, fetchUsersBySub, updateUserRole } from "@/lib/data";
 import { useEffect, useState } from "react";
 import { User } from "@/types/IUser";
 import { Card } from "@/ui/dashboard/card";
-import Select from "@/ui/atoms/select";
+import Select from "@/ui/atoms/general ui/select";
 import GreetingModal from "@/ui/atoms/general ui/greetings";
 import AdminActivity from "@/ui/dashboard/admin-activity";
 import { useUser } from "@/context/UserContext";

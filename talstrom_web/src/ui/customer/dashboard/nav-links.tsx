@@ -10,12 +10,7 @@ import {
 import Link from "next/link";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
-import { useUser } from "@/context/UserContext";
 import { useSession } from "next-auth/react";
-
-
-// Map of links to display in the side navigation.
-// Depending on the size of the application, this would be stored in a database.
 
 export default function CustomerNavLinks() {
   const pathname = usePathname();
@@ -34,7 +29,7 @@ export default function CustomerNavLinks() {
     },
   ];
   return (
-    <>
+    <div className="flex md:flex-col -m-1">
       {links.map((link) => {
         const LinkIcon = link.icon;
         return (
@@ -42,9 +37,9 @@ export default function CustomerNavLinks() {
             key={link.name}
             href={link.href}
             className={clsx(
-              "flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:p-2 md:px-3",
+              "flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-100 p-3 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:p-2 md:px-3 md:mb-1",
               {
-                "bg-sky-100 text-teal-600": pathname === link.href,
+                "bg-teal-100 text-teal-600": pathname === link.href,
               }
             )}
           >
@@ -53,7 +48,7 @@ export default function CustomerNavLinks() {
           </Link>
         );
       })}
-    </>
+    </div>
   );
 }
 

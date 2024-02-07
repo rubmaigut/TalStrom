@@ -5,7 +5,7 @@ import { User } from "@/types/IUser";
 import Image from "next/image";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import UserRoleEditor from "@/ui/dashboard/actions-button";
-import Select from "@/ui/atoms/select";
+import Select from "@/ui/atoms/general ui/select";
 
 export default function Page() {
   const [developers, setDevelopers] = useState<User[]>([]);
