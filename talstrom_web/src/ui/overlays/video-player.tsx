@@ -19,17 +19,15 @@ const VideoPlayer = ({
   previousVideo,
 }: VideoPlayerProps) => {
   const [uri, setUri] = useState("");
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     const fetchVideo = async () => {
-      if (currentVideoIndex) {
-        setUri(videos![currentVideoIndex].uri);
-      }
+      if (!currentVideoIndex) currentVideoIndex = 0;
+      setUri(videos![currentVideoIndex].uri);
     };
 
     fetchVideo();
-  });
+  }, [currentVideoIndex]);
 
   return (
     <div
