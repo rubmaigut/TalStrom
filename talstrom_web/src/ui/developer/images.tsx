@@ -12,6 +12,7 @@ const ImagesGrid = ({ images, sub, loadUser }: ImagesGridProps) => {
   const [uploadVisibility, setUploadVisibility] = useState(false);
   const [playerVisibility, setPlayerVisibility] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+  const [currentImages, setCurrentImages] = useState<Media[]>(images as Media[]);
 
   const toggleUploadOverlay = (uploaded: boolean) => {
     if(uploaded) {
@@ -38,6 +39,16 @@ const ImagesGrid = ({ images, sub, loadUser }: ImagesGridProps) => {
     setCurrentImageIndex(newIndex);
   };
 
+  const removeImage = (uri: string) => {
+    const videoToDelete = currentImages?.findIndex(image => image.uri == uri);
+    console.log(uri)
+    console.log(videoToDelete);
+    const arrayToRemove = [...currentImages];
+    arrayToRemove.splice(videoToDelete, 1);
+
+    setCurrentImages(arrayToRemove);
+  }
+
   return (
     <article>
       {uploadVisibility && (
@@ -55,7 +66,7 @@ const ImagesGrid = ({ images, sub, loadUser }: ImagesGridProps) => {
       <button className="h-[48px] items-center justify-center gap-2 mt-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:p-2 md:px-3" onClick={() => toggleUploadOverlay(false)}>
         Add Picture
       </button>
-      <div className="mt-4 grid 2xl:grid-cols-6 xl-grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-1 px-2 lg:px-4">
+      <div className="mt-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl-grid-cols-5 2xl:grid-cols-6  gap-1 px-2 lg:px-4">
         {images?.map((elm, i) => {
           return (
             <ImageItem
