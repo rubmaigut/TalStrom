@@ -1,3 +1,4 @@
+import { deleteMedia } from "@/lib/data";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { TiDeleteOutline } from "react-icons/ti";
@@ -33,8 +34,9 @@ export default function VideoItem({
     const index = openPlayer(parseInt(target.id.split("-")[1]));
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     removeVideoFromGrid(videoItem.uri);
+    await deleteMedia("Video", videoItem.title);
     setConfirmBoxVisibility(!confirmBoxVisibility)
   };
 

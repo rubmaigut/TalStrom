@@ -58,7 +58,7 @@ export async function fetchUsersByFilter(sub: string) {
   const url = `${API_BASE_URL}/Users/technologies/filter/${sub}/`;
   const response = await fetch(url, {
     cache: "no-store",
-    headers: { "Content-Type": "application/json" }
+    headers: { "Content-Type": "application/json" },
   });
   if (!response.ok) throw new Error("fetchUsersByRole: Failed to fetch users");
   return await response.json();
@@ -121,7 +121,6 @@ export async function addMedia(
       headers: {},
       body: formData,
     });
-    console.log(response);
 
     if (!response.ok)
       throw new Error("upload Video Error: Failed to Upload video");
@@ -142,6 +141,20 @@ export async function fetchVideoById(id: string) {
       return null;
     }
     throw new Error("fetchVideoById: Failed to fetch video");
+  }
+  return await response.json();
+}
+
+export async function deleteMedia(mediaType: string, mediaTitle: string) {
+  const url = `${API_BASE_URL}/${mediaType}/delete?videoName=${mediaTitle}`;
+  const response = await fetch(url, {
+    cache: "no-store",
+  });
+  if (!response.ok) {
+    if (response.status === 404) {
+      return null;
+    }
+    throw new Error(`fetchMediaById: Failed to delete ${mediaType}`);
   }
   return await response.json();
 }
