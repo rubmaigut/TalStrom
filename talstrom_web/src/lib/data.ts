@@ -161,7 +161,6 @@ export async function deleteMedia(mediaType: string, mediaTitle: string) {
 }
 
 // Posts
-
 export async function addNewPostHandler(
   title: string,
   content: string,
