@@ -54,6 +54,12 @@ export default function UserProfilePage() {
       sub={userInfo?.sub as string}
       loadUser={loadUser}
     />,
+    <VideosGrid
+      key={"videos-grid"}
+      videos={userInfo?.videos}
+      sub={userInfo?.sub as string}
+      loadUser={loadUser}
+    />,
     <ImagesGrid
       key={"images-grid"}
       images={userInfo?.images}
@@ -72,17 +78,20 @@ export default function UserProfilePage() {
 
   useEffect(() => {
     switch (activeLink) {
-      case "Videos":
+      case "Bio":
         setPageComponent(components[0]);
         break;
-      case "Images":
+      case "Videos":
         setPageComponent(components[1]);
         break;
-      case "Posts":
+      case "Images":
         setPageComponent(components[2]);
         break;
-      case "Opportunities":
+      case "Posts":
         setPageComponent(components[3]);
+        break;
+      case "Jobs":
+        setPageComponent(components[4]);
         break;
     }
   }, [activeLink, userInfo, userContextG]);

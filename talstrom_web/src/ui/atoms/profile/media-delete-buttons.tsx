@@ -1,5 +1,7 @@
 import React from 'react';
-import { IoAddCircleSharp, IoTrashBinSharp } from "react-icons/io5";
+import { IoTrashBinSharp } from "react-icons/io5";
+import { FaPlus } from "react-icons/fa";
+
 
 
 interface MediaDeleteButtonProps {
@@ -15,7 +17,7 @@ const MediaDeleteButtons = ({ toggleUploadOverlay, deleteMode, toggleDeleteable 
           className="m-1 flex justify-center items-center h-[40px] w-[40px] rounded-md shadow-sm bg-slate-200 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none"
           onClick={() => toggleUploadOverlay(false)}
         >
-          <IoAddCircleSharp size={20} />
+          <FaPlus size={20} />
         </button>
         <button
           type="button"
