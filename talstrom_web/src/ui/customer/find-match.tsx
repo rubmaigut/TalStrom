@@ -91,7 +91,7 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
     <section>
       {filterOptions.length ? (
         <div>
-          <div className="flex">
+          <div className="flex mb-5">
             {filterArray.map((elm, i) => {
               return (
                 <button
@@ -100,8 +100,7 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
                   value={elm.label}
                   onClick={toggleFilter}
                 >
-                  {/* {getIconForTechnology(tech, 20)} */}
-                  {elm.label}
+                  {getIconForTechnology(elm.label, 30)}
                 </button>
               );
             })}
