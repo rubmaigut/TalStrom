@@ -57,14 +57,12 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, postType }) => {
           selectedPost.id,
           editedTitle,
           editedContent,
-          selectedPost.postType,
         );
 
         const response = await updateUserPost(
           selectedPost.id,
           editedTitle,
           editedContent,
-          selectedPost.postType,
         );
         console.log('Update Post Response:', response);
 
