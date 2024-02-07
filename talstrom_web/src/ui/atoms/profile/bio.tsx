@@ -6,19 +6,19 @@ type BioPageProps = {
 
 const BioPage = ({biography}: BioPageProps) => {
     return (
-      <div>
+      <section className="mt-10 flex flex-col justify-center items-center w-[400px]">
         {biography ? (
-            <>
-            <h3 className="mb-2 text-lg ">About me:</h3>
+            <div>
+            <h3 className="mb-2 text-xl ">About me:</h3>
             <p>{biography}</p>
-            </>
+            </div>
         ) : (
             <div className="flex align-middle items-center justify-left">
                 <p className="mr-2">No Biography here yet! </p>
                 <ImShocked/>
             </div>
         )}
-      </div>
+      </section>
     );
   };
   
