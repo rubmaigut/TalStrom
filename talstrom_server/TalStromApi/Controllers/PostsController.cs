@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using TalStromApi.DTO;
 using TalStromApi.Models;
 
@@ -96,25 +97,35 @@ namespace TalStromApi.Controllers
     {
       try
       {
+        // Log the received payload
+        Console.WriteLine($"Received request with payload: {JsonConvert.SerializeObject(postRequest)}");
+
         var user = _context.User.FirstOrDefault(u => u.Sub == postRequest.UserSub);
-        if (user != null)
+        if (user == null)
         {
+          Console.WriteLine("Invalid user");
+          return BadRequest("Invalid user");
         }
 
         _context.Posts.Add(new Posts()
         {
           PostType = postRequest.PostType,
-          Author = user!.Name,
+          Author = user.Name,
           Title = postRequest.Title,
           Content = postRequest.Content,
           UserId = user.Id
         });
+
         await _context.SaveChangesAsync();
+
+        // Log successful post creation
+        Console.WriteLine("Post created successfully");
 
         return CreatedAtAction("GetPosts", new { id = postRequest.Id }, postRequest);
       }
       catch (Exception ex)
       {
+        // Log the exception for troubleshooting
         Console.WriteLine($"Error in PostPosts: {ex}");
         return StatusCode(500, "Internal Server Error");
       }

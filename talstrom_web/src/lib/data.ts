@@ -148,8 +148,8 @@ export async function fetchVideoById(id: string) {
 export async function deleteMedia(mediaType: string, mediaTitle: string) {
   const url = `${API_BASE_URL}/${mediaType}/delete?${mediaType.toLowerCase()}Name=${mediaTitle}`;
   const response = await fetch(url, {
-    cache: "no-store",
-    method: "DELETE",
+    cache: 'no-store',
+    method: 'DELETE',
   });
   if (!response.ok) {
     if (response.status === 404) {
@@ -159,12 +159,14 @@ export async function deleteMedia(mediaType: string, mediaTitle: string) {
   }
   return await response.json();
 }
+
 // Posts
 
 export async function addNewPostHandler(
   title: string,
   content: string,
   sub: string,
+  postType: string,
 ): Promise<Post> {
   const url = `${API_BASE_URL}/Posts`;
   try {
@@ -175,7 +177,7 @@ export async function addNewPostHandler(
       },
       body: JSON.stringify({
         id: 0,
-        postType: 'PostType',
+        postType: postType,
         title: title,
         content: content,
         userSub: sub,
@@ -199,6 +201,7 @@ export async function updateUserPost(
   postId: number,
   title: string,
   content: string,
+  postType: string,
 ): Promise<void> {
   const url = `${API_BASE_URL}/Posts/${postId}`;
   try {
@@ -208,12 +211,9 @@ export async function updateUserPost(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        postType: postType,
         title: title,
         content: content,
-        postRequest: {
-          title: title,
-          content: content,
-        },
       }),
     });
 
@@ -228,6 +228,7 @@ export async function updateUserPost(
     throw error;
   }
 }
+
 
 export async function deleteUserPost(postId: number): Promise<void> {
   const url = `${API_BASE_URL}/Posts/${postId}`;

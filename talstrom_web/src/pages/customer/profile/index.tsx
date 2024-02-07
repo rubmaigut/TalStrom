@@ -17,15 +17,15 @@ const UserProfilePage: React.FC = () => {
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
   const [activeLink, setActiveLink] = useState<string>('posts');
   const [pageComponent, setPageComponent] = useState<React.ReactNode>(
-    <UserPost posts={userInfo?.posts || []} sub={userInfo!.sub as string} />,
+    <UserPost posts={userInfo?.posts ?? []} sub={userInfo?.sub ?? ''} />,
   );
+  const userSub = session?.user?.sub;
 
   useEffect(() => {
-    if (session) {
-      const userSub = session.user?.sub;
+    if (session && userSub) {
       const loadCustomer = async () => {
         try {
-          const customer = await fetchUsersBySub(userSub!);
+          const customer = await fetchUsersBySub(userSub);
           setUserInfo(customer);
         } catch (error) {
           console.error('Failed to fetch customer:', error);
@@ -33,7 +33,7 @@ const UserProfilePage: React.FC = () => {
       };
       loadCustomer();
     }
-  }, [session]);
+  }, [session, userSub]);
 
   const handleLinkClick = (link: string) => {
     setActiveLink(link);
@@ -43,17 +43,16 @@ const UserProfilePage: React.FC = () => {
     switch (activeLink) {
       case 'posts':
         setPageComponent(
-          <UserPosts
-            posts={userInfo?.posts || ([] as Post[])}
-            sub={userInfo!.sub as string}
-          />,
+          <UserPosts posts={userInfo?.posts ?? []} sub={userInfo?.sub ?? ''} />,
         );
         break;
       case 'find-match':
         setPageComponent(
           <UserFindMatch
-            sub={userInfo!.sub}
-            filterOptions={userInfo!.technologies}
+            sub={userInfo?.sub ?? ''}
+            filterOptions={
+              userInfo?.technologies ? userInfo.technologies.split(',') : []
+            }
           />,
         );
         break;

@@ -28,7 +28,9 @@ const PostOverlay: React.FC<PostOverlayProps> = ({
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 bg-gray-800 bg-opacity-50 z-50 flex justify-center items-center">
       <div className="w-[400px] bg-white p-6 rounded-md">
-        <p className="text-sm text-gray-500">{post.postType}</p>
+        {isEditMode && (
+          <label className="text-sm text-gray-500">Post Type: {post.postType}</label>
+        )}
         <h1 className="text-xl font-bold mb-2">
           {isEditMode ? (
             <input

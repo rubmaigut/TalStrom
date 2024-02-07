@@ -36,8 +36,8 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub }) => {
       console.log('Adding post:', title, content);
 
       if (content.trim() !== '') {
-        const response = await addNewPostHandler(title, content, sub);
-        console.log('Add Post Response:', response);
+        // const response = await addNewPostHandler(title, content, sub);
+        // console.log('Add Post Response:', response);
         setAddPostMode(false);
       }
     } catch (error) {
@@ -53,15 +53,17 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub }) => {
           selectedPost.id,
           editedTitle,
           editedContent,
+          selectedPost.postType,
         );
-
+  
         const response = await updateUserPost(
           selectedPost.id,
           editedTitle,
           editedContent,
+          selectedPost.postType,
         );
         console.log('Update Post Response:', response);
-
+  
         setEditMode(false);
         setSelectedPost(null);
       } catch (error) {
@@ -69,6 +71,7 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub }) => {
       }
     }
   };
+  
 
   const handlePostCancelClick = () => {
     setEditedContent(selectedPost?.content || '');
