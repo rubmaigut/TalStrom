@@ -5,7 +5,6 @@ import { fetchUsersBySub } from "@/lib/data";
 import { UserCardForUser } from "@/types/IUserCardProps";
 import UserCard from "@/ui/atoms/profile/user-card";
 import NavLinks from "@/ui/developer/nav-links";
-import UserMyNetwork from "@/ui/atoms/profile/networking";
 import UserPost from "@/ui/atoms/profile/posts";
 import VideosGrid from "@/ui/developer/videos";
 import ImagesGrid from "@/ui/developer/images";
@@ -13,32 +12,35 @@ import { useUser } from "@/context/UserContext";
 import LoginMessage from "@/ui/atoms/general ui/login-message";
 import Bio from "@/ui/atoms/profile/bio";
 import JobsPage from "@/ui/atoms/profile/jobs";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
-export default function UserProfilePage() {
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const { id } = context.params;
+  return { props: { id } };
+};
+
+export const UserProfilePage = ({
+  id,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { data: session } = useSession();
-  const { userContextG, updateUser } = useUser();
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
   const [activeLink, setActiveLink] = useState<string>("Bio");
-  const userSub = session?.user?.sub;
 
   useEffect(() => {
     const updateUserContext = async () => {
-      if (session) {
-        try {
-          const updateUserInfo = await fetchUsersBySub(userSub!);
-          updateUser({ ...updateUserInfo });
-          setUserInfo(updateUserInfo);
-        } catch (error) {
-          console.error("Failed to update user context:", error);
-        }
+      try {
+        const updateUserInfo = await fetchUsersBySub(id);
+        setUserInfo(updateUserInfo);
+      } catch (error) {
+        throw error;
       }
     };
     updateUserContext();
-  }, [session]);
+  }, []);
 
   const loadUser = async () => {
     try {
-      const developer = await fetchUsersBySub(userSub!);
+      const developer = await fetchUsersBySub(id);
       setUserInfo(developer);
     } catch (error) {
       throw error;
@@ -50,25 +52,30 @@ export default function UserProfilePage() {
     setActiveLink("Bio");
   }, []);
 
+  const updateContentFromCard = (updatedUser: UserCardForUser) => setUserInfo(updatedUser)
+
   const components = [
-    <Bio key={"biography"} biography={userInfo?.bio as string}/>,
+    <Bio key={"biography"} biography={userInfo?.bio as string} />,
     <VideosGrid
       key={"videos-grid"}
-      videos={userInfo?.videos}
+      user={userInfo as UserCardForUser}
       sub={userInfo?.sub as string}
       loadUser={loadUser}
+      session={session}
     />,
     <ImagesGrid
       key={"images-grid"}
-      images={userInfo?.images}
+      user={userInfo as UserCardForUser}
       sub={userInfo?.sub as string}
       loadUser={loadUser}
+      session={session}
     />,
     <UserPost
       key={"posts"}
       posts={userInfo?.posts as Post[]}
       sub={userInfo?.sub as string}
       postType={""}
+      session={session}
     />,
     <JobsPage key={"jobs-page"} />,
   ];
@@ -97,8 +104,8 @@ export default function UserProfilePage() {
         setPageComponent(components[4]);
         break;
     }
-  }, [activeLink, userInfo, userContextG]);
-
+  }, [activeLink, userInfo]);
+  console.log(userInfo);
   return (
     <>
       {!session ? (
@@ -109,7 +116,7 @@ export default function UserProfilePage() {
         <div>
           {userInfo && userInfo.role === "developer" ? (
             <div>
-              <UserCard user={userInfo} />
+              <UserCard user={userInfo} session={session} updateUser={updateContentFromCard}/>
               <div className="w-[calc(100%-50px)] md:w-[calc(100%-180px)] lg:w-[calc(100%-350px)] xl:w-[calc(100%-770px)] h-screen mx-auto my-3">
                 <NavLinks onLinkClick={handleLinkClick} />
                 {pageComponent}
@@ -131,4 +138,6 @@ export default function UserProfilePage() {
       )}
     </>
   );
-}
+};
+
+export default UserProfilePage;

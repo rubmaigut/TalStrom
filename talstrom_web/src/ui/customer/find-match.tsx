@@ -128,7 +128,7 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
                     </p>
                   </div>
                   <div className="flex pr-2">
-                    <Link href={`/${elm.role}?sub=${elm.sub}`}>
+                    <Link href={`/${elm.role}/${elm.sub}`}>
                       <CgArrowRightO size={25} />
                     </Link>
                   </div>
