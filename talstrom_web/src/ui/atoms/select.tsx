@@ -32,6 +32,10 @@ export const SelectComponent: React.FC<SelectComponentProps> = ({
     }
   };
 
+  const customStyles = {
+    menu: (provided: any) => ({ ...provided, maxHeight: '200px', overflowY: 'auto' }),
+  };
+
   return (
     <>
       <Select
@@ -44,6 +48,9 @@ export const SelectComponent: React.FC<SelectComponentProps> = ({
         name="role"
         options={options}
         onChange={(option) => handleChange(option as Option)}
+        menuPortalTarget={document.body}
+        styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
+
       />
       <div
         style={{
