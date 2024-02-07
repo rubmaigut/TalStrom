@@ -50,17 +50,19 @@ export default function UserProfilePage() {
 
   const components = [
     <VideosGrid
+      key={'videosgrid'}
       videos={userInfo?.videos}
       sub={userInfo?.sub as string}
       loadUser={loadUser}
     />,
     <ImagesGrid
+      key={'imagesgrid'}
       images={userInfo?.images}
       sub={userInfo?.sub as string}
       loadUser={loadUser}
     />,
-    <UserPost posts={userInfo?.posts} />,
-    <UserMyNetwork />,
+    <UserPost  key={'userposts'} posts={userInfo?.posts} />,
+    <UserMyNetwork key={'mynetwork'} />,
   ];
 
   const [pageComponent, setPageComponent] = useState(components[0]);

@@ -13,7 +13,7 @@ import { PencilIcon } from "@heroicons/react/24/outline";
 interface UserCardProps {
   user: UserCardForUser;
 }
-const userCard = ({ user }: UserCardProps) => {
+const UserCard = ({ user }: UserCardProps) => {
   const { data: session } = useSession();
   const { userContextG } = useUser();
   const staticPicture = session?.user?.image || userContextG?.picture;
@@ -126,4 +126,4 @@ const userCard = ({ user }: UserCardProps) => {
   );
 };
 
-export default userCard;
+export default UserCard;
