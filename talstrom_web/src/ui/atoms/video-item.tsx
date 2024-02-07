@@ -1,4 +1,4 @@
-import { SyntheticEvent, useEffect } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { TiDeleteOutline } from "react-icons/ti";
 
@@ -13,6 +13,8 @@ export default function VideoItem({
   openPlayer,
   deleteMode,
 }: VideoItemProps) {
+  const [confirmBoxVisibility, setConfirmBoxVisibility] = useState(false);
+
   useEffect(() => {
     const video = document.getElementById(
       `video-${videoItem.id}`
@@ -29,9 +31,7 @@ export default function VideoItem({
     const index = openPlayer(parseInt(target.id.split("-")[1]));
   };
 
-  const deleteVideo = () => {
-    
-  }
+  const confirmDelete = () => {};
 
   return (
     <div className="relative brightness-90 hover:brightness-[1.1] cursor-pointer">
@@ -44,7 +44,7 @@ export default function VideoItem({
           />
         </div>
       ) : (
-        <div onClick={openPlayerHandler} className="">
+        <div onClick={openPlayerHandler}>
           <video
             id={`video-${videoItem.id}`}
             muted
@@ -53,10 +53,32 @@ export default function VideoItem({
             src={videoItem.uri}
           />
           {deleteMode && (
-            <div className="absolute top-[6px] left-[90px] md:left-[185px] bg-black hover:bg-red-500 rounded-full" onClick={deleteVideo}>
+            <div
+              className="absolute top-[6px] left-[90px] md:left-[185px] bg-black hover:bg-red-500 rounded-full"
+              onClick={() => setConfirmBoxVisibility(!confirmBoxVisibility)}
+            >
               <TiDeleteOutline size={30} color="white" />
             </div>
           )}
+        </div>
+      )}
+      {confirmBoxVisibility && (
+        <div className="absolute top-20 left-10 rounded-md bg-white p-3 flex flex-col">
+          <h3> Delete Video?</h3>
+          <div id="confirm-delete-buttons">
+            <button
+              className="mt-2 ml-2 h-[48px] rounded-md bg-green-200 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:px-3"
+              onClick={confirmDelete}
+            >
+              Yes
+            </button>
+            <button
+              className="mt-2 ml-2 h-[48px] rounded-md bg-red-200 text-sm font-medium hover:bg-red-300 hover:text-red md:flex-none md:justify-start md:px-3"
+              onClick={() => setConfirmBoxVisibility(!confirmBoxVisibility)}
+            >
+              No
+            </button>
+          </div>
         </div>
       )}
     </div>

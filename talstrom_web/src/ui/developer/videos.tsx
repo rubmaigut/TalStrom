@@ -60,7 +60,7 @@ const VideosGrid = ({ videos, sub, loadUser }: VideosGridProps) => {
         />
       )}
       <button
-        className="mt-2 ml-2 h-[48px] rounded-md bg-green-200 p-2 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:p-2 md:px-3"
+        className="mt-2 ml-2 h-[48px] rounded-md bg-green-200 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:px-3"
         onClick={() => toggleUploadOverlay(false)}
       >
         Add Video
@@ -69,7 +69,7 @@ const VideosGrid = ({ videos, sub, loadUser }: VideosGridProps) => {
       type="button"
         className={`mt-2 ml-2 h-[48px] rounded-md ${
           deleteMode ? "bg-gray-300" : "bg-red-200"
-        } p-2 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:p-2 md:px-3`}
+        } text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:px-3`}
         onClick={toggleDeleteable}
       >
         Delete Videos
