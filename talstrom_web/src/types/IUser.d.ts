@@ -20,7 +20,7 @@ export interface LoginProps {
   user: User;
 }
 export interface IUserContext {
-  userContextG: User | null;
+  userContextG: User | null | UserCardForUser;
   role: string | null;
-  updateUser: (user: User | null) => void;
+  updateUser: (user: User | UserCardForUser) => void;
 }

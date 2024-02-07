@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { addNewPostHandler, deleteUserPost, updateUserPost } from '@/lib/data-user';
 import PostOverlay from '@/ui/overlays/post-viewer';
 import AddPostOverlay from '@/ui/overlays/add-post-overlay';
+import { addNewPostHandler, deleteUserPost, updateUserPost } from '@/lib/data-post';
 
 interface PostsProps {
-  postType: string;
+  postType?: string;
   sub: string;
   posts: Post[];
 }
 
-const UserPost: React.FC<PostsProps> = ({ posts, sub, postType }) => {
+const UserPost: React.FC<PostsProps> = ({ posts, sub }) => {
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [isEditMode, setEditMode] = useState<boolean>(false);
   const [editedTitle, setEditedTitle] = useState<string>('');
@@ -23,10 +23,8 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, postType }) => {
     setEditMode(true);
   };
 
-  const handleAddPost = async (title: string, content: string) => {
+  const handleAddPost = async (title: string, content: string, postType: string) => {
     try {
-      console.log('Adding post:', title, content);
-
       if (content.trim() !== '') {
         const response = await addNewPostHandler(title, content, sub, postType);
         console.log('Add Post Response:', response);
@@ -40,14 +38,6 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, postType }) => {
   const handlePostSaveClick = async () => {
     if (selectedPost) {
       try {
-        console.log(
-          'Updating post:',
-          selectedPost.id,
-          editedTitle,
-          editedContent,
-          selectedPost.postType,
-        );
-
         const response = await updateUserPost(
           selectedPost.id,
           editedTitle,
@@ -55,7 +45,6 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, postType }) => {
           selectedPost.postType,
           sub,
         );
-        console.log('Update Post Response:', response);
 
         setEditMode(false);
         setSelectedPost(null);
@@ -82,10 +71,8 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, postType }) => {
   const handlePostDeleteClick = async () => {
     if (selectedPost) {
       try {
-        // Delete the post
         await deleteUserPost(selectedPost.id);
 
-        // Clear the selectedPost and exit edit mode after successful deletion
         setEditMode(false);
         setSelectedPost(null);
       } catch (error) {
@@ -138,7 +125,7 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, postType }) => {
 
       {isAddPostMode && (
         <AddPostOverlay
-          onAddPost={(title, content) => handleAddPost(title, content)}
+          onAddPost={(title, content, postType) => handleAddPost(title, content, postType)}
           onCancelClick={handleAddPostCancelClick}
         />
       )}

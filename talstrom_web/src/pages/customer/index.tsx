@@ -25,7 +25,7 @@ export default function Page() {
       };
       loadCustomer();
     }
-  }, [session, userInfo]);
+  },[]);
 
   if (!session) {
     return (

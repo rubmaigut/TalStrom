@@ -1,18 +1,5 @@
 import React from 'react';
 
-type PostOverlayProps = {
-  post: Post;
-  isEditMode: boolean;
-  editedTitle: string; 
-  editedContent: string;
-  onEditClick: () => void;
-  onSaveClick: () => void;
-  onDeleteClick: () => void;
-  onCancelClick: () => void;
-  onTitleChange: (title: string) => void; 
-  onContentChange: (content: string) => void;
-};
-
 const PostOverlay: React.FC<PostOverlayProps> = ({
   post,
   isEditMode,

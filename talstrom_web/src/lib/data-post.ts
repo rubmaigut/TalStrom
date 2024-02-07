@@ -6,21 +6,40 @@ export async function addNewPostHandler(
   content: string,
   userSub: string,
   postType: string,
+  recruiterName?: string,
+  recruiterEmail?: string,
 ): Promise<Post> {
   const url = `${API_BASE_URL}/Posts`;
+
+  let postBody: any = {
+    title: title,
+    content: content,
+    userSub: userSub,
+  };
+
+  if (postType === "JobPost") {
+    postBody = {
+      ...postBody,
+      postType: "JobPost",
+      recruiterName: recruiterName,
+      recruiterEmail: recruiterEmail,
+    };
+  } else {
+    postBody = {
+      ...postBody,
+      postType: postType,
+      recruiterName: recruiterName,
+      recruiterEmail: recruiterEmail,
+    };
+  }
+
   try {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        id: 0,
-        postType: postType,
-        title: title,
-        content: content,
-        userSub: userSub,
-      }),
+       body: JSON.stringify(postBody),
     });
 
     if (!response.ok) {
