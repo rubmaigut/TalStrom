@@ -1,5 +1,4 @@
 import React from 'react';
-import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { IoAddCircleSharp, IoTrashBinSharp } from "react-icons/io5";
 
 

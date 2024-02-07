@@ -2,10 +2,13 @@ import React, { ReactNode, useEffect, useState } from "react";
 import { UserCardForUser } from "@/types/IUserCardProps";
 import EditProfile, { EditUserProfile } from "./profile/edit-profile";
 import Image from "next/image";
+import techIcons from "@/lib/reactIconComponents/reactIcons";
 import { useSession } from "next-auth/react";
 import { useUser } from "@/context/UserContext";
 import { capitalizeFirstLetter } from "@/lib/utils/capitaliseString";
-import * as ReactIcons from "react-icons/si";
+import * as ReactIcons from "../lib/reactIconComponents";
+// import { FaJava } from "react-icons/fa";
+
 import { IconType } from "react-icons";
 import { fetchUsersBySub } from "@/lib/data";
 import { PencilIcon } from "@heroicons/react/24/outline";
@@ -54,14 +57,15 @@ const UserCard = ({ user }: UserCardProps) => {
     technology: string,
     scaling: number
   ): ReactNode => {
+    const i = techIcons.findIndex(x => x.language == technology);
     const icon: IconType = (ReactIcons as any)[
-      `Si${capitalizeFirstLetter(technology)}`
+      `${techIcons[i].reactIcon}`
     ];
 
     if (typeof icon === "function") {
       return React.createElement(icon as React.ElementType, {
         size: scaling,
-        color: "black",
+        color: techIcons[i].color,
       });
     }
 
