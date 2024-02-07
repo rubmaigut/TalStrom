@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { fetchUsersBySub } from "@/lib/data";
 import { UserCardForUser } from "@/types/IUserCardProps";
-import UserCard from "@/ui/user-card";
+import UserCard from "@/ui/atoms/profile/user-card";
 import NavLinks from "@/ui/developer/nav-links";
 import UserMyNetwork from "@/ui/atoms/profile/networking";
 import UserPost from "@/ui/atoms/profile/posts";

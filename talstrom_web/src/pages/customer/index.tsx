@@ -7,7 +7,6 @@ import GreetingModal from "@/ui/atoms/general ui/greetings";
 import { UserCardForUser } from "@/types/IUserCardProps";
 import LoginMessage from "@/ui/atoms/general ui/login-message";
 import ToDoList from "@/ui/customer/dashboard/todos/todo-list";
-import AddToDo from "@/ui/customer/dashboard/todos/add-todo";
 
 export default function Page() {
   const { data: session } = useSession();
