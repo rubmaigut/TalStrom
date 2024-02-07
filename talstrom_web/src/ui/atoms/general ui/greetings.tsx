@@ -7,9 +7,9 @@ const GreetingModal: React.FC = () => {
   if (hours < 12) {
     greeting = "Good Morning 🌞";
   } else if (hours >= 12 && hours <= 17) {
-    greeting = "Good Afternoon 😊";
+    greeting = "Good Afternoon ☕️";
   } else {
-    greeting = "Good Evening 🌚";
+    greeting = "Good Evening 😊";
   }
 
   return <h2 className="text-xl text-gray-600 font-bold py-2">{greeting}</h2>;
