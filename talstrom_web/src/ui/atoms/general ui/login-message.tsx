@@ -41,7 +41,7 @@ const LoginMessage: React.FC<Props> = ({ displayRole, userSub }) => {
             >
               Go to Portal
             </Link>
-            <LoginButton classNameTitle="text-gray-600 px-2"/>
+            <LoginButton classNameTitle="text-gray-600 px-2" classNameButton="px-2"/>
           </div>
         </div>
       )}
@@ -59,7 +59,7 @@ const LoginMessage: React.FC<Props> = ({ displayRole, userSub }) => {
             >
               Go to Portal
             </Link>
-           <LoginButton/>
+           <LoginButton classNameTitle="text-gray-600 px-2" classNameButton="px-2"/>
           </div>
         </div>
       )}

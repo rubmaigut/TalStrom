@@ -41,8 +41,11 @@ const UserRoleBarChart: React.FC<UserRoleBarChartProps> = ({ data }) => {
     scales: {
       y: {
         ticks: {
-          callback: (value: string | number) =>
-            typeof value === "number" ? value.toString() : value,
+          callback: (tickValue: string | number) => {
+            const value = typeof tickValue === 'number' ? Math.floor(tickValue) : tickValue;
+            return value.toString();
+          },
+          stepSize: 1,
         },
       },
     },
