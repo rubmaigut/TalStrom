@@ -10,11 +10,12 @@ type TechIcon = {
       reactIcon: "Choose your Programming Languages",
       color: "pink",
     },
-    { language: "python", reactIcon: "python", color: "pink" },
-    { language: "javascript", reactIcon: "SiJavascript", color: "yellow" },
+    { language: "python", reactIcon: "SiPython", color: "#30cf1b" },
+    { language: "javascript", reactIcon: "SiJavascript", color: "#f5d442" },
     { language: "java", reactIcon: "FaJava", color: "pink" },
-    { language: "csharp", reactIcon: "SiCsharp", color: "blue" },
-    { language: "cplusplus", reactIcon: "SiCplusplus", color: "pink" },
+    { language: "csharp", reactIcon: "SiCsharp", color: "#1b81cf" },
+    { language: "cplusplus", reactIcon: "SiCplusplus", color: "#1b81cf" },
+    { language: "php", reactIcon: "SiPhp", color: "#2faeed" },
   ];
 
   export default techIcons;
