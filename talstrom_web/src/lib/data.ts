@@ -146,7 +146,7 @@ export async function fetchVideoById(id: string) {
 }
 
 export async function deleteMedia(mediaType: string, mediaTitle: string) {
-  const url = `${API_BASE_URL}/${mediaType}/delete?videoName=${mediaTitle}`;
+  const url = `${API_BASE_URL}/${mediaType}/delete?${mediaType.toLowerCase()}Name=${mediaTitle}`;
   const response = await fetch(url, {
     cache: "no-store",
     method: "DELETE",

@@ -47,11 +47,9 @@ const ImagesGrid = ({ images, sub, loadUser }: ImagesGridProps) => {
   };
 
   const removeImage = (uri: string) => {
-    const videoToDelete = currentImages?.findIndex((image) => image.uri == uri);
-    console.log(uri);
-    console.log(videoToDelete);
+    const imageToDelete = currentImages?.findIndex((image) => image.uri == uri);
     const arrayToRemove = [...currentImages];
-    arrayToRemove.splice(videoToDelete, 1);
+    arrayToRemove.splice(imageToDelete, 1);
 
     setCurrentImages(arrayToRemove);
   };

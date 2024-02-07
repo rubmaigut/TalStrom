@@ -66,7 +66,7 @@ public class ImagesController(TalStromDbContext context, BlobStorageService clie
         }
 
         var fileName = Guid.NewGuid();
-        using (var stream = System.IO.File.Create($"{fileName}.jpg"))
+        await using (var stream = System.IO.File.Create($"{fileName}.jpg"))
         {
             await file.CopyToAsync(stream);
         }

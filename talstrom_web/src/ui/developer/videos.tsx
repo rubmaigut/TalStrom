@@ -13,7 +13,9 @@ const VideosGrid = ({ videos, sub, loadUser }: VideosGridProps) => {
   const [playerVisibility, setPlayerVisibility] = useState(false);
   const [currentVideoIndex, setCurrentVideoIndex] = useState<number>(0);
   const [deleteMode, setDeleteMode] = useState(false);
-  const [currentVideos, setCurrentVideos] = useState<Media[]>(videos as Media[]);
+  const [currentVideos, setCurrentVideos] = useState<Media[]>(
+    videos as Media[]
+  );
 
   const toggleUploadOverlay = (uploaded: boolean) => {
     if (uploaded) loadUser(sub);
@@ -32,25 +34,27 @@ const VideosGrid = ({ videos, sub, loadUser }: VideosGridProps) => {
 
   const nextVideo = () => {
     let newIndex =
-      currentVideoIndex === currentVideos!.length - 1 ? 0 : currentVideoIndex + 1;
+      currentVideoIndex === currentVideos!.length - 1
+        ? 0
+        : currentVideoIndex + 1;
     setCurrentVideoIndex(newIndex);
   };
 
   const previousVideo = () => {
     let newIndex =
-      currentVideoIndex === 0 ? currentVideos!.length - 1 : currentVideoIndex - 1;
+      currentVideoIndex === 0
+        ? currentVideos!.length - 1
+        : currentVideoIndex - 1;
     setCurrentVideoIndex(newIndex);
   };
 
   const removeVideo = (uri: string) => {
-    const videoToDelete = currentVideos?.findIndex(video => video.uri == uri);
-    console.log(uri)
-    console.log(videoToDelete);
+    const videoToDelete = currentVideos?.findIndex((video) => video.uri == uri);
     const arrayToRemove = [...currentVideos];
     arrayToRemove.splice(videoToDelete, 1);
 
     setCurrentVideos(arrayToRemove);
-  }
+  };
 
   return (
     <article>
@@ -71,30 +75,30 @@ const VideosGrid = ({ videos, sub, loadUser }: VideosGridProps) => {
         />
       )}
       <div id="confirm-delete-buttons" className="flex justify-left mt-1">
-      <button
-        className="m-1 p-1 h-[48px] rounded-md bg-green-200 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:px-3"
-        onClick={() => toggleUploadOverlay(false)}
-      >
-        Add Video
-      </button>
-      <button
-      type="button"
-        className={`m-1 px-4 p-1 h-[48px] rounded-md ${
-          deleteMode ? "bg-gray-300" : "bg-red-200"
-        } text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:px-3`}
-        onClick={toggleDeleteable}
-      >
-        Delete
-      </button>
+        <button
+          className="m-1 p-1 h-[48px] rounded-md bg-green-200 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:px-3"
+          onClick={() => toggleUploadOverlay(false)}
+        >
+          Add Video
+        </button>
+        <button
+          type="button"
+          className={`m-1 px-4 p-1 h-[48px] rounded-md ${
+            deleteMode ? "bg-gray-300" : "bg-red-200"
+          } text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:px-3`}
+          onClick={toggleDeleteable}
+        >
+          Delete
+        </button>
       </div>
-      <div className="mt-4 grid 2xl:grid-cols-6 xl-grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-1 px-2 lg:px-4">
+      <div className="mt-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl-grid-cols-5 2xl:grid-cols-6  gap-1 px-2 lg:px-4">
         {currentVideos?.map((elm, i) => {
           return (
             <VideoItem
-              deleteMode={deleteMode}
               key={i}
               videoItem={elm}
               openPlayer={togglePlayerOverlay}
+              deleteMode={deleteMode}
               removeVideoFromGrid={removeVideo}
             />
           );

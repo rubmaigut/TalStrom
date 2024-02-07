@@ -66,7 +66,7 @@ public class VideoController(TalStromDbContext context, BlobStorageService clien
         }
 
         var fileName = Guid.NewGuid();
-        using (var stream = System.IO.File.Create($"{fileName}.mp4"))
+        await using (var stream = System.IO.File.Create($"{fileName}.mp4"))
         {
             await file.CopyToAsync(stream);
         }
