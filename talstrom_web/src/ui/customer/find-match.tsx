@@ -85,9 +85,9 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
   };
 
   return (
-    <section>
+    <section className="flex items-center justify-center">
       {filterOptions.length ? (
-        <div>
+        <div className="flex flex-col items-center w-full md:w-3/5 pb-4">
           <div className="flex mb-5">
             {filterArray.map((elm, i) => {
               return (
@@ -106,9 +106,9 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
             return (
               <div
                 key={i}
-                className="flex flex-col justify-center space-x-2 md:space-x-4 md:w-3/5 pb-4"
+                className="flex flex-col justify-center space-x-2 md:space-x-4 w-full pb-4"
               >
-                <div className="flex">
+                <div className="flex items-center justify-center">
                   <div className="flex-shrink-0">
                     <Image
                       src={`${elm?.picture}`}
