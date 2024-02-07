@@ -1,33 +1,52 @@
 import { ToDo, ToDoContextType } from '@/types/todo';
-import React, { ReactNode, createContext, useContext, useState } from 'react';
+import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 
 const ToDoContext = createContext<ToDoContextType | undefined>(undefined);
 
 export const ToDoProvider = ({ children }: { children: ReactNode }) => {
-  const [todos, setTodos] = useState<ToDo[]>([]);
+  const [activeTodos, setActiveTodos] = useState<ToDo[]>([]);
+  const [completedTodos, setCompletedTodos] = useState<ToDo[]>([]);
 
   const addTodo = (task: string) => {
     const newTodo: ToDo = {
-      id: Date.now(), 
+      id: Date.now(),
       task,
       completed: false,
       date: new Date().toISOString(),
     };
-    setTodos([...todos, newTodo]);
+    setActiveTodos((prevTodos) => [...prevTodos, newTodo]);
   };
 
   const toggleTodo = (id: number) => {
-    setTodos(
-      todos.map(todo => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)),
-    );
+    setActiveTodos((prevTodos) => {
+      const updatedTodos = prevTodos.filter(todo => {
+        if (todo.id === id) {
+          setCompletedTodos((completed) => [...completed, { ...todo, completed: true }]);
+          return false;
+        }
+        return true;
+      });
+      return updatedTodos;
+    });
   };
 
   const clearCompleted = () => {
-    setTodos(todos.filter(todo => !todo.completed));
+    setCompletedTodos([]);
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+      if (now.getHours() === 0 && now.getMinutes() === 0) {
+        clearCompleted();
+      }
+    }, 1000 * 60);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <ToDoContext.Provider value={{ todos, addTodo, toggleTodo, clearCompleted }}>
+    <ToDoContext.Provider value={{ activeTodos, completedTodos, addTodo, toggleTodo, clearCompleted }}>
       {children}
     </ToDoContext.Provider>
   );

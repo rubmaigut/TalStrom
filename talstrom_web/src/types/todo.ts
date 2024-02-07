@@ -6,7 +6,8 @@ export interface ToDo {
 }
   
 export interface ToDoContextType {
-    todos: ToDo[];
+    activeTodos: ToDo[]
+    completedTodos: ToDo[];
     addTodo: (task: string) => void;
     toggleTodo: (id: number) => void;
     clearCompleted: () => void;
