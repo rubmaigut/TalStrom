@@ -31,7 +31,7 @@ export default function VideoItem({
 
   const openPlayerHandler = (evt: SyntheticEvent) => {
     const target = evt.target as HTMLElement;
-    const index = openPlayer(parseInt(target.id.split("-")[1]));
+    openPlayer(parseInt(target.id.split("-")[1]));
   };
 
   const confirmDelete = async () => {
@@ -61,7 +61,7 @@ export default function VideoItem({
           />
           {deleteMode && (
             <div
-              className="absolute top-[6px] left-[90px] md:left-[185px] bg-black hover:bg-red-500 rounded-full"
+              className="absolute top-[6px] right-[10px] bg-black hover:bg-red-500 rounded-full"
               onClick={() => setConfirmBoxVisibility(!confirmBoxVisibility)}
             >
               <TiDeleteOutline size={30} color="white" />

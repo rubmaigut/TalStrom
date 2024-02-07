@@ -14,30 +14,49 @@ import LoginMessage from "@/ui/atoms/general ui/login-message";
 
 export default function UserProfilePage() {
   const { data: session } = useSession();
-  const { userContextG } = useUser();
+  const { userContextG, updateUser } = useUser();
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
   const [activeLink, setActiveLink] = useState<string>("posts");
-
   const userSub = session?.user?.sub;
+
+  useEffect(() => {
+    const updateUserContext = async () => {
+      if (session) {
+        try {
+          const updateUserInfo = await fetchUsersBySub(userSub!);
+          updateUser({ ...updateUserInfo });
+          setUserInfo(updateUserInfo);
+
+        } catch (error) {
+          console.error("Failed to update user context:", error);
+        }
+      }
+    };
+    updateUserContext()
+  }, [session]);
 
   const loadUser = async () => {
     try {
-      const userData = await fetchUsersBySub(userSub!);
-      setUserInfo(userData);
+      const developer = await fetchUsersBySub(userSub!);
+      setUserInfo(developer);
     } catch (error) {
-      console.error("Failed to fetch user data:", error);
+      throw error;
     }
   };
+
+  useEffect(() => {
+    loadUser();
+  }, [])
 
   const components = [
     <VideosGrid
       videos={userInfo?.videos}
-      sub={userInfo?.sub || userContextG?.sub || userSub!}
+      sub={userInfo?.sub as string}
       loadUser={loadUser}
     />,
     <ImagesGrid
       images={userInfo?.images}
-      sub={userInfo?.sub || userContextG?.sub || userSub!}
+      sub={userInfo?.sub as string}
       loadUser={loadUser}
     />,
     <UserPost posts={userInfo?.posts} />,
@@ -45,18 +64,6 @@ export default function UserProfilePage() {
   ];
 
   const [pageComponent, setPageComponent] = useState(components[0]);
-
-  useEffect(() => {
-    const loadDeveloper = async () => {
-      try {
-        const developer = await fetchUsersBySub(userSub!);
-        setUserInfo(developer);
-      } catch (error) {
-        throw error;
-      }
-    };
-    loadDeveloper();
-  }, []);
 
   const handleLinkClick = (link: string) => {
     setActiveLink(link);
@@ -87,7 +94,7 @@ export default function UserProfilePage() {
         </section>
       ) : (
         <div>
-          {userInfo && userInfo?.role === "developer" ? (
+          {userInfo && userInfo.role === "developer" ? (
             <div>
               <UserCard user={userInfo} />
               <div className="w-[calc(100%-50px)] md:w-[calc(100%-500px)] h-screen mx-auto my-3">
@@ -101,7 +108,7 @@ export default function UserProfilePage() {
                 {" "}
                 Oops! Seems like you are in the wrong profile
               </span>
-              <LoginMessage displayRole="customer" userSub={userInfo?.sub} />
+              <LoginMessage displayRole={userInfo?.role as string} userSub={userInfo?.sub} />
             </div>
           )}
         </div>
@@ -109,3 +116,4 @@ export default function UserProfilePage() {
     </>
   );
 }
+

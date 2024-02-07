@@ -79,12 +79,12 @@ const VideosGrid = ({ videos, sub, loadUser }: VideosGridProps) => {
       </button>
       <button
       type="button"
-        className={`m-1 p-1 h-[48px] rounded-md ${
+        className={`m-1 px-4 p-1 h-[48px] rounded-md ${
           deleteMode ? "bg-gray-300" : "bg-red-200"
         } text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:px-3`}
         onClick={toggleDeleteable}
       >
-        Delete Videos
+        Delete
       </button>
       </div>
       <div className="mt-4 grid 2xl:grid-cols-6 xl-grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-1 px-2 lg:px-4">
