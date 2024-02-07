@@ -1,14 +1,13 @@
-import { fetchUsersByFilter } from "@/lib/data";
-import { capitalizeFirstLetter } from "@/lib/utils/capitaliseString";
-import { UserCardForUser } from "@/types/IUserCardProps";
-import React from "react";
-import { ReactNode, SyntheticEvent, useEffect, useState } from "react";
-import { CgArrowRightO } from "react-icons/cg";
-import { IconType } from "react-icons";
-import Image from "next/image";
-import Link from "next/link";
-import * as ReactIcons from "@/lib/reactIconComponents";
-import techIcons from "@/lib/reactIconComponents/reactIcons";
+import { fetchUsersByFilter } from '@/lib/data';
+import { UserCardForUser } from '@/types/IUserCardProps';
+import React from 'react';
+import { ReactNode, SyntheticEvent, useEffect, useState } from 'react';
+import { CgArrowRightO } from 'react-icons/cg';
+import { IconType } from 'react-icons';
+import Image from 'next/image';
+import Link from 'next/link';
+import * as ReactIcons from '@/lib/reactIconComponents';
+import techIcons from '@/lib/reactIconComponents/reactIcons';
 
 type FindMatchProps = {
   sub: string;
@@ -54,17 +53,17 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
       return filtered;
     });
   }, [filterArray]);
-  
+
   const toggleFilter = (evt: SyntheticEvent) => {
     const target = evt.target as HTMLButtonElement;
     !target.classList.contains('text-gray-300')
       ? target.classList.add('text-gray-300')
       : target.classList.remove('text-gray-300');
-    const targetIndex = filterArray.findIndex((s) => s.label === target.value!); 
+    const targetIndex = filterArray.findIndex((s) => s.label === target.value!);
     const newArray = [...filterArray];
     newArray[targetIndex].status = !newArray[targetIndex].status;
     console.log(target.value);
-  
+
     setFilterArray(newArray);
   };
 
@@ -72,10 +71,8 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
     technology: string,
     scaling: number,
   ): ReactNode => {
-    const i = techIcons.findIndex(x => x.language == technology);
-    const icon: IconType = (ReactIcons as any)[
-      `${techIcons[i].reactIcon}`
-    ];
+    const i = techIcons.findIndex((x) => x.language == technology);
+    const icon: IconType = (ReactIcons as any)[`${techIcons[i].reactIcon}`];
 
     if (typeof icon === 'function') {
       return React.createElement(icon as React.ElementType, {
