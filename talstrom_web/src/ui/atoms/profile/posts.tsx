@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { addNewPostHandler, deleteUserPost, updateUserPost } from '@/lib/data';
-import PostOverlay from '../overlays/post-viewer';
-import AddPostOverlay from '../overlays/add-post-overlay';
+import PostOverlay from '@/ui/overlays/post-viewer';
+import AddPostOverlay from '@/ui/overlays/add-post-overlay';
 
 type Post = {
   id: number;

@@ -3,13 +3,13 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { fetchUsersBySub } from '@/lib/data';
 import { UserCardForUser } from '@/types/IUserCardProps';
-import UserCard from '@/ui/user-card';
-import NavLinks from '@/ui/customer/nav-links';
+import UserCard from '@/ui/atoms/profile/user-card';
+import ProfileNavLinks from '@/ui/customer/nav-links';
 import UserFindMatch from '@/ui/customer/find-match';
-import UserMyNetwork from '@/ui/profile/networking';
-import UserPost from '@/ui/profile/posts';
-import UserSaved from '@/ui/profile/saved';
-import UserPosts from '@/ui/profile/posts';
+import UserMyNetwork from '@/ui/atoms/profile/networking';
+import UserPost from '@/ui/atoms/profile/posts';
+import UserSaved from '@/ui/atoms/profile/saved';
+import UserPosts from '@/ui/atoms/profile/posts';
 import LoginMessage from '@/ui/atoms/general ui/login-message';
 
 const UserProfilePage: React.FC = () => {
@@ -44,7 +44,7 @@ const UserProfilePage: React.FC = () => {
       case 'posts':
         setPageComponent(
           <UserPosts
-            posts={userInfo?.posts || [] as Post[]}
+            posts={userInfo?.posts || ([] as Post[])}
             sub={userInfo!.sub as string}
           />,
         );
@@ -79,7 +79,7 @@ const UserProfilePage: React.FC = () => {
   return (
     <div>
       <UserCard user={userInfo} />
-      <NavLinks onLinkClick={handleLinkClick} />
+      <ProfileNavLinks onLinkClick={handleLinkClick} />
 
       <div className="w-[calc(100%-50px)] h-screen mx-auto my-3">
         {pageComponent}
