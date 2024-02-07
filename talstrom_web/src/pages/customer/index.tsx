@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 import GreetingModal from "@/ui/atoms/general ui/greetings";
 import { UserCardForUser } from "@/types/IUserCardProps";
 import LoginMessage from "@/ui/atoms/general ui/login-message";
-import ToDoList from "@/ui/customer/dashboard/todo-list";
-import AddToDo from "@/ui/customer/dashboard/add-todo";
+import ToDoList from "@/ui/customer/dashboard/todos/todo-list";
+import AddToDo from "@/ui/customer/dashboard/todos/add-todo";
 
 export default function Page() {
   const { data: session } = useSession();
@@ -41,14 +41,13 @@ export default function Page() {
   return (
     <>
       <Layout>
-        <div className="flex flex-col gap-6 rounded-lg bg-gray-50 px-4 md:w-full h-full md:px-12 md:my-0 my-4 ">
+        <div className="flex flex-col gap-6 rounded-lg bg-gray-50 border border-gray-300 px-4 md:w-full h-full md:px-12 md:my-0 my-4 ">
           <div className="flex flex-col justify-between pb-6">
             <GreetingModal />
             <p className="pb-2">
               Hi<strong> {userInfo.name}</strong> Welcome back!
             </p>
           </div>
-          <AddToDo/>
           <ToDoList/>
         </div>
       </Layout>
