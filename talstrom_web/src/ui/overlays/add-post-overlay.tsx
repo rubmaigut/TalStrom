@@ -11,7 +11,7 @@ const AddPostOverlay: React.FC<AddPostOverlayProps> = ({
 }) => {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
-  const [postType, setPostType] = useState<string>('JobPost'); // Default post type, you can set it to whatever makes sense as a default
+  const [postType, setPostType] = useState<string>('Thought');
 
   const handleAddPostClick = () => {
     onAddPost(title, content, postType);
@@ -36,8 +36,6 @@ const AddPostOverlay: React.FC<AddPostOverlayProps> = ({
             value={postType}
             onChange={(e) => setPostType(e.target.value)}
           >
-            <option value="JobPost">Job Post</option>
-            <option value="Article">Article</option>
             <option value="Thought">Thought</option>
             <option value="Challenge">Challenge</option>
           </select>

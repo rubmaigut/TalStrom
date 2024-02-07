@@ -53,7 +53,7 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, postType }) => {
           editedTitle,
           editedContent,
           selectedPost.postType,
-          sub
+          sub,
         );
         console.log('Update Post Response:', response);
 
