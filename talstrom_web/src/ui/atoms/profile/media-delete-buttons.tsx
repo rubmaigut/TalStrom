@@ -1,5 +1,7 @@
 import React from 'react';
-import { IoAddCircleSharp, IoTrashBinSharp } from "react-icons/io5";
+import { IoTrashBinSharp } from "react-icons/io5";
+import { FaPlus } from "react-icons/fa";
+
 
 
 interface MediaDeleteButtonProps {
@@ -12,16 +14,14 @@ const MediaDeleteButtons = ({ toggleUploadOverlay, deleteMode, toggleDeleteable 
   return (
     <div id="confirm-delete-buttons" className="flex justify-left mt-1">
         <button
-          className="m-1 p-4 h-[48px] rounded-md shadow-sm bg-green-200 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:px-3"
+          className="m-1 flex justify-center items-center h-[40px] w-[40px] rounded-md shadow-sm bg-slate-200 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none"
           onClick={() => toggleUploadOverlay(false)}
         >
-          <IoAddCircleSharp size={20} />
+          <FaPlus size={20} />
         </button>
         <button
           type="button"
-          className={`m-1 shadow-sm p-1 h-[48px] rounded-md ${
-            deleteMode ? "bg-gray-300" : "bg-red-200"
-          } text-sm px-4 font-medium md:flex-none md:justify-start md:px-3`}
+          className={`m-1 flex justify-center items-center h-[40px] w-[40px] rounded-md shadow-sm ${deleteMode ? "bg-red-200" : "bg-gray-200"} text-sm font-medium hover:bg-red-300 md:flex-none`}
           onClick={toggleDeleteable}
         >
           <IoTrashBinSharp size={20}/>

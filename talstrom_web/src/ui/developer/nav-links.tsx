@@ -3,9 +3,10 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import {
   NewspaperIcon,
-  UserGroupIcon,
   TvIcon,
   PhotoIcon,
+  BriefcaseIcon,
+  UserCircleIcon,
 } from '@heroicons/react/24/outline';
 
 interface NavLinksProps {
@@ -13,13 +14,14 @@ interface NavLinksProps {
 }
 
 export const links = [
+  { name: 'Bio', href: '/developer/[id]/videos', icon: UserCircleIcon },
   { name: 'Videos', href: '/developer/[id]/videos', icon: TvIcon },
   { name: 'Images', href: '/developer/[id]/images', icon: PhotoIcon },
   { name: 'Posts', href: '/developer/[id]/post', icon: NewspaperIcon },
   {
-    name: 'Opportunities',
-    href: '/developer/[id]/my-oppurtunities',
-    icon: UserGroupIcon,
+    name: 'Jobs',
+    href: '/developer/[id]/my-opportunities',
+    icon: BriefcaseIcon,
   },
 ];
 
