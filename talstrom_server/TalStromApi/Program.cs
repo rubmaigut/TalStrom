@@ -3,6 +3,7 @@ using System;
 using System.Text.Json.Serialization;
 using Azure.Storage.Blobs;
 using AzureFullstackPractice.Services;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,11 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.Configure<KestrelServerOptions>(options =>
 {
     options.Limits.MaxRequestBodySize  = int.MaxValue; 
+});
+builder.Services.Configure<FormOptions>(x =>
+{
+    x.ValueLengthLimit = int.MaxValue;
+    x.MultipartBodyLengthLimit = int.MaxValue; // In case of multipart
 });
 
 var ccDbString = builder.Configuration["ConnectionStrings:TALSTROM_CONNECTIONSTRING"];

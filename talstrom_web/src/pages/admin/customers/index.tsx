@@ -4,9 +4,12 @@ import { useEffect, useState } from "react";
 import { User } from "@/types/IUser";
 import Image from "next/image";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
+import UserRoleEditor from "@/ui/dashboard/actions-button";
+import Select from "@/ui/atoms/select";
 
 export default function Page() {
   const [customers, setCustomers] = useState<User[]>([]);
+  const [editingUser, setEditingUser] = useState<string | null>(null);
 
   useEffect(() => {
     const loadCustomer = async () => {
@@ -25,7 +28,24 @@ export default function Page() {
       await deleteUser(sub);
       setCustomers(customers.filter(user => user.sub !==sub));
     } catch (error) {
-      console.error("Error Deleting developer", error);
+      console.error("Error Deleting customer", error);
+    }
+  };
+
+  const handleChangeRole = async (userSub: string, role: string) => {
+    try {
+      await updateUserRole(userSub, role);
+      const users = await fetchUsersByRole("customer");
+      setCustomers(users);
+    } catch (error) {
+      console.error("Failed to update user role:", error);
+    }
+  };
+  const handleEdit = (userSub: string) => {
+    if(editingUser === userSub){
+      setEditingUser(null);
+    } else {
+      setEditingUser(userSub)
     }
   };
 
@@ -113,21 +133,16 @@ export default function Page() {
                         <p className="text-gray-900 whitespace-no-wrap"></p>
                       </td>
                       <td>
-                        <div className="flex justify-around gap-1">
-                          <i
-                            title="Edit"
-                            className="p-1 text-green-500 rounded-full cursor-pointer"
-                          >
-                            <PencilIcon className="w-6" />
-                          </i>
-                          <i
-                            title="Delete"
-                            className="p-1 text-red-500 rounded-full cursor-pointer"
-                            onClick={() => handleDelete(user.sub)}
-                          >
-                            <TrashIcon className="w-6" />
-                          </i>
-                        </div>
+                      <td>
+                        <UserRoleEditor
+                          userSub={user.sub}
+                          onDelete={handleDelete}
+                          onEdit={()=> handleEdit(user.sub)}
+                        />
+                        {editingUser === user.sub && (
+                          <Select onRoleChange={(role) => handleChangeRole(user.sub, role)} />
+                        )}
+                      </td>
                       </td>
                     </tr>
                   ))}

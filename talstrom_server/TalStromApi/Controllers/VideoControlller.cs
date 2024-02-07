@@ -66,7 +66,7 @@ public class VideoController(TalStromDbContext context, BlobStorageService clien
         }
 
         var fileName = Guid.NewGuid();
-        using (var stream = System.IO.File.Create($"{fileName}.mp4"))
+        await using (var stream = System.IO.File.Create($"{fileName}.mp4"))
         {
             await file.CopyToAsync(stream);
         }
@@ -88,17 +88,27 @@ public class VideoController(TalStromDbContext context, BlobStorageService clien
     {
         if (videoName == null)
         {
-            return BadRequest("File not found.");
+            return BadRequest("Must provide a filename");
         }
 
-        var videoToDelete = context.Videos.FirstOrDefault(v => v.Title == videoName);
-        if (videoToDelete != null)
+        try
         {
-            await client.DeleteFileAsync("movies", videoName);
-            context.Videos.Remove(videoToDelete);
-            return Ok("File deleted.");
-        }
+            var videoToDelete = context.Videos.FirstOrDefault(v => v.Title == videoName);
 
-        return NotFound();
+
+            if (videoToDelete != null)
+            {
+                await client.DeleteFileAsync("movies", $"{videoName}.mp4");
+                context.Videos.Remove(videoToDelete);
+                await context.SaveChangesAsync();
+                return Ok("File deleted.");
+            }
+
+            return NotFound();
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
 }

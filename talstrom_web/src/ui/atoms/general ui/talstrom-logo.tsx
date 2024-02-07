@@ -6,7 +6,6 @@ interface LogoProps {
 
 export default function TalstromLogo({isDark}: LogoProps) {
   return (
-    <div className={"flex w-full h-full justify-center items-center leading-none"}>
       <Image
         src={`${isDark ? "/talstrom-light.png" : "/talstrom-dark.png"}`}
         alt="talstrom logo"
@@ -15,6 +14,5 @@ export default function TalstromLogo({isDark}: LogoProps) {
         height={100}
         priority
       />
-    </div>
   );
 }

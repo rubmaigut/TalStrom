@@ -121,7 +121,6 @@ export async function addMedia(
       headers: {},
       body: formData,
     });
-    console.log(response);
 
     if (!response.ok)
       throw new Error('upload Video Error: Failed to Upload video');
@@ -146,6 +145,20 @@ export async function fetchVideoById(id: string) {
   return await response.json();
 }
 
+export async function deleteMedia(mediaType: string, mediaTitle: string) {
+  const url = `${API_BASE_URL}/${mediaType}/delete?${mediaType.toLowerCase()}Name=${mediaTitle}`;
+  const response = await fetch(url, {
+    cache: "no-store",
+    method: "DELETE",
+  });
+  if (!response.ok) {
+    if (response.status === 404) {
+      return null;
+    }
+    throw new Error(`fetchMediaById: Failed to delete ${mediaType}`);
+  }
+  return await response.json();
+}
 // Posts
 
 export async function addNewPostHandler(
