@@ -56,14 +56,14 @@ export const UserProfilePage = ({
     <Bio key={"biography"} biography={userInfo?.bio as string} />,
     <VideosGrid
       key={"videos-grid"}
-      videos={userInfo?.videos as Media[]}
+      user={userInfo as UserCardForUser}
       sub={userInfo?.sub as string}
       loadUser={loadUser}
       session={session}
     />,
     <ImagesGrid
       key={"images-grid"}
-      images={userInfo?.images as Media[]}
+      user={userInfo as UserCardForUser}
       sub={userInfo?.sub as string}
       loadUser={loadUser}
       session={session}

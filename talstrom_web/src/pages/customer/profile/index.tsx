@@ -20,6 +20,7 @@ const UserProfilePage: React.FC = () => {
       posts={userInfo?.posts ?? []}
       sub={userInfo?.sub ?? ''}
       postType={''}
+      session={session}
     />,
   );
   const userSub = session?.user?.sub;
@@ -50,6 +51,7 @@ const UserProfilePage: React.FC = () => {
             posts={userInfo?.posts ?? []}
             sub={userInfo?.sub ?? ''}
             postType={''}
+            session={session}
           />,
         );
         break;
@@ -84,7 +86,7 @@ const UserProfilePage: React.FC = () => {
 
   return (
     <div>
-      <UserCard user={userInfo} />
+      <UserCard user={userInfo} session={session}/>
       <ProfileNavLinks onLinkClick={handleLinkClick} />
 
       <div className="w-[calc(100%-50px)] h-screen mx-auto my-3">

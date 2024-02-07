@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { updateUserProfile } from "@/lib/data";
-import { useUser } from "@/context/UserContext";
 import { SelectTechnologies } from "./technologies";
-import { useSession } from "next-auth/react";
 import { UserCardForUser } from "@/types/IUserCardProps";
 
 export interface EditUserProfile {
@@ -19,8 +17,6 @@ type EditProfileProps = {
 };
 
 const EditProfile = ({ user, toggleEditMode }: EditProfileProps) => {
-  const { data: session } = useSession();
-  const { userContextG } = useUser();
   const [userProfile, setUserProfile] = useState<EditUserProfile>({
     userName: user.userName,
     bio: user.bio,
@@ -31,12 +27,10 @@ const EditProfile = ({ user, toggleEditMode }: EditProfileProps) => {
     []
   );
 
-  const staticSub = session?.user?.sub || userContextG?.sub;
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      await updateUserProfile(staticSub!, userProfile);
+      await updateUserProfile(user.sub, userProfile);
       alert("Profile updated successfully!");
       toggleEditMode();
     } catch (error) {

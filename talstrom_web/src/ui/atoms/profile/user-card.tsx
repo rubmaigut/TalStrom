@@ -3,7 +3,6 @@ import { UserCardForUser } from "@/types/IUserCardProps";
 import EditProfile from "./edit-profile";
 import Image from "next/image";
 import techIcons from "@/lib/reactIconComponents/reactIcons";
-import { useUser } from "@/context/UserContext";
 import * as ReactIcons from "@/lib/reactIconComponents";
 import { IconType } from "react-icons";
 import { PencilIcon } from "@heroicons/react/24/outline";
@@ -14,9 +13,7 @@ interface UserCardProps {
   session: Session | null;
 }
 const UserCard = ({ user, session }: UserCardProps) => {
-  const { userContextG } = useUser();
-  const staticPicture = session?.user?.image || userContextG?.picture;
-  const [selectedTechnologies, setSelectedTechnologies] = useState<string[]>(
+  const [selectedTechnologies, _setSelectedTechnologies] = useState<string[]>(
     []
   );
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
