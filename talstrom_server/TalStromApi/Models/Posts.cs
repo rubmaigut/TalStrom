@@ -18,6 +18,8 @@ public class Posts
   public string Title { get; set; }
   public string Content { get; set; }
   public int UserId { get; set; }
+  public bool? JobActive { get; set; }
+  public DateTime? CreatedAt { get; set; } = DateTime.Now;
   public ICollection<ApplicationForm> ApplicationForms { get; set; }
   
 }

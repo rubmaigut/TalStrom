@@ -7,4 +7,5 @@ public class ApplicationFormDto
     public int PostId { get; set; }
     public string Email { get; set; } 
     public string Username { get; set; }
+    
 }
