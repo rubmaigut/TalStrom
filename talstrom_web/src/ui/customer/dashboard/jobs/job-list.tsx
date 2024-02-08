@@ -29,7 +29,7 @@ const JobList: React.FC = () => {
       "JobPost",
       jobData.recruiterName,
       jobData.recruiterEmail,
-      jobData.jobActive,   
+      jobData.jobActive
     );
     setJobs(
       jobs.map((user) => {
@@ -62,13 +62,21 @@ const JobList: React.FC = () => {
   };
 
   return (
-    <div>
-      <button onClick={() => setShowForm(true)}>Add New Job</button>
-      {showForm && (
-        <div className="modal">
-          <JobPostingForm onSubmit={handleAddJob} />
-        </div>
-      )}
+    <div className="mt-6">
+      <h2 className="text-2xl font-bold text-gray-600 my-4">Jobs</h2>
+      <div className="relative flex flex-col">
+        <button
+          onClick={() => setShowForm(!showForm)}
+          className="w-6 rounded-full bg-teal-500 p-2 text-white float-left"
+        >
+          {showForm ? "-" : "+"}
+        </button>
+        {showForm && (
+          <div className="absolute w-full z-10 -mt-1 left-0 bg-white shadow-lg p-5" style={{ top: '100%', marginTop: '1rem' }}>
+            <JobPostingForm onSubmit={handleAddJob} />
+          </div>
+        )}
+      </div>
       <div>
         <div className="max-w-7xl -mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
           <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
