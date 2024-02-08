@@ -43,7 +43,7 @@ const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
 
   if (loading) {
     return (
-      <section className="w-full h-full">
+      <section className="w-full h-full mt-12">
         <LoadingMessage message="We are loading your experience..." />
       </section>
     );
