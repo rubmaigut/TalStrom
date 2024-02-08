@@ -41,7 +41,7 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto my-6 bg-white px-6 rounded-lg shadow">
+    <div className="max-w-5xl mx-auto my-6 bg-white p-6 rounded-lg shadow">
       <div className="flex items-center space-x-4">
         <div className="shrink-0">
           <Image
@@ -77,12 +77,12 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
         <div className="max-w-2xl mx-auto my-3">
           {isEditMode && (
             <div className="absolute top-0 right-0 bottom-0 left-0 bg-black bg-opacity-50 flex justify-center items-center">
-              <div className="bg-white p-6 rounded-lg shadow-lg z-10">
-              <EditProfile
-                user={user}
-                toggleEditMode={toggleEditMode}
-                updateUser={updateUser}
-              />
+              <div className="bg-white p-6 rounded-lg shadow-lg z-10 w-full max-w-2xl mx-auto lg:max-w-4xl">
+                <EditProfile
+                  user={user}
+                  toggleEditMode={toggleEditMode}
+                  updateUser={updateUser}
+                />
               </div>
             </div>
           )}
