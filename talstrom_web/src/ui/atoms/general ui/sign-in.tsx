@@ -16,9 +16,8 @@ const SignIn: FC = () => {
       <div
         className={`${!session ? "bg-neutral-950" : "bg-gray-50"} w-full h-16`}
       >
-        <Wave waveLight={!session ? false : true} />
       </div>
-      <TalstromLogo isDark={!session ? false : true} />
+      <TalstromLogo/>
       {!session && (
         <div className="w-full flex flex-col justify-center items-center">
             <Image
