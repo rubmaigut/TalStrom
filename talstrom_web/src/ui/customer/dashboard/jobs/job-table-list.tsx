@@ -1,14 +1,13 @@
 import React from "react";
-import { User } from "@/types/IUser";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 
 interface JobTableProps {
-  jobs: User[];
+  post: Post[];
   onDelete: (postId: number) => void;
-  onEdit: (postId: number) => void;
+  onEdit?: (postId: number) => void;
 }
 
-const JobTable: React.FC<JobTableProps> = ({ jobs, onDelete, onEdit }) => {
+const JobTable: React.FC<JobTableProps> = ({ post, onDelete, onEdit }) => {
   return (
     <div className="max-w-7xl -mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
       <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
@@ -34,8 +33,7 @@ const JobTable: React.FC<JobTableProps> = ({ jobs, onDelete, onEdit }) => {
             </th>
           </thead>
           <tbody>
-            {jobs.map((job) =>
-              job.posts?.map((post) => (
+            {post.map((post) => (
                 <tr key={post.id}>
                   <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                     <p className="text-gray-900 whitespace-no-wrap">
@@ -79,13 +77,6 @@ const JobTable: React.FC<JobTableProps> = ({ jobs, onDelete, onEdit }) => {
                   <td>
                     <div className="flex justify-center items-center gap-1">
                       <span
-                        title="Edit"
-                        className="p-1 text-green-500 rounded-full cursor-pointer"
-                        onClick={() => onEdit(post.id)}
-                      >
-                        <PencilIcon className="w-6" />
-                      </span>
-                      <span
                         title="Delete"
                         className="p-1 text-red-500 rounded-full cursor-pointer"
                         onClick={() => {
@@ -103,7 +94,7 @@ const JobTable: React.FC<JobTableProps> = ({ jobs, onDelete, onEdit }) => {
                     </div>
                   </td>
                 </tr>
-              ))
+              )
             )}
           </tbody>
         </table>

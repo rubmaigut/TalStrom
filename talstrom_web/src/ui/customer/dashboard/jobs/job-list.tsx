@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import JobPostingForm from "./job-posting-form";
-import {
-  addNewPostHandler,
-  deleteUserPost,
-} from "@/lib/data-post";
+import { addNewPostHandler, deleteUserPost } from "@/lib/data-post";
 import { fetchUsers } from "@/lib/data-user";
 import { User } from "@/types/IUser";
 import { useSession } from "next-auth/react";
@@ -73,20 +70,15 @@ const JobList: React.FC = () => {
         </div>
       )}
       <div>
-        {jobs.map((jobs) => (
-          <div key={jobs.id}>
-            <h3>{jobs.name}</h3>
-            <div>
-              {jobs?.posts?.map((post) => (
-                <JobTable
-                  key={post.id}
-                  jobs={post}
-                  onDelete={handlePostDeleteClick}
-                />
-              ))}
-            </div>
-          </div>
-        ))}
+        {jobs.map((job) =>
+          job?.posts?.map((post) => (
+            <JobTable
+              key={post.id}
+              post={[post]} 
+              onDelete={handlePostDeleteClick}
+            />
+          ))
+        )}
       </div>
     </div>
   );
