@@ -70,15 +70,41 @@ const JobList: React.FC = () => {
         </div>
       )}
       <div>
-        {jobs.map((job) =>
-          job?.posts?.map((post) => (
-            <JobTable
-              key={post.id}
-              post={[post]} 
-              onDelete={handlePostDeleteClick}
-            />
-          ))
-        )}
+        <div className="max-w-7xl -mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+          <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+            <table className="min-w-full leading-normal">
+              <thead>
+                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  Title
+                </th>
+                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  Status
+                </th>
+                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  Created
+                </th>
+                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  recruiter
+                </th>
+                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  recruiter Email
+                </th>
+                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  Actions
+                </th>
+              </thead>
+              {jobs.map((job) =>
+                job?.posts?.map((post) => (
+                  <JobTable
+                    key={post.id}
+                    post={[post]}
+                    onDelete={handlePostDeleteClick}
+                  />
+                ))
+              )}
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   );
