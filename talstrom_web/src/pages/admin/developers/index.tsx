@@ -130,7 +130,6 @@ export default function Page() {
                             <span className="relative">Suspended</span>
                           </span>
                         )}
-                        <p className="text-gray-900 whitespace-no-wrap"></p>
                       </td>
                       <td>
                         <div className="w full flex justify-center items-center">

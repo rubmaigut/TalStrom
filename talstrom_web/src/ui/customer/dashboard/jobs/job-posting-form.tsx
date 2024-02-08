@@ -6,6 +6,7 @@ const JobPostingForm: React.FC<JobPostingFormProps> = ({ onSubmit }) => {
     content: '',
     recruiterName: '',
     recruiterEmail: '',
+    createdAt: new Date().toISOString()
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -21,6 +22,7 @@ const JobPostingForm: React.FC<JobPostingFormProps> = ({ onSubmit }) => {
       content: '',
       recruiterName: '',
       recruiterEmail: '',
+      createdAt: new Date().toISOString()
     });
   };
 

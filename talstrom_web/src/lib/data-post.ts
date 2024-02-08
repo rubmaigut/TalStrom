@@ -6,6 +6,7 @@ export async function addNewPostHandler(
   content: string,
   userSub: string,
   postType: string,
+  createdAt: string,
   recruiterName?: string,
   recruiterEmail?: string,
 ): Promise<Post> {
@@ -15,6 +16,7 @@ export async function addNewPostHandler(
     title: title,
     content: content,
     userSub: userSub,
+    createdAt: createdAt
   };
 
   if (postType === "JobPost") {
