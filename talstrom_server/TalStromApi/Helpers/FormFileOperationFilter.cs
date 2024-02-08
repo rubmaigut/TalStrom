@@ -8,9 +8,11 @@ public class FormFileOperationFilter : IOperationFilter
         var formFileParameters = context.MethodInfo.GetParameters()
             .Where(p => p.ParameterType == typeof(IFormFile))
             .ToList();
-// || p.ParameterType == typeof(string)
+        
         if (formFileParameters.Any())
         {
+            Dictionary<string, OpenApiSchema> dictionary = new ();
+            foreach (var parameter in formFileParameters) dictionary.Add(parameter.Name, new OpenApiSchema { Type = "string", Format = "binary" });
             operation.RequestBody = new OpenApiRequestBody
             {
                 Content =
@@ -24,7 +26,7 @@ public class FormFileOperationFilter : IOperationFilter
                                 p => p.Name,
                                 p => new OpenApiSchema
                                 {
-                                    Type = p.ParameterType == typeof(IFormFile) ? "string" : "string",
+                                    Type = "string",
                                     Format = p.ParameterType == typeof(IFormFile) ? "binary" : null
                                 })
                         }
@@ -34,13 +36,7 @@ public class FormFileOperationFilter : IOperationFilter
                         Schema = new OpenApiSchema
                         {
                             Type = "object",
-                            Properties = formFileParameters.ToDictionary(
-                                p => p.Name,
-                                p => new OpenApiSchema
-                                {
-                                    Type = "string",
-                                    Format = "binary"
-                                })
+                            Properties = dictionary
                         }
                     },
                     
