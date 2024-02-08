@@ -69,7 +69,19 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
             {user.position ? user.position : "No position set"}
           </p>
         </div>
-        
+
+        {isEditMode && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
+              <div className="bg-white p-6 rounded-lg shadow-lg w-full h-full overflow-auto">
+                <EditProfile
+                  user={user}
+                  toggleEditMode={toggleEditMode}
+                  updateUser={updateUser}
+                />
+              </div>
+            </div>
+          )}
+
       </div>
     </div>
   );
