@@ -2,7 +2,6 @@ import { useSession } from "next-auth/react";
 import { FC } from "react";
 import TalstromLogo from "@/ui/atoms/general ui/talstrom-logo";
 import LoginButton from "../profile/login-button";
-import Wave from "./wave";
 import Image from "next/image";
 
 const SignIn: FC = () => {
