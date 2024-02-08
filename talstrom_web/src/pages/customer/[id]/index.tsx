@@ -51,7 +51,7 @@ export default function Page({
           <div className="flex flex-col justify-between pb-6">
             <GreetingModal />
             <p className="pb-2">
-              Hi<strong> {userInfo.name}</strong> Welcome back!
+              Hi<strong> {userInfo.name.split(' ')[0]}</strong> Welcome back!
             </p>
           </div>
           <ToDoList />

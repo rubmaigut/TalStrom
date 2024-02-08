@@ -20,7 +20,7 @@ export const LoginMessage = ({ id } : InferGetServerSidePropsType<typeof getServ
           <p className="text-gray-800">
             <GreetingModal />
             <strong>Now you are a user! 🎊 </strong>
-            Your role will be assigned soon, {userContextG?.name}.
+            Your role will be assigned soon, {userContextG?.name.split(' ')[0]}.
           </p>
           <LoginButton classNameButton="px-2"/>
         </div>
@@ -49,7 +49,7 @@ export const LoginMessage = ({ id } : InferGetServerSidePropsType<typeof getServ
       {displayRole !== "admin" && displayRole !== "pending" && (
         <div className="flex flex-col justify-center items-center">
           <GreetingModal />
-          <h2 className="text-gray-600 font-semibold"> Welcome {displayRole} </h2>
+          <h2 className="text-gray-600 font-semibold"> Welcome, {userContextG.name.split(' ')[0]}! </h2>
           <dd className="mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2 flex gap-2 ">
             your last connection was:
           </dd>

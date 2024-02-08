@@ -72,7 +72,7 @@ export default function Page() {
             <div>
               <GreetingModal />
               <p className="pb-2">
-                Hi<strong> {session?.user?.name}</strong> Welcome back!
+                Hi<strong> {session?.user?.name?.split(' ')[0]}</strong> Welcome back!
               </p>
             </div>
           </div>
