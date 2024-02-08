@@ -37,9 +37,9 @@ const NavLinks: React.FC<NavLinksProps> = ({ onLinkClick }) => {
   };
 
   return (
-    <div className="w-full flex fixed bg-gray-100 py-1 md:px-8">
+    <header className="w-full flex justify-around items-center fixed bg-gray-100 py-1 -ml-2">
       <TalstromLogo shortVersion={true}/>
-      <div className="flex pl-4 gap-2 justify-between ">
+      <div className="flex gap-2 justify-between ">
        {links.map((link) => {
         const IconComponent = link.icon;
         return (
@@ -47,7 +47,7 @@ const NavLinks: React.FC<NavLinksProps> = ({ onLinkClick }) => {
             key={link.name}
             onClick={() => handleLinkClick(link.name)}
             className={clsx(
-              'flex items-center text-primary-light  justify-center gap-2 rounded-lg bg-gray-100 p-3 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 lg:flex-none lg:justify-start lg:p-2 lg:px-3 custom-justify-center',
+              'flex items-center text-primary-light  justify-center gap-2 rounded-lg bg-gray-100 p-3 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 lg:flex-none lg:justify-start lg:p-2 custom-justify-center',
               {
                 'bg-teal-100 text-tea-900': pathname === link.href,
               },
@@ -63,7 +63,7 @@ const NavLinks: React.FC<NavLinksProps> = ({ onLinkClick }) => {
         <LogoutButton/>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

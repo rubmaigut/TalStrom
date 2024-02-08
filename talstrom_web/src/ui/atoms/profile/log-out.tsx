@@ -16,7 +16,7 @@ export default function LogoutButton() {
   return (
     <Link
     href={`/api/auth/signout`}
-    className="flex grow items-center justify-center gap-2 rounded-md bg-gray-100 p-3 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:p-2 md:px-3"
+    className="flex grow items-center justify-center gap-2 rounded-md bg-gray-100 p-3 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start"
     onClick={handleSignOut}
   >
     <PowerIcon className="w-6" />

@@ -7,7 +7,7 @@ import NavLinks from "@/ui/developer/nav-links";
 import UserPost from "@/ui/atoms/profile/posts";
 import VideosGrid from "@/ui/developer/videos";
 import ImagesGrid from "@/ui/developer/images";
-import { LoginMessage } from "@/ui/atoms/general ui/login-message";
+import {LoginMessage} from "@/ui/atoms/general ui/login-message";
 import Bio from "@/ui/atoms/profile/bio";
 import JobsPage from "@/ui/atoms/profile/jobs";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
@@ -51,8 +51,7 @@ export const UserProfilePage = ({
     setActiveLink("Bio");
   }, []);
 
-  const updateContentFromCard = (updatedUser: UserCardForUser) =>
-    setUserInfo(updatedUser);
+  const updateContentFromCard = (updatedUser: UserCardForUser) => setUserInfo(updatedUser)
 
   const components = [
     <Bio key={"biography"} biography={userInfo?.bio as string} />,
@@ -105,16 +104,36 @@ export const UserProfilePage = ({
         break;
     }
   }, [activeLink, userInfo]);
-
+  
   return (
-    <section className="w-full h-full">
-      <div className="container mx-auto">
-        <NavLinks onLinkClick={handleLinkClick} />
-        <div className="flex">
-          <aside className="w-1/4"></aside>
+    <>
+      {!session ? (
+        <section>
+          <SignIn />
+        </section>
+      ) : (
+        <div>
+          {userInfo && userInfo.role === "developer" ? (
+            <div>
+              <UserCard user={userInfo} session={session} updateUser={updateContentFromCard}/>
+              <div className="w-[calc(100%-50px)] md:w-[calc(100%-180px)] lg:w-[calc(100%-350px)] xl:w-[calc(100%-770px)] h-screen mx-auto my-3">
+                <NavLinks onLinkClick={handleLinkClick} />
+                {pageComponent}
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col w-full h-full justify-center items-center mt-12 px-8">
+              <span className=" break-words text-center text-xl font-bold text-teal-600 lg:text-2xl my-8 ">
+                {" "}
+                Oops! Seems like you are in the wrong profile
+              </span>
+              <LoginMessage/>
+            </div>
+          )}
         </div>
-      </div>
-    </section>
+      )}
+    </>
   );
 };
+
 export default UserProfilePage;
