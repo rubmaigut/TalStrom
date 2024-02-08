@@ -33,7 +33,7 @@ export async function addNewPostHandler(
     postBody = {
       ...postBody,
       postType: postType,
-      jobActive: jobActive,
+      jobActive: false,
       recruiterName: recruiterName,
       recruiterEmail: recruiterEmail,
     };

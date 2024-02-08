@@ -6,8 +6,8 @@ const JobPostingForm: React.FC<JobPostingFormProps> = ({ onSubmit }) => {
     content: "",
     recruiterName: "",
     recruiterEmail: "",
-    createdAt: new Date().toDateString(),
-    jobActive: true,
+    createdAt: "",
+    jobActive: false,
   });
 
   const handleChange = (
