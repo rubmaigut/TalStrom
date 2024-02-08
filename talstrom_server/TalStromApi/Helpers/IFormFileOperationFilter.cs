@@ -1,4 +1,4 @@
-namespace AzureFullstackPractice.Services;
+namespace TalStromApi.Helpers;
 
 public interface IFormFileOperationFilter
 {

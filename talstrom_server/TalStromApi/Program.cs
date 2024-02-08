@@ -1,14 +1,10 @@
-
-using System;
 using System.Text.Json.Serialization;
 using Azure.Storage.Blobs;
-using AzureFullstackPractice.Services;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using TalStromApi.Data;
 using TalStromApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
