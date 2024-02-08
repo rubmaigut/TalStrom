@@ -6,7 +6,7 @@ export async function addNewPostHandler(
   content: string,
   userSub: string,
   postType: string,
-  createdAt: string,
+  createdAt?: string,
   recruiterName?: string,
   recruiterEmail?: string,
 ): Promise<Post> {
