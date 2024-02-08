@@ -105,7 +105,7 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, session }) => {
             {post.author && post.author !== 'string' && (
               <p className="text-gray-600">{post.author}</p>
             )}
-            <p className="text-gray-600">{post.createdDate}</p>
+            <p className="text-gray-600">{post.createdAt}</p>
           </div>
         </div>
       ))}
