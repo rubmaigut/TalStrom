@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import JobPostingForm from "./job-posting-form";
-import { addNewPostHandler, deleteUserPost } from "@/lib/data-post";
+import {
+  addNewPostHandler,
+  deleteUserPost,
+} from "@/lib/data-post";
 import { fetchUsers } from "@/lib/data-user";
 import { User } from "@/types/IUser";
 import { useSession } from "next-auth/react";
@@ -8,7 +11,6 @@ import JobTable from "./job-table-list";
 
 const JobList: React.FC = () => {
   const [jobs, setJobs] = useState<User[]>([]);
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [showForm, setShowForm] = useState(false);
   const { data: session } = useSession();
   const userSub = session?.user?.sub;
@@ -30,7 +32,7 @@ const JobList: React.FC = () => {
       "JobPost",
       jobData.recruiterName,
       jobData.recruiterEmail,
-      jobData.createdAt 
+      jobData.createdAt
     );
     setJobs(
       jobs.map((user) => {
@@ -48,16 +50,17 @@ const JobList: React.FC = () => {
     setShowForm(false);
   };
 
-  const handlePostDeleteClick = async () => {
-    if (jobs) {
-      try {
-        await deleteUserPost(selectedPost.id);
-
-        setEditMode(false);
-        setSelectedPost(null);
-      } catch (error) {
-        console.error('Failed to delete post', error);
-      }
+  const handlePostDeleteClick = async (postId: number) => {
+    try {
+      await deleteUserPost(postId);
+      setJobs(
+        jobs.map((user) => ({
+          ...user,
+          posts: user.posts?.filter((post) => post.id !== postId) || [],
+        }))
+      );
+    } catch (error) {
+      console.error("Failed to delete post", error);
     }
   };
 
@@ -75,11 +78,10 @@ const JobList: React.FC = () => {
             <h3>{jobs.name}</h3>
             <div>
               {jobs?.posts?.map((post) => (
-                <JobTable jobs={[]} onDelete={function (postId: number): void {
-                  throw new Error("Function not implemented.");
-                } } onEdit={function (postId: number): void {
-                  throw new Error("Function not implemented.");
-                } }/>
+                <JobTable
+                  jobs={post}
+                  onDelete={handlePostDeleteClick}
+                />
               ))}
             </div>
           </div>
