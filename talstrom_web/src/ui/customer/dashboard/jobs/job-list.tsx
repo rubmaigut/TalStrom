@@ -4,7 +4,7 @@ import { addNewPostHandler, deleteUserPost } from "@/lib/data-post";
 import { fetchUsers } from "@/lib/data-user";
 import { User } from "@/types/IUser";
 import { useSession } from "next-auth/react";
-import JobTable from "./";
+import JobTable from "./job-table-list";
 
 const JobList: React.FC = () => {
   const [jobs, setJobs] = useState<User[]>([]);
