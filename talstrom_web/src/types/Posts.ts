@@ -33,5 +33,6 @@ type JobData = {
   content: string;
   recruiterName: string;
   recruiterEmail: string;
+  isActive?: boolean
   createdAt: string
 };

@@ -4,7 +4,7 @@ import { addNewPostHandler, deleteUserPost } from "@/lib/data-post";
 import { fetchUsers } from "@/lib/data-user";
 import { User } from "@/types/IUser";
 import { useSession } from "next-auth/react";
-import JobTable from "./job-table-list";
+import JobTableBody from "./job-table-list";
 
 const JobList: React.FC = () => {
   const [jobs, setJobs] = useState<User[]>([]);
@@ -29,7 +29,8 @@ const JobList: React.FC = () => {
       "JobPost",
       jobData.recruiterName,
       jobData.recruiterEmail,
-      jobData.createdAt
+      jobData.createdAt,
+      
     );
     setJobs(
       jobs.map((user) => {
@@ -84,7 +85,7 @@ const JobList: React.FC = () => {
                   Created
                 </th>
                 <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                  recruiter
+                  recruiter Name
                 </th>
                 <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   recruiter Email
@@ -95,7 +96,7 @@ const JobList: React.FC = () => {
               </thead>
               {jobs.map((job) =>
                 job?.posts?.map((post) => (
-                  <JobTable
+                  <JobTableBody
                     key={post.id}
                     post={[post]}
                     onDelete={handlePostDeleteClick}

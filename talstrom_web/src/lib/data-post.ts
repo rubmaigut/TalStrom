@@ -9,6 +9,7 @@ export async function addNewPostHandler(
   createdAt?: string,
   recruiterName?: string,
   recruiterEmail?: string,
+  isActive?: false
 ): Promise<Post> {
   const url = `${API_BASE_URL}/Posts`;
 
@@ -23,6 +24,7 @@ export async function addNewPostHandler(
     postBody = {
       ...postBody,
       postType: "JobPost",
+      isActive: true,
       recruiterName: recruiterName,
       recruiterEmail: recruiterEmail,
     };
@@ -30,6 +32,7 @@ export async function addNewPostHandler(
     postBody = {
       ...postBody,
       postType: postType,
+      isActive: isActive,
       recruiterName: recruiterName,
       recruiterEmail: recruiterEmail,
     };
