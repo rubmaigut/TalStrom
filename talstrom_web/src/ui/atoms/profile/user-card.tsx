@@ -55,7 +55,7 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
         </div>
         <div className="flex-grow">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-semibold">
+            <h2 className="text-xl font-semibold">
               {user.name ? user.name : "Username"}
             </h2>
             {session && session?.user?.sub === user.sub && (
@@ -72,7 +72,6 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
           <p className="text-sm text-gray-600">
             {user.position ? user.position : "No position set"}
           </p>
-          <p className="text-sm">{user.bio ? user.bio : "No bio set"}</p>
         </div>
         <div className="max-w-2xl mx-auto my-3">
           {isEditMode && (
