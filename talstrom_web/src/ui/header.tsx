@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Header() {
   return (
-    <header className="max-w-7xl w-full h-full flex grow flex-col lg:justify-center lg:items-center mt-4 px-6 md:px-8">
+    <header className="max-w-7xl flex grow flex-col lg:justify-center lg:items-center mt-4 px-6 md:px-8">
         <div className="w-full flex justify-center mt-2">
           <TalstromLogo />
         </div>
