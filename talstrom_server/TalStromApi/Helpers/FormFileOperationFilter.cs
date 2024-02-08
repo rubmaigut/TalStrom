@@ -6,9 +6,9 @@ public class FormFileOperationFilter : IOperationFilter
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
     {
         var formFileParameters = context.MethodInfo.GetParameters()
-            .Where(p => p.ParameterType == typeof(IFormFile) || p.ParameterType == typeof(string))
+            .Where(p => p.ParameterType == typeof(IFormFile))
             .ToList();
-
+// || p.ParameterType == typeof(string)
         if (formFileParameters.Any())
         {
             operation.RequestBody = new OpenApiRequestBody

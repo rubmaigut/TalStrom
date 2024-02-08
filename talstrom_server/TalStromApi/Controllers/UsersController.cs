@@ -223,7 +223,7 @@ namespace TalStromApi.Controllers
           return Ok("No favorite users");
         }
 
-        var favoriteUsers = await _context.User.Where(u => user.Favorites.Contains(user.Sub)).ToListAsync();
+        var favoriteUsers = await _context.User.Where(filteredUser => user.Favorites.Contains(filteredUser.Sub)).ToListAsync();
         return favoriteUsers;
       }
       catch (Exception ex)
@@ -233,12 +233,39 @@ namespace TalStromApi.Controllers
       }
     }
 
-    [HttpPatch("favorite")]
-    public async Task<IActionResult> ToggleFavoriteUser(string sub)
+    [HttpGet("/without-saved")]
+    public async Task<ActionResult<IEnumerable<User>>> FilterUsersBySaved([FromQuery] string sub)
     {
       try
       {
         var user = await _context.User.FirstOrDefaultAsync(u => u.Sub == sub);
+
+        if (user == null)
+        {
+          return NotFound("User not found");
+        }
+
+        if (user.Favorites == null || user.Favorites.Count == 0)
+        {
+          return Ok("No favorite users");
+        }
+
+        var Users = await _context.User.Where(filteredUser => !user.Favorites.Contains(filteredUser.Sub)).ToListAsync();
+        return Users;
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine($"Error in GetAllFavoriteUsers: {ex}");
+        return StatusCode(500, "Internal Server Error");
+      }
+    }
+
+    [HttpPatch("favorite/toggle")]
+    public async Task<IActionResult> ToggleFavoriteUser(string userSub, string favoriteSub)
+    {
+      try
+      {
+        var user = await _context.User.FirstOrDefaultAsync(u => u.Sub == userSub);
 
         if (user == null)
         {
@@ -250,15 +277,15 @@ namespace TalStromApi.Controllers
           user.Favorites = new List<string>();
         }
 
-        if (user.Favorites.Contains(sub))
+        if (user.Favorites.Contains(favoriteSub))
         {
           // If the user is already a favorite, remove them
-          user.Favorites.Remove(sub);
+          user.Favorites.Remove(favoriteSub);
         }
         else
         {
           // If the user is not a favorite, add them
-          user.Favorites.Add(sub);
+          user.Favorites.Add(favoriteSub);
         }
 
         await _context.SaveChangesAsync();
