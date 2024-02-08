@@ -1,31 +1,38 @@
-import Layout from "@/ui/layout";
-import SignIn from "@/ui/atoms/general ui/sign-in";
-import { useSession } from "next-auth/react";
-import { fetchUsersBySub } from "@/lib/data-user";
-import { useEffect, useState } from "react";
-import GreetingModal from "@/ui/atoms/general ui/greetings";
-import { UserCardForUser } from "@/types/IUserCardProps";
-import {LoginMessage} from "@/ui/atoms/general ui/login-message";
-import ToDoList from "@/ui/customer/dashboard/todos/todo-list";
+import Layout from '@/ui/layout';
+import SignIn from '@/ui/atoms/general ui/sign-in';
+import { useSession } from 'next-auth/react';
+import { fetchUsersBySub } from '@/lib/data-user';
+import { useEffect, useState } from 'react';
+import GreetingModal from '@/ui/atoms/general ui/greetings';
+import { UserCardForUser } from '@/types/IUserCardProps';
+import { LoginMessage } from '@/ui/atoms/general ui/login-message';
+import ToDoList from '@/ui/customer/dashboard/todos/todo-list';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
-export default function Page() {
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const { id } = context.params;
+  return { props: { id } };
+};
+
+export default function Page({
+  id,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { data: session } = useSession();
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
 
   useEffect(() => {
     if (session) {
-      const userSub = session.user?.sub;
       const loadCustomer = async () => {
         try {
-          const customer = await fetchUsersBySub(userSub!);
+          const customer = await fetchUsersBySub(id!);
           setUserInfo(customer);
         } catch (error) {
-          console.error("Failed to fetch customer:", error);
+          console.error('Failed to fetch customer:', error);
         }
       };
       loadCustomer();
     }
-  },[]);
+  }, []);
 
   if (!session) {
     return (
@@ -33,8 +40,8 @@ export default function Page() {
         <SignIn />
       </section>
     );
-  } else if (userInfo?.role !== "customer") {
-    return <LoginMessage displayRole="developer" userSub={userInfo?.sub} />;
+  } else if (userInfo?.role !== 'customer') {
+    return <LoginMessage />;
   }
 
   return (
@@ -47,7 +54,7 @@ export default function Page() {
               Hi<strong> {userInfo.name}</strong> Welcome back!
             </p>
           </div>
-          <ToDoList/>
+          <ToDoList />
         </div>
       </Layout>
     </>
