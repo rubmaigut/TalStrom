@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { updateUserProfile } from "@/lib/data-user";
 import { SelectTechnologies } from "./technologies";
 import { UserCardForUser } from "@/types/IUserCardProps";
@@ -28,17 +28,20 @@ const EditProfile = ({ user, toggleEditMode, updateUser }: EditProfileProps) => 
     []
   );
 
+  useEffect(()=>{},[])
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       await updateUserProfile(user.sub, userProfile);
-      // updateUser({
-      //   ...user,
-      //   userName: userProfile.userName || user.userName,
-      //   bio: userProfile.bio || user.bio,
-      //   technologies: userProfile.bio || "",
-      //   position: userProfile.position || user.position,
-      // })
+      updateUser({
+        ...user,
+        userName: userProfile.userName || user.userName,
+        bio: userProfile.bio || user.bio,
+        technologies: userProfile.technologies.join(",") || user.technologies,
+        position: userProfile.position || user.position,
+      });
+  
       toggleEditMode();
     } catch (error) {
       throw new Error(`Failed to update profile: ${error}`);
