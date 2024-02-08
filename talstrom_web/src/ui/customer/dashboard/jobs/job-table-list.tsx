@@ -16,7 +16,7 @@ const JobTableBody: React.FC<JobTableProps> = ({ post, onDelete, onEdit }) => {
             <p className="text-gray-900 whitespace-no-wrap">{post.title}</p>
           </td>
           <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-            {post.isActive === true ? (
+            {post.jobActive === true ? (
               <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                 <span
                   aria-hidden
@@ -40,6 +40,11 @@ const JobTableBody: React.FC<JobTableProps> = ({ post, onDelete, onEdit }) => {
           <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
             <p className="text-gray-900 whitespace-no-wrap">
               {post.recruiterName}
+            </p>
+          </td>
+          <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            <p className="text-gray-900 whitespace-no-wrap">
+              {post.recruiterEmail}
             </p>
           </td>
           <td>

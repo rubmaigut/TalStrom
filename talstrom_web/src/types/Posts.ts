@@ -8,7 +8,7 @@ type Post = {
   content: string;
   recruiterName?: string;
   recruiterEmail?: string;
-  isActive?: boolean
+  jobActive?: boolean
 };
 
 type PostOverlayProps = {
@@ -33,6 +33,6 @@ type JobData = {
   content: string;
   recruiterName: string;
   recruiterEmail: string;
-  isActive?: boolean
+  jobActive?: boolean
   createdAt: string
 };

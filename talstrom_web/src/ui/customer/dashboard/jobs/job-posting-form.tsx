@@ -7,7 +7,7 @@ const JobPostingForm: React.FC<JobPostingFormProps> = ({ onSubmit }) => {
     recruiterName: "",
     recruiterEmail: "",
     createdAt: new Date().toDateString(),
-    isActive: true,
+    jobActive: true,
   });
 
   const handleChange = (
@@ -26,7 +26,7 @@ const JobPostingForm: React.FC<JobPostingFormProps> = ({ onSubmit }) => {
       recruiterName: "",
       recruiterEmail: "",
       createdAt: new Date().toDateString(),
-      isActive: true,
+      jobActive: true,
     });
   };
 
@@ -52,18 +52,18 @@ const JobPostingForm: React.FC<JobPostingFormProps> = ({ onSubmit }) => {
 
       <div className="mb-4">
         <label
-          htmlFor="isActive"
+          htmlFor="jobActive"
           className="block text-sm font-medium text-gray-700"
         >
           Active
         </label>
         <input
           type="checkbox"
-          name="isActive"
-          id="isActive"
-          checked={jobData.isActive}
+          name="jobActive"
+          id="jobActive"
+          checked={jobData.jobActive}
           onChange={(e) =>
-            setJobData((prev) => ({ ...prev, isActive: e.target.checked }))
+            setJobData((prev) => ({ ...prev, jobActive: e.target.checked }))
           }
           className="mt-1 block"
         />
