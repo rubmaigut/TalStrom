@@ -8,12 +8,10 @@ const SignIn: FC = () => {
   const { data: session } = useSession();
   return (
     <div
-      className={`${
-        !session ? "bg-neutral-950" : "bg-gray-50"
-      } flex min-h-screen flex-col p-6 md:p-8`}
+      className="flex min-h-screen flex-col p-6 md:p-8"
     >
       <div
-        className={`${!session ? "bg-neutral-950" : "bg-gray-50"} w-full h-16`}
+        className="w-full h-16"
       >
       </div>
       <TalstromLogo/>

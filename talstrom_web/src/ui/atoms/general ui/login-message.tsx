@@ -3,6 +3,7 @@ import Link from "next/link";
 import GreetingModal from "./greetings";
 import LoginButton from "../profile/login-button";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import LogoutButton from "../profile/log-out";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const { id } = context.params;
@@ -17,12 +18,13 @@ export const LoginMessage = ({ id } : InferGetServerSidePropsType<typeof getServ
     <div>
       {displayRole === "pending" && (
         <div>
+          <GreetingModal />
           <p className="text-gray-800">
-            <GreetingModal />
             <strong>Now you are a user! 🎊 </strong>
             Your role will be assigned soon, {userContextG?.name.split(' ')[0]}.
           </p>
           <LoginButton classNameButton="px-2"/>
+          <LogoutButton/>
         </div>
       )}
       {displayRole === "admin" && (

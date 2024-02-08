@@ -9,11 +9,11 @@ const LoadingMessage: React.FC<LoadingMessageProps> = ({
 }) => {
   return (
     <div
-      className="flex w-full h-52 items-center justify-center duration-300 transition-opacity"
+      className="flex w-full h-full items-center justify-center duration-300 transition-opacity"
       style={{ zIndex: 6000 }}
     >
-      <div className="flex-col">
-        <div className="w-24 h-24">
+      <div className="flex flex-col justify-center items-center my-20">
+        <div className="w-32 h-32">
           <svg viewBox="0 0 860.1 876.5">
             <path
               className="animate-spin from-blue-300"
@@ -52,7 +52,7 @@ const LoadingMessage: React.FC<LoadingMessageProps> = ({
             />
           </svg>
         </div>
-        <div className="mt-3 text-gray-600 font-mono sm:text-xs">{message}</div>
+        <div className="mt-12 text-gray-600 text-2xl">{message}</div>
       </div>
     </div>
   );
