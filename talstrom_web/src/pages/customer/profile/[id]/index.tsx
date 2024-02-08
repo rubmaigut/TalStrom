@@ -55,7 +55,7 @@ export const UserProfilePage = ({
           console.error("Failed to update user context:", error);
         });
     }
-  }, [session, updateUser]);
+  }, [session]);
 
   const handleLinkClick = (link: string) => {
     setActiveLink(link);
@@ -94,6 +94,7 @@ export const UserProfilePage = ({
     return <LoginMessage displayRole={"developer"} userSub={userInfo?.sub} />;
   }
 
+  console.log("hello")
   return (
     <div>
       <UserCard user={userInfo} session={session} updateUser={updateContentFromCard} />

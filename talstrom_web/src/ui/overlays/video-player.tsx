@@ -23,7 +23,7 @@ const VideoPlayer = ({
   useEffect(() => {
     const fetchVideo = async () => {
       if (!currentVideoIndex) currentVideoIndex = 0;
-      setUri(videos![currentVideoIndex].uri);
+      setUri(videos![currentVideoIndex].uri || "");
     };
 
     fetchVideo();

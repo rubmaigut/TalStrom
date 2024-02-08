@@ -1,6 +1,5 @@
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-// Video Handling
 export async function addMedia(
   media: File,
   sub: string,
@@ -26,8 +25,8 @@ export async function addMedia(
   }
 }
 
-export async function fetchVideoById(id: string) {
-  const url = `${API_BASE_URL}/Video/${id}
+export async function fetchAllOfMediaType(mediaType: string) {
+  const url = `${API_BASE_URL}/${mediaType}/
   `;
   const response = await fetch(url, {
     cache: 'no-store',
@@ -36,7 +35,7 @@ export async function fetchVideoById(id: string) {
     if (response.status === 404) {
       return null;
     }
-    throw new Error('fetchVideoById: Failed to fetch video');
+    throw new Error(`fetchMediaById: Failed to fetch ${mediaType}`);
   }
   return await response.json();
 }

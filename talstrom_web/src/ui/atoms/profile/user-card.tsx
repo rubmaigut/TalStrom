@@ -39,7 +39,7 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
 
     return <span>Icon not found for {technology}</span>;
   };
-
+  
   return (
     <div className="max-w-2xl mx-auto my-6 bg- p-6 rounded-lg shadow">
       <div className="flex items-center space-x-4">
@@ -88,7 +88,7 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
         </div>
       </div>
       <div className="mt-4">
-        <strong>Technologies:</strong>
+        <strong>Technologies</strong>
         <div className="flex flex-wrap items-center mt-2">
           {user.technologies.length ? (
             user.technologies.split(",").map((tech, index) => (

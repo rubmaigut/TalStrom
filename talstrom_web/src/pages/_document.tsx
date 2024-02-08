@@ -5,6 +5,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head />
+      <title>TalStrom</title>
       <body className={`${inter.className} antialiased`}>
         <Main />
         <NextScript />

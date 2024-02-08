@@ -70,7 +70,6 @@ export async function updateUserRole(sub: string, role: string) {
     cache: 'no-store',
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
-    //body: JSON.stringify({ role }),
   });
   if (!response.ok)
     throw new Error('updateUserRole:Failed to update user role');

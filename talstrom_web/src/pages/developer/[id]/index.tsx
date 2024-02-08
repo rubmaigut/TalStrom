@@ -104,7 +104,7 @@ export const UserProfilePage = ({
         break;
     }
   }, [activeLink, userInfo]);
-  console.log(userInfo);
+  
   return (
     <>
       {!session ? (
