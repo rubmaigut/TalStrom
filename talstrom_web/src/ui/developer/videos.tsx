@@ -62,7 +62,7 @@ const VideosGrid = ({ user, sub, loadUser, session }: VideosGridProps) => {
   };
 
   return (
-    <article className="flex flex-col justify-center items-center">
+    <article className="flex flex-col justify-center items-center py-4">
       {uploadVisibility && (
         <UploadContainer
           closeWindow={toggleUploadOverlay}

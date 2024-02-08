@@ -59,7 +59,7 @@ const ImagesGrid = ({ user, sub, loadUser, session }: ImagesGridProps) => {
   };
 
   return (
-    <article className="flex flex-col justify-center items-center">
+    <article className="flex flex-col justify-center items-center py-4">
       {uploadVisibility && (
         <UploadContainer
           closeWindow={toggleUploadOverlay}

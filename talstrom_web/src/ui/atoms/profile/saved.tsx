@@ -47,7 +47,7 @@ const UserSaved = () => {
   ];
 
   return (
-    <div className="flex items-center justify-center flex-col mt-10">
+    <div className="flex items-center justify-center flex-col mt-10 py-4">
       {hardcodedUsers.map((user) => (
         <div
           key={user.id}

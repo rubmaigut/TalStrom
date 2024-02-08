@@ -85,7 +85,7 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
   };
 
   return (
-    <section className="flex items-center justify-center">
+    <section className="flex items-center justify-center py-4">
       {filterOptions.length ? (
         <div className="flex flex-col items-center w-full md:w-3/5 pb-4">
           <div className="flex mb-5">
