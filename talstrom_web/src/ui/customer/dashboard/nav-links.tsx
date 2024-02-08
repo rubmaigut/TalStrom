@@ -18,7 +18,7 @@ export default function CustomerNavLinks() {
 
   const links = [
     { name: "Home", href: "/customer", icon: HomeIcon },
-    { name: "My Profile", href: `/customer/profile?sub=${session?.user?.sub}`, icon: UserIcon },
+    { name: "My Profile", href: `/customer/profile/${session?.user?.sub}`, icon: UserIcon },
     { name: "Jobs", href: "/customer/jobs", icon: BriefcaseIcon },
     { name: "Candidates", href: "/customer/candidates", icon: PaperClipIcon },
     { name: "Consultants", href: "/customer/consultants", icon: UserGroupIcon },
