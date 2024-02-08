@@ -79,6 +79,7 @@ const JobList: React.FC = () => {
             <div>
               {jobs?.posts?.map((post) => (
                 <JobTable
+                  key={post.id}
                   jobs={post}
                   onDelete={handlePostDeleteClick}
                 />
