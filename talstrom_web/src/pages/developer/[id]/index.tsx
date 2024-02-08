@@ -107,11 +107,16 @@ export const UserProfilePage = ({
   }, [activeLink, userInfo]);
 
   return (
-    <section className="w-full h-full">
-      <div className="container mx-auto">
-        <NavLinks onLinkClick={handleLinkClick} />
+    <section className="w-full bg-gray-100">
+        <NavLinks onLinkClick={handleLinkClick} />   
+      <div className="pt-16">
+        {userInfo && userInfo.role === "developer" && 
+          <UserCard user={userInfo} session={session} updateUser={updateContentFromCard}/>
+        }
+        
         <div className="flex">
-          <aside className="w-1/4"></aside>
+          <aside className="w-1/4">
+          </aside>
         </div>
       </div>
     </section>
