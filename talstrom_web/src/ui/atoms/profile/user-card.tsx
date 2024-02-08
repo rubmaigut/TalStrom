@@ -23,18 +23,20 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
     setIsEditMode(!isEditMode);
   };
 
-  const getIconForTechnology = (
-    technology: string,
-    scaling: number
-  ): ReactNode => {
-    const i = techIcons.findIndex((x) => x.language == technology);
-    const icon: IconType = (ReactIcons as any)[`${techIcons[i].reactIcon}`];
+  const getIconForTechnology = (technology: string, scaling: number) => {
+    const i = techIcons.findIndex((x) => x.language === technology);
+    const iconComponent = (ReactIcons as any)[`${techIcons[i]?.reactIcon}`];
 
-    if (typeof icon === "function") {
-      return React.createElement(icon as React.ElementType, {
-        size: scaling,
-        color: techIcons[i].color,
-      });
+    if (iconComponent && typeof iconComponent === "function") {
+      return (
+        <div className="flex flex-col items-center">
+          {React.createElement(iconComponent as React.ElementType, {
+            size: scaling,
+            color: techIcons[i].color,
+          })}
+          <span className="text-xs mt-1">{technology}</span>
+        </div>
+      );
     }
 
     return <span>Icon not found for {technology}</span>;
@@ -42,8 +44,7 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
 
   return (
     <div className="bg-whiterounded-lg shadow">
-      <div className="bg-gradient-to-r from-green-300 to-teal-300 h-20 w-full flex justify-center items-center relative">
-       </div>
+      <div className="bg-gradient-to-r from-green-300 to-teal-300 h-20 w-full flex justify-center items-center relative"></div>
       <div className="w-full flex flex-col items-center px-4 absolute top-20">
         {session && session?.user?.sub === user.sub && (
           <button
@@ -71,17 +72,29 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
         </div>
 
         {isEditMode && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
-              <div className="bg-white p-6 rounded-lg shadow-lg w-full h-full overflow-auto">
-                <EditProfile
-                  user={user}
-                  toggleEditMode={toggleEditMode}
-                  updateUser={updateUser}
-                />
-              </div>
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-full h-full overflow-auto">
+              <EditProfile
+                user={user}
+                toggleEditMode={toggleEditMode}
+                updateUser={updateUser}
+              />
             </div>
-          )}
+          </div>
+        )}
 
+        <h3 className="text-md font-semibold text-center text-primary-text w-full">Technology Stack</h3>
+        <div className="flex flex-wrap items-center mt-2">
+          {user.technologies.length ? (
+            user.technologies.split(",").map((tech, index) => (
+              <div key={index} className="m-1 text-center">
+                {getIconForTechnology(tech, 24)}
+              </div>
+            ))
+          ) : (
+            <p className="text-sm text-gray-400">No technologies set</p>
+          )}
+        </div>
       </div>
     </div>
   );
