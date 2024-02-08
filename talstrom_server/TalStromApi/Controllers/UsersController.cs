@@ -14,10 +14,12 @@ namespace TalStromApi.Controllers
   public class UsersController : ControllerBase
   {
     private readonly TalStromDbContext _context;
+    private readonly IUserService _useService;
 
-    public UsersController(TalStromDbContext context)
+    public UsersController(TalStromDbContext context, IUserService useService)
     {
       _context = context;
+      _useService = useService;
     }
 
     [HttpGet]
@@ -205,4 +207,21 @@ namespace TalStromApi.Controllers
       return _context.User.Any(e => e.Sub == sub);
     }
   }
+
+  public async Task<IActionResult> Index(int userId)
+    {
+        var user = await _useService.GetUserAsync(userId);
+        var followers = await _useService.GetFollowersAsync(userId);
+        var following = await _useService.GetFollowingAsync(userId);
+        var mutualFollows = followers.Where(f => following.Select(v => v.UserName).Contains(f.UserName)).ToList();
+
+        // Pass the user and mutualFollows to the view
+        var model = new ProfileViewModel
+        {
+            User = user,
+            MutualFollows = mutualFollows
+        };
+
+        return View(model);
+    }
 }

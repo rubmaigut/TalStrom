@@ -39,6 +39,7 @@ string azureBlobConnectionString = builder.Configuration.GetConnectionString("Az
 
 builder.Services.AddScoped<BlobServiceClient>(x => new BlobServiceClient(azureBlobConnectionString));
 builder.Services.AddScoped<BlobStorageService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
