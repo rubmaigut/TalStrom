@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using TalStromApi.Data;
+using TalStromApi.Helpers;
 using TalStromApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,17 +24,17 @@ builder.Services.Configure<KestrelServerOptions>(options =>
 {
     options.Limits.MaxRequestBodySize  = int.MaxValue; 
 });
-builder.Services.Configure<FormOptions>(x =>
+builder.Services.Configure<FormOptions>(options =>
 {
-    x.ValueLengthLimit = int.MaxValue;
-    x.MultipartBodyLengthLimit = int.MaxValue; // In case of multipart
+    options.ValueLengthLimit = int.MaxValue;
+    options.MultipartBodyLengthLimit = int.MaxValue; // In case of multipart
 });
 
 var ccDbString = builder.Configuration["ConnectionStrings:TALSTROM_CONNECTIONSTRING"];
 var azureBlobSecret = builder.Configuration["ConnectionStrings:AzureBlobStorage"];
 string azureBlobConnectionString = builder.Configuration.GetConnectionString("AzureBlobStorage"); 
 
-builder.Services.AddScoped<BlobServiceClient>(x => new BlobServiceClient(azureBlobConnectionString));
+builder.Services.AddScoped<BlobServiceClient>(provider => new BlobServiceClient(azureBlobConnectionString));
 builder.Services.AddScoped<BlobStorageService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

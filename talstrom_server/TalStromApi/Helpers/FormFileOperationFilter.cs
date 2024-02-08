@@ -10,8 +10,8 @@ public class FormFileOperationFilter : IOperationFilter
         var formFileParameters = context.MethodInfo.GetParameters()
             .Where(p => p.ParameterType == typeof(IFormFile))
             .ToList();
-        
-        if (formFileParameters.Any())
+
+        if (!formFileParameters.Any()) return;
         {
             Dictionary<string, OpenApiSchema> dictionary = new ();
             foreach (var parameter in formFileParameters) dictionary.Add(parameter.Name, new OpenApiSchema { Type = "string", Format = "binary" });
@@ -19,7 +19,7 @@ public class FormFileOperationFilter : IOperationFilter
             {
                 Content =
                 {
-                    ["multipart/form-data"] = new OpenApiMediaType()
+                    ["multipart/form-data"] = new OpenApiMediaType
                     {
                         Schema = new OpenApiSchema
                         {
@@ -33,15 +33,14 @@ public class FormFileOperationFilter : IOperationFilter
                                 })
                         }
                     },
-                    ["application/json"] = new OpenApiMediaType()
+                    ["application/json"] = new OpenApiMediaType
                     {
                         Schema = new OpenApiSchema
                         {
                             Type = "object",
                             Properties = dictionary
                         }
-                    },
-                    
+                    }
                 }
             };
         }

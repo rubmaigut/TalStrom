@@ -32,16 +32,9 @@ public class BlobStorageService(BlobServiceClient client)
 
     public async Task DeleteFileAsync(string containerName, string filePath)
     {
-        try
-        {
-            var blobContainer = client.GetBlobContainerClient(containerName);
-            var blobClient = blobContainer.GetBlobClient(Path.GetFileName(filePath));
-            await blobClient.DeleteAsync();
-        }
-        catch (FileNotFoundException error)
-        {
-            throw error;
-        }
+        var blobContainer = client.GetBlobContainerClient(containerName);
+        var blobClient = blobContainer.GetBlobClient(Path.GetFileName(filePath));
+        await blobClient.DeleteAsync();
     }
     
     public async Task<string> UploadPdfAsync(string containerName, IFormFile pdfFile, string userSub)
