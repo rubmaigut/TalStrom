@@ -10,6 +10,7 @@ import * as ReactIcons from '@/lib/reactIconComponents';
 import techIcons from '@/lib/reactIconComponents/reactIcons';
 import VideoPlayer from '../overlays/video-player';
 import { fetchAllOfMediaType } from '@/lib/data-video';
+import { capitalizeFirstLetter } from '@/lib/utils/capitaliseString';
 
 type FindMatchProps = {
   sub: string;
@@ -138,7 +139,7 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
                   value={elm.label}
                   onClick={toggleFilter}
                 >
-                  {getIconForTechnology(elm.label, 30)}
+                  {capitalizeFirstLetter(elm.label)}
                 </button>
               );
             })}
@@ -177,7 +178,7 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
                 <div className="flex m-0.5">
                   {elm.technologies.split(',').map((tech, index) => (
                     <div key={index} className="mr-2">
-                      {/* {getIconForTechnology(tech, 15)} */}
+                      {getIconForTechnology(tech, 15)}
                     </div>
                   ))}
                 </div>
