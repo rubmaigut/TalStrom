@@ -16,7 +16,7 @@ export default function Header() {
           <span className="text-primary-text text-lg my-8">
             Sing in and find the best talent for your company.
           </span>
-        <LoginButton classNameButton="px-2" />
+        <LoginButton/>
         </div>
         <div className="w-full md:w-3/6 h-full my-8">
           <Image

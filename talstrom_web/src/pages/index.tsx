@@ -6,6 +6,8 @@ import Footer from "@/ui/footer";
 import Header from "@/ui/header";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
+import Image from "next/image";
+import LoginButton from "@/ui/atoms/profile/login-button";
 
 export default function Page() {
   const { data: session } = useSession();
@@ -44,11 +46,22 @@ export default function Page() {
             description="Connect with people who can help, with our app you can meet recruiters or share with the community that you are looking for new opportunities."
             photo="opportunities.png"
           />
+          <div className="w-full h-full">
+          <Image
+          src="/workers.png"
+          alt="remote home animation"
+          className="w-full h-full object-contain"
+          width={900}
+          height={200}
+          priority
+          />
+          </div>
           <CTAComponent
             className={"bg-primary-bg md:flex-row-reverse my-4"}
             title="another Test here"
             description="Connect with people who can help, with our app you can meet recruiters or share with the community that you are looking for new opportunities."
           />
+           <span className="w-full flex justify-end items-end px-2 md:px-6"><LoginButton classNameButton="flex w-20"  title=""/></span>
           <Footer/>
         </div>
       ) : (
