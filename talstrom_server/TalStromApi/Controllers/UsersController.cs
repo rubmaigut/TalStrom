@@ -174,6 +174,18 @@ namespace TalStromApi.Controllers
             await _context.SaveChangesAsync();
             return Ok(user);
         }
+        
+        [HttpPatch("{sub}/updatePicture")]
+        public async Task<IActionResult> UpdateUserPicture(string sub, string url)
+        {
+            var user = await _context.User.FirstOrDefaultAsync(x => x.Sub == sub);
+
+            if (user is null) return NotFound();
+
+            user.Picture = url;
+            await _context.SaveChangesAsync();
+            return Ok(user);
+        }
 
         [HttpPatch("editProfile/{sub}")]
         public async Task<ActionResult<User>> EditUserProfile(string sub, EditUserDTO editUserDto)

@@ -8,7 +8,7 @@ const nextConfig = {
   },
   reactStrictMode: false,
   images: {
-    domains: ['lh3.googleusercontent.com'],
+    domains: ['lh3.googleusercontent.com', 'talstromblobstorage.blob.core.windows.net'],
   },
   publicRuntimeConfig: {
     apiBaseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,

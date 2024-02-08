@@ -94,7 +94,6 @@ export const UserProfilePage = ({
     return <LoginMessage displayRole={"developer"} userSub={userInfo?.sub} />;
   }
 
-  console.log("hello")
   return (
     <div>
       <UserCard user={userInfo} session={session} updateUser={updateContentFromCard} />
