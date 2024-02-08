@@ -11,7 +11,7 @@ import { Session } from "next-auth";
 interface UserCardProps {
   user: UserCardForUser;
   session: Session | null;
-  updateUser: (updatedUser: UserCardForUser) => void
+  updateUser: (updatedUser: UserCardForUser) => void;
 }
 const UserCard = ({ user, session, updateUser }: UserCardProps) => {
   const [selectedTechnologies, _setSelectedTechnologies] = useState<string[]>(
@@ -41,62 +41,64 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
   };
 
   return (
-    <div className="relative max-w-2xl mx-auto my-3">
-      <div className="flex justify-center max-w-2xl items-center text-sm">
-        <div className="bg-white w-full p-6">
-          {session && session?.user?.sub === user.sub && (
-            <i
-              className={`flex  justify-end h-2 p-1 text-gray-500 rounded-full cursor-pointer ${
-                isEditMode ? "text-gray-500" : "text-green-500"
-              }`}
-              onClick={() => toggleEditMode()}
-            >
-              <PencilIcon className="w-6 h-6" />
-            </i>
-          )}
-          <div className="flex flex-col xl:flex-row items-center xl:space-x-6 mb-4">
-            <div className="flex flex-col justify-center items-center">
-              <dd className="my-2 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
-                <Image
-                  src={`${user.picture}`}
-                  alt={`Photo profile${user.name}`}
-                  className="rounded-full bg-black"
-                  width={80}
-                  height={80}
-                  priority
-                />
-              </dd>
-            </div>
-            <div>
-              <p>{user.name ? user.name : "Not Set"}</p>
-              <p className="text-xs">
-                {user.userName ? user.userName : "Not Set"}
-              </p>
-              <p className="text-xs text-gray-400 italic mb-1">
-                {user.position ? user.position : "No position set"}
-              </p>
-              <p className="hidden">
-                Technologies: {selectedTechnologies.join(", ")}
-              </p>
-
-              <div className="grid items-center grid-cols-6 2xl:grid-cols-10">
-                {user.technologies.length ? (
-                  user.technologies.split(",").map((tech, index) => (
-                    <div key={index} className="mx-0.2">
-                      {getIconForTechnology(tech, 20)}
-                    </div>
-                  ))
-                ) : (
-                  <p className="col-span-3 text-xs text-gray-400">
-                    No technologies set
-                  </p>
-                )}
+    <div className="max-w-7xl mx-auto my-6 bg-white px-6 rounded-lg shadow">
+      <div className="flex items-center space-x-4">
+        <div className="shrink-0">
+          <Image
+            src={`${user.picture}`}
+            alt={`Photo profile${user.name}`}
+            className="rounded-full"
+            width={90}
+            height={90}
+            priority
+          />
+        </div>
+        <div className="flex-grow">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-semibold">
+              {user.name ? user.name : "Username"}
+            </h2>
+            {session && session?.user?.sub === user.sub && (
+              <button
+                className={`className="px-4 py-2 text-sm font-semibold text-gray-800 border rounded hover:bg-gray-100 ${
+                  isEditMode ? "text-gray-500" : "text-green-500"
+                }`}
+                onClick={() => toggleEditMode()}
+              >
+                <PencilIcon className="w-6 h-6" />
+              </button>
+            )}
+          </div>
+          <p className="text-sm text-gray-600">
+            {user.position ? user.position : "No position set"}
+          </p>
+          <p className="text-sm">{user.bio ? user.bio : "No bio set"}</p>
+        </div>
+        <div className="max-w-2xl mx-auto my-3">
+          {isEditMode && (
+            <div className="absolute top-0 right-0 bottom-0 left-0 bg-black bg-opacity-50 flex justify-center items-center">
+              <div className="bg-white p-6 rounded-lg shadow-lg z-10">
+              <EditProfile
+                user={user}
+                toggleEditMode={toggleEditMode}
+                updateUser={updateUser}
+              />
               </div>
             </div>
-          </div>
-
-          {isEditMode && (
-            <EditProfile user={user} toggleEditMode={toggleEditMode} updateUser={updateUser} />
+          )}
+        </div>
+      </div>
+      <div className="mt-4">
+        <strong>Technologies:</strong>
+        <div className="flex flex-wrap items-center mt-2">
+          {user.technologies.length ? (
+            user.technologies.split(",").map((tech, index) => (
+              <div key={index} className="m-1">
+                {getIconForTechnology(tech, 24)}
+              </div>
+            ))
+          ) : (
+            <p className="text-sm text-gray-400">No technologies set</p>
           )}
         </div>
       </div>

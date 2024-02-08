@@ -63,7 +63,7 @@ const EditProfile = ({ user, toggleEditMode, updateUser }: EditProfileProps) => 
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="relative bg-white rounded-lg shadow-lg p-6 space-y-4 max-w-2xl mx-auto">
       <div className="mb-4">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
