@@ -23,9 +23,9 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
   const [usersArray, setUsersArray] = useState<UserCardForUser[]>([]);
   const [suggestions, setSuggestions] = useState<UserCardForUser[]>([]);
 
-  const initial: FilterItem[] = filterOptions.map((x) => {
+  const initial: FilterItem[] = filterOptions.map((technology) => {
     return {
-      label: x,
+      label: technology,
       status: true,
     };
   });
@@ -62,7 +62,6 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
     const targetIndex = filterArray.findIndex((s) => s.label === target.value!);
     const newArray = [...filterArray];
     newArray[targetIndex].status = !newArray[targetIndex].status;
-    console.log(target.value);
 
     setFilterArray(newArray);
   };

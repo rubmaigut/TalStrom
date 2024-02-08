@@ -28,12 +28,11 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, session }) => {
   const handleAddPost = async (title: string, content: string, postType: string) => {
     try {
       if (content.trim() !== '') {
-        const response = await addNewPostHandler(title, content, sub, postType);
-        console.log('Add Post Response:', response);
+        await addNewPostHandler(title, content, sub, postType);
         setAddPostMode(false);
       }
     } catch (error) {
-      console.error('Failed to add new post', error);
+      throw new Error(`Failed to add new post': ${error}`);
     }
   };
 

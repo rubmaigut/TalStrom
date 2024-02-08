@@ -32,7 +32,6 @@ const EditProfile = ({ user, toggleEditMode, updateUser }: EditProfileProps) => 
     event.preventDefault();
     try {
       await updateUserProfile(user.sub, userProfile);
-      console.log("Profile updated successfully!");
       // updateUser({
       //   ...user,
       //   userName: userProfile.userName || user.userName,
@@ -42,8 +41,7 @@ const EditProfile = ({ user, toggleEditMode, updateUser }: EditProfileProps) => 
       // })
       toggleEditMode();
     } catch (error) {
-      console.error("Failed to update profile", error);
-      alert("Failed to update profile");
+      throw new Error(`Failed to update profile: ${error}`);
     }
   };
 
