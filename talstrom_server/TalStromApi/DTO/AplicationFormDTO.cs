@@ -1,6 +1,6 @@
 namespace TalStromApi.DTO;
 
-public class ApplicationFormDto
+public record ApplicationFormDto
 {
     public IFormFile PdfFile { get; set; }
     public string UserSub { get; set; }

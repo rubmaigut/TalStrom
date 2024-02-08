@@ -1,6 +1,6 @@
 namespace TalStromApi.DTO;
 
-public class EditUserDTO
+public record EditUserDTO
 {
     public string UserName { get; set; }
     public string Technologies { get; set; }
