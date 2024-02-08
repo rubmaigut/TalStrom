@@ -1,15 +1,21 @@
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
+using Microsoft.Build.Framework;
 
 namespace TalStromApi.Models;
 
 public class User
 {
     public int Id { get; set; }
+    [Required]
     public string Name { get; set; }
     public string UserName { get; set; } = "";
+    [Required]
+
     public string Email { get; set; }
+    [Required]
+
     public string Picture { get; set; }
+    [Required]
+
     public string Sub { get; set; }
     public string Role { get; set; } = "pending";
     public string Technologies { get; set; } = "";
@@ -26,9 +32,4 @@ public class User
     public List<string>? Followers { get; set; }
     public List<string>? Following { get; set; }
     public List<Posts>? Posts { get; set; }
-
-    // public User()
-    // {
-    //     UserName = Regex.Replace(Name.ToLower(), @"s", "");
-    // }
 }
