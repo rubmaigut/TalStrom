@@ -16,10 +16,10 @@ const CTAComponent: React.FC<CTAProps> = ({
 }) => {
   return (
     <div
-      className={` ${className} p-4 md:flex rounded-lg shadow-md items-center`}
+      className={` ${className} w-full h-full p-4 lg:px-8 lg:py-12 md:flex rounded-lg shadow-md justify-center items-center`}
     >
       {photo && (
-        <div className="md:flex-shrink-0">
+        <div className="flex justify-center md:justify-normal md:flex-shrink-0 px-6">
           <Image
             src={`/${photo}`}
             alt={`${photo} photo`}

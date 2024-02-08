@@ -4,8 +4,8 @@ import Footer from "@/ui/footer";
 
 export default function Page() {
   return (
-    <section className="max-w-7xl w-full h-full flex grow flex-col md:flex-row md:justify-center mt-4">
-     <div className="flex flex-col w-full justify-center items-center gap-6 rounded-lg px-6 py-2">
+    <section className="max-w-7xl w-full h-full flex grow flex-col md:justify-center mt-4 md:px-8">
+     <div className="flex flex-col w-full justify-center items-center gap-6 rounded-lg px-6 py-2 ">
       <TalstromLogo />
       <h1 className="text-3xl md:text-5xl text-secondary-text my-4">
         Final project planned, designed and created by:

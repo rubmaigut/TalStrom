@@ -4,21 +4,21 @@ import Image from "next/image";
 
 export default function Header() {
   return (
-    <header className="max-w-7xl w-full h-full flex grow flex-col md:flex-row md:justify-center mt-4">
-      <div className="flex flex-col w-full justify-center items-center gap-6 rounded-lg px-6 py-2">
-        <div className="mt-2">
+    <header className="max-w-7xl w-full h-full flex grow flex-col lg:justify-center lg:items-center mt-4 px-6 md:px-8">
+        <div className="w-full flex justify-center mt-2">
           <TalstromLogo />
         </div>
-        <div className="flex flex-col justify-center items-center my-8">
+      <div className="flex flex-col md:flex-row w-full justify-center items-center gap-6 rounded-lg">
+        <div className="flex flex-col md:flex-col md:w-3/6 justify-center items-center md:items-start my-8">
           <h1 className="text-3xl md:text-5xl text-secondary-text">
             Welcome to your professional community
           </h1>
-          <span className="text-primary-text text-lg mt-4">
+          <span className="text-primary-text text-lg my-8">
             Sing in and find the best talent for your company.
           </span>
-        </div>
         <LoginButton classNameButton="px-2" />
-        <div className="w-full h-full mt-8">
+        </div>
+        <div className="w-full md:w-3/6 h-full my-8">
           <Image
             src="/connection.png"
             alt="remote home animation"

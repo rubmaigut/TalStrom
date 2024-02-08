@@ -5,7 +5,7 @@ export default function TalstromLogo() {
       <Image
         src="/talstrom.png"
         alt="talstrom logo"
-        className="w-32"
+        className="w-32 md:w-48"
         width={100}
         height={100}
         priority

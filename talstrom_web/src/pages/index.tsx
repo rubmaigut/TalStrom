@@ -36,15 +36,16 @@ export default function Page() {
   return (
     <>
       {!session ? (
-        <>
+        <div className="w-full flex flex-col justify-center items-center">
           <Header />
           <CTAComponent
-            className={"bg-secondary-bg"}
+            className={"bg-secondary-bg md:flex-row-reverse"}
             title="Find the right job or internship for you"
             description="Connect with people who can help, with our app you can meet recruiters or share with the community that you are looking for new opportunities."
+            photo="opportunities.png"
           />
           <Footer/>
-        </>
+        </div>
       ) : (
         <div className="mt-4 w-full flex grow flex-col gap-4 md:items-center 2xl:h-32">
           <div className="flex flex-col justify-center gap-6 mt-8 lg:mt-28 rounded-lg bg-gray-50 px-6 py-10 w-full md:px-16">
