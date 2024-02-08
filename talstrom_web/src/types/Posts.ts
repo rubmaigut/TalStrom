@@ -1,13 +1,14 @@
 type Post = {
   id: number;
   userSub: string;
-  createdDate: string;
+  createdAt?: string;
   postType: string;
   author: string;
   title: string;
   content: string;
   recruiterName?: string;
   recruiterEmail?: string;
+  isActive?: boolean
 };
 
 type PostOverlayProps = {
@@ -32,4 +33,6 @@ type JobData = {
   content: string;
   recruiterName: string;
   recruiterEmail: string;
+  isActive?: boolean
+  createdAt: string
 };

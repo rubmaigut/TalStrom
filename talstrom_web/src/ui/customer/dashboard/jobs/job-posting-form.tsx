@@ -1,14 +1,18 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent } from "react";
 
 const JobPostingForm: React.FC<JobPostingFormProps> = ({ onSubmit }) => {
   const [jobData, setJobData] = useState<JobData>({
-    title: '',
-    content: '',
-    recruiterName: '',
-    recruiterEmail: '',
+    title: "",
+    content: "",
+    recruiterName: "",
+    recruiterEmail: "",
+    createdAt: new Date().toDateString(),
+    isActive: true,
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setJobData((prev) => ({ ...prev, [name]: value }));
   };
@@ -17,17 +21,24 @@ const JobPostingForm: React.FC<JobPostingFormProps> = ({ onSubmit }) => {
     e.preventDefault();
     onSubmit(jobData);
     setJobData({
-      title: '',
-      content: '',
-      recruiterName: '',
-      recruiterEmail: '',
+      title: "",
+      content: "",
+      recruiterName: "",
+      recruiterEmail: "",
+      createdAt: new Date().toDateString(),
+      isActive: true,
     });
   };
 
   return (
     <form onSubmit={handleSubmit} className="p-4">
       <div className="mb-4">
-        <label htmlFor="title" className="block text-sm font-medium text-gray-700">Job Title</label>
+        <label
+          htmlFor="title"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Job Title
+        </label>
         <input
           type="text"
           name="title"
@@ -40,7 +51,31 @@ const JobPostingForm: React.FC<JobPostingFormProps> = ({ onSubmit }) => {
       </div>
 
       <div className="mb-4">
-        <label htmlFor="content" className="block text-sm font-medium text-gray-700">Job Description</label>
+        <label
+          htmlFor="isActive"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Active
+        </label>
+        <input
+          type="checkbox"
+          name="isActive"
+          id="isActive"
+          checked={jobData.isActive}
+          onChange={(e) =>
+            setJobData((prev) => ({ ...prev, isActive: e.target.checked }))
+          }
+          className="mt-1 block"
+        />
+      </div>
+
+      <div className="mb-4">
+        <label
+          htmlFor="content"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Job Description
+        </label>
         <textarea
           name="content"
           id="content"
@@ -53,7 +88,12 @@ const JobPostingForm: React.FC<JobPostingFormProps> = ({ onSubmit }) => {
       </div>
 
       <div className="mb-4">
-        <label htmlFor="recruiterName" className="block text-sm font-medium text-gray-700">Recruiter Name</label>
+        <label
+          htmlFor="recruiterName"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Recruiter Name
+        </label>
         <input
           type="text"
           name="recruiterName"
@@ -66,7 +106,12 @@ const JobPostingForm: React.FC<JobPostingFormProps> = ({ onSubmit }) => {
       </div>
 
       <div className="mb-4">
-        <label htmlFor="recruiterEmail" className="block text-sm font-medium text-gray-700">Recruiter Email</label>
+        <label
+          htmlFor="recruiterEmail"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Recruiter Email
+        </label>
         <input
           type="email"
           name="recruiterEmail"

@@ -3,7 +3,6 @@ import { deleteUser, fetchUsersByRole, updateUserRole } from "@/lib/data-user";
 import { useEffect, useState } from "react";
 import { User } from "@/types/IUser";
 import Image from "next/image";
-import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import UserRoleEditor from "@/ui/dashboard/actions-button";
 import Select from "@/ui/atoms/general ui/select";
 
@@ -131,7 +130,6 @@ export default function Page() {
                             <span className="relative">Suspended</span>
                           </span>
                         )}
-                        <p className="text-gray-900 whitespace-no-wrap"></p>
                       </td>
                       <td>
                         <div className="w full flex justify-center items-center">

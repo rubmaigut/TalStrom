@@ -43,7 +43,7 @@ const PostOverlay: React.FC<PostOverlayProps> = ({
           {post.author && post.author !== 'string' && (
             <p className="text-gray-600">{post.author}</p>
           )}
-          <p className="text-gray-600">{post.createdDate}</p>
+          <p className="text-gray-600">{post.createdAt}</p>
         </div>
         {isEditMode ? (
           <div className="mt-4 flex items-center space-x-2">

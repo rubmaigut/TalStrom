@@ -8,6 +8,7 @@ export async function addNewPostHandler(
   postType: string,
   recruiterName?: string,
   recruiterEmail?: string,
+  isActive?: boolean
 ): Promise<Post> {
   const url = `${API_BASE_URL}/Posts`;
 
@@ -15,22 +16,28 @@ export async function addNewPostHandler(
     title: title,
     content: content,
     userSub: userSub,
+    createdAt: new Date().toLocaleDateString()
   };
 
   if (postType === "JobPost") {
     postBody = {
       ...postBody,
       postType: "JobPost",
+      isActive: true,
       recruiterName: recruiterName,
       recruiterEmail: recruiterEmail,
     };
+    console.log("Submitting post with body:", postBody);
+
   } else {
     postBody = {
       ...postBody,
       postType: postType,
+      isActive: isActive,
       recruiterName: recruiterName,
       recruiterEmail: recruiterEmail,
     };
+    console.log("Submitting post with body:", postBody);
   }
 
   try {
@@ -41,6 +48,10 @@ export async function addNewPostHandler(
       },
        body: JSON.stringify(postBody),
     });
+
+    if(response.ok){
+      console.log("Submitting post with body:", postBody);
+    }
 
     if (!response.ok) {
       throw new Error(
