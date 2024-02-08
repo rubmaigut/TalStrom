@@ -5,11 +5,6 @@ type TechIcon = {
   };
 
   const techIcons: readonly TechIcon[] = [
-    {
-      language: "",
-      reactIcon: "Choose your Programming Languages",
-      color: "pink",
-    },
     { language: "python", reactIcon: "SiPython", color: "#30cf1b" },
     { language: "javascript", reactIcon: "SiJavascript", color: "#f5d442" },
     { language: "java", reactIcon: "FaJava", color: "pink" },
