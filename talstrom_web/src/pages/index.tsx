@@ -36,7 +36,7 @@ export default function Page() {
   return (
     <>
       {!session ? (
-        <div className="w-full h-screen flex flex-col justify-center items-center">
+        <div className="w-full h-full flex flex-col justify-center items-center">
           <Header />
           <CTAComponent
             className={"bg-secondary-bg md:flex-row-reverse"}
