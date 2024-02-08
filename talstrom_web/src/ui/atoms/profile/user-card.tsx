@@ -41,7 +41,7 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto my-6 bg-white p-6 rounded-lg shadow">
+    <div className="max-w-2xl mx-auto my-6 bg- p-6 rounded-lg shadow">
       <div className="flex items-center space-x-4">
         <div className="shrink-0">
           <Image

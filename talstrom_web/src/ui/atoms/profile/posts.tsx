@@ -46,6 +46,7 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, session }) => {
           editedContent,
           selectedPost.postType,
           sub,
+          selectedPost.recruiterName
         );
 
         setEditMode(false);
@@ -84,16 +85,19 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, session }) => {
   };
 
   return (
-    <div className="w-[calc(100%-50px)] mx-auto px-4">
-      <button onClick={handleAddPostClick}>Add Post</button>
+    <div className="w-full py-4">
+      <div className='flex '>
+      <h2 className="text-2xl font-bold text-gray-600 pr-8">Post</h2>
+      <button className="w-6 rounded-full bg-teal-500 p-2 text-white float-left mb-3" onClick={handleAddPostClick}> + </button>
+      </div>
 
       {posts.map((post) => (
         <div
           key={post.id}
-          className={`p-6 border rounded-md mb-4 ${
+          className={`w-full p-4 border rounded-md ${
             post.postType === 'JobPost'
-              ? 'bg-blue-100'
-              : post.postType === 'Type2'
+              ? 'bg-teal-100'
+              : post.postType === 'Thoughts'
               ? 'bg-green-100'
               : 'bg-white-100'
           }`}
@@ -103,9 +107,9 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, session }) => {
           <p>{post.content}</p>
           <div className="mt-4 flex items-center justify-between">
             {post.author && post.author !== 'string' && (
-              <p className="text-gray-600">{post.author}</p>
+              <p className="text-gray-600 text-xs">{post.author}</p>
             )}
-            <p className="text-gray-600">{post.createdAt}</p>
+            <p className="text-gray-600 text-xs">{post.createdAt}</p>
           </div>
         </div>
       ))}

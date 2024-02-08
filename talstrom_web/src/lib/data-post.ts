@@ -34,8 +34,8 @@ export async function addNewPostHandler(
       ...postBody,
       postType: postType,
       jobActive: false,
-      recruiterName: recruiterName,
-      recruiterEmail: recruiterEmail,
+      recruiterName: "",
+      recruiterEmail: "",
     };
     console.log("Submitting post with body:", postBody);
   }
@@ -72,6 +72,7 @@ export async function updateUserPost(
   content: string,
   postType: string,
   userSub: string,
+  recruiterName?:string | ""
 ): Promise<void> {
   const url = `${API_BASE_URL}/Posts/${postId}`;
   try {
@@ -85,6 +86,7 @@ export async function updateUserPost(
         title: title,
         content: content,
         userSub: userSub,
+        recruiterName: recruiterName
       }),
     });
 

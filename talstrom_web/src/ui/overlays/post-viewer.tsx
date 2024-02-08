@@ -41,20 +41,20 @@ const PostOverlay: React.FC<PostOverlayProps> = ({
         )}
         <div className="mt-4 flex items-center justify-between">
           {post.author && post.author !== 'string' && (
-            <p className="text-gray-600">{post.author}</p>
+            <p className="text-gray-600 text-xs">{post.author}</p>
           )}
-          <p className="text-gray-600">{post.createdAt}</p>
+          <p className="text-gray-600 text-xs">{post.createdAt}</p>
         </div>
         {isEditMode ? (
           <div className="mt-4 flex items-center space-x-2">
             <button
-              className="px-4 py-2 text-white bg-green-500 rounded-md"
+              className="px-4 py-2 text-white bg-teal-500 rounded-md"
               onClick={onSaveClick}
             >
               Save
             </button>
             <button
-              className="px-4 py-2 text-white bg-red-500 rounded-md"
+              className="px-4 py-2 text-white bg-pink-500 rounded-md"
               onClick={onCancelClick}
             >
               Cancel
@@ -69,7 +69,7 @@ const PostOverlay: React.FC<PostOverlayProps> = ({
         ) : (
           <div className="mt-4 flex items-center space-x-2">
             <button
-              className="px-4 py-2 text-white bg-blue-500 rounded-md"
+              className="px-4 py-2 text-white bg-teal-500 rounded-md"
               onClick={onEditClick}
             >
               Edit

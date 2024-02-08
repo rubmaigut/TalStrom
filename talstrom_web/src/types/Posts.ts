@@ -6,8 +6,8 @@ type Post = {
   author: string;
   title: string;
   content: string;
-  recruiterName?: string;
-  recruiterEmail?: string;
+  recruiterName?: string | "";
+  recruiterEmail?: string | "";
   jobActive?: boolean
 };
 
