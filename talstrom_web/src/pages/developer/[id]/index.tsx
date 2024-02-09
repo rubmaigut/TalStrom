@@ -115,21 +115,30 @@ export const UserProfilePage = ({
       ) : (
         <>
           {userInfo && userInfo?.role === "developer" ? (
-            <section className="w-full bg-gray-100">
-              <NavLinks onLinkClick={handleLinkClick} />
-              <div className="pt-16">
-                {userInfo && userInfo.role === "developer" && (
-                  <UserCard
-                    user={userInfo}
-                    session={session}
-                    updateUser={updateContentFromCard}
-                  />
-                )}
-                <div className="flex">
-                  <aside className="w-1/4"></aside>
+            <>
+              <section className="w-full mt-4">
+                <header className="fixed top-0 left-0 right-0 w-full z-50 bg-gray-100 py-1 lg:py-0">
+                  <NavLinks onLinkClick={handleLinkClick} />
+                </header>
+                <div className="pt-10 lg:pt-14">
+                  {userInfo && userInfo.role === "developer" && (
+                    <UserCard
+                      user={userInfo}
+                      session={session}
+                      updateUser={updateContentFromCard}
+                    />
+                  )}
+                  <div className="flex">
+                    <aside className="w-1/4"></aside>
+                  </div>
                 </div>
-              </div>
-            </section>
+                <div className="container relative top-64 mx-auto bg-red-500">
+                  <div className="h-screen overflow-auto mx-auto my-3 z-0">
+                    {pageComponent}
+                  </div>
+                </div>
+              </section>
+            </>
           ) : (
             <div className="flex flex-col w-full h-full justify-center items-center mt-12 px-8">
               <span className=" break-words text-center text-xl font-bold text-teal-600 lg:text-2xl my-8 ">
