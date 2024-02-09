@@ -14,9 +14,9 @@ export default function Page() {
           Team Rest, a skilled group of developers who collaborated efficiently
           on a networking platform project. Their skills in .Net, NextJS and
           cloud services resulted in a robust and user-friendly solution to the
-          networking between client and developer. With a focus on consultant's
+          networking between client and developer. With a focus on consultants
           portfolio-building. this app allows agencies to showcase their
-          consultants' progression and abilities, allowing the clients to stay
+          consultants progression and abilities, allowing the clients to stay
           updated in an efficient manner.
         </span>
       </div>
