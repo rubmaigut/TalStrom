@@ -73,7 +73,7 @@ const EditProfile = ({ user, toggleEditMode, updateUser, selectedTechnologies }:
         >
           Username
         </label>
-        <textarea
+        <input type="text"
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="userName"
           name="userName"
@@ -91,7 +91,7 @@ const EditProfile = ({ user, toggleEditMode, updateUser, selectedTechnologies }:
           Bio
         </label>
         <textarea
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline min-h-md"
+          className="shadow appearance-none border rounded w-full h-[200px] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="bio"
           name="bio"
           value={userProfile.bio}
