@@ -132,8 +132,8 @@ export const UserProfilePage = ({
                     <aside className="w-1/4"></aside>
                   </div>
                 </div>
-                <div className="container relative top-64 mx-auto bg-red-500">
-                  <div className="h-screen overflow-auto mx-auto my-3 z-0">
+                <div className="container relative top-64 mx-auto bg-white">
+                  <div className="h-screen overflow-auto mx-auto my-3 z-0 px-6">
                     {pageComponent}
                   </div>
                 </div>

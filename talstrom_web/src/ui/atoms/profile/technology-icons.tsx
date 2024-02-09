@@ -47,11 +47,11 @@ const TechnologyIcons: FC<TechnologyProps> = ({ technologies }) => {
           <p className="text-sm text-gray-400">No technologies set</p>
         )}
       </div>
-      {techArray.length > 6 && (
-        <div className="flex items-center justify-center mt-2 cursor-pointer" onClick={handleShowMore}>
-          <span className="text-sm text-teal-500">{showAll ? 'Show Less' : 'Show More'}</span>
+      {techArray.length > 7 && (
+        <div className="flex items-center justify-center mt-1 cursor-pointer" onClick={handleShowMore}>
+          <span className="text-sm text-teal-500 p-2">{showAll ? 'Show Less' : 'Show More'}</span>
           {showAll ? (
-            <ArrowUpIcon className="w-4 h-4 text-teal-500 ml-1" />
+            <ArrowUpIcon className="w-4 h-4 z-1 text-teal-500 ml-1"/>
           ) : (
             <ArrowDownIcon className="w-4 h-4 text-teal-500 ml-1" />
           )}
