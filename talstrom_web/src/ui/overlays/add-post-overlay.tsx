@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import session from "@/pages/api/endpoints/session";
 import { useSession } from "next-auth/react";
 
 interface AddPostOverlayProps {
