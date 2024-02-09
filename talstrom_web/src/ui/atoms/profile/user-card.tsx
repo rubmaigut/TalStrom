@@ -1,12 +1,11 @@
-import React, { ReactNode, useState } from "react";
+import React, { useState } from "react";
 import { UserCardForUser } from "@/types/IUserCardProps";
 import EditProfile from "./edit-profile";
 import Image from "next/image";
-import techIcons from "@/lib/reactIconComponents/reactIcons";
-import * as ReactIcons from "@/lib/reactIconComponents";
-import { IconType } from "react-icons";
+
 import { PencilIcon } from "@heroicons/react/24/outline";
 import { Session } from "next-auth";
+import TechnologyIcons from "./technology-icons";
 
 interface UserCardProps {
   user: UserCardForUser;
@@ -14,32 +13,11 @@ interface UserCardProps {
   updateUser: (updatedUser: UserCardForUser) => void;
 }
 const UserCard = ({ user, session, updateUser }: UserCardProps) => {
-  const [selectedTechnologies, _setSelectedTechnologies] = useState<string[]>(
-    []
-  );
+  const [selectedTechnologies, setSelectedTechnologies] = useState<string[]>(user.technologies.split(","));
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
   const toggleEditMode = () => {
     setIsEditMode(!isEditMode);
-  };
-
-  const getIconForTechnology = (technology: string, scaling: number) => {
-    const i = techIcons.findIndex((x) => x.language === technology);
-    const iconComponent = (ReactIcons as any)[`${techIcons[i]?.reactIcon}`];
-
-    if (iconComponent && typeof iconComponent === "function") {
-      return (
-        <div className="flex flex-col items-center">
-          {React.createElement(iconComponent as React.ElementType, {
-            size: scaling,
-            color: techIcons[i].color,
-          })}
-          <span className="text-xs mt-1">{technology}</span>
-        </div>
-      );
-    }
-
-    return <span>Icon not found for {technology}</span>;
   };
 
   return (
@@ -78,22 +56,19 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
                 user={user}
                 toggleEditMode={toggleEditMode}
                 updateUser={updateUser}
+                selectedTechnologies={user.technologies.split(",")}
               />
             </div>
           </div>
         )}
 
-        <h3 className="text-md font-semibold text-center text-primary-text w-full">Technology Stack</h3>
+        <h3 className="text-md font-semibold text-center text-primary-text w-full">
+          Technology Stack
+        </h3>
         <div className="flex flex-wrap items-center mt-2">
-          {user.technologies.length ? (
-            user.technologies.split(",").map((tech, index) => (
-              <div key={index} className="m-1 text-center">
-                {getIconForTechnology(tech, 24)}
-              </div>
-            ))
-          ) : (
-            <p className="text-sm text-gray-400">No technologies set</p>
-          )}
+          <TechnologyIcons
+            technologies={user.technologies}
+          />
         </div>
       </div>
     </div>
