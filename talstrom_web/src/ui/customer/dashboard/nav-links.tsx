@@ -24,7 +24,7 @@ export default function CustomerNavLinks({ id } :InferGetServerSidePropsType<typ
   const pathname = usePathname();
   const { data: session } = useSession();
   const { userContextG } = useUser()
-  const customerId = session?.user?.sub || id
+  const customerId = session?.user?.sub
 
   const links = [
     { name: "Home", href: `/customer/${customerId}`, icon: HomeIcon },
