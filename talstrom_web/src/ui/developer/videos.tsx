@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { useState } from "react";
 import VideoItem from "../atoms/video-item";
 import UploadContainer from "../overlays/upload-media";
 import VideoPlayer from "../overlays/video-player";
@@ -62,7 +62,7 @@ const VideosGrid = ({ user, sub, loadUser, session }: VideosGridProps) => {
   };
 
   return (
-    <article className=" mt-10 flex flex-col items-center  bg-gray-50 rounded-t-lg border-2 border-b-2 py-4 h-screen">
+    <article className="mt-10 flex flex-col items-center bg-gray-50 rounded-t-lg border-2 border-b-2 py-4 h-screen">
       {uploadVisibility && (
         <UploadContainer
           closeWindow={toggleUploadOverlay}
@@ -82,7 +82,7 @@ const VideosGrid = ({ user, sub, loadUser, session }: VideosGridProps) => {
       {session && session?.user?.sub === user.sub && (
       <MediaDeleteButtons toggleUploadOverlay={toggleUploadOverlay} toggleDeleteable={toggleDeleteable} deleteMode />
       )}
-      <div className="md:w-[600px] lg:w-[700px] lg: mt-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl-grid-cols-4  gap-1 px-2 lg:px-4">
+      <div className="lg:mt-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl-grid-cols-4  gap-1 px-2 lg:px-4">
         {currentVideos?.map((elm, i) => {
           return (
             <VideoItem

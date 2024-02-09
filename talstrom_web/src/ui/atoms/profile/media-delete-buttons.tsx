@@ -17,14 +17,14 @@ const MediaDeleteButtons = ({ toggleUploadOverlay, deleteMode, toggleDeleteable 
           className="m-1 flex justify-center items-start p-3 rounded-md shadow-sm bg-slate-200 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none"
           onClick={() => toggleUploadOverlay(false)}
         >
-         Add Video <FaPlus size={20} className='pl-2'/>
+         Add File <FaPlus size={20} className='pl-2'/>
         </button>
         <button
           type="button"
           className={`m-1 flex justify-center items-start p-3 rounded-md shadow-sm ${deleteMode ? "bg-gray-200" : "bg-red-200"} text-sm font-medium hover:bg-red-300 md:flex-none`}
           onClick={toggleDeleteable}
         >
-          Delete Video <IoTrashBinSharp size={20} className='pl-2'/>
+          Delete File <IoTrashBinSharp size={20} className='pl-2'/>
         </button>
       </div>
   );
