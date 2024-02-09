@@ -14,7 +14,7 @@ export default function Header() {
             Welcome to your professional community
           </h1>
           <span className="text-primary-text text-lg my-8">
-            Sing in and find the best talent for your company.
+            Sign in and find the best talent for your company.
           </span>
         <LoginButton/>
         </div>
