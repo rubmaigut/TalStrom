@@ -91,14 +91,14 @@ export const UserProfilePage = ({
         <p> Redirecting..</p>
       ) : (
         <>
-          {userInfo && userInfo?.role === "developer" ? (
+          {userInfo && userInfo?.role === "customer" ? (
             <>
               <section className="w-full mt-4">
                 <header className="fixed top-0 left-0 right-0 w-full z-50 bg-gray-100 py-1 lg:py-0">
                   <NavLinks onLinkClick={handleLinkClick} />
                 </header>
                 <div className="pt-10 lg:pt-14">
-                  {userInfo && userInfo.role === "developer" && (
+                  {userInfo && userInfo.role === "customer" && (
                     <UserCard
                       user={userInfo}
                       session={session}
