@@ -5,7 +5,6 @@ import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { LoginMessage } from "./login-message";
 import LoadingMessage from "./loading";
-import { MailImage } from "../profile/email-image";
 
 const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
   const [loading, setLoading] = useState(true);
