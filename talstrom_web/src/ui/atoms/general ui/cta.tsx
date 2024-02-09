@@ -24,17 +24,17 @@ const CTAComponent: React.FC<CTAProps> = ({
             src={`/${photo}`}
             alt={`${photo} photo`}
             className="rounded-full"
-            width={80}
-            height={80}
+            width={100}
+            height={100}
             priority
           />
         </div>
       )}
       <div className="mt-4 md:mt-0 md:ml-6 text-center md:text-left">
-        <h2 className="uppercase text-xl text-primary-text font-semibold mb-4">
+        <h2 className="uppercase text-xl md:text-3xl text-primary-text font-semibold mb-4">
           {title}
         </h2>
-        <span className="mt-2 text-gray-500">{description}</span>
+        <span className="mt-2 text-gray-500 text-2xl">{description}</span>
       </div>
     </div>
   );

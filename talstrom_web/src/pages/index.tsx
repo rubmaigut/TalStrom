@@ -39,28 +39,29 @@ export default function Page() {
   return (
     <>
       {!session ? (
-        <div className="w-full h-full flex flex-col justify-center items-center">
+        <div className="container mx-auto w-full h-full flex flex-col justify-center items-center">
           <Header />
           <CTAComponent
             className={"bg-secondary-bg md:flex-row-reverse"}
-            title="Find the right job or internship for you"
-            description="Connect with people who can help, with our app you can meet recruiters or share with the community that you are looking for new opportunities."
+            title="Elevate Your Talent Experience with Tal-Ström!🚀 "
+            description="Are you ready to revolutionize the way you discover and engage with talent? Look no further than Tal-Ström – your gateway to a dynamic and immersive talent ecosystem!
+            Tal-Ström empowers individuals to craft compelling profiles that go beyond the ordinary. Showcase your skills and expertise in a visually stunning manner, with the ability to share media-rich content that truly captivates."
             photo="opportunities.png"
           />
-          <div className="w-full h-full">
+          <div className="w-full h-full flex items-center justify-center">
             <Image
               src="/workers.png"
               alt="remote home animation"
-              className="w-full h-full object-contain"
-              width={900}
+              className="lg:w-3/5 object-contain"
+              width={600}
               height={200}
               priority
             />
           </div>
           <CTAComponent
             className={"bg-primary-bg md:flex-row-reverse my-4"}
-            title="another Test here"
-            description="Connect with people who can help, with our app you can meet recruiters or share with the community that you are looking for new opportunities."
+            title=" 📲 90-Second Skill Showcases"
+            description="Break free from traditional limitations! Tal-Ström allows you to present your skills in an engaging 90-second video format, providing a quick yet powerful glimpse into your unique capabilities. Make a lasting impression and stand out from the crowd."
           />
           <span className="w-full flex justify-end items-end px-2 md:px-6">
             <LoginButton classNameButton="flex w-20 md:w-16" title="" />

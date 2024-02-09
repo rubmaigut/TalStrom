@@ -17,13 +17,6 @@ const SignIn: FC = () => {
       <TalstromLogo/>
       {!session && (
         <div className="w-full flex flex-col justify-center items-center">
-            <Image
-              src="/not-session.svg"
-              alt="wave"
-              width={300}
-              height={300}
-              priority
-            />
             <h2 className="text-md text-center text-white my-6"> Sign in to take you career to the next Level</h2>
           <LoginButton classNameButton="px-2"/>
         </div>

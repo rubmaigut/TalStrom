@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { updateUserProfile } from "@/lib/data-user";
 import { SelectTechnologies } from "./technologies";
 import { UserCardForUser } from "@/types/IUserCardProps";
@@ -15,30 +15,34 @@ type EditProfileProps = {
   user: UserCardForUser;
   toggleEditMode: () => void;
   updateUser: (updateDetails: UserCardForUser) => void;
+  selectedTechnologies: string[]
 };
 
-const EditProfile = ({ user, toggleEditMode, updateUser }: EditProfileProps) => {
+const EditProfile = ({ user, toggleEditMode, updateUser, selectedTechnologies }: EditProfileProps) => {
   const [userProfile, setUserProfile] = useState<EditUserProfile>({
     userName: user.userName,
     bio: user.bio,
-    technologies: user.technologies.split(","),
+    technologies: selectedTechnologies,
     position: user.position,
   });
-  const [selectedTechnologies, setSelectedTechnologies] = useState<string[]>(
+  const [editTechnologies, setEditTechnologies] = useState<string[]>(
     []
   );
+
+  useEffect(()=>{},[])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       await updateUserProfile(user.sub, userProfile);
-      // updateUser({
-      //   ...user,
-      //   userName: userProfile.userName || user.userName,
-      //   bio: userProfile.bio || user.bio,
-      //   technologies: userProfile.bio || "",
-      //   position: userProfile.position || user.position,
-      // })
+      updateUser({
+        ...user,
+        userName: userProfile.userName || user.userName,
+        bio: userProfile.bio || user.bio,
+        technologies: userProfile.technologies.join(",") || user.technologies,
+        position: userProfile.position || user.position,
+      });
+  
       toggleEditMode();
     } catch (error) {
       throw new Error(`Failed to update profile: ${error}`);
@@ -53,7 +57,7 @@ const EditProfile = ({ user, toggleEditMode, updateUser }: EditProfileProps) => 
   };
 
   const handleTechnologiesChange = (selectedOptions: string[]) => {
-    setSelectedTechnologies(selectedOptions);
+    setEditTechnologies(selectedOptions);
     setUserProfile({
       ...userProfile,
       technologies: selectedOptions.map((icon) => icon.toString()),
@@ -61,7 +65,7 @@ const EditProfile = ({ user, toggleEditMode, updateUser }: EditProfileProps) => 
   };
 
   return (
-    <form onSubmit={handleSubmit} className="relative bg-white rounded-lg shadow-lg p-6 space-y-4 max-w-2xl mx-auto">
+    <form onSubmit={handleSubmit} className="relative bg-white rounded-lg shadow overflow-auto p-6 space-y-4 w-full max-w-2xl mx-auto h-full">
       <div className="mb-4">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
