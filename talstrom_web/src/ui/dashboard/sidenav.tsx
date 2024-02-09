@@ -4,9 +4,11 @@ import { useUser } from "@/context/UserContext";
 import CustomerNavLinks from "../customer/dashboard/nav-links";
 import Image from "next/image";
 import LogoutButton from "../atoms/profile/log-out";
+import { useSession } from "next-auth/react";
 
 export default function SideNav() {
   const { userContextG } = useUser();
+  const { data: session } = useSession();
 
   return (
     <div className="flex w-full h-full flex-col px-3 py-4 md:px-2">

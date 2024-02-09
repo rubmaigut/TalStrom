@@ -7,7 +7,7 @@ const ToDoList: React.FC = () => {
   const { activeTodos, completedTodos, clearCompleted } = useToDo();
 
   return (
-    <div className="max-w-lg w-full mx-auto my-8 bg-white rounded-lg shadow p-4">
+    <div className="max-w-lg w-full mx-auto my-8 bg-gray-100 rounded-lg shadow p-4">
     <h2 className="text-2xl font-bold text-gray-600 mb-1">My to-dos</h2>
       <div className="w-full flex flex-col justify-start ">
         {activeTodos.map((todo) => (

@@ -17,7 +17,7 @@ const AddToDo: React.FC = () => {
     <div className="w-full flex flex-col items-end  ">
       <button
         onClick={() => setShowForm(!showForm)}
-        className="w-6 rounded-full bg-teal-500 p-2 text-white float-left"
+        className="w-6 rounded-sm bg-teal-500  text-white float-left"
       >
         {showForm ? '-' : '+'}
       </button>

@@ -31,48 +31,44 @@ const JobList: React.FC = () => {
       jobData.recruiterEmail,
       jobData.jobActive
     );
-    setJobs(
-      jobs.map((user) => {
-        if (user.sub === userSub) {
-          return {
-            ...user,
-            posts: [...(user.posts || []), newPost],
-          };
-        } else {
-          return user;
-        }
-      })
+    setJobs((jobs) =>
+      jobs.map((user) =>
+        user.sub === userSub
+          ? {
+              ...user,
+              posts: [...(user.posts || []), newPost],
+            }
+          : user
+      )
     );
-
     setShowForm(false);
   };
 
   const handlePostDeleteClick = async (postId: number) => {
-    try {
-      await deleteUserPost(postId);
-      setJobs(
-        jobs.map((user) => ({
-          ...user,
-          posts: user.posts?.filter((post) => post.id !== postId) || [],
-        }))
-      );
-    } catch (error) {
-      console.error("Failed to delete post", error);
-    }
+    await deleteUserPost(postId);
+    setJobs((jobs) =>
+      jobs.map((user) => ({
+        ...user,
+        posts: user.posts?.filter((post) => post.id !== postId) || [],
+      }))
+    );
   };
 
   return (
     <div className="mt-6">
       <h2 className="text-2xl font-bold text-gray-600 my-4">Jobs</h2>
-      <div className="relative flex flex-col">
+      <div className="relative flex flex-col justify-end items-end">
         <button
           onClick={() => setShowForm(!showForm)}
-          className="w-6 rounded-full bg-teal-500 p-2 text-white float-left"
+          className="w-6 rounded-sm bg-teal-500 text-white float-left"
         >
           {showForm ? "-" : "+"}
         </button>
         {showForm && (
-          <div className="absolute w-full z-10 -mt-1 left-0 bg-white shadow-lg p-5" style={{ top: '100%', marginTop: '1rem' }}>
+          <div
+            className="absolute w-full z-10 -mt-1 left-0 bg-white shadow-lg p-5"
+            style={{ top: "100%", marginTop: "1rem" }}
+          >
             <JobPostingForm onSubmit={handleAddJob} />
           </div>
         )}

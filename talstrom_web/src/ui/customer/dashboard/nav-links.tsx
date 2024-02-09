@@ -39,7 +39,7 @@ export default function CustomerNavLinks({ id } :InferGetServerSidePropsType<typ
     },
   ];
   return (
-    <div className="flex justify center items-center md:flex-col -m-1">
+    <div className="container mx-auto flex justify-center items-center md:flex-col -m-1">
       {links.map((link) => {
         const LinkIcon = link.icon;
         return (
@@ -47,7 +47,7 @@ export default function CustomerNavLinks({ id } :InferGetServerSidePropsType<typ
             key={link.name}
             href={link.href}
             className={clsx(
-              "flex h-[48px] grow items-center justify-center mx-1 gap-2 rounded-md bg-gray-100 p-3 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:p-2 md:px-3 md:mb-1",
+              "flex h-[48px] w-full grow items-center justify-center mx-1 gap-2 rounded-md bg-gray-100 p-3 text-sm font-medium hover:bg-sky-100 hover:text-teal-600 md:flex-none md:justify-start md:p-2 md:px-3 md:mb-1",
               {
                 "bg-teal-100 text-teal-600": pathname === link.href,
               }
