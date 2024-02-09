@@ -3,7 +3,6 @@ import { useSession } from "next-auth/react";
 import { fetchUsersBySub } from "@/lib/data-user";
 import { UserCardForUser } from "@/types/IUserCardProps";
 import UserCard from "@/ui/atoms/profile/user-card";
-import ProfileNavLinks from "@/ui/customer/nav-links";
 import UserFindMatch from "@/ui/customer/find-match";
 import UserMyNetwork from "@/ui/atoms/profile/networking";
 import UserPost from "@/ui/atoms/profile/posts";
@@ -50,6 +49,10 @@ export const UserProfilePage = ({
     }
   }, []);
 
+  useEffect(() => {
+    setPageComponent(getActiveComponent(userInfo));
+  }, [activeLink, userInfo]);
+
   const handleLinkClick = (link: string) => {
     setActiveLink(link);
   };
@@ -69,8 +72,8 @@ export const UserProfilePage = ({
           }
         />
       ),
-      networking: <UserMyNetwork />,
-      saved: <UserSaved />,
+      networking: <UserMyNetwork />
+      //saved: <UserSaved />,
     };
     return mapping[activeLink] || <div>Component not found</div>;
   };
