@@ -23,8 +23,8 @@ export default function SideNav() {
           priority
         />
       </Link>
-      <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
-        {userContextG?.role === "admin" ? <NavLinks /> : <CustomerNavLinks />}
+      <div className="flex grow flex-row items-center justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
+        {userContextG?.role === "admin" ? <NavLinks /> : <CustomerNavLinks id />}
         <div className="hidden h-auto w-full grow rounded-md bg-gray-100 md:block"></div>
         <LogoutButton/>
       </div>
