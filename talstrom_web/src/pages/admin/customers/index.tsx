@@ -3,7 +3,6 @@ import { deleteUser, fetchUsersByRole, updateUserRole } from "@/lib/data-user";
 import { useEffect, useState } from "react";
 import { User } from "@/types/IUser";
 import Image from "next/image";
-import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import UserRoleEditor from "@/ui/dashboard/actions-button";
 import Select from "@/ui/atoms/general ui/select";
 

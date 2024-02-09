@@ -27,7 +27,7 @@ export const LoginMessage = ({ id } : InferGetServerSidePropsType<typeof getServ
         }
             break;
       case "customer":
-            router.push('/customer')
+            router.push(`/${displayRole}/${id}`)
             break;
     }
   }, [displayRole, router]);

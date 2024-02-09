@@ -12,6 +12,7 @@ import {LoginMessage} from "@/ui/atoms/general ui/login-message";
 import { useUser } from "@/context/UserContext";
 import SignIn from "@/ui/atoms/general ui/sign-in";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import NavLinks from "@/ui/customer/nav-links";
 
 type ComponentMapping = {
   [key: string]: JSX.Element;
@@ -29,15 +30,7 @@ export const UserProfilePage = ({
   const { updateUser } = useUser();
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
   const [activeLink, setActiveLink] = useState<string>('posts');
-  const [pageComponent, setPageComponent] = useState<React.ReactNode>(
-    <UserPost
-      posts={userInfo?.posts ?? []}
-      sub={userInfo?.sub ?? ''}
-      postType={''}
-      session={session}
-    />,
-  );
-
+  
   useEffect(() => {
     if (id) {
       fetchUsersBySub(id)
@@ -55,7 +48,7 @@ export const UserProfilePage = ({
           console.error("Failed to update user context:", error);
         });
     }
-  }, [session]);
+  }, []);
 
   const handleLinkClick = (link: string) => {
     setActiveLink(link);
@@ -83,25 +76,58 @@ export const UserProfilePage = ({
   };
 
   const updateContentFromCard = (updatedUser: UserCardForUser) => setUserInfo(updatedUser)
-
-  if (!session) {
-    return (
-      <section>
-        <SignIn />
-      </section>
-    );
-  } else if (userInfo?.role !== "customer") {
-    return <LoginMessage displayRole={"developer"} userSub={userInfo?.sub} />;
-  }
+  const [pageComponent, setPageComponent] = useState<React.ReactNode>(
+    <UserPost
+      posts={userInfo?.posts ?? []}
+      sub={userInfo?.sub ?? ''}
+      postType={''}
+      session={session}
+    />,
+  );
 
   return (
-    <div>
-      <UserCard user={userInfo} session={session} updateUser={updateContentFromCard} />
-      <ProfileNavLinks onLinkClick={handleLinkClick} />
-      <div className="w-[calc(100%-50px)] h-screen mx-auto my-3">
-        {getActiveComponent(userInfo)}
-      </div>
-    </div>
+    <>
+      {!session ? (
+        <p> Redirecting..</p>
+      ) : (
+        <>
+          {userInfo && userInfo?.role === "developer" ? (
+            <>
+              <section className="w-full mt-4">
+                <header className="fixed top-0 left-0 right-0 w-full z-50 bg-gray-100 py-1 lg:py-0">
+                  <NavLinks onLinkClick={handleLinkClick} />
+                </header>
+                <div className="pt-10 lg:pt-14">
+                  {userInfo && userInfo.role === "developer" && (
+                    <UserCard
+                      user={userInfo}
+                      session={session}
+                      updateUser={updateContentFromCard}
+                    />
+                  )}
+                  <div className="flex">
+                    <aside className="w-1/4"></aside>
+                  </div>
+                </div>
+                <div className="container relative top-64 mx-auto bg-white">
+                  <div className="h-screen overflow-auto mx-auto my-3 z-0 px-6">
+                    {pageComponent}
+                  </div>
+                </div>
+              </section>
+            </>
+          ) : (
+            <div className="flex flex-col w-full h-full justify-center items-center mt-12 px-8">
+              <span className=" break-words text-center text-xl font-bold text-teal-600 lg:text-2xl my-8 ">
+                {" "}
+                Oops! Seems like you are in the wrong profile
+              </span>
+              <LoginMessage />
+            </div>
+          )}
+        </>
+      )}
+    </>
   );
 };
 

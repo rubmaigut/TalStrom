@@ -8,6 +8,7 @@ import { UserCardForUser } from '@/types/IUserCardProps';
 import { LoginMessage } from '@/ui/atoms/general ui/login-message';
 import ToDoList from '@/ui/customer/dashboard/todos/todo-list';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { useUser } from '@/context/UserContext';
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const { id } = context.params;
@@ -18,19 +19,19 @@ export default function Page({
   id,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { data: session } = useSession();
+  const {userContextG, updateUser}  = useUser()
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
 
   useEffect(() => {
-    if (session) {
-      const loadCustomer = async () => {
-        try {
-          const customer = await fetchUsersBySub(id!);
-          setUserInfo(customer);
-        } catch (error) {
-          console.error('Failed to fetch customer:', error);
-        }
-      };
-      loadCustomer();
+    if (id) {
+      fetchUsersBySub(id)
+        .then((fetchedUserInfo: UserCardForUser) => {
+          updateUser(fetchedUserInfo);
+          setUserInfo(fetchedUserInfo);
+        })
+        .catch((error) => {
+          console.error("Failed to update user context:", error);
+        });
     }
   }, []);
 

@@ -11,14 +11,22 @@ import Link from "next/link";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
-export default function CustomerNavLinks() {
+
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const { id } = context.params;
+  return { props: { id } };
+};
+
+export default function CustomerNavLinks({ id } :InferGetServerSidePropsType<typeof getServerSideProps>) {
   const pathname = usePathname();
   const { data: session } = useSession();
+  const customerId = session?.user?.sub || id
 
   const links = [
-    { name: "Home", href: `/customer/${session?.user?.sub}`, icon: HomeIcon },
-    { name: "My Profile", href: `/customer/profile/${session?.user?.sub}`, icon: UserIcon },
+    { name: "Home", href: `/customer/${customerId}`, icon: HomeIcon },
+    { name: "My Profile", href: `/customer/profile/${customerId}`, icon: UserIcon },
     { name: "Jobs", href: "/customer/jobs", icon: BriefcaseIcon },
     { name: "Candidates", href: "/customer/candidates", icon: PaperClipIcon },
     { name: "Consultants", href: "/customer/consultants", icon: UserGroupIcon },

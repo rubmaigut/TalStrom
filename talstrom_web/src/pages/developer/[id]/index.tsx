@@ -12,8 +12,7 @@ import Bio from "@/ui/atoms/profile/bio";
 import JobsPage from "@/ui/atoms/profile/jobs";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { fetchUsersBySub } from "@/lib/data-user";
-import Loading from "@/ui/atoms/general ui/loading";
-import LoginButton from "@/ui/atoms/profile/login-button";
+import { useUser } from "@/context/UserContext";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const { id } = context.params;
@@ -24,19 +23,27 @@ export const UserProfilePage = ({
   id,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { data: session } = useSession();
+  const { updateUser } = useUser();
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
   const [activeLink, setActiveLink] = useState<string>("Bio");
 
   useEffect(() => {
-    const updateUserContext = async () => {
-      try {
-        const updateUserInfo = await fetchUsersBySub(id);
-        setUserInfo(updateUserInfo);
-      } catch (error) {
-        throw error;
-      }
-    };
-    updateUserContext();
+    if (id) {
+      fetchUsersBySub(id)
+        .then((fetchedUserInfo: UserCardForUser) => {
+          if (fetchedUserInfo.posts) {
+            const sortedPosts = [...fetchedUserInfo.posts].sort(
+              (a, b) => b.id - a.id
+            );
+            fetchedUserInfo.posts = sortedPosts;
+          }
+          updateUser(fetchedUserInfo);
+          setUserInfo(fetchedUserInfo);
+        })
+        .catch((error) => {
+          console.error("Failed to update user context:", error);
+        });
+    }
   }, []);
 
   const loadUser = async () => {
