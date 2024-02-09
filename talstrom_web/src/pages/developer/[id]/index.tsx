@@ -12,6 +12,8 @@ import Bio from "@/ui/atoms/profile/bio";
 import JobsPage from "@/ui/atoms/profile/jobs";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { fetchUsersBySub } from "@/lib/data-user";
+import Loading from "@/ui/atoms/general ui/loading";
+import LoginButton from "@/ui/atoms/profile/login-button";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const { id } = context.params;
@@ -109,9 +111,7 @@ export const UserProfilePage = ({
   return (
     <>
       {!session ? (
-        <section>
-          <SignIn />
-        </section>
+        <p> Redirecting..</p>
       ) : (
         <>
           {userInfo && userInfo?.role === "developer" ? (

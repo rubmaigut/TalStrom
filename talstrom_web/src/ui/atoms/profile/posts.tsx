@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PostOverlay from "@/ui/overlays/post-viewer";
 import AddPostOverlay from "@/ui/overlays/add-post-overlay";
 import {
@@ -8,6 +8,7 @@ import {
 } from "@/lib/data-post";
 import { Session } from "next-auth";
 import Image from "next/image";
+import { fetchUsersBySub } from "@/lib/data-user";
 
 interface PostsProps {
   postType?: string;
@@ -22,6 +23,8 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, session }) => {
   const [editedTitle, setEditedTitle] = useState<string>("");
   const [editedContent, setEditedContent] = useState<string>("");
   const [isAddPostMode, setAddPostMode] = useState<boolean>(false);
+  const [posted, setPosted] = useState<Post[]>([]);
+
 
   const handlePostEditClick = (post: Post) => {
     setSelectedPost(post);
@@ -38,12 +41,34 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, session }) => {
     try {
       if (content.trim() !== "") {
         await addNewPostHandler(title, content, sub, postType);
-        setAddPostMode(false);
+        setAddPostMode(false)
+        fetchAndSetPosts()
       }
     } catch (error) {
       throw new Error(`Failed to add new post': ${error}`);
     }
   };
+
+  useEffect(() => {
+    const fetchAndSetPosts = async () => {
+      try {
+        const user = await fetchUsersBySub(sub);
+        if (user && user.posts) {
+          const sortedPosts = user.posts.sort((a: Post, b: Post) => {
+            const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+            const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+            return dateB - dateA;
+          });
+          setPosted(sortedPosts);
+        }
+
+      } catch (error) {
+        console.error("Failed to fetch or sort posts", error);
+      }
+    };
+  
+    fetchAndSetPosts();
+  }, [sub]);
 
   const handlePostSaveClick = async () => {
     if (selectedPost) {
@@ -96,7 +121,7 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, session }) => {
     <div className="w-full flex flex-col items-center space-x-3">
       <div className="w-full justify-between flex items-center flex-1 mb-4">
         <Image
-          src={`${session?.user?.image}`} 
+          src={`${session?.user?.image}`}
           alt={`Profile ${session?.user?.name}`}
           width={100}
           height={100}
@@ -113,7 +138,7 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, session }) => {
       {posts.map((post) => (
         <div
           key={post.id}
-          className={`w-full p-4 border rounded-md ${
+          className={`w-full p-4 border rounded-md mb-4 ${
             post.postType === "JobPost"
               ? "bg-teal-100"
               : post.postType === "Thoughts"
@@ -161,3 +186,7 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, session }) => {
 };
 
 export default UserPost;
+function fetchAndSetPosts() {
+  throw new Error("Function not implemented.");
+}
+
