@@ -14,7 +14,7 @@ const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
   useEffect(() => {
     async function setUserInfo() {
       setLoading(true);
-       try {
+      try {
         const userExist = await fetchUsersBySub(user.sub);
         if (userExist) {
           updateUser(userExist);
@@ -51,17 +51,12 @@ const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
 
   return (
     <>
-    {!loading &&
-    <div className="flex flex-col justify-center gap-6rounded-lg px-6 py-10 w-full">
-      <h2></h2>
-      <MailImage
-      picture={user.picture}
-      name={user.name}
-      email={user.email}
-    />
-      <LoginMessage id={user.sub} />
-    </div>
-    }
+      {!loading && (
+        <div className="flex flex-col justify-center gap-6rounded-lg px-6 py-10 w-full">
+          <LoginMessage id={user.sub} />
+          <LoadingMessage message={".... Connecting ...."} />
+        </div>
+      )}
     </>
   );
 };

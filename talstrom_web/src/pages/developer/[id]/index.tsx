@@ -107,19 +107,41 @@ export const UserProfilePage = ({
   }, [activeLink, userInfo]);
 
   return (
-    <section className="w-full bg-gray-100">
-        <NavLinks onLinkClick={handleLinkClick} />   
-      <div className="pt-16">
-        {userInfo && userInfo.role === "developer" && 
-          <UserCard user={userInfo} session={session} updateUser={updateContentFromCard}/>
-        }
-        
-        <div className="flex">
-          <aside className="w-1/4">
-          </aside>
-        </div>
-      </div>
-    </section>
+    <>
+      {!session ? (
+        <section>
+          <SignIn />
+        </section>
+      ) : (
+        <>
+          {userInfo && userInfo?.role === "developer" ? (
+            <section className="w-full bg-gray-100">
+              <NavLinks onLinkClick={handleLinkClick} />
+              <div className="pt-16">
+                {userInfo && userInfo.role === "developer" && (
+                  <UserCard
+                    user={userInfo}
+                    session={session}
+                    updateUser={updateContentFromCard}
+                  />
+                )}
+                <div className="flex">
+                  <aside className="w-1/4"></aside>
+                </div>
+              </div>
+            </section>
+          ) : (
+            <div className="flex flex-col w-full h-full justify-center items-center mt-12 px-8">
+              <span className=" break-words text-center text-xl font-bold text-teal-600 lg:text-2xl my-8 ">
+                {" "}
+                Oops! Seems like you are in the wrong profile
+              </span>
+              <LoginMessage />
+            </div>
+          )}
+        </>
+      )}
+    </>
   );
 };
 export default UserProfilePage;

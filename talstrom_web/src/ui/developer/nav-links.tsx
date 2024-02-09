@@ -59,7 +59,7 @@ const NavLinks: React.FC<NavLinksProps> = ({ onLinkClick }) => {
           </div>
         );
       })}
-        <div className="hidden md:block">
+        <div className="">
         <LogoutButton/>
         </div>
       </div>
