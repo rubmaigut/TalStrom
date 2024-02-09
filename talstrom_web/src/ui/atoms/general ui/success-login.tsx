@@ -53,7 +53,6 @@ const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
       {!loading && (
         <div className="flex flex-col justify-center gap-6rounded-lg px-6 py-10 w-full">
           <LoginMessage id={user.sub} />
-          <LoadingMessage message={".... Connecting ...."} />
         </div>
       )}
     </>

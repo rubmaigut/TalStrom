@@ -37,11 +37,11 @@ export const LoginMessage = ({ id } : InferGetServerSidePropsType<typeof getServ
       {displayRole === "pending" && (
         <div>
           <GreetingModal />
-          <p className="text-gray-800">
+          <p className="text-gray-800 mb-4">
             <strong>Now you are a user! 🎊 </strong>
             Your role will be assigned soon, {userContextG?.name.split(' ')[0]}.
           </p>
-          <LoginButton classNameButton="px-2"/>
+          <LoginButton classNameButton="px-2 mb-4"/>
           <LogoutButton/>
         </div>
       )}
