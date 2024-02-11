@@ -22,7 +22,7 @@ export default function Page() {
       if (userContextG && userContextG.role !== 'pending') {
         return;
       }
-      
+
       updateUser({
         id: session.user?.id || 0,
         name: session.user?.name || "",
@@ -57,10 +57,14 @@ export default function Page() {
   return (
     <>
       {!session ? (
-        <div className="container mx-auto max-w-5xl w-full h-full flex flex-col justify-center items-center px-6 xl:px-0">
+        <div className="container mx-auto max-w-5xl w-full h-full flex flex-col justify-center items-center ">
           <Header />
+          <div className="px-6 lg:px-0 flex flex-col justify-center items-center">
+          <h2 className="text-3xl lg:text-5xl font-semibold text-primary-light mb-6"> Are you new here? </h2>
+          <span className="text-lg text-primary-text "> Create an account as customer or developer depending of what do you what to do in TalStröm of </span>
+          </div>
           {!role && (
-            <div className="flex flex-col md:flex-row w-full justify-center xl:justify-between mb-8 md:space-x-4 space-y-4">
+            <div className="flex flex-col md:flex-row w-full justify-center md:justify-between px-6 lg:px-0 md:space-x-4 my-8">
               <RoleCard
                 title="Customer"
                 list={[
@@ -84,7 +88,7 @@ export default function Page() {
           {role && (
             <div className="w-full sm:my-5 my-8 relative z-10 bg-teal-900 rounded-xl shadow-lg">
               <div className="flex flex-col justify-center items-center text-left text-sm sm:text-md max-w-sm mx-auto my-6 px-8 lg:px-6">
-                <h2 className="text-xl uppercase p-3 pb-0 text-center tracking-wide text-white font-bold ">
+                <h2 className="text-xl md:text-3xl uppercase pb-0 text-center tracking-wide text-white font-bold ">
                   You will login as {role}{" "}
                 </h2>
                 <LoginButton classNameButton="my-8 bg-white " />

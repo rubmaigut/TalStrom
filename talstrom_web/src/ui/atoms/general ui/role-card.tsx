@@ -8,7 +8,7 @@ interface SelectRoleProps {
   
   const RoleCard: FC<SelectRoleProps> = ({ title, list, handleRoleSelection }) => {
     return (
-      <div className="w-full max-w-md relative z-10 bg-primary-bg rounded-xl shadow-lg">
+      <div className="w-full max-w-md relative z-10 bg-primary-bg rounded-xl shadow-lg mb-6">
         <div className="flex flex-col justify-center items-center text-left text-sm sm:text-md max-w-sm text-black p-8 lg:p-6">
           <h1 className="text-lg font-medium uppercase p-3 pb-0 text-center tracking-wide">
             {title}
