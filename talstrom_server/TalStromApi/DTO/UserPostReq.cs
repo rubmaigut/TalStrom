@@ -6,4 +6,5 @@ public record UserPostReq
     public string Email { get; set; }
     public string Picture { get; set; }
     public string Sub { get; set; }
+    public string Role { get; set; }
 }

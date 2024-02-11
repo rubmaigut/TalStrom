@@ -245,7 +245,8 @@ namespace TalStromApi.Controllers
                     Name = userReq.Name,
                     Email = userReq.Email,
                     Picture = userReq.Picture,
-                    Sub = userReq.Sub
+                    Sub = userReq.Sub,
+                    Role = userReq.Role
                 };
 
                 _context.User.Add(user);
