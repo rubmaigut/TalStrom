@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import LoadingMessage from "./loading";
 import { useRouter } from "next/router";
 import LogoutButton from "../profile/log-out";
+import SkeletonLoader from "./skeleton-loader";
 
 const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
   const [loading, setLoading] = useState(true);
@@ -74,8 +75,7 @@ const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
 
   return (
     <div className="flex flex-col justify-center gap-6rounded-lg px-6 py-10 w-full">
-      <h2>message</h2>
-      <LogoutButton />
+     <SkeletonLoader/>
     </div>
   );
 };
