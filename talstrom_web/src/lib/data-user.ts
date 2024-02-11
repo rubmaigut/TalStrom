@@ -14,6 +14,7 @@ export async function addUserHandler(user: User): Promise<User> {
       email: user.email,
       picture: user.picture,
       sub: user.sub,
+      role: user.role
     }),
   });
   if (!response.ok) throw new Error('addUserHandler: Failed to Create user');
