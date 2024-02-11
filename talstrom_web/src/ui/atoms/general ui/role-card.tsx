@@ -16,8 +16,8 @@ interface SelectRoleProps {
           <span className="text-lg text-gray-700">As a {title} you can do in TalStröm </span>
           <div className="flex pl-12 justify-start sm:justify-start">
             <ul>
-              {list.map((item) => (
-                <li className="flex items-center">
+              {list.map((item, index) => (
+                <li key={index} className="flex items-center">
                   <div className="rounded-full p-2 fill-current text-green-700">
                     <svg
                       className="w-6 h-6 align-middle"
