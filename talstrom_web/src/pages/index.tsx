@@ -5,14 +5,16 @@ import { MailImage } from "@/ui/atoms/profile/email-image";
 import Footer from "@/ui/footer";
 import Header from "@/ui/header";
 import { useSession } from "next-auth/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import LoginButton from "@/ui/atoms/profile/login-button";
 import TalstromLogo from "@/ui/atoms/general ui/talstrom-logo";
+import RoleCard from "@/ui/atoms/general ui/role-card";
 
 export default function Page() {
   const { data: session } = useSession();
   const { userContextG, updateUser } = useUser();
+  const [role, setRole] = useState<string>();
 
   useEffect(() => {
     if (session && (!userContextG || session.user?.sub !== userContextG.sub)) {
@@ -22,7 +24,7 @@ export default function Page() {
         email: session.user?.email || "",
         picture: session.user?.image || "",
         sub: session.user?.sub || "",
-        role: "pending",
+        role: role,
         phoneNumber: null,
         dateAdded: new Date(),
         lastLoggedIn: new Date(),
@@ -34,15 +36,58 @@ export default function Page() {
         posts: null,
       });
     }
-  }, [session, userContextG, updateUser]);
+  }, [session, userContextG, updateUser, role]);
+
+  const handleRoleSelection = (selectedRole: string) => {
+    setRole(selectedRole);
+  };
 
   return (
     <>
       {!session ? (
-        <div className="container mx-auto w-full h-full flex flex-col justify-center items-center">
+        <div className="container mx-auto max-w-5xl w-full h-full flex flex-col justify-center items-center px-6 xl:px-0">
           <Header />
+          {!role && (
+            <div className="flex flex-col md:flex-row w-full justify-center xl:justify-between mb-8 md:space-x-4 space-y-4">
+              <RoleCard
+                title="Customer"
+                list={[
+                  "Talent match",
+                  "Post Job Applications",
+                  "Managing Recruitment",
+                ]}
+                handleRoleSelection={() => handleRoleSelection("customer")}
+              />
+              <RoleCard
+                title="Developer"
+                list={[
+                  "Find Job opportunities",
+                  "post 90 second videos",
+                  "connect with companies",
+                ]}
+                handleRoleSelection={() => handleRoleSelection("developer")}
+              />
+            </div>
+          )}
+          {role && (
+            <div className="w-full sm:my-5 my-8 relative z-10 bg-teal-900 rounded-xl shadow-lg">
+              <div className="flex flex-col justify-center items-center text-left text-sm sm:text-md max-w-sm mx-auto my-6 px-8 lg:px-6">
+                <h2 className="text-xl uppercase p-3 pb-0 text-center tracking-wide text-white font-bold ">
+                  You will login as {role}{" "}
+                </h2>
+                <LoginButton classNameButton="my-8 bg-white " />
+                <button
+                  className="px-4 py-2 bg-teal-300 text-secondary-text rounded-full"
+                  onClick={() => setRole(undefined)}
+                >
+                  Choose a Different Role
+                </button>
+              </div>
+            </div>
+          )}
+
           <CTAComponent
-            className={"bg-secondary-bg md:flex-row-reverse"}
+            className={"bg-primary-bg md:flex-row-reverse"}
             title="Elevate Your Talent Experience with Tal-Ström!🚀 "
             description="Are you ready to revolutionize the way you discover and engage with talent? Look no further than Tal-Ström – your gateway to a dynamic and immersive talent ecosystem!
             Tal-Ström empowers individuals to craft compelling profiles that go beyond the ordinary. Showcase your skills and expertise in a visually stunning manner, with the ability to share media-rich content that truly captivates."
@@ -52,7 +97,7 @@ export default function Page() {
             <Image
               src="/workers.png"
               alt="remote home animation"
-              className="lg:w-3/5 object-contain"
+              className="w-full object-contain"
               width={600}
               height={200}
               priority
