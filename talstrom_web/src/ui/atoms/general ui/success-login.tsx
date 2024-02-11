@@ -1,18 +1,13 @@
 import { useUser } from "@/context/UserContext";
 import { addUserHandler, fetchUsersBySub } from "@/lib/data-user";
 import { LoginProps } from "@/types/IUser";
-import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from "next";
+import { NextPage } from "next";
 import { useEffect, useState } from "react";
-import { LoginMessage } from "./login-message";
 import LoadingMessage from "./loading";
 import { useRouter } from "next/router";
+import LogoutButton from "../profile/log-out";
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  const { id } = context.params;
-  return { props: { id } };
-}
-
-const SuccessLogin: NextPage<LoginProps> = ({ user, id }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
   const [loading, setLoading] = useState(true);
   const { updateUser } = useUser();
   const { userContextG } = useUser();
@@ -22,7 +17,8 @@ const SuccessLogin: NextPage<LoginProps> = ({ user, id }: InferGetServerSideProp
     setLoading(true);
     try {
       const userExist = await fetchUsersBySub(user.sub);
-      const userData = userExist || await addUserHandler(user);
+      const userData = userExist || (await addUserHandler(user));
+      console.log("userData", userData)
       updateUser(userData);
     } catch (error) {
       handleError(error);
@@ -44,7 +40,7 @@ const SuccessLogin: NextPage<LoginProps> = ({ user, id }: InferGetServerSideProp
     }
   };
 
-  const navigateByRole = (role: string, userId:string) => {
+  const navigateByRole = (role: string, userId: string) => {
     const rolePaths: { [key: string]: string } = {
       admin: "/admin",
       developer: `/developer/${userId}`,
@@ -63,40 +59,10 @@ const SuccessLogin: NextPage<LoginProps> = ({ user, id }: InferGetServerSideProp
   }, []);
 
   useEffect(() => {
-    if (!userContextG?.role || !router || !id) return; 
-    navigateByRole(userContextG.role, id);
-  }, [userContextG, id, router]);
-
-
-  /* useEffect(() => {
-    async function setUserInfo() {
-      setLoading(true);
-      try {
-        const userExist = await fetchUsersBySub(user.sub);
-        if (userExist) {
-          updateUser(userExist);
-        } else {
-          const newUser = await addUserHandler(user);
-          updateUser(newUser);
-        }
-      } catch (error) {
-        if (error instanceof Error && "status" in error) {
-          const err = error as unknown as Response;
-          if (err.status === 404) {
-            const newUser = await addUserHandler(user);
-            updateUser(newUser);
-          } else {
-            console.error("Error Adding /updating user", error);
-          }
-        } else {
-          console.error("Unexpected error type", error);
-        }
-      } finally {
-        setLoading(false);
-      }
+    if (router.isReady && !loading && userContextG?.role && user.sub) {
+      navigateByRole(userContextG.role, user.sub);
     }
-    setUserInfo();
-  }, []); */
+  }, [router, router.isReady, loading, userContextG, user.sub]);
 
   if (loading) {
     return (
@@ -107,13 +73,10 @@ const SuccessLogin: NextPage<LoginProps> = ({ user, id }: InferGetServerSideProp
   }
 
   return (
-    <>
-      {!loading && (
-        <div className="flex flex-col justify-center gap-6rounded-lg px-6 py-10 w-full">
-          <h2>message</h2>
-        </div>
-      )}
-    </>
+    <div className="flex flex-col justify-center gap-6rounded-lg px-6 py-10 w-full">
+      <h2>message</h2>
+      <LogoutButton />
+    </div>
   );
 };
 export default SuccessLogin;
