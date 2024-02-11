@@ -17,14 +17,19 @@ export default function Page() {
   const [role, setRole] = useState<string>();
 
   useEffect(() => {
+    const savedRole = localStorage.getItem('userRole')
     if (session && (!userContextG || session.user?.sub !== userContextG.sub)) {
+      if (userContextG && userContextG.role !== 'pending') {
+        return;
+      }
+      
       updateUser({
         id: session.user?.id || 0,
         name: session.user?.name || "",
         email: session.user?.email || "",
         picture: session.user?.image || "",
         sub: session.user?.sub || "",
-        role: role,
+        role: savedRole,
         phoneNumber: null,
         dateAdded: new Date(),
         lastLoggedIn: new Date(),
@@ -36,11 +41,18 @@ export default function Page() {
         posts: null,
       });
     }
-  }, [session, userContextG, updateUser, role]);
+  }, [session, userContextG, updateUser]);
 
   const handleRoleSelection = (selectedRole: string) => {
+    localStorage.setItem('userRole', selectedRole)
     setRole(selectedRole);
   };
+
+  useEffect(() => {
+    if (userContextG && userContextG.role !== 'pending') {
+      localStorage.removeItem('userRole');
+    }
+  }, [userContextG]);
 
   return (
     <>
