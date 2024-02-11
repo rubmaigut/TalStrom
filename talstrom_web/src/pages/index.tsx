@@ -1,7 +1,6 @@
 import { useUser } from "@/context/UserContext";
 import CTAComponent from "@/ui/atoms/general ui/cta";
 import SuccessLogin from "@/ui/atoms/general ui/success-login";
-import { MailImage } from "@/ui/atoms/profile/email-image";
 import Footer from "@/ui/footer";
 import Header from "@/ui/header";
 import { useSession } from "next-auth/react";
@@ -10,6 +9,7 @@ import Image from "next/image";
 import LoginButton from "@/ui/atoms/profile/login-button";
 import TalstromLogo from "@/ui/atoms/general ui/talstrom-logo";
 import RoleCard from "@/ui/atoms/general ui/role-card";
+
 
 export default function Page() {
   const { data: session } = useSession();

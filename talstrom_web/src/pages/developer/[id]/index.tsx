@@ -7,49 +7,34 @@ import NavLinks from "@/ui/developer/nav-links";
 import UserPost from "@/ui/atoms/profile/posts";
 import VideosGrid from "@/ui/developer/videos";
 import ImagesGrid from "@/ui/developer/images";
-import { LoginMessage } from "@/ui/atoms/general ui/login-message";
 import Bio from "@/ui/atoms/profile/bio";
 import JobsPage from "@/ui/atoms/profile/jobs";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { fetchUsersBySub } from "@/lib/data-user";
-import { useUser } from "@/context/UserContext";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const { id } = context.params;
-  return { props: { id } };
+  const userData = await fetchUsersBySub(id)
+
+  if(!userData){
+    return {
+      notFound: true
+    }
+  }
+
+  return { props: { userData } };
 };
 
 export const UserProfilePage = ({
-  id,
+  userData,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { data: session } = useSession();
-  const { updateUser } = useUser();
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
   const [activeLink, setActiveLink] = useState<string>("Bio");
 
-  useEffect(() => {
-    if (id) {
-      fetchUsersBySub(id)
-        .then((fetchedUserInfo: UserCardForUser) => {
-          if (fetchedUserInfo.posts) {
-            const sortedPosts = [...fetchedUserInfo.posts].sort(
-              (a, b) => b.id - a.id
-            );
-            fetchedUserInfo.posts = sortedPosts;
-          }
-          updateUser(fetchedUserInfo);
-          setUserInfo(fetchedUserInfo);
-        })
-        .catch((error) => {
-          console.error("Failed to update user context:", error);
-        });
-    }
-  }, []);
-
   const loadUser = async () => {
     try {
-      const developer = await fetchUsersBySub(id);
-      setUserInfo(developer);
+      setUserInfo(userData);
     } catch (error) {
       throw error;
     }
