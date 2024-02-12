@@ -63,14 +63,6 @@ export const UserProfilePage = ({
           session={session}
         />
       ),
-      "find-match": (
-        <UserFindMatch
-          sub={userInfo?.sub ?? ""}
-          filterOptions={
-            userInfo?.technologies ? userInfo.technologies.split(",") : []
-          }
-        />
-      ),
       networking: <UserMyNetwork />,
       //saved: <UserSaved />,
     };
@@ -92,14 +84,32 @@ export const UserProfilePage = ({
     <>
       {userInfo && userInfo?.role === "customer" && (
         <>
-          <section className="bg-gray-100 min-h-screen pt-16 w-full justify-center items-center md:px-5 xl:px-0" >
+          <section className="bg-gray-100 min-h-screen pt-16 w-full justify-center items-center md:px-5 xl:px-0">
             <header className="fixed top-0 left-0 right-0 w-full z-50 bg-gray-100">
               <NavLinks onLinkClick={handleLinkClick} />
             </header>
             <div className="flex justify-center max-w-5xl container mx-auto">
               <div className="w-full md:flex">
-                <aside className="hidden md:block w-64 flex-shrink-0 bg-black mr-4">
-                  <h1 className="text-white">aside</h1>
+                <aside className="hidden md:block w-64 flex-shrink-0 bg-white rounded-lg mr-4">
+                  <div className="py-6 px-4">
+                    <h1 className="text-gray-600 text-lg font-bold">
+                      {" "}
+                      Developers by Tech Stack
+                    </h1>
+                    <dd className="text-sm py-1 font-thin">
+                      From you technology stack
+                    </dd>
+                    <div>
+                      <UserFindMatch
+                        sub={userInfo?.sub ?? ""}
+                        filterOptions={
+                          userInfo?.technologies
+                            ? userInfo.technologies.split(",")
+                            : []
+                        }
+                      />
+                    </div>
+                  </div>
                 </aside>
                 <div className="flex-1">
                   {userInfo && userInfo.role === "customer" && (

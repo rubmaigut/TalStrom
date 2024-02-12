@@ -3,7 +3,7 @@ import { UserCardForUser } from "@/types/IUserCardProps";
 import EditProfile from "./edit-profile";
 import Image from "next/image";
 
-import { PencilIcon } from "@heroicons/react/24/outline";
+import { PencilIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import { Session } from "next-auth";
 import TechnologyIcons from "./technology-icons";
 
@@ -22,12 +22,12 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
 
   return (
     <div className="bg-white rounded-lg shadow container mx-auto">
-      <div className="bg-gradient-to-r from-green-300 to-teal-300 h-16 w-full flex justify-center items-center relative"></div>
+      <div className="bg-gradient-to-r from-green-300 to-teal-300 h-16 w-full flex justify-center items-center relative rounded-lg"></div>
       <div className="w-full flex flex-col items-center top-28 bg-white">
         {session && session?.user?.sub === user.sub && (
           <>
           <button
-            className={`absolute top-24 right-8 p-2 rounded-full bg-gray-100 hover:bg-gray-100 ${
+            className={`absolute top-24 right-8 xl:right-64 p-2 rounded-full bg-gray-100 hover:bg-gray-100 ${
               isEditMode ? "text-red-500" : "text-gray-500"
             }`}
             onClick={toggleEditMode}
@@ -37,7 +37,7 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
           </>
         )}
         <Image
-          src={`${user.picture}`}
+          src={user.picture || '/userSession.png'}
           alt={`Profile of ${user.name}`}
           className="rounded-full"
           width={100}
