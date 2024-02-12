@@ -114,10 +114,10 @@ export const UserProfilePage = ({
                   <div className="py-6 px-4">
                     <h1 className="text-gray-600 text-lg font-bold">
                       {" "}
-                      Developers by Tech Stack
+                      Nothing to do here
                     </h1>
                     <dd className="text-sm py-1 font-thin">
-                      From you technology stack
+                      new Job opportunities
                     </dd>
                     <div>
                       

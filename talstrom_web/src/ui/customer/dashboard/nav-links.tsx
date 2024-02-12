@@ -32,11 +32,11 @@ export default function CustomerNavLinks({ id } :InferGetServerSidePropsType<typ
     { name: "Jobs", href: "/customer/jobs", icon: BriefcaseIcon },
     /* { name: "Candidates", href: "/customer/candidates", icon: PaperClipIcon },
     { name: "Consultants", href: "/customer/consultants", icon: UserGroupIcon }, */
-    {
+    /* {
       name: "Analytics",
       href: "/customer/analytics",
       icon: ChartBarIcon,
-    },
+    }, */
   ];
   return (
     <div className="container mx-auto flex justify-center items-center md:flex-col -m-1">
