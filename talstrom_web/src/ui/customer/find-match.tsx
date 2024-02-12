@@ -25,10 +25,6 @@ type FilterItem = {
 const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
   const [usersArray, setUsersArray] = useState<UserCardForUser[]>([]);
   const [suggestions, setSuggestions] = useState<UserCardForUser[]>([]);
-  const [currentVideoIndex, setCurrentVideoIndex] = useState<number>(0);
-  const [playerVisibility, setPlayerVisibility] = useState(false);
-  const [currentVideos, setCurrentVideos] = useState<Media[]>([]);
-  const randVideoId = Math.floor(Math.random() * currentVideos.length);
   const initial: FilterItem[] = filterOptions.map((technology) => {
     return {
       label: technology,
@@ -41,8 +37,6 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
   useEffect(() => {
     const loadSuggestions = async () => {
       const users: UserCardForUser[] = await fetchUsersByFilter(sub);
-      const videos = await fetchAllOfMediaType("Video");
-      setCurrentVideos(videos);
       setSuggestions(users);
       setUsersArray(users);
     };
@@ -62,18 +56,6 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
     });
   }, [filterArray]);
 
-  const toggleFilter = (evt: SyntheticEvent) => {
-    const target = evt.target as HTMLButtonElement;
-    !target.classList.contains('text-gray-300')
-      ? target.classList.add('text-gray-300')
-      : target.classList.remove('text-gray-300');
-    const targetIndex = filterArray.findIndex((s) => s.label === target.value!);
-    const newArray = [...filterArray];
-    newArray[targetIndex].status = !newArray[targetIndex].status;
-
-    setFilterArray(newArray);
-  };
-
   const getIconForTechnology = (
     technology: string,
     scaling: number,
@@ -91,59 +73,9 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
     return <span>Icon not found for {technology}</span>;
   };
 
-  const nextVideo = () => {
-    let newIndex =
-      currentVideoIndex === currentVideos!.length - 1
-        ? 0
-        : currentVideoIndex + 1;
-    setCurrentVideoIndex(newIndex);
-  };
-
-  const previousVideo = () => {
-    let newIndex =
-      currentVideoIndex === 0
-        ? currentVideos!.length - 1
-        : currentVideoIndex - 1;
-    setCurrentVideoIndex(newIndex);
-  };
-
-  const togglePlayerOverlay = (videoId?: number) => {
-    const video = currentVideos?.find((v) => v.id === videoId);
-    videoId
-      ? setCurrentVideoIndex(currentVideos!.indexOf(video as Media))
-      : setCurrentVideoIndex(0);
-    setPlayerVisibility(!playerVisibility);
-  };
 
   return (
-    <section className="flex items-center justify-center py-4">
-      {filterOptions.length ? (
-        <div className="flex flex-col items-center w-full md:w-3/5 pb-4">
-          <button className="border p-2 rounded-md bg-green-300" onClick={() => togglePlayerOverlay(randVideoId)}>View Videos</button>
-          {playerVisibility && (
-        <VideoPlayer
-          nextVideo={nextVideo}
-          previousVideo={previousVideo}
-          closeWindow={togglePlayerOverlay}
-          videos={currentVideos}
-          currentVideoIndex={currentVideoIndex}
-        />
-      )}
-            <h3 className='text-lg font-bold'>Find by Technology</h3>
-          <div className="grid grid-cols-8 mb-5">
-            {filterArray.map((elm, i) => {
-              return (
-                <button
-                  key={i}
-                  className="m-1"
-                  value={elm.label}
-                  onClick={toggleFilter}
-                >
-                  {capitalizeFirstLetter(elm.label)}
-                </button>
-              );
-            })}
-          </div>
+    <section className="flex flex-col items-center justify-center py-4">
           {suggestions.map((elm, i) => {
             return (
               <div
@@ -185,12 +117,6 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
               </div>
             );
           })}
-        </div>
-      ) : (
-        <p>
-          No technologies currently listed. Complete your profile to see matches
-        </p>
-      )}
     </section>
   );
 };
