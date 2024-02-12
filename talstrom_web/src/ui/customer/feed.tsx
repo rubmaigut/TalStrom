@@ -68,7 +68,7 @@ const UserFeed = ({ sub }: FindMatchProps) => {
                   className="w-full h-full rounded-lg cursor-pointer"
                   onClick={() => handleVideoClick([video])}
                 >
-                  <video className="h-full w-full rounded-lg px-2" controls>
+                  <video className="aspect-[6/9] object-cover rounded-none px-2" controls>
                     <source
                       src={video.uri}
                       type="video/mp4"

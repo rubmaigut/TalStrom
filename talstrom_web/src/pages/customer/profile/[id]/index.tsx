@@ -5,12 +5,12 @@ import { UserCardForUser } from "@/types/IUserCardProps";
 import UserCard from "@/ui/atoms/profile/user-card";
 import UserFindMatch from "@/ui/customer/find-match";
 import UserMyNetwork from "@/ui/atoms/profile/networking";
-import UserPost from "@/ui/atoms/profile/posts";
 import { LoginMessage } from "@/ui/atoms/general ui/login-message";
 import { useUser } from "@/context/UserContext";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import NavLinks from "@/ui/customer/nav-links";
 import UserFeed from "@/ui/customer/feed";
+import UserPost from "@/ui/atoms/profile/posts";
 
 type ComponentMapping = {
   [key: string]: JSX.Element;

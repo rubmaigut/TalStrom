@@ -25,7 +25,6 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, session }) => {
   const [isAddPostMode, setAddPostMode] = useState<boolean>(false);
   const [posted, setPosted] = useState<Post[]>([]);
 
-
   const handlePostEditClick = (post: Post) => {
     setSelectedPost(post);
     setEditedTitle(post.title);
@@ -41,11 +40,34 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, session }) => {
     try {
       if (content.trim() !== "") {
         await addNewPostHandler(title, content, sub, postType);
-        setAddPostMode(false)
-        fetchAndSetPosts()
+        setAddPostMode(false);
+        setPosted((prevPosts) =>
+          Array.isArray(prevPosts)
+            ? [
+                ...prevPosts,
+                {
+                  id: Date.now(),
+                  title,
+                  content,
+                  postType,
+                  userSub: sub,
+                  author: "",
+                },
+              ]
+            : [
+                {
+                  id: Date.now(),
+                  title,
+                  content,
+                  postType,
+                  userSub: sub,
+                  author: "Dummy Author",
+                },
+              ]
+        );
       }
     } catch (error) {
-      throw new Error(`Failed to add new post': ${error}`);
+      console.error(`Failed to add new post': ${error}`);
     }
   };
 
@@ -53,20 +75,12 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, session }) => {
     const fetchAndSetPosts = async () => {
       try {
         const user = await fetchUsersBySub(sub);
-        if (user && user.posts) {
-          const sortedPosts = user.posts.sort((a: Post, b: Post) => {
-            const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
-            const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
-            return dateB - dateA;
-          });
-          setPosted(sortedPosts);
-        }
-
+        setPosted(user);
       } catch (error) {
         console.error("Failed to fetch or sort posts", error);
       }
     };
-  
+
     fetchAndSetPosts();
   }, [sub]);
 
@@ -184,9 +198,4 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, session }) => {
     </div>
   );
 };
-
 export default UserPost;
-function fetchAndSetPosts() {
-  throw new Error("Function not implemented.");
-}
-

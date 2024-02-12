@@ -43,7 +43,7 @@ export default function VideoItem({
   return (
     <div className="relative brightness-90 hover:brightness-[1.1] cursor-pointer">
       {!videoItem.uri ? (
-        <div className="absolute flex items-center justify-center top-0 left-0 aspect-[3/4] w-full object-cover  rounded-md bg-black">
+        <div className="absolute flex items-center justify-center top-0 left-0 aspect-[6/9] w-full object-cover  rounded-md bg-black">
           <AiOutlineLoading3Quarters
             className="animate-spin ml-1"
             size="80"
@@ -56,7 +56,7 @@ export default function VideoItem({
             id={`video-${videoItem.id}`}
             muted
             loop
-            className="aspect=[3/4] object-cover rounded-none"
+            className="aspect-[6/9] object-cover rounded-none"
             src={videoItem.uri}
           />
         </div>

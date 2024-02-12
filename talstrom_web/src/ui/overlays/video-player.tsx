@@ -32,9 +32,9 @@ const VideoPlayer = ({
   return (
     <div
       id="video-player"
-      className="fixed z-10 left-0 top-0 lg:flex justify-center w-full h-screen bg-black bg-opacity-80 overflow-auto"
+      className="fixed z-10 left-0 top-0 lg:flex justify-center w-full h-full bg-black bg-opacity-80 overflow-auto mt-20"
     >
-      <div className="lg:w-[calc(100%-540px] h-full relative">
+      <div className="w-full container mx-auto h-full relative">
         <div
           onClick={closeWindow}
           className="absolute text-white z-20 m-5 rounded-full bg-gray-700 p-1.5 hover:bg-gray-800"

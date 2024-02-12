@@ -84,7 +84,7 @@ const ImagesGrid = ({ user, sub, loadUser, session }: ImagesGridProps) => {
           deleteMode
         />
       )}
-      <div className="w-[calc(100%+20px)] md:w-[700px] lg:w-[800px] xl:w-[900px] lg:mt-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl-grid-cols-4  gap-1 px-2 lg:px-4">
+      <div className="lg:mt-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl-grid-cols-4 gap-1 px-2 lg:px-4">
         {user.images?.map((elm, i) => {
           return (
             <ImageItem
