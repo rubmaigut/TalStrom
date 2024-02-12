@@ -1,16 +1,14 @@
 import { fetchUsersByFilter } from '@/lib/data-user';
 import { UserCardForUser } from '@/types/IUserCardProps';
 import React from 'react';
-import { ReactNode, SyntheticEvent, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { CgArrowRightO } from 'react-icons/cg';
 import { IconType } from 'react-icons';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as ReactIcons from '@/lib/reactIconComponents';
 import techIcons from '@/lib/reactIconComponents/reactIcons';
-import VideoPlayer from '../overlays/video-player';
-import { fetchAllOfMediaType } from '@/lib/data-video';
-import { capitalizeFirstLetter } from '@/lib/utils/capitaliseString';
+
 
 type FindMatchProps = {
   sub: string;
@@ -80,7 +78,7 @@ const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
             return (
               <div
                 key={i}
-                className="flex flex-col justify-center space-x-2 md:space-x-4 w-full pb-4"
+                className="flex flex-col justify-center space-x-2 md:space-x-4 w-full p-4 shadow-sm rounded-xl my-2 hover:bg-teal-100 "
               >
                 <div className="flex items-center justify-center">
                   <div className="flex-shrink-0">

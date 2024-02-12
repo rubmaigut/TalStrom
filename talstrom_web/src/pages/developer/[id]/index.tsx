@@ -110,8 +110,19 @@ export const UserProfilePage = ({
             </header>
             <div className="flex justify-center max-w-5xl container mx-auto">
               <div className="w-full md:flex">
-                <aside className="hidden md:block w-64 flex-shrink-0 bg-black mr-4">
-                  <h1 className="text-white">aside</h1>
+              <aside className="hidden md:block w-64 flex-shrink-0 bg-white rounded-lg mr-4">
+                  <div className="py-6 px-4">
+                    <h1 className="text-gray-600 text-lg font-bold">
+                      {" "}
+                      Developers by Tech Stack
+                    </h1>
+                    <dd className="text-sm py-1 font-thin">
+                      From you technology stack
+                    </dd>
+                    <div>
+                      
+                    </div>
+                  </div>
                 </aside>
 
                 <div className="flex-1">
