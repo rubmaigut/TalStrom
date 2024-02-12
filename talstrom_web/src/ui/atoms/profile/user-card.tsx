@@ -22,17 +22,19 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
 
   return (
     <div className="bg-white rounded-lg shadow container mx-auto">
-      <div className="bg-gradient-to-r from-green-300 to-teal-300 h-20 w-full flex justify-center items-center relative"></div>
-      <div className="w-full flex flex-col items-center px-4 absolute top-20 lg:top-24 container mx-auto">
+      <div className="bg-gradient-to-r from-green-300 to-teal-300 h-16 w-full flex justify-center items-center relative"></div>
+      <div className="w-full flex flex-col items-center top-28 bg-white">
         {session && session?.user?.sub === user.sub && (
+          <>
           <button
-            className={`absolute top-18 right-2 p-2 rounded-full bg-gray-100 hover:bg-gray-100 ${
+            className={`absolute top-24 right-8 p-2 rounded-full bg-gray-100 hover:bg-gray-100 ${
               isEditMode ? "text-red-500" : "text-gray-500"
             }`}
             onClick={toggleEditMode}
           >
             <PencilIcon className="w-6 h-6" />
           </button>
+          </>
         )}
         <Image
           src={user.picture}

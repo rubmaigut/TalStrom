@@ -37,7 +37,7 @@ const NavLinks: React.FC<NavLinksProps> = ({ onLinkClick }) => {
   };
 
   return (
-    <div className="w-full h-full flex justify-around items-center ">
+    <div className="w-full h-full flex justify-around items-center max-w-5xl container mx-auto ">
       <div className="lg:hidden">
         <TalstromLogo shortVersion={true} />
       </div>

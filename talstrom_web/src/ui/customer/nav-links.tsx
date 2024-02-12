@@ -5,8 +5,6 @@ import {
   MagnifyingGlassIcon,
   UserGroupIcon,
   StarIcon as SolidStarIcon,
-  BackwardIcon,
-  ListBulletIcon,
   ClipboardDocumentIcon,
 } from "@heroicons/react/24/outline";
 import TalstromLogo from "@/ui/atoms/general ui/talstrom-logo";
@@ -42,7 +40,7 @@ const ProfileNavLinks: React.FC<NavLinksProps> = ({ onLinkClick }) => {
   };
 
   return (
-    <div className="w-full flex fixed bg-gray-100 py-1 md:px-8">
+    <div className="w-full flex fixed bg-gray-100 py-1 md:px-8 max-w-5xl container mx-auto ">
       <TalstromLogo shortVersion={true} />
       <div className="flex pl-4 gap-2 justify-between ">
         {links.map((link) => {

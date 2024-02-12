@@ -14,12 +14,12 @@ import { fetchUsersBySub } from "@/lib/data-user";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const { id } = context.params;
-  const userData = await fetchUsersBySub(id)
+  const userData = await fetchUsersBySub(id);
 
-  if(!userData){
+  if (!userData) {
     return {
-      notFound: true
-    }
+      notFound: true,
+    };
   }
 
   return { props: { userData } };
@@ -104,25 +104,30 @@ export const UserProfilePage = ({
     <>
       {userInfo && userInfo?.role === "developer" && (
         <>
-          <section className="w-full mt-4">
-            <header className="fixed top-0 left-0 right-0 w-full z-50 bg-gray-100 py-1 lg:py-0">
+          <section className="bg-gray-100 min-h-screen pt-20 md:px-4 xl:px-0">
+            <header className="fixed top-0 left-0 right-0 w-full z-50 bg-gray-100">
               <NavLinks onLinkClick={handleLinkClick} />
             </header>
-            <div className="pt-10 lg:pt-14">
-              {userInfo && userInfo.role === "developer" && (
-                <UserCard
-                  user={userInfo}
-                  session={session}
-                  updateUser={updateContentFromCard}
-                />
-              )}
-              <div className="flex">
-                <aside className="w-1/4"></aside>
-              </div>
-            </div>
-            <div className="container relative top-64 mx-auto bg-white">
-              <div className="h-screen overflow-auto mx-auto my-3 z-0 px-6">
-                {pageComponent}
+            <div className="flex justify-center max-w-5xl container mx-auto">
+              <div className="w-full md:flex">
+                <aside className="hidden md:block w-64 flex-shrink-0 bg-black mr-4">
+                  <h1 className="text-white">aside</h1>
+                </aside>
+
+                <div className="flex-1">
+                  {userInfo && userInfo.role === "developer" && (
+                    <UserCard
+                      user={userInfo}
+                      session={session}
+                      updateUser={updateContentFromCard}
+                    />
+                  )}
+                  <div className="container relative mx-auto bg-white">
+                    <div className="h-screen overflow-auto mx-auto my-3 z-0 px-6">
+                      {pageComponent}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </section>

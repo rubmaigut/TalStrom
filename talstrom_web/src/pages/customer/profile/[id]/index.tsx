@@ -6,10 +6,8 @@ import UserCard from "@/ui/atoms/profile/user-card";
 import UserFindMatch from "@/ui/customer/find-match";
 import UserMyNetwork from "@/ui/atoms/profile/networking";
 import UserPost from "@/ui/atoms/profile/posts";
-import UserSaved from "@/ui/atoms/profile/saved";
-import {LoginMessage} from "@/ui/atoms/general ui/login-message";
+import { LoginMessage } from "@/ui/atoms/general ui/login-message";
 import { useUser } from "@/context/UserContext";
-import SignIn from "@/ui/atoms/general ui/sign-in";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import NavLinks from "@/ui/customer/nav-links";
 
@@ -19,37 +17,34 @@ type ComponentMapping = {
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const { id } = context.params;
-  return { props: { id } };
+  const userData = await fetchUsersBySub(id);
+
+  if (!userData) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return { props: { userData } };
 };
 
 export const UserProfilePage = ({
-  id,
+  userData,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { data: session } = useSession();
-  const { updateUser } = useUser();
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
-  const [activeLink, setActiveLink] = useState<string>('posts');
-  
-  useEffect(() => {
-    if (id) {
-      fetchUsersBySub(id)
-        .then((fetchedUserInfo: UserCardForUser) => {
-          if (fetchedUserInfo.posts) {
-            const sortedPosts = [...fetchedUserInfo.posts].sort(
-              (a, b) => b.id - a.id
-            );
-            fetchedUserInfo.posts = sortedPosts;
-          }
-          updateUser(fetchedUserInfo);
-          setUserInfo(fetchedUserInfo);
-        })
-        .catch((error) => {
-          console.error("Failed to update user context:", error);
-        });
+  const [activeLink, setActiveLink] = useState<string>("posts");
+
+  const loadUser = async () => {
+    try {
+      setUserInfo(userData);
+    } catch (error) {
+      throw error;
     }
-  }, []);
+  };
 
   useEffect(() => {
+    loadUser();
     setPageComponent(getActiveComponent(userInfo));
   }, [activeLink, userInfo]);
 
@@ -62,7 +57,11 @@ export const UserProfilePage = ({
   ): JSX.Element => {
     const mapping: ComponentMapping = {
       posts: (
-        <UserPost posts={userInfo?.posts ?? []} sub={userInfo?.sub ?? ""} session={session} />
+        <UserPost
+          posts={userInfo?.posts ?? []}
+          sub={userInfo?.sub ?? ""}
+          session={session}
+        />
       ),
       "find-match": (
         <UserFindMatch
@@ -72,35 +71,37 @@ export const UserProfilePage = ({
           }
         />
       ),
-      networking: <UserMyNetwork />
+      networking: <UserMyNetwork />,
       //saved: <UserSaved />,
     };
     return mapping[activeLink] || <div>Component not found</div>;
   };
 
-  const updateContentFromCard = (updatedUser: UserCardForUser) => setUserInfo(updatedUser)
+  const updateContentFromCard = (updatedUser: UserCardForUser) =>
+    setUserInfo(updatedUser);
   const [pageComponent, setPageComponent] = useState<React.ReactNode>(
     <UserPost
       posts={userInfo?.posts ?? []}
-      sub={userInfo?.sub ?? ''}
-      postType={''}
+      sub={userInfo?.sub ?? ""}
+      postType={""}
       session={session}
-    />,
+    />
   );
 
   return (
     <>
-      {!session ? (
-        <p> Redirecting..</p>
-      ) : (
+      {userInfo && userInfo?.role === "customer" && (
         <>
-          {userInfo && userInfo?.role === "customer" ? (
-            <>
-              <section className="w-full mt-4">
-                <header className="fixed top-0 left-0 right-0 w-full z-50 bg-gray-100 py-1 lg:py-0">
-                  <NavLinks onLinkClick={handleLinkClick} />
-                </header>
-                <div className="pt-10 lg:pt-14">
+          <section className="bg-gray-100 min-h-screen pt-20 md:px-4 xl:px-0">
+            <header className="fixed top-0 left-0 right-0 w-full z-50 bg-gray-100">
+              <NavLinks onLinkClick={handleLinkClick} />
+            </header>
+            <div className="flex justify-center max-w-5xl container mx-auto">
+              <div className="w-full md:flex">
+                <aside className="hidden md:block w-64 flex-shrink-0 bg-black mr-4">
+                  <h1 className="text-white">aside</h1>
+                </aside>
+                <div className="flex-1">
                   {userInfo && userInfo.role === "customer" && (
                     <UserCard
                       user={userInfo}
@@ -108,26 +109,15 @@ export const UserProfilePage = ({
                       updateUser={updateContentFromCard}
                     />
                   )}
-                  <div className="flex">
-                    <aside className="w-1/4"></aside>
+                  <div className="container relative top-64 mx-auto bg-white">
+                    <div className="h-screen overflow-auto mx-auto my-3 z-0 px-6">
+                      {pageComponent}
+                    </div>
                   </div>
                 </div>
-                <div className="container relative top-64 mx-auto bg-white">
-                  <div className="h-screen overflow-auto mx-auto my-3 z-0 px-6">
-                    {pageComponent}
-                  </div>
-                </div>
-              </section>
-            </>
-          ) : (
-            <div className="flex flex-col w-full h-full justify-center items-center mt-12 px-8">
-              <span className=" break-words text-center text-xl font-bold text-teal-600 lg:text-2xl my-8 ">
-                {" "}
-                Oops! Seems like you are in the wrong profile
-              </span>
-              <LoginMessage />
+              </div>
             </div>
-          )}
+          </section>
         </>
       )}
     </>
