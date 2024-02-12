@@ -92,7 +92,7 @@ export const UserProfilePage = ({
     <>
       {userInfo && userInfo?.role === "customer" && (
         <>
-          <section className="bg-gray-100 min-h-screen pt-20 md:px-4 xl:px-0">
+          <section className="bg-gray-100 min-h-screen pt-16 w-full justify-center items-center" >
             <header className="fixed top-0 left-0 right-0 w-full z-50 bg-gray-100">
               <NavLinks onLinkClick={handleLinkClick} />
             </header>
@@ -109,7 +109,7 @@ export const UserProfilePage = ({
                       updateUser={updateContentFromCard}
                     />
                   )}
-                  <div className="container relative top-64 mx-auto bg-white">
+                  <div className="container relative mx-auto bg-white">
                     <div className="h-screen overflow-auto mx-auto my-3 z-0 px-6">
                       {pageComponent}
                     </div>

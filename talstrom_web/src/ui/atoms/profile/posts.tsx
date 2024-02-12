@@ -118,7 +118,7 @@ const UserPost: React.FC<PostsProps> = ({ posts, sub, session }) => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center space-x-3">
+    <div className="w-full flex flex-col items-center space-x-3 pt-14">
       <div className="w-full justify-between flex items-center flex-1 mb-4">
         <Image
           src={`${session?.user?.image}`}

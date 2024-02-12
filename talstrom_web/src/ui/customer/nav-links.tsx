@@ -40,7 +40,7 @@ const ProfileNavLinks: React.FC<NavLinksProps> = ({ onLinkClick }) => {
   };
 
   return (
-    <div className="w-full flex fixed bg-gray-100 py-1 md:px-8 max-w-5xl container mx-auto ">
+    <div className="w-full h-full flex justify-around items-center max-w-5xl container mx-auto py-2">
       <TalstromLogo shortVersion={true} />
       <div className="flex pl-4 gap-2 justify-between ">
         {links.map((link) => {

@@ -37,7 +37,7 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
           </>
         )}
         <Image
-          src={user.picture}
+          src={`${user.picture}`}
           alt={`Profile of ${user.name}`}
           className="rounded-full"
           width={100}
