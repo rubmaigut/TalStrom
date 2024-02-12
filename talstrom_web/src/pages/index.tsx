@@ -131,9 +131,6 @@ export default function Page() {
         </div>
       ) : (
         <div className="mt-4 w-full flex grow flex-col gap-4 md:items-center 2xl:h-32">
-          <div className="w-full flex justify-center mt-2 bg-white">
-            <TalstromLogo />
-          </div>
           {userContextG && <SuccessLogin user={userContextG} />}
         </div>
       )}

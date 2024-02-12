@@ -5,7 +5,6 @@ import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import LoadingMessage from "./loading";
 import { useRouter } from "next/router";
-import LogoutButton from "../profile/log-out";
 import SkeletonLoader from "./skeleton-loader";
 
 const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
@@ -67,7 +66,7 @@ const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
 
   if (loading) {
     return (
-      <section className="w-full h-full mt-12">
+      <section className="container mx-auto w-full h-full mt-12">
         <LoadingMessage message="We are loading your experience..." />
       </section>
     );
