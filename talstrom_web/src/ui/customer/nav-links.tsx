@@ -2,10 +2,10 @@ import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import {
   NewspaperIcon,
-  MagnifyingGlassIcon,
   UserGroupIcon,
   StarIcon as SolidStarIcon,
   ClipboardDocumentIcon,
+  ViewfinderCircleIcon,
 } from "@heroicons/react/24/outline";
 import TalstromLogo from "@/ui/atoms/general ui/talstrom-logo";
 import LogoutButton from "@/ui/atoms/profile/log-out";
@@ -20,9 +20,9 @@ interface NavLinksProps {
 export const links = [
   { name: "posts", href: "/customer/[id]/post", icon: NewspaperIcon },
   {
-    name: "find-match",
-    href: "/customer/[id]/find-match",
-    icon: MagnifyingGlassIcon,
+    name: "feed",
+    href: "/customer/[id]/feed",
+    icon: ViewfinderCircleIcon,
   },
   { name: "networking", href: "/customer/[id]/my-devs", icon: UserGroupIcon },
   { name: "saved", href: "/customer/[id]/saved", icon: SolidStarIcon },

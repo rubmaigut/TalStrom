@@ -10,6 +10,7 @@ import { LoginMessage } from "@/ui/atoms/general ui/login-message";
 import { useUser } from "@/context/UserContext";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import NavLinks from "@/ui/customer/nav-links";
+import UserFeed from "@/ui/customer/feed";
 
 type ComponentMapping = {
   [key: string]: JSX.Element;
@@ -62,6 +63,10 @@ export const UserProfilePage = ({
           sub={userInfo?.sub ?? ""}
           session={session}
         />
+      ),
+      "feed": (
+        <UserFeed
+          sub={userInfo?.sub ?? ""}/>
       ),
       networking: <UserMyNetwork />,
       //saved: <UserSaved />,

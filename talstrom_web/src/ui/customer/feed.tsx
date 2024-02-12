@@ -1,86 +1,87 @@
-import { fetchUsersByFilter } from '@/lib/data-user';
-import { UserCardForUser } from '@/types/IUserCardProps';
-import React from 'react';
-import { useEffect, useState } from 'react';
-import VideoPlayer from '../overlays/video-player';
-import { fetchAllOfMediaType } from '@/lib/data-video';
+import { fetchUsersByFilter } from "@/lib/data-user";
+import { UserCardForUser } from "@/types/IUserCardProps";
+import React from "react";
+import { useEffect, useState } from "react";
 
 type FindMatchProps = {
   sub: string;
-  filterOptions: string[];
 };
 
-type FilterItem = {
-  label: string;
-  status: boolean;
-};
+const UserFeed = ({ sub }: FindMatchProps) => {
+  const [selectedVideo, setSelectedVideo] = useState<Media[] | null>(
+    [] || null
+  );
+  const [overlayVisible, setOverlayVisible] = useState<boolean>(false);
+  const [usersWithVideos, setUsersWithVideos] = useState<UserCardForUser[]>([]);
 
-const UserFindMatch = ({ sub, filterOptions }: FindMatchProps) => {
-  const [currentVideoIndex, setCurrentVideoIndex] = useState<number>(0);
-  const [playerVisibility, setPlayerVisibility] = useState(false);
-  const [currentVideos, setCurrentVideos] = useState<Media[]>([]);
-  const randVideoId = Math.floor(Math.random() * currentVideos.length);
-  const initial: FilterItem[] = filterOptions.map((technology) => {
-    return {
-      label: technology,
-      status: true,
-    };
-  });
+  const handleVideoClick = (video: Media[]) => {
+    setSelectedVideo(video);
+    setOverlayVisible(true);
+  };
 
-  const [filterArray, setFilterArray] = useState<FilterItem[]>(initial);
+  const closeOverlay = () => {
+    setSelectedVideo(null);
+    setOverlayVisible(false);
+  };
 
   useEffect(() => {
     const loadSuggestions = async () => {
       const users: UserCardForUser[] = await fetchUsersByFilter(sub);
-      const videos = await fetchAllOfMediaType("Video");
-      setCurrentVideos(videos);
+      const usersWithVideosTemp = users.filter(
+        (user) => user.videos && user.videos.length > 0
+      );
+      setUsersWithVideos(usersWithVideosTemp);
     };
 
     loadSuggestions();
-  }, []);
-
-
-  const nextVideo = () => {
-    let newIndex =
-      currentVideoIndex === currentVideos!.length - 1
-        ? 0
-        : currentVideoIndex + 1;
-    setCurrentVideoIndex(newIndex);
-  };
-
-  const previousVideo = () => {
-    let newIndex =
-      currentVideoIndex === 0
-        ? currentVideos!.length - 1
-        : currentVideoIndex - 1;
-    setCurrentVideoIndex(newIndex);
-  };
-
-  const togglePlayerOverlay = (videoId?: number) => {
-    const video = currentVideos?.find((v) => v.id === videoId);
-    videoId
-      ? setCurrentVideoIndex(currentVideos!.indexOf(video as Media))
-      : setCurrentVideoIndex(0);
-    setPlayerVisibility(!playerVisibility);
-  };
+  }, [sub]);
 
   return (
-    <section className="flex items-center justify-center py-4">
-      {filterOptions.length && (
-        <div className="flex flex-col items-center w-full md:w-3/5 pb-4">
-          <button className="border p-2 rounded-md bg-green-300" onClick={() => togglePlayerOverlay(randVideoId)}>View Videos</button>
-          {playerVisibility && (
-            <VideoPlayer
-              nextVideo={nextVideo}
-              previousVideo={previousVideo}
-              closeWindow={togglePlayerOverlay}
-              videos={currentVideos}
-              currentVideoIndex={currentVideoIndex}
-            />)}
+    <section className="flex flex-col items-center justify-center py-4 my-4">
+       {overlayVisible && selectedVideo && (
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-80 flex justify-center items-center">
+          <button onClick={closeOverlay} className="absolute top-4 right-4 text-white text-2xl">&times;</button>
+          <video controls autoPlay className="h-auto max-w-md max-h-full" src={selectedVideo[0].uri}>
+          </video>
         </div>
       )}
+
+      {usersWithVideos.map((user) => (
+        <div
+            key={user.id}
+            className="flex flex-col items-center w-full h-full rounded-xl pb-4 border border-teal-900 my-4"
+          >
+            <div className="flex items-center w-full p-4">
+              <img
+                src={user.picture}
+                alt={user.name}
+                className="rounded-full w-12 h-12"
+              />
+              <div className="flex flex-col text-gray-600 ml-2">
+                <span>{user.name}</span>
+                <span className="text-xs">{user.position}</span>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {user.videos?.map((video) => (
+                <div
+                  className="w-full h-full rounded-lg cursor-pointer"
+                  onClick={() => handleVideoClick([video])}
+                >
+                  <video className="h-full w-full rounded-lg px-2" controls>
+                    <source
+                      src={video.uri}
+                      type="video/mp4"
+                    />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              ))}
+            </div>
+        </div>
+      ))}
     </section>
   );
 };
 
-export default UserFindMatch;
+export default UserFeed;
