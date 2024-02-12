@@ -92,7 +92,7 @@ export const UserProfilePage = ({
     <>
       {userInfo && userInfo?.role === "customer" && (
         <>
-          <section className="bg-gray-100 min-h-screen pt-16 w-full justify-center items-center" >
+          <section className="bg-gray-100 min-h-screen pt-16 w-full justify-center items-center md:px-5 xl:px-0" >
             <header className="fixed top-0 left-0 right-0 w-full z-50 bg-gray-100">
               <NavLinks onLinkClick={handleLinkClick} />
             </header>
