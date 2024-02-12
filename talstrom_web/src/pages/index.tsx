@@ -7,7 +7,6 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import LoginButton from "@/ui/atoms/profile/login-button";
-import TalstromLogo from "@/ui/atoms/general ui/talstrom-logo";
 import RoleCard from "@/ui/atoms/general ui/role-card";
 
 
