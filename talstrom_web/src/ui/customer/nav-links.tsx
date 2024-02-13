@@ -3,9 +3,9 @@ import clsx from "clsx";
 import {
   NewspaperIcon,
   UserGroupIcon,
-  StarIcon as SolidStarIcon,
   ClipboardDocumentIcon,
   ViewfinderCircleIcon,
+  LinkIcon,
 } from "@heroicons/react/24/outline";
 import TalstromLogo from "@/ui/atoms/general ui/talstrom-logo";
 import LogoutButton from "@/ui/atoms/profile/log-out";
@@ -25,7 +25,7 @@ export const links = [
     icon: ViewfinderCircleIcon,
   },
   { name: "networking", href: "/customer/[id]/my-devs", icon: UserGroupIcon },
-  { name: "saved", href: "/customer/[id]/saved", icon: SolidStarIcon },
+  { name: "connections", href: "/customer/[id]/saved", icon: LinkIcon },
 ];
 
 const ProfileNavLinks: React.FC<NavLinksProps> = ({ onLinkClick }) => {
