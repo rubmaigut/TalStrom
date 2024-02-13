@@ -11,6 +11,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import NavLinks from "@/ui/customer/nav-links";
 import UserFeed from "@/ui/customer/feed";
 import UserPost from "@/ui/atoms/profile/posts";
+import UserSaved from "@/ui/atoms/profile/saved";
 
 type ComponentMapping = {
   [key: string]: JSX.Element;
@@ -69,7 +70,7 @@ export const UserProfilePage = ({
           sub={userInfo?.sub ?? ""}/>
       ),
       networking: <UserMyNetwork />,
-      //saved: <UserSaved />,
+      saved: <UserSaved />,
     };
     return mapping[activeLink] || <div>Component not found</div>;
   };

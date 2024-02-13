@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { UserCardForUser } from '@/types/IUserCardProps';
-import { StarIcon as SolidStarIcon } from '@heroicons/react/24/outline';
+import { PlusIcon, StarIcon as SolidStarIcon } from '@heroicons/react/24/outline';
 import { fetchUsersByRole } from '@/lib/data-user';
 
 const UserMyNetwork = () => {
@@ -30,20 +30,21 @@ const UserMyNetwork = () => {
   };
 
   return (
-    <div className="flex items-center justify-center flex-col mt-10 py-4">
+    <div className="grid  grid-cols-1 lg:grid-cols-2 justify-center flex-col mt-10 py-4">
       {users.map((user) => (
         <div
           key={user.id}
-          className="flex flex-col justify-center space-x-2 md:space-x-4 w-full md:w-3/5 pb-4"
+          className="flex items-center flex-col p-4 my-1 w-ful relative"
         >
-          <div className="flex items-center justify-center">
-            <div className="flex-shrink-0">
+          <div className="bg-gradient-to-r from-green-300 to-teal-300 h-12 w-full max-w-80 flex justify-center items-center absolute rounded-lg"></div>
+          <div className="w-full max-w-80 flex flex-col lg:p-0 justify-center items-center top-28 bg-white border shadow-lg rounded-lg overflow-hidden">
+            <div className="flex-shrink-0 my-4">
               <img
                 src={user.picture}
                 alt={`Photo profile ${user.name}`}
-                className="rounded-full"
-                width={32}
-                height={32}
+                className="rounded-full z-20 relative"
+                width={70}
+                height={70}
               />
             </div>
             <div className="flex-1 min-w-0 mx-1">
@@ -56,9 +57,10 @@ const UserMyNetwork = () => {
             </div>
             <button
               onClick={() => handleStarClick(user.id)}
-              className="bg-yellow-400 text-white px-2 py-2 rounded flex items-center"
+              className="p-3 rounded-full flex items-center my-6 border border-teal-900 "
             >
-              <SolidStarIcon className="w-5 h-5 mr-1" />
+              <PlusIcon className="w-5 h-5 mr-1" />
+              Connect
             
             </button>
           </div>
