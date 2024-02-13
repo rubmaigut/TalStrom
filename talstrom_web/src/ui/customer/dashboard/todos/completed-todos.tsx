@@ -8,8 +8,8 @@ const CompletedToDoList: React.FC = () => {
     return null;
   }
   return (
-    <div className="max-w-5xl w-full mx-auto my-8 bg-white rounded-lg shadow p-4">
-      <h2 className="text-2xl font-bold text-gray-600 mb-1">Completed Tasks</h2>
+    <div className="max-w-5xl w-full mx-auto my-8 bg-gray-100 rounded-lg shadow p-4">
+      <h2 className="text-2xl font-bold text-gray-600 mb-2">Completed Tasks</h2>
       <div className="bg-white rounded-lg shadow">
         {completedTodos.map((todo) => (
           <div key={todo.id} className="p-4 border-b last:border-b-0">

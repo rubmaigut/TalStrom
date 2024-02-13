@@ -17,8 +17,7 @@ export interface User {
   active: boolean;
   images: any[]
   videos: any[];
-  followers: any | null;
-  following: any | null;
+  favorites?: string[]
   posts?: Post[] ;
 }
 export interface LoginProps {

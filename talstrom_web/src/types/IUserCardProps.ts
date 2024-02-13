@@ -8,8 +8,7 @@ export interface UserCardForUser {
   sub: string;
   role: string;
   phoneNumber: string;
-  followers: any;
-  following: any;
+  favorites?: string[]
   userName: string
   position: string;
   images: Media[];

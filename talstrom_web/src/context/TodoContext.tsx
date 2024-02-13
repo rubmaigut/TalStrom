@@ -1,11 +1,38 @@
-import { ToDo, ToDoContextType } from '@/types/todo';
 import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import { ToDo, ToDoContextType } from '@/types/todo';
 
 const ToDoContext = createContext<ToDoContextType | undefined>(undefined);
 
 export const ToDoProvider = ({ children }: { children: ReactNode }) => {
-  const [activeTodos, setActiveTodos] = useState<ToDo[]>([]);
-  const [completedTodos, setCompletedTodos] = useState<ToDo[]>([]);
+  const isBrowser = typeof window !== "undefined";
+
+  const [activeTodos, setActiveTodos] = useState<ToDo[]>(() => {
+    if (isBrowser) {
+      const localActiveTodos = localStorage.getItem('activeTodos');
+      return localActiveTodos ? JSON.parse(localActiveTodos) : [];
+    }
+    return [];
+  });
+
+  const [completedTodos, setCompletedTodos] = useState<ToDo[]>(() => {
+    if (isBrowser) {
+      const localCompletedTodos = localStorage.getItem('completedTodos');
+      return localCompletedTodos ? JSON.parse(localCompletedTodos) : [];
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    if (isBrowser) {
+      localStorage.setItem('activeTodos', JSON.stringify(activeTodos));
+    }
+  }, [activeTodos]);
+
+  useEffect(() => {
+    if (isBrowser) {
+      localStorage.setItem('completedTodos', JSON.stringify(completedTodos));
+    }
+  }, [completedTodos]);
 
   const addTodo = (task: string) => {
     const newTodo: ToDo = {
@@ -41,7 +68,6 @@ export const ToDoProvider = ({ children }: { children: ReactNode }) => {
         clearCompleted();
       }
     }, 1000 * 60);
-
     return () => clearInterval(interval);
   }, []);
 

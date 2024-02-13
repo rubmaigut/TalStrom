@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { UserCardForUser } from '@/types/IUserCardProps';
-import { PlusIcon, StarIcon as SolidStarIcon } from '@heroicons/react/24/outline';
-import { fetchUsersByRole } from '@/lib/data-user';
+import { PlusIcon } from '@heroicons/react/24/outline';
+import { addFavorite, fetchUsersByRole, fetchUsersBySub } from '@/lib/data-user';
+import { useUser } from '@/context/UserContext';
 
 const UserMyNetwork = () => {
   const [users, setUsers] = useState<UserCardForUser[]>([]);
-  const [starredUsers, setStarredUsers] = useState<UserCardForUser[]>([]);
+  const { userContextG, updateUser } = useUser()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,18 +20,16 @@ const UserMyNetwork = () => {
 
     fetchData();
   }, []);
+  const currentSub = userContextG.sub
 
-  const handleStarClick = (userId: number) => {
-    const userToStar = users.find((user) => user.id === userId);
-
-    if (userToStar) {
-      setStarredUsers((prevStarredUsers) => [...prevStarredUsers, userToStar]);
-      setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
-    }
+  const handleStarClick = async (favoriteSub: string) => {
+    await addFavorite(currentSub, favoriteSub)
+    const updateFav = await fetchUsersBySub(currentSub)
+    updateUser(updateFav.favorites)
   };
 
   return (
-    <div className="grid  grid-cols-1 lg:grid-cols-2 justify-center flex-col mt-10 py-4">
+    <div className="grid grid-cols-1 lg:grid-cols-2 justify-center flex-col mt-10 py-4">
       {users.map((user) => (
         <div
           key={user.id}
@@ -56,7 +55,7 @@ const UserMyNetwork = () => {
               </p>
             </div>
             <button
-              onClick={() => handleStarClick(user.id)}
+              onClick={() => handleStarClick(user.sub)}
               className="p-3 rounded-full flex items-center my-6 border border-teal-900 "
             >
               <PlusIcon className="w-5 h-5 mr-1" />

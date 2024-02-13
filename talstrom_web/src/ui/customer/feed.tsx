@@ -63,8 +63,8 @@ const UserFeed = ({ sub }: FindMatchProps) => {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              {user.videos?.map((video) => (
-                <div
+              {user.videos?.map((video,index) => (
+                <div key={index}
                   className="w-full h-full rounded-lg cursor-pointer"
                   onClick={() => handleVideoClick([video])}
                 >

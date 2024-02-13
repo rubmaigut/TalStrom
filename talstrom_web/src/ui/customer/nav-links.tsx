@@ -25,7 +25,7 @@ export const links = [
     icon: ViewfinderCircleIcon,
   },
   { name: "networking", href: "/customer/[id]/my-devs", icon: UserGroupIcon },
-  { name: "connections", href: "/customer/[id]/saved", icon: LinkIcon },
+  /* { name: "connections", href: "/customer/[id]/saved", icon: LinkIcon }, */
 ];
 
 const ProfileNavLinks: React.FC<NavLinksProps> = ({ onLinkClick }) => {

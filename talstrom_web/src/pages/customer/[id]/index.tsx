@@ -1,14 +1,15 @@
-import Layout from '@/ui/layout';
-import SignIn from '@/ui/atoms/general ui/sign-in';
-import { useSession } from 'next-auth/react';
-import { fetchUsersBySub } from '@/lib/data-user';
-import { useEffect, useState } from 'react';
-import GreetingModal from '@/ui/atoms/general ui/greetings';
-import { UserCardForUser } from '@/types/IUserCardProps';
-import { LoginMessage } from '@/ui/atoms/general ui/login-message';
-import ToDoList from '@/ui/customer/dashboard/todos/todo-list';
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { useUser } from '@/context/UserContext';
+import Layout from "@/ui/layout";
+import SignIn from "@/ui/atoms/general ui/sign-in";
+import { useSession } from "next-auth/react";
+import { fetchUsersBySub } from "@/lib/data-user";
+import { useEffect, useState } from "react";
+import GreetingModal from "@/ui/atoms/general ui/greetings";
+import { UserCardForUser } from "@/types/IUserCardProps";
+import { LoginMessage } from "@/ui/atoms/general ui/login-message";
+import ToDoList from "@/ui/customer/dashboard/todos/todo-list";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { useUser } from "@/context/UserContext";
+import CompletedToDoList from "@/ui/customer/dashboard/todos/completed-todos";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const { id } = context.params;
@@ -19,7 +20,7 @@ export default function Page({
   id,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { data: session } = useSession();
-  const {userContextG, updateUser}  = useUser()
+  const { userContextG, updateUser } = useUser();
   const [userInfo, setUserInfo] = useState<UserCardForUser | null>(null);
 
   useEffect(() => {
@@ -41,7 +42,7 @@ export default function Page({
         <SignIn />
       </section>
     );
-  } else if (userInfo?.role !== 'customer') {
+  } else if (userInfo?.role !== "customer") {
     return <LoginMessage />;
   }
 
@@ -52,10 +53,17 @@ export default function Page({
           <div className="flex flex-col justify-between py-6">
             <GreetingModal />
             <p className="pb-2">
-              Hi<strong> {userInfo.name.split(' ')[0]}</strong> Welcome back!
+              Hi<strong> {userInfo.name.split(" ")[0]}</strong> Welcome back!
             </p>
           </div>
-          <ToDoList />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex flex-col">
+              <ToDoList />
+            </div>
+            <div className="flex flex-col">
+              <CompletedToDoList />
+            </div>
+          </div>
         </div>
       </Layout>
     </>

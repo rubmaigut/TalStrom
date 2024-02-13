@@ -5,13 +5,11 @@ import { UserCardForUser } from "@/types/IUserCardProps";
 import UserCard from "@/ui/atoms/profile/user-card";
 import UserFindMatch from "@/ui/customer/find-match";
 import UserMyNetwork from "@/ui/atoms/profile/networking";
-import { LoginMessage } from "@/ui/atoms/general ui/login-message";
-import { useUser } from "@/context/UserContext";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import NavLinks from "@/ui/customer/nav-links";
 import UserFeed from "@/ui/customer/feed";
 import UserPost from "@/ui/atoms/profile/posts";
-import UserSaved from "@/ui/atoms/profile/saved";
+import Connections from "@/ui/atoms/profile/saved";
 
 type ComponentMapping = {
   [key: string]: JSX.Element;
@@ -48,7 +46,7 @@ export const UserProfilePage = ({
   useEffect(() => {
     loadUser();
     setPageComponent(getActiveComponent(userInfo));
-  }, [activeLink, userInfo]);
+  }, [activeLink, userInfo, userInfo?.favorites]);
 
   const handleLinkClick = (link: string) => {
     setActiveLink(link);
@@ -70,7 +68,7 @@ export const UserProfilePage = ({
           sub={userInfo?.sub ?? ""}/>
       ),
       networking: <UserMyNetwork />,
-      saved: <UserSaved />,
+      "connections": (<Connections favorites={userInfo?.favorites || []} />),
     };
     return mapping[activeLink] || <div>Component not found</div>;
   };
