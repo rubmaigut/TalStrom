@@ -1,7 +1,6 @@
 import { useUser } from "@/context/UserContext";
-import CustomerNavLinks from "@/ui/customer/dashboard/nav-links";
+import ProfileNavLinks from "@/ui/customer/nav-links";
 import NavLinks from "@/ui/developer/nav-links";
-import { TiArrowUnsorted } from "react-icons/ti";
 
 const SkeletonLoader = ( ) => {
     const { userContextG } = useUser()
@@ -15,7 +14,7 @@ const SkeletonLoader = ( ) => {
             {userRole === "developer" ? (
                 <NavLinks onLinkClick={() => "" } />
             ): (
-                <CustomerNavLinks onLinkClick={() => "" }/>
+                <ProfileNavLinks onLinkClick={() => "" }/>
             )}
         </header>
         <div className="bg-gradient-to-r from-green-300 to-teal-300 h-20 w-full flex justify-center items-center relative"></div>

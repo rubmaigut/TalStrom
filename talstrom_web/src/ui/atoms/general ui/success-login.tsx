@@ -44,7 +44,7 @@ const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
     const rolePaths: { [key: string]: string } = {
       admin: "/admin",
       developer: `/developer/${userId}`,
-      customer: `/customer/${userId}`,
+      customer: `/customer/profile/${userId}`,
     };
 
     if (role in rolePaths) {
