@@ -112,3 +112,14 @@ export async function deleteUserPost(postId: number): Promise<void> {
     throw new Error('deleteUserPost: Failed to delete user posts');
   }
 }
+
+export async function fetchPost() {
+  const url = `${API_BASE_URL}/Posts`;
+  const response = await fetch(url, {
+    next: {
+      revalidate: 5,
+    },
+  });
+  if (!response.ok) throw new Error("fetchUsersByRole: Failed to fetch users");
+  return await response.json();
+}
