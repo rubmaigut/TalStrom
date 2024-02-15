@@ -46,7 +46,7 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
           priority
         />
         <div className="my-4 text-center">
-          <h2 className="text-lg font-semibold">{user.name}</h2>
+          <h2 className="text-lg font-semibold">{user.userName ? user.userName : user.name}</h2>
           <p className="text-sm text-gray-600">
             {user.position ? user.position : "No position set"}
           </p>

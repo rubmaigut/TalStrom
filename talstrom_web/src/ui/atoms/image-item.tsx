@@ -1,4 +1,5 @@
 import { deleteMedia } from "@/lib/data-video";
+import Image from 'next/image';
 import { SyntheticEvent, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { TiDeleteOutline } from "react-icons/ti";
@@ -40,11 +41,14 @@ export default function ImageItem({
           />
         </div>
       ) : (
-        <div onClick={openPlayerHandler}>
-          <img
+        <div  className="border" onClick={openPlayerHandler}>
+          <Image
             id={`image-${imageItem.id}`}
+            width={200}
+            height={20}
             className="aspect=[3/4] object-cover rounded-none"
             src={imageItem.uri}
+            alt={`image-${imageItem.id}`}
           />
         </div>
       )}
