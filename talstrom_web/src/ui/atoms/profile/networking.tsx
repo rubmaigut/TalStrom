@@ -35,7 +35,7 @@ const UserMyNetwork = () => {
           key={user.id}
           className="flex items-center flex-col p-4 my-1 w-ful relative"
         >
-          <div className="bg-gradient-to-r from-green-300 to-teal-300 h-12 w-full max-w-80 flex justify-center items-center absolute rounded-lg"></div>
+          <div className="bg-gradient-to-r from-green-300 to-teal-300 h-12 w-full max-w-80 flex justify-center items-center absolute rounded-t-lg"></div>
           <div className="w-full max-w-80 flex flex-col lg:p-0 justify-center items-center top-28 bg-white border shadow-lg rounded-lg overflow-hidden">
             <div className="flex-shrink-0 my-4">
               <img
