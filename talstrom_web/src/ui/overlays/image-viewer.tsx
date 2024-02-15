@@ -62,9 +62,10 @@ const ImageViewer = ({
         <div className="bg-black bg-opacity-50 lg:min-w-[480px] z-10 relative">
           <Image
             id="image-expanded"
-            layout="fill"
+            width={500}
+            height={500}
             alt="image-expanded"
-            className="h-screen mx-auto"
+            className="h-screen mx-auto w-auto"
             src={uri}
           />
         </div>
