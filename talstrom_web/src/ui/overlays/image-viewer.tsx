@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
@@ -32,9 +33,9 @@ const ImageViewer = ({
   return (
     <div
       id="image-viewer"
-      className="fixed z-10 left-0 top-0 lg:flex justify-center items-center w-full h-screen bg-black bg-opacity-80 overflow-auto"
+      className="fixed z-10 left-0 top-0 lg:flex justify-center w-full h-full bg-black bg-opacity-80 overflow-auto mt-20"
     >
-      <div className="flex lg:w-[calc(100%-540px] h-full relative">
+      <div className="w-full container mx-auto h-full relative">
         <div
           onClick={closeWindow}
           className="absolute text-white z-20 m-5 rounded-full bg-gray-700 p-1.5 hover:bg-gray-800"
@@ -58,10 +59,12 @@ const ImageViewer = ({
           </button>
         </div>
 
-        <div className="bg-black bg-opacity-50 lg:min-w-[480px] z-10 relative flex justify-center items-center">
-          <img
+        <div className="bg-black bg-opacity-50 lg:min-w-[480px] z-10 relative">
+          <Image
             id="image-expanded"
-            className="w-screen lg:w-[1200px] mx-auto"
+            layout="fill"
+            alt="image-expanded"
+            className="h-screen mx-auto"
             src={uri}
           />
         </div>
