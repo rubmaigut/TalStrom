@@ -18,7 +18,6 @@ const SuccessLogin: NextPage<LoginProps> = ({ user }) => {
     try {
       const userExist = await fetchUsersBySub(user.sub);
       const userData = userExist || (await addUserHandler(user));
-      console.log("userData", userData)
       updateUser(userData);
     } catch (error) {
       handleError(error);
