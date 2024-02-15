@@ -22,12 +22,11 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
 
   return (
     <div className="bg-white rounded-lg shadow container mx-auto">
-      <div className="bg-gradient-to-r from-green-300 to-teal-300 h-16 w-full flex justify-center items-center relative rounded-lg"></div>
-      <div className="w-full flex flex-col items-center top-28 bg-white">
-        {session && session?.user?.sub === user.sub && (
+      <div className="bg-gradient-to-r from-green-300 to-teal-300 h-16 w-full flex justify-center items-center relative rounded-t-lg">
+      {session && session?.user?.sub === user.sub && (
           <>
           <button
-            className={`absolute top-24 right-8 xl:right-64 p-2 rounded-full bg-gray-100 hover:bg-gray-100 ${
+            className={`absolute top-3 right-4 p-2 rounded-full bg-gray-100 hover:bg-gray-100 ${
               isEditMode ? "text-red-500" : "text-gray-500"
             }`}
             onClick={toggleEditMode}
@@ -36,6 +35,8 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
           </button>
           </>
         )}
+      </div>
+      <div className="w-full flex flex-col items-center top-28 bg-white mt-4">
         <Image
           src={user.picture || '/userSession.png'}
           alt={`Profile of ${user.name}`}
@@ -45,7 +46,7 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
           priority
         />
         <div className="my-4 text-center">
-          <h2 className="text-lg font-semibold">{user.name}</h2>
+          <h2 className="text-lg font-semibold">{user.userName ? user.userName : user.name}</h2>
           <p className="text-sm text-gray-600">
             {user.position ? user.position : "No position set"}
           </p>
@@ -67,7 +68,7 @@ const UserCard = ({ user, session, updateUser }: UserCardProps) => {
         <h3 className="text-md font-semibold text-center text-primary-text w-full">
           Technology Stack
         </h3>
-        <div className="flex flex-wrap items-center mt-2">
+        <div className="flex flex-wrap items-center mt-2 mb-5">
           <TechnologyIcons
             technologies={user.technologies}
           />

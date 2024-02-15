@@ -82,7 +82,7 @@ const VideosGrid = ({ user, sub, loadUser, session }: VideosGridProps) => {
       {session && session?.user?.sub === user.sub && (
       <MediaDeleteButtons toggleUploadOverlay={toggleUploadOverlay} toggleDeleteable={toggleDeleteable} deleteMode />
       )}
-      <div className="lg:mt-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl-grid-cols-4 gap-1 px-2 lg:px-4">
+      <div className="lg:mt-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl-grid-cols-4 gap-1 px-2 lg:px-4 items-center border">
         {currentVideos?.map((elm, i) => {
           return (
             <VideoItem
