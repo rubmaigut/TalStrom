@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TalStromApi.Data;
 using TalStromApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,7 +36,7 @@ builder.Services.Configure<FormOptions>(x =>
 
 var ccDbString = builder.Configuration["ConnectionStrings:TALSTROM_CONNECTIONSTRING"];
 var azureBlobSecret = builder.Configuration["ConnectionStrings:AzureBlobStorage"];
-string azureBlobConnectionString = builder.Configuration.GetConnectionString("AzureBlobStorage"); 
+string azureBlobConnectionString = builder.Configuration.GetConnectionString("AzureBlobStorage")!; 
 
 builder.Services.AddScoped<BlobServiceClient>(x => new BlobServiceClient(azureBlobConnectionString));
 builder.Services.AddScoped<BlobStorageService>();
