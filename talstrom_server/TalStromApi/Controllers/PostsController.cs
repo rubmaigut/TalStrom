@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using TalStromApi.Data;
 using TalStromApi.DTO;
 using TalStromApi.Models;
 

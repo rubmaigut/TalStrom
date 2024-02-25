@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using TalStromApi.Data;
 using TalStromApi.DTO;
 using TalStromApi.Models;
 using TalStromApi.Services;

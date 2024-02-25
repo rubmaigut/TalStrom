@@ -5,14 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TalStromApi.Data;
 
 #nullable disable
 
 namespace TalStromApi.Migrations
 {
     [DbContext(typeof(TalStromDbContext))]
-    [Migration("20240223211126_InitialCreate")]
+    [Migration("20240208073132_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

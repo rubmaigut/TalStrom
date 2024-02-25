@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TalStromApi.Data;
 using TalStromApi.Models;
 using TalStromApi.DTO;
 using TalStromApi.Services;
